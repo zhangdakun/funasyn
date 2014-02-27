@@ -1,0 +1,66 @@
+import junit.framework.*;
+
+public class FunTestSuite extends TestSuite {
+    public static Test suite() {
+        FunTestSuite suite = new FunTestSuite();
+        suite.addTest(new com.funambol.syncml.spds.DevInfExchangeTest("testPutDevInf"));
+        suite.addTest(new com.funambol.syncml.spds.DevInfExchangeTest("testGetDevInf"));
+        suite.addTest(new com.funambol.syncml.spds.SyncMLParserTest("testRoundTripXml"));
+        suite.addTest(new com.funambol.syncml.spds.SyncMLParserTest("testSkipUnknownSubTree"));
+        suite.addTest(new com.funambol.syncml.spds.SyncMLSourceConfigTest("testSerializeDeserialize"));
+        suite.addTest(new com.funambol.syncml.spds.SyncManagerAuthTest("testAuthentication_BASIC_OK"));
+        suite.addTest(new com.funambol.syncml.spds.SyncManagerAuthTest("testAuthentication_BASIC_KO"));
+        suite.addTest(new com.funambol.syncml.spds.SyncManagerAuthTest("testAuthentication_BASIC_KO_TO_MD5"));
+        suite.addTest(new com.funambol.syncml.spds.SyncManagerAuthTest("testAuthentication_BASIC_KO_TO_MD5_KO"));
+        suite.addTest(new com.funambol.syncml.spds.SyncManagerAuthTest("testAuthentication_BASIC_KO_TO_MD5_NOT_ALLOWED"));
+        suite.addTest(new com.funambol.syncml.spds.SyncManagerAuthTest("testAuthentication_MD5_OK"));
+        suite.addTest(new com.funambol.syncml.spds.SyncManagerAuthTest("testAuthentication_MD5_KO"));
+        suite.addTest(new com.funambol.syncml.spds.SyncManagerAuthTest("testAuthentication_MD5_KO_NEW_NONCE"));
+        suite.addTest(new com.funambol.syncml.spds.SyncManagerAuthTest("testAuthentication_MD5_KO_TO_BASIC"));
+        suite.addTest(new com.funambol.syncml.spds.SyncManagerAuthTest("testAuthentication_MD5_KO_TO_BASIC_KO"));
+        suite.addTest(new com.funambol.syncml.spds.SyncManagerAuthTest("testAuthentication_MD5_KO_TO_BASIC_NOT_ALLOWED"));
+        suite.addTest(new com.funambol.syncml.spds.SyncManagerDevInfTest("testSendDevInfOnlyDuringFirstSync"));
+        suite.addTest(new com.funambol.syncml.spds.SyncManagerDevInfTest("testSendDevInfEveryTimeWithANormalSyncSource"));
+        suite.addTest(new com.funambol.syncml.spds.SyncManagerDevInfTest("testSendDevInfWhenForced"));
+        suite.addTest(new com.funambol.syncml.spds.SyncManagerDevInfTest("testSendDevInfWhenServerDoesNotAcceptThem"));
+        suite.addTest(new com.funambol.syncml.spds.SyncManagerPerfTest("testSyncPerformance"));
+        suite.addTest(new com.funambol.syncml.spds.SyncManagerSuspendResumeTest("testSuspendSlow1"));
+        suite.addTest(new com.funambol.syncml.spds.SyncManagerSuspendResumeTest("testSuspendFast1"));
+        suite.addTest(new com.funambol.syncml.spds.SyncManagerTest("testNoRespInSyncHdr"));
+        suite.addTest(new com.funambol.syncml.spds.SyncManagerTest("testNoRespInSyncBody"));
+        suite.addTest(new com.funambol.syncml.spds.SyncManagerTest("testProcessSyncItemWithNoResp"));
+        suite.addTest(new com.funambol.syncml.spds.SyncManagerTest("testProcessSyncItem1"));
+        suite.addTest(new com.funambol.syncml.spds.SyncManagerTest("testProcessSyncCommandWithNoResp"));
+        suite.addTest(new com.funambol.syncml.spds.SyncManagerTest("testProcessSyncCommand1"));
+        suite.addTest(new com.funambol.syncml.spds.SyncManagerTest("testProcessInitMessageWithNoResp"));
+        suite.addTest(new com.funambol.syncml.spds.SyncSourceHandlerTest("testAddItem"));
+        suite.addTest(new com.funambol.syncml.spds.SyncSourceHandlerTest("testUpdateItem"));
+        suite.addTest(new com.funambol.syncml.spds.SyncSourceHandlerTest("testGetAddCommand"));
+        suite.addTest(new com.funambol.syncml.spds.SyncSourceHandlerTest("testGetReplaceCommand"));
+        suite.addTest(new com.funambol.syncml.spds.SyncSourceHandlerTest("testGetDeleteCommand"));
+        suite.addTest(new com.funambol.syncml.spds.SyncSourceHandlerTest("testGetNextCommand"));
+        suite.addTest(new com.funambol.syncml.spds.SyncSourceHandlerTest("testGetNextCommandResume1"));
+        suite.addTest(new com.funambol.syncml.spds.SyncSourceHandlerTest("testGetNextCommandResume2"));
+        suite.addTest(new com.funambol.syncml.spds.SyncSourceHandlerTest("testGetNextCommandResume3"));
+        suite.addTest(new com.funambol.syncml.spds.SyncSourceHandlerTest("testChunkdecoding"));
+        suite.addTest(new com.funambol.syncml.spds.SyncSourceHandlerTest("testTargetParent"));
+        suite.addTest(new com.funambol.syncml.spds.SyncSourceHandlerTest("testSourceParent"));
+        suite.addTest(new com.funambol.syncml.spds.SyncSourceHandlerTest("testWrongSourceParent"));
+        suite.addTest(new com.funambol.syncml.spds.SyncSourceHandlerTest("testCancelGetAddCommand"));
+        suite.addTest(new com.funambol.syncml.spds.SyncSourceHandlerTest("testCancelGetAddCommand2"));
+        suite.addTest(new com.funambol.syncml.spds.SyncSourceHandlerTest("testCancelGetUpdateCommand"));
+        suite.addTest(new com.funambol.syncml.spds.SyncSourceHandlerTest("testCancelGetUpdateCommand2"));
+        suite.addTest(new com.funambol.syncml.spds.SyncSourceHandlerTest("testCancelGetDeleteCommand"));
+        suite.addTest(new com.funambol.syncml.spds.SyncSourceHandlerTest("testCancelGetDeleteCommand2"));
+        suite.addTest(new com.funambol.syncml.spds.SyncSourceHandlerTest("testCancelGetNextCommand"));
+        suite.addTest(new com.funambol.syncml.spds.SyncSourceHandlerTest("testCancelGetNextCommand2"));
+        suite.addTest(new com.funambol.syncml.spds.SyncSourceHandlerTest("testGetNextCommandWithItemsLimit1"));
+        suite.addTest(new com.funambol.syncml.spds.SyncSourceHandlerTest("testGetNextCommandWithItemsLimit2"));
+        suite.addTest(new com.funambol.syncml.spds.SyncSourceHandlerTest("testGetNextCommandWithItemsLimit3"));
+        suite.addTest(new com.funambol.syncml.spds.SyncStatusTest("testSentItems1"));
+        suite.addTest(new com.funambol.syncml.spds.SyncStatusTest("testReceivedItems1"));
+        suite.addTest(new com.funambol.syncml.spds.SyncStatusTest("testDeleteAddSameKey"));
+        suite.addTest(new com.funambol.syncml.spds.SyncStatusTest("testSaveLoad1"));
+        return suite;
+    }
+}

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="1" failures="0" hostname="lieb-PC" name="FunTestSuite" skipped="0" tests="1" time="0.0" timestamp="2014-02-26T03:12:55">
+  <properties>
+    <property name="java.vendor" value="Sun Microsystems Inc." />
+    <property name="test.mode" value="fast" />
+    <property name="sun.java.launcher" value="SUN_STANDARD" />
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers" />
+    <property name="os.name" value="Windows 7" />
+    <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.6.0_39\jre\lib\resources.jar;C:\Program Files\Java\jdk1.6.0_39\jre\lib\rt.jar;C:\Program Files\Java\jdk1.6.0_39\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.6.0_39\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.6.0_39\jre\lib\jce.jar;C:\Program Files\Java\jdk1.6.0_39\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.6.0_39\jre\lib\modules\jdk.boot.jar;C:\Program Files\Java\jdk1.6.0_39\jre\classes" />
+    <property name="TODAY" value="February 26 2014" />
+    <property name="sun.desktop" value="windows" />
+    <property name="java.vm.specification.vendor" value="Sun Microsystems Inc." />
+    <property name="ant.home" value="D:\apache-ant-1.9.0\bin\.." />
+    <property name="java.runtime.version" value="1.6.0_39-b04" />
+    <property name="user.name" value="lieb" />
+    <property name="timestamp.HH" value="11" />
+    <property name="dir.tools" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sync/../tools" />
+    <property name="dir.classes" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sync/output/se/classes" />
+    <property name="user.language" value="zh" />
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.6.0_39\jre\bin" />
+    <property name="wtk.debug" value="true" />
+    <property name="ant.project.default-target" value="build" />
+    <property name="ant.project.name" value="Funambol Java Sync" />
+    <property name="DSTAMP" value="20140226" />
+    <property name="dir.output" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sync/output/se" />
+    <property name="java.version" value="1.6.0_39" />
+    <property name="user.timezone" value="" />
+    <property name="ant.file.funambol-android-sync-client" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\build.xml" />
+    <property name="sun.arch.data.model" value="64" />
+    <property name="lib.junit" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sync/../tools/junit-3.8.1.jar" />
+    <property name="dir.output.html" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sync/output/se/html" />
+    <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.6.0_39\jre\lib\endorsed" />
+    <property name="sun.cpu.isalist" value="amd64" />
+    <property name="sun.jnu.encoding" value="GB18030" />
+    <property name="file.encoding.pkg" value="sun.io" />
+    <property name="file.separator" value="\" />
+    <property name="java.specification.name" value="Java Platform API Specification" />
+    <property name="timestamp.MM" value="02" />
+    <property name="java.class.version" value="50.0" />
+    <property name="user.country" value="CN" />
+    <property name="java.home" value="C:\Program Files\Java\jdk1.6.0_39\jre" />
+    <property name="java.vm.info" value="mixed mode" />
+    <property name="ant.file" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sync\build\se\build.xml" />
+    <property name="os.version" value="6.1" />
+    <property name="path.separator" value=";" />
+    <property name="java.vm.version" value="20.14-b01" />
+    <property name="dir.docs" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sync/docs" />
+    <property name="user.variant" value="" />
+    <property name="ant.library.dir" value="D:\apache-ant-1.9.0\lib" />
+    <property name="timestamp.dd" value="26" />
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob" />
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
+    <property name="user.home" value="C:\Users\lieb" />
+    <property name="dir.preproc.src" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sync/output/se/preproc_src" />
+    <property name="java.specification.vendor" value="Sun Microsystems Inc." />
+    <property name="dir.test" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sync/src/test" />
+    <property name="ant.file.Funambol Java Sync" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sync\build\se\build.xml" />
+    <property name="java.library.path" value="C:\Program Files\Java\jdk1.6.0_39\jre\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Common Files\Roxio Shared\DLLShared\;C:\Program Files (x86)\Common Files\Roxio Shared\OEM\DLLShared\;C:\Program Files (x86)\Common Files\Roxio Shared\OEM\DLLShared\;C:\Program Files (x86)\Common Files\Roxio Shared\OEM\12.0\DLLShared\;C:\Program Files (x86)\Roxio\OEM\AudioCore\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;c:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;c:\Program Files\WIDCOMM\Bluetooth Software\;c:\Program Files\WIDCOMM\Bluetooth Software\syswow64;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files\TortoiseSVN\bin;D:\apache-ant-1.9.0\bin;C:\Program Files\Java\jdk1.6.0_39\bin;D:\soft\android-sdk-windows\platform-tools;C:\Program Files (x86)\Common Files\Adobe\AGL;D:\soft\android-sdk-windows\tools;C:\apktool-install-windows-r05-ibot;C:\Program Files\Java\jdk1.6.0_39\bin;C:\Program Files\Java\jre6\bin;D:\android\apache-maven-3.1.1\bin;C:\Program Files (x86)\Git\cmd;C:\strawberry\c\bin;C:\strawberry\perl\bin;." />
+    <property name="java.vendor.url" value="http://java.sun.com/" />
+    <property name="java.vm.vendor" value="Sun Microsystems Inc." />
+    <property name="dir.src" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sync/src/main/java" />
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner FunTestSuite filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.PlainJUnitResultFormatter,D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sync\result.txt formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sync\result.xml crashfile=D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sync\junitvmwatcher8025947344555231353.properties propsfile=D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sync\junit3095073049681649883.properties" />
+    <property name="java.class.path" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\tools\junit-3.8.1.jar;D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sync\output\se\classes;D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\common\output\se\funambol-se-common.jar;D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sync;C:\Program Files\Java\jdk1.6.0_39\lib\tools.jar;C:\Program Files\Java\jdk1.6.0_39\lib\dt.jar;C:\Program Files\Java\jdk1.6.0_39\bin;D:\apache-ant-1.9.0\lib\ant-launcher.jar;D:\apache-ant-1.9.0\lib\ant.jar;D:\apache-ant-1.9.0\lib\ant-junit.jar;D:\apache-ant-1.9.0\lib\ant-junit4.jar" />
+    <property name="ant.version" value="Apache Ant(TM) version 1.9.0 compiled on March 5 2013" />
+    <property name="TSTAMP" value="1112" />
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
+    <property name="ant.file.type" value="file" />
+    <property name="dir.res" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sync/src/test/res" />
+    <property name="java.vm.specification.version" value="1.0" />
+    <property name="sun.cpu.endian" value="little" />
+    <property name="sun.os.patch.level" value="Service Pack 1" />
+    <property name="java.io.tmpdir" value="C:\Users\lieb\AppData\Local\Temp\" />
+    <property name="lib.funambol.common" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sync/../common/output/se/funambol-se-common.jar" />
+    <property name="java.vendor.url.bug" value="http://java.sun.com/cgi-bin/bugreport.cgi" />
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment" />
+    <property name="os.arch" value="amd64" />
+    <property name="ant.file.type.Funambol Java Sync" value="file" />
+    <property name="java.ext.dirs" value="C:\Program Files\Java\jdk1.6.0_39\jre\lib\ext;C:\Windows\Sun\Java\lib\ext" />
+    <property name="user.dir" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src" />
+    <property name="dir.html" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sync/output/se/html" />
+    <property name="ant.file.type.funambol-android-sync-client" value="file" />
+    <property name="line.separator" value="&#xd;&#xa;" />
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM" />
+    <property name="basedir" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sync" />
+    <property name="ant.java.version" value="1.6" />
+    <property name="ant.core.lib" value="D:\apache-ant-1.9.0\lib\ant.jar" />
+    <property name="jar.name" value="funambol-se-sync" />
+    <property name="file.encoding" value="GB18030" />
+    <property name="java.specification.version" value="1.6" />
+    <property name="ant.project.invoked-targets" value="test" />
+  </properties>
+  <error type="java.lang.reflect.InvocationTargetException">java.lang.reflect.InvocationTargetException
+Caused by: java.lang.UnsupportedClassVersionError: com/funambol/util/Appender : Unsupported major.minor version 51.0
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClassCond(ClassLoader.java:631)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:615)
+	at java.security.SecureClassLoader.defineClass(SecureClassLoader.java:141)
+	at java.net.URLClassLoader.defineClass(URLClassLoader.java:283)
+	at java.net.URLClassLoader.access$000(URLClassLoader.java:58)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:197)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:190)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:306)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:301)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:247)
+	at FunTestSuite.suite(FunTestSuite.java:6)
+</error>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

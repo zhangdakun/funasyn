@@ -1,0 +1,823 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="0" hostname="lieb-PC" name="FunTestSuite" skipped="0" tests="23" time="0.704" timestamp="2014-02-25T13:30:27">
+  <properties>
+    <property name="java.vendor" value="Oracle Corporation" />
+    <property name="test.mode" value="fast" />
+    <property name="sun.java.launcher" value="SUN_STANDARD" />
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers" />
+    <property name="os.name" value="Windows 7" />
+    <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.7.0_40\jre\lib\resources.jar;C:\Program Files\Java\jdk1.7.0_40\jre\lib\rt.jar;C:\Program Files\Java\jdk1.7.0_40\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.7.0_40\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.7.0_40\jre\lib\jce.jar;C:\Program Files\Java\jdk1.7.0_40\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.7.0_40\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.7.0_40\jre\classes" />
+    <property name="TODAY" value="February 25 2014" />
+    <property name="sun.desktop" value="windows" />
+    <property name="java.vm.specification.vendor" value="Oracle Corporation" />
+    <property name="ant.home" value="D:\apache-ant-1.9.0\bin\.." />
+    <property name="java.runtime.version" value="1.7.0_40-b43" />
+    <property name="user.name" value="lieb" />
+    <property name="debug" value="true" />
+    <property name="timestamp.HH" value="21" />
+    <property name="dir.tools" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sapisync/../tools" />
+    <property name="dir.classes" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sapisync/output/se/classes" />
+    <property name="user.language" value="zh" />
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.7.0_40\jre\bin" />
+    <property name="ant.file.type.Funambol Java Sapi Sync" value="file" />
+    <property name="ant.project.default-target" value="build" />
+    <property name="ant.project.name" value="Funambol Java Sapi Sync" />
+    <property name="DSTAMP" value="20140225" />
+    <property name="dir.output" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sapisync/output/se" />
+    <property name="java.version" value="1.7.0_40" />
+    <property name="user.timezone" value="" />
+    <property name="ant.file.funambol-android-sync-client" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\build.xml" />
+    <property name="sun.arch.data.model" value="64" />
+    <property name="lib.junit" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sapisync/../tools/junit-3.8.1.jar" />
+    <property name="dir.output.html" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sapisync/output/se/html" />
+    <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.7.0_40\jre\lib\endorsed" />
+    <property name="sun.cpu.isalist" value="amd64" />
+    <property name="sun.jnu.encoding" value="GB18030" />
+    <property name="file.encoding.pkg" value="sun.io" />
+    <property name="file.separator" value="\" />
+    <property name="java.specification.name" value="Java Platform API Specification" />
+    <property name="timestamp.MM" value="02" />
+    <property name="java.class.version" value="51.0" />
+    <property name="user.country" value="CN" />
+    <property name="java.home" value="C:\Program Files\Java\jdk1.7.0_40\jre" />
+    <property name="java.vm.info" value="mixed mode" />
+    <property name="ant.file" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sapisync\build\se\build.xml" />
+    <property name="os.version" value="6.1" />
+    <property name="path.separator" value=";" />
+    <property name="java.vm.version" value="24.0-b56" />
+    <property name="dir.docs" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sapisync/docs" />
+    <property name="ant.file.Funambol Java SAPI sync" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sapisync\build\android\build.xml" />
+    <property name="user.variant" value="" />
+    <property name="lib.funambol.sync" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sapisync/../sync/output/se/funambol-se-sync.jar" />
+    <property name="ant.library.dir" value="D:\apache-ant-1.9.0\lib" />
+    <property name="timestamp.dd" value="25" />
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob" />
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
+    <property name="user.script" value="" />
+    <property name="user.home" value="C:\Users\lieb" />
+    <property name="dir.preproc.src" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sapisync/output/se/preproc_src" />
+    <property name="java.specification.vendor" value="Oracle Corporation" />
+    <property name="dir.test" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sapisync/src/test" />
+    <property name="java.library.path" value="C:\Program Files\Java\jdk1.7.0_40\jre\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Common Files\Roxio Shared\DLLShared\;C:\Program Files (x86)\Common Files\Roxio Shared\OEM\DLLShared\;C:\Program Files (x86)\Common Files\Roxio Shared\OEM\DLLShared\;C:\Program Files (x86)\Common Files\Roxio Shared\OEM\12.0\DLLShared\;C:\Program Files (x86)\Roxio\OEM\AudioCore\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;c:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;c:\Program Files\WIDCOMM\Bluetooth Software\;c:\Program Files\WIDCOMM\Bluetooth Software\syswow64;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files\TortoiseSVN\bin;D:\apache-ant-1.9.0\bin;C:\Program Files\Java\jdk1.7.0_40\bin;D:\soft\android-sdk-windows\platform-tools;C:\Program Files (x86)\Common Files\Adobe\AGL;D:\soft\android-sdk-windows\tools;C:\apktool-install-windows-r05-ibot;C:\Program Files\Java\jdk1.7.0_40\bin;C:\Program Files\Java\jre7\bin;D:\android\apache-maven-3.1.1\bin;C:\Program Files (x86)\Git\cmd;C:\strawberry\c\bin;C:\strawberry\perl\bin;." />
+    <property name="java.vendor.url" value="http://java.oracle.com/" />
+    <property name="java.vm.vendor" value="Oracle Corporation" />
+    <property name="dir.src" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sapisync/src/main/java" />
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner FunTestSuite filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.PlainJUnitResultFormatter,D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sapisync\result.txt formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sapisync\result.xml crashfile=D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sapisync\junitvmwatcher7948589748078953169.properties propsfile=D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sapisync\junit1501085129344018668.properties" />
+    <property name="java.class.path" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\tools\junit-3.8.1.jar;D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sapisync\output\se\classes;D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\common\output\se\funambol-se-common.jar;D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sync\output\se\funambol-se-sync.jar;D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sapisync;C:\Program Files\Java\jdk1.7.0_40\lib\tools.jar;C:\Program Files\Java\jdk1.7.0_40\lib\dt.jar;C:\Program Files\Java\jdk1.7.0_40\bin;D:\apache-ant-1.9.0\lib\ant-launcher.jar;D:\apache-ant-1.9.0\lib\ant.jar;D:\apache-ant-1.9.0\lib\ant-junit.jar;D:\apache-ant-1.9.0\lib\ant-junit4.jar" />
+    <property name="ant.version" value="Apache Ant(TM) version 1.9.0 compiled on March 5 2013" />
+    <property name="TSTAMP" value="2130" />
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
+    <property name="ant.file.type" value="file" />
+    <property name="dir.res" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sapisync/src/test/res" />
+    <property name="java.vm.specification.version" value="1.7" />
+    <property name="sun.os.patch.level" value="Service Pack 1" />
+    <property name="sun.cpu.endian" value="little" />
+    <property name="java.io.tmpdir" value="C:\Users\lieb\AppData\Local\Temp\" />
+    <property name="lib.funambol.common" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sapisync/../common/output/se/funambol-se-common.jar" />
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/" />
+    <property name="ant.file.Funambol Java Sapi Sync" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sapisync\build\se\build.xml" />
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment" />
+    <property name="os.arch" value="amd64" />
+    <property name="java.ext.dirs" value="C:\Program Files\Java\jdk1.7.0_40\jre\lib\ext;C:\Windows\Sun\Java\lib\ext" />
+    <property name="user.dir" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src" />
+    <property name="dir.html" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sapisync/output/se/html" />
+    <property name="ant.file.type.funambol-android-sync-client" value="file" />
+    <property name="line.separator" value="&#xd;&#xa;" />
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM" />
+    <property name="basedir" value="D:\workspace_2\funambol-android-sync-client-10.0.4-src\externals\java-sdk\sapisync" />
+    <property name="ant.java.version" value="1.7" />
+    <property name="ant.core.lib" value="D:\apache-ant-1.9.0\lib\ant.jar" />
+    <property name="jar.name" value="funambol-se-sapisync" />
+    <property name="file.encoding" value="GB18030" />
+    <property name="ant.file.type.Funambol Java SAPI sync" value="file" />
+    <property name="java.specification.version" value="1.7" />
+    <property name="ant.project.invoked-targets" value="test" />
+  </properties>
+  <testcase classname="com.funambol.sapisync.SapiSyncAnchorTest" name="testParse" time="0.003" />
+  <testcase classname="com.funambol.sapisync.SapiSyncAnchorTest" name="testFormat" time="0.003" />
+  <testcase classname="com.funambol.sapisync.SapiSyncAnchorTest" name="testReset" time="0.001" />
+  <testcase classname="com.funambol.sapisync.SapiSyncManagerTest" name="testFullUpload" time="0.27" />
+  <testcase classname="com.funambol.sapisync.SapiSyncManagerTest" name="testIncrementalUpload" time="0.022" />
+  <testcase classname="com.funambol.sapisync.SapiSyncManagerTest" name="testFullDownload1" time="0.008" />
+  <testcase classname="com.funambol.sapisync.SapiSyncManagerTest" name="testFullDownload2" time="0.038" />
+  <testcase classname="com.funambol.sapisync.SapiSyncManagerTest" name="testIncrementalDownload1" time="0.037" />
+  <testcase classname="com.funambol.sapisync.SapiSyncManagerTest" name="testIncrementalDownload2" time="0.03" />
+  <testcase classname="com.funambol.sapisync.SapiSyncManagerTest" name="testFullUploadFilter_ItemsCount" time="0.025" />
+  <testcase classname="com.funambol.sapisync.SapiSyncManagerTest" name="testIncrementalUploadFilter_ItemsCount" time="0.018" />
+  <testcase classname="com.funambol.sapisync.SapiSyncManagerTest" name="testFullDownloadFilter_ItemsCount" time="0.005" />
+  <testcase classname="com.funambol.sapisync.SapiSyncManagerTest" name="testFullDownloadFilter_ItemsCount2" time="0.028" />
+  <testcase classname="com.funambol.sapisync.SapiSyncManagerTest" name="testFullDownloadFilter_DateRecent" time="0.027" />
+  <testcase classname="com.funambol.sapisync.SapiSyncManagerTwinTest" name="testTwinDetection" time="0.049" />
+  <testcase classname="com.funambol.sapisync.sapi.SapiHandlerTest" name="testAuthentication1" time="0.001" />
+  <testcase classname="com.funambol.sapisync.sapi.SapiHandlerTest" name="testAuthentication2" time="0.004" />
+  <testcase classname="com.funambol.sapisync.sapi.SapiHandlerTest" name="testAuthentication3" time="0.0" />
+  <testcase classname="com.funambol.sapisync.sapi.SapiHandlerTest" name="testSapi1" time="0.001" />
+  <testcase classname="com.funambol.sapisync.source.CacheTrackerWithRenamesTest" name="testRename" time="0.045" />
+  <testcase classname="com.funambol.sapisync.source.CacheTrackerWithRenamesTest" name="testRenameAndUpdate" time="0.009" />
+  <testcase classname="com.funambol.sapisync.source.CacheTrackerWithRenamesTest" name="testEmpty" time="0.004" />
+  <testcase classname="com.funambol.sapisync.source.CacheTrackerWithRenamesTest" name="testReset" time="0.012" />
+  <system-out><![CDATA[Tue Feb 25 21:30:26 CST 2014 [INITLOG] ---------
+Tue Feb 25 21:30:26 CST 2014 [INITLOG] ---------
+Tue Feb 25 21:30:26 CST 2014 [INITLOG] ---------
+Tue Feb 25 21:30:26 CST 2014 [INITLOG] ---------
+Tue Feb 25 21:30:26 CST 2014 [INITLOG] ---------
+Tue Feb 25 21:30:26 CST 2014 [INITLOG] ---------
+Tue Feb 25 21:30:26 CST 2014 [INITLOG] ---------
+Tue Feb 25 21:30:26 CST 2014 [INITLOG] ---------
+Tue Feb 25 21:30:26 CST 2014 [INITLOG] ---------
+Tue Feb 25 21:30:26 CST 2014 [INITLOG] ---------
+Tue Feb 25 21:30:26 CST 2014 [INITLOG] ---------
+Tue Feb 25 21:30:26 CST 2014 [INITLOG] ---------
+Tue Feb 25 21:30:26 CST 2014 [INITLOG] ---------
+Tue Feb 25 21:30:26 CST 2014 [INITLOG] ---------
+Tue Feb 25 21:30:26 CST 2014 [INITLOG] ---------
+SapiHandlerTest!!!!!
+Tue Feb 25 21:30:26 CST 2014 [INITLOG] ---------
+SapiHandlerTest!!!!!
+Tue Feb 25 21:30:26 CST 2014 [INITLOG] ---------
+SapiHandlerTest!!!!!
+Tue Feb 25 21:30:26 CST 2014 [INITLOG] ---------
+SapiHandlerTest!!!!!
+Tue Feb 25 21:30:26 CST 2014 [INITLOG] ---------
+Tue Feb 25 21:30:26 CST 2014 [INITLOG] ---------
+Tue Feb 25 21:30:26 CST 2014 [INITLOG] ---------
+Tue Feb 25 21:30:26 CST 2014 [INITLOG] ---------
+Tue Feb 25 21:30:26 CST 2014 [INITLOG] ---------
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [ConnectionManager] Creating new connection manager
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Starting sync
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Resume is not active
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Resetting mapping
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Begin sync for source 'test' with mode 201
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Resume = false
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Difference in time between server and client is -1393335027074
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Computing changes set for fast sync
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncStrategy] prepareSyncFullDownload
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Starting download phase with mode: 205
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Performing full download
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Updating download anchor to -1
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Starting upload phase with mode: 203
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Uploading items count: 100
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item0
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item1
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item2
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item3
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item4
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item5
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item6
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item7
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item8
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item9
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item10
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item11
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item12
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item13
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item14
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item15
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item16
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item17
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item18
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item19
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item20
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item21
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item22
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item23
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item24
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item25
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item26
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item27
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item28
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item29
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item30
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item31
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item32
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item33
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item34
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item35
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item36
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item37
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item38
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item39
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item40
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item41
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item42
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item43
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item44
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item45
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item46
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item47
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item48
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item49
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item50
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item51
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item52
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item53
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item54
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item55
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item56
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item57
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item58
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item59
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item60
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item61
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item62
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item63
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item64
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item65
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item66
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item67
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item68
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item69
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item70
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item71
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item72
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item73
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item74
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item75
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item76
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item77
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item78
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item79
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item80
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item81
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item82
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item83
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item84
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item85
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item86
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item87
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item88
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item89
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item90
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item91
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item92
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item93
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item94
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item95
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item96
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item97
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item98
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item99
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: no more items to send for slow sync
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] End sync for source test
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Starting sync
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Resume is not active
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Begin sync for source 'test' with mode 200
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Resume = false
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Difference in time between server and client is -1393335027321
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Computing changes set for fast sync
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncStrategy] prepareSyncFullDownload
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: no more updated items to send
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: no more deletetd items to send
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Starting download phase with mode: 205
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Performing full download
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Updating download anchor to -1
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Starting upload phase with mode: 202
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Uploading items count: 8
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item11
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item12
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item13
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item14
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item15
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item16
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item17
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item18
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: no more new items to send
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] End sync for source test
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Starting sync
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Resume is not active
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Resetting mapping
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Begin sync for source 'test' with mode 201
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Resume = false
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Difference in time between server and client is -1393335027337
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Computing changes set for fast sync
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncStrategy] prepareSyncFullDownload
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncStrategy] items = [{"date":0,"name":"0","size":"0","id":"0"},{"date":1,"name":"1","size":"1","id":"1"},{"date":2,"name":"2","size":"2","id":"2"},{"date":3,"name":"3","size":"3","id":"3"},{"date":4,"name":"4","size":"4","id":"4"},{"date":5,"name":"5","size":"5","id":"5"},{"date":6,"name":"6","size":"6","id":"6"},{"date":7,"name":"7","size":"7","id":"7"},{"date":8,"name":"8","size":"8","id":"8"},{"date":9,"name":"9","size":"9","id":"9"}]
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Starting download phase with mode: 205
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Performing full download
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] apply new update items to source test
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Updating download anchor to -1
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Starting upload phase with mode: 203
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Uploading items count: 0
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: no more items to send for slow sync
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] End sync for source test
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Starting sync
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Resume is not active
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Resetting mapping
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Begin sync for source 'test' with mode 201
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Resume = false
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Difference in time between server and client is -1393335027349
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Computing changes set for fast sync
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncStrategy] prepareSyncFullDownload
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncStrategy] items = [{"date":0,"name":"0","size":"0","id":"0"},{"date":1,"name":"1","size":"1","id":"1"},{"date":2,"name":"2","size":"2","id":"2"},{"date":3,"name":"3","size":"3","id":"3"},{"date":4,"name":"4","size":"4","id":"4"},{"date":5,"name":"5","size":"5","id":"5"},{"date":6,"name":"6","size":"6","id":"6"},{"date":7,"name":"7","size":"7","id":"7"},{"date":8,"name":"8","size":"8","id":"8"},{"date":9,"name":"9","size":"9","id":"9"},{"date":10,"name":"10","size":"10","id":"10"},{"date":11,"name":"11","size":"11","id":"11"},{"date":12,"name":"12","size":"12","id":"12"},{"date":13,"name":"13","size":"13","id":"13"},{"date":14,"name":"14","size":"14","id":"14"},{"date":15,"name":"15","size":"15","id":"15"},{"date":16,"name":"16","size":"16","id":"16"},{"date":17,"name":"17","size":"17","id":"17"},{"date":18,"name":"18","size":"18","id":"18"},{"date":19,"name":"19","size":"19","id":"19"},{"date":20,"name":"20","size":"20","id":"20"},{"date":21,"name":"21","size":"21","id":"21"},{"date":22,"name":"22","size":"22","id":"22"},{"date":23,"name":"23","size":"23","id":"23"},{"date":24,"name":"24","size":"24","id":"24"},{"date":25,"name":"25","size":"25","id":"25"},{"date":26,"name":"26","size":"26","id":"26"},{"date":27,"name":"27","size":"27","id":"27"},{"date":28,"name":"28","size":"28","id":"28"},{"date":29,"name":"29","size":"29","id":"29"},{"date":30,"name":"30","size":"30","id":"30"},{"date":31,"name":"31","size":"31","id":"31"},{"date":32,"name":"32","size":"32","id":"32"},{"date":33,"name":"33","size":"33","id":"33"},{"date":34,"name":"34","size":"34","id":"34"},{"date":35,"name":"35","size":"35","id":"35"},{"date":36,"name":"36","size":"36","id":"36"},{"date":37,"name":"37","size":"37","id":"37"},{"date":38,"name":"38","size":"38","id":"38"},{"date":39,"name":"39","size":"39","id":"39"},{"date":40,"name":"40","size":"40","id":"40"},{"date":41,"name":"41","size":"41","id":"41"},{"date":42,"name":"42","size":"42","id":"42"},{"date":43,"name":"43","size":"43","id":"43"},{"date":44,"name":"44","size":"44","id":"44"},{"date":45,"name":"45","size":"45","id":"45"},{"date":46,"name":"46","size":"46","id":"46"},{"date":47,"name":"47","size":"47","id":"47"},{"date":48,"name":"48","size":"48","id":"48"},{"date":49,"name":"49","size":"49","id":"49"},{"date":50,"name":"50","size":"50","id":"50"},{"date":51,"name":"51","size":"51","id":"51"},{"date":52,"name":"52","size":"52","id":"52"},{"date":53,"name":"53","size":"53","id":"53"},{"date":54,"name":"54","size":"54","id":"54"},{"date":55,"name":"55","size":"55","id":"55"},{"date":56,"name":"56","size":"56","id":"56"},{"date":57,"name":"57","size":"57","id":"57"},{"date":58,"name":"58","size":"58","id":"58"},{"date":59,"name":"59","size":"59","id":"59"},{"date":60,"name":"60","size":"60","id":"60"},{"date":61,"name":"61","size":"61","id":"61"},{"date":62,"name":"62","size":"62","id":"62"},{"date":63,"name":"63","size":"63","id":"63"},{"date":64,"name":"64","size":"64","id":"64"},{"date":65,"name":"65","size":"65","id":"65"},{"date":66,"name":"66","size":"66","id":"66"},{"date":67,"name":"67","size":"67","id":"67"},{"date":68,"name":"68","size":"68","id":"68"},{"date":69,"name":"69","size":"69","id":"69"},{"date":70,"name":"70","size":"70","id":"70"},{"date":71,"name":"71","size":"71","id":"71"},{"date":72,"name":"72","size":"72","id":"72"},{"date":73,"name":"73","size":"73","id":"73"},{"date":74,"name":"74","size":"74","id":"74"},{"date":75,"name":"75","size":"75","id":"75"},{"date":76,"name":"76","size":"76","id":"76"},{"date":77,"name":"77","size":"77","id":"77"},{"date":78,"name":"78","size":"78","id":"78"},{"date":79,"name":"79","size":"79","id":"79"},{"date":80,"name":"80","size":"80","id":"80"},{"date":81,"name":"81","size":"81","id":"81"},{"date":82,"name":"82","size":"82","id":"82"},{"date":83,"name":"83","size":"83","id":"83"},{"date":84,"name":"84","size":"84","id":"84"},{"date":85,"name":"85","size":"85","id":"85"},{"date":86,"name":"86","size":"86","id":"86"},{"date":87,"name":"87","size":"87","id":"87"},{"date":88,"name":"88","size":"88","id":"88"},{"date":89,"name":"89","size":"89","id":"89"},{"date":90,"name":"90","size":"90","id":"90"},{"date":91,"name":"91","size":"91","id":"91"},{"date":92,"name":"92","size":"92","id":"92"},{"date":93,"name":"93","size":"93","id":"93"},{"date":94,"name":"94","size":"94","id":"94"},{"date":95,"name":"95","size":"95","id":"95"},{"date":96,"name":"96","size":"96","id":"96"},{"date":97,"name":"97","size":"97","id":"97"},{"date":98,"name":"98","size":"98","id":"98"},{"date":99,"name":"99","size":"99","id":"99"},{"date":100,"name":"100","size":"100","id":"100"},{"date":101,"name":"101","size":"101","id":"101"},{"date":102,"name":"102","size":"102","id":"102"},{"date":103,"name":"103","size":"103","id":"103"},{"date":104,"name":"104","size":"104","id":"104"},{"date":105,"name":"105","size":"105","id":"105"},{"date":106,"name":"106","size":"106","id":"106"},{"date":107,"name":"107","size":"107","id":"107"},{"date":108,"name":"108","size":"108","id":"108"},{"date":109,"name":"109","size":"109","id":"109"},{"date":110,"name":"110","size":"110","id":"110"},{"date":111,"name":"111","size":"111","id":"111"},{"date":112,"name":"112","size":"112","id":"112"},{"date":113,"name":"113","size":"113","id":"113"},{"date":114,"name":"114","size":"114","id":"114"},{"date":115,"name":"115","size":"115","id":"115"},{"date":116,"name":"116","size":"116","id":"116"},{"date":117,"name":"117","size":"117","id":"117"},{"date":118,"name":"118","size":"118","id":"118"},{"date":119,"name":"119","size":"119","id":"119"},{"date":120,"name":"120","size":"120","id":"120"},{"date":121,"name":"121","size":"121","id":"121"},{"date":122,"name":"122","size":"122","id":"122"},{"date":123,"name":"123","size":"123","id":"123"},{"date":124,"name":"124","size":"124","id":"124"},{"date":125,"name":"125","size":"125","id":"125"},{"date":126,"name":"126","size":"126","id":"126"},{"date":127,"name":"127","size":"127","id":"127"},{"date":128,"name":"128","size":"128","id":"128"},{"date":129,"name":"129","size":"129","id":"129"},{"date":130,"name":"130","size":"130","id":"130"},{"date":131,"name":"131","size":"131","id":"131"},{"date":132,"name":"132","size":"132","id":"132"},{"date":133,"name":"133","size":"133","id":"133"},{"date":134,"name":"134","size":"134","id":"134"},{"date":135,"name":"135","size":"135","id":"135"},{"date":136,"name":"136","size":"136","id":"136"},{"date":137,"name":"137","size":"137","id":"137"},{"date":138,"name":"138","size":"138","id":"138"},{"date":139,"name":"139","size":"139","id":"139"},{"date":140,"name":"140","size":"140","id":"140"},{"date":141,"name":"141","size":"141","id":"141"},{"date":142,"name":"142","size":"142","id":"142"},{"date":143,"name":"143","size":"143","id":"143"},{"date":144,"name":"144","size":"144","id":"144"},{"date":145,"name":"145","size":"145","id":"145"},{"date":146,"name":"146","size":"146","id":"146"},{"date":147,"name":"147","size":"147","id":"147"},{"date":148,"name":"148","size":"148","id":"148"},{"date":149,"name":"149","size":"149","id":"149"},{"date":150,"name":"150","size":"150","id":"150"},{"date":151,"name":"151","size":"151","id":"151"},{"date":152,"name":"152","size":"152","id":"152"},{"date":153,"name":"153","size":"153","id":"153"},{"date":154,"name":"154","size":"154","id":"154"},{"date":155,"name":"155","size":"155","id":"155"},{"date":156,"name":"156","size":"156","id":"156"},{"date":157,"name":"157","size":"157","id":"157"},{"date":158,"name":"158","size":"158","id":"158"},{"date":159,"name":"159","size":"159","id":"159"},{"date":160,"name":"160","size":"160","id":"160"},{"date":161,"name":"161","size":"161","id":"161"},{"date":162,"name":"162","size":"162","id":"162"},{"date":163,"name":"163","size":"163","id":"163"},{"date":164,"name":"164","size":"164","id":"164"},{"date":165,"name":"165","size":"165","id":"165"},{"date":166,"name":"166","size":"166","id":"166"},{"date":167,"name":"167","size":"167","id":"167"},{"date":168,"name":"168","size":"168","id":"168"},{"date":169,"name":"169","size":"169","id":"169"},{"date":170,"name":"170","size":"170","id":"170"},{"date":171,"name":"171","size":"171","id":"171"},{"date":172,"name":"172","size":"172","id":"172"},{"date":173,"name":"173","size":"173","id":"173"},{"date":174,"name":"174","size":"174","id":"174"},{"date":175,"name":"175","size":"175","id":"175"},{"date":176,"name":"176","size":"176","id":"176"},{"date":177,"name":"177","size":"177","id":"177"},{"date":178,"name":"178","size":"178","id":"178"},{"date":179,"name":"179","size":"179","id":"179"},{"date":180,"name":"180","size":"180","id":"180"},{"date":181,"name":"181","size":"181","id":"181"},{"date":182,"name":"182","size":"182","id":"182"},{"date":183,"name":"183","size":"183","id":"183"},{"date":184,"name":"184","size":"184","id":"184"},{"date":185,"name":"185","size":"185","id":"185"},{"date":186,"name":"186","size":"186","id":"186"},{"date":187,"name":"187","size":"187","id":"187"},{"date":188,"name":"188","size":"188","id":"188"},{"date":189,"name":"189","size":"189","id":"189"},{"date":190,"name":"190","size":"190","id":"190"},{"date":191,"name":"191","size":"191","id":"191"},{"date":192,"name":"192","size":"192","id":"192"},{"date":193,"name":"193","size":"193","id":"193"},{"date":194,"name":"194","size":"194","id":"194"},{"date":195,"name":"195","size":"195","id":"195"},{"date":196,"name":"196","size":"196","id":"196"},{"date":197,"name":"197","size":"197","id":"197"},{"date":198,"name":"198","size":"198","id":"198"},{"date":199,"name":"199","size":"199","id":"199"},{"date":200,"name":"200","size":"200","id":"200"},{"date":201,"name":"201","size":"201","id":"201"},{"date":202,"name":"202","size":"202","id":"202"},{"date":203,"name":"203","size":"203","id":"203"},{"date":204,"name":"204","size":"204","id":"204"},{"date":205,"name":"205","size":"205","id":"205"},{"date":206,"name":"206","size":"206","id":"206"},{"date":207,"name":"207","size":"207","id":"207"},{"date":208,"name":"208","size":"208","id":"208"},{"date":209,"name":"209","size":"209","id":"209"},{"date":210,"name":"210","size":"210","id":"210"},{"date":211,"name":"211","size":"211","id":"211"},{"date":212,"name":"212","size":"212","id":"212"},{"date":213,"name":"213","size":"213","id":"213"},{"date":214,"name":"214","size":"214","id":"214"},{"date":215,"name":"215","size":"215","id":"215"},{"date":216,"name":"216","size":"216","id":"216"},{"date":217,"name":"217","size":"217","id":"217"},{"date":218,"name":"218","size":"218","id":"218"},{"date":219,"name":"219","size":"219","id":"219"},{"date":220,"name":"220","size":"220","id":"220"},{"date":221,"name":"221","size":"221","id":"221"},{"date":222,"name":"222","size":"222","id":"222"},{"date":223,"name":"223","size":"223","id":"223"},{"date":224,"name":"224","size":"224","id":"224"},{"date":225,"name":"225","size":"225","id":"225"},{"date":226,"name":"226","size":"226","id":"226"},{"date":227,"name":"227","size":"227","id":"227"},{"date":228,"name":"228","size":"228","id":"228"},{"date":229,"name":"229","size":"229","id":"229"},{"date":230,"name":"230","size":"230","id":"230"},{"date":231,"name":"231","size":"231","id":"231"},{"date":232,"name":"232","size":"232","id":"232"},{"date":233,"name":"233","size":"233","id":"233"},{"date":234,"name":"234","size":"234","id":"234"},{"date":235,"name":"235","size":"235","id":"235"},{"date":236,"name":"236","size":"236","id":"236"},{"date":237,"name":"237","size":"237","id":"237"},{"date":238,"name":"238","size":"238","id":"238"},{"date":239,"name":"239","size":"239","id":"239"},{"date":240,"name":"240","size":"240","id":"240"},{"date":241,"name":"241","size":"241","id":"241"},{"date":242,"name":"242","size":"242","id":"242"},{"date":243,"name":"243","size":"243","id":"243"},{"date":244,"name":"244","size":"244","id":"244"},{"date":245,"name":"245","size":"245","id":"245"},{"date":246,"name":"246","size":"246","id":"246"},{"date":247,"name":"247","size":"247","id":"247"},{"date":248,"name":"248","size":"248","id":"248"},{"date":249,"name":"249","size":"249","id":"249"},{"date":250,"name":"250","size":"250","id":"250"},{"date":251,"name":"251","size":"251","id":"251"},{"date":252,"name":"252","size":"252","id":"252"},{"date":253,"name":"253","size":"253","id":"253"},{"date":254,"name":"254","size":"254","id":"254"},{"date":255,"name":"255","size":"255","id":"255"},{"date":256,"name":"256","size":"256","id":"256"},{"date":257,"name":"257","size":"257","id":"257"},{"date":258,"name":"258","size":"258","id":"258"},{"date":259,"name":"259","size":"259","id":"259"},{"date":260,"name":"260","size":"260","id":"260"},{"date":261,"name":"261","size":"261","id":"261"},{"date":262,"name":"262","size":"262","id":"262"},{"date":263,"name":"263","size":"263","id":"263"},{"date":264,"name":"264","size":"264","id":"264"},{"date":265,"name":"265","size":"265","id":"265"},{"date":266,"name":"266","size":"266","id":"266"},{"date":267,"name":"267","size":"267","id":"267"},{"date":268,"name":"268","size":"268","id":"268"},{"date":269,"name":"269","size":"269","id":"269"},{"date":270,"name":"270","size":"270","id":"270"},{"date":271,"name":"271","size":"271","id":"271"},{"date":272,"name":"272","size":"272","id":"272"},{"date":273,"name":"273","size":"273","id":"273"},{"date":274,"name":"274","size":"274","id":"274"},{"date":275,"name":"275","size":"275","id":"275"},{"date":276,"name":"276","size":"276","id":"276"},{"date":277,"name":"277","size":"277","id":"277"},{"date":278,"name":"278","size":"278","id":"278"},{"date":279,"name":"279","size":"279","id":"279"},{"date":280,"name":"280","size":"280","id":"280"},{"date":281,"name":"281","size":"281","id":"281"},{"date":282,"name":"282","size":"282","id":"282"},{"date":283,"name":"283","size":"283","id":"283"},{"date":284,"name":"284","size":"284","id":"284"},{"date":285,"name":"285","size":"285","id":"285"},{"date":286,"name":"286","size":"286","id":"286"},{"date":287,"name":"287","size":"287","id":"287"},{"date":288,"name":"288","size":"288","id":"288"},{"date":289,"name":"289","size":"289","id":"289"},{"date":290,"name":"290","size":"290","id":"290"},{"date":291,"name":"291","size":"291","id":"291"},{"date":292,"name":"292","size":"292","id":"292"},{"date":293,"name":"293","size":"293","id":"293"},{"date":294,"name":"294","size":"294","id":"294"},{"date":295,"name":"295","size":"295","id":"295"},{"date":296,"name":"296","size":"296","id":"296"},{"date":297,"name":"297","size":"297","id":"297"},{"date":298,"name":"298","size":"298","id":"298"},{"date":299,"name":"299","size":"299","id":"299"}]
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncStrategy] items = [{"date":300,"name":"300","size":"300","id":"300"},{"date":301,"name":"301","size":"301","id":"301"},{"date":302,"name":"302","size":"302","id":"302"},{"date":303,"name":"303","size":"303","id":"303"},{"date":304,"name":"304","size":"304","id":"304"},{"date":305,"name":"305","size":"305","id":"305"},{"date":306,"name":"306","size":"306","id":"306"},{"date":307,"name":"307","size":"307","id":"307"},{"date":308,"name":"308","size":"308","id":"308"},{"date":309,"name":"309","size":"309","id":"309"}]
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Starting download phase with mode: 205
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Performing full download
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] apply new update items to source test
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Updating download anchor to -1
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Starting upload phase with mode: 203
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Uploading items count: 0
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: no more items to send for slow sync
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] End sync for source test
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManagerTest] testIncrementalDownload1 starts
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Starting sync
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Resume is not active
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Begin sync for source 'test' with mode 201
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Resume = false
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Difference in time between server and client is -1393335027411
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Computing changes set for fast sync
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncStrategy] Last download anchor is: 100
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] There are changes pending on the server
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncStrategy] items = [{"date":0,"name":"0","size":"0","id":"0"},{"date":1,"name":"1","size":"1","id":"1"},{"date":2,"name":"2","size":"2","id":"2"},{"date":3,"name":"3","size":"3","id":"3"},{"date":4,"name":"4","size":"4","id":"4"},{"date":5,"name":"5","size":"5","id":"5"},{"date":6,"name":"6","size":"6","id":"6"},{"date":7,"name":"7","size":"7","id":"7"},{"date":8,"name":"8","size":"8","id":"8"},{"date":9,"name":"9","size":"9","id":"9"}]
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncStrategy] items = [{"date":0,"name":"0","size":"0","id":"10"},{"date":1,"name":"1","size":"1","id":"11"},{"date":2,"name":"2","size":"2","id":"12"},{"date":3,"name":"3","size":"3","id":"13"},{"date":4,"name":"4","size":"4","id":"14"},{"date":5,"name":"5","size":"5","id":"15"},{"date":6,"name":"6","size":"6","id":"16"},{"date":7,"name":"7","size":"7","id":"17"}]
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 10
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 10 local CRC 10
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 0 remote CRC 0
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 11
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 11 local CRC 11
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 1 remote CRC 1
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 12
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 12 local CRC 12
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 2 remote CRC 2
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 13
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 13 local CRC 13
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 3 remote CRC 3
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 14
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 14 local CRC 14
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 4 remote CRC 4
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 15
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 15 local CRC 15
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 5 remote CRC 5
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 16
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 16 local CRC 16
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 6 remote CRC 6
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 17
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 17 local CRC 17
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 7 remote CRC 7
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Starting download phase with mode: 204
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Performing incremental download
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] apply new update items to source test
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] apply new update items to source test
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 10,10
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 11,11
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 12,12
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 13,13
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 14,14
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 15,15
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 16,16
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 17,17
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] applyDelItems
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Starting upload phase with mode: 203
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Uploading items count: 0
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: no more items to send for slow sync
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] End sync for source test
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Starting sync
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Resume is not active
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Begin sync for source 'test' with mode 201
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Resume = false
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Difference in time between server and client is -1393335027430
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Computing changes set for fast sync
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncStrategy] Last download anchor is: 100
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] There are changes pending on the server
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncStrategy] items = [{"date":0,"name":"0","size":"0","id":"0"},{"date":1,"name":"1","size":"1","id":"1"},{"date":2,"name":"2","size":"2","id":"2"},{"date":3,"name":"3","size":"3","id":"3"},{"date":4,"name":"4","size":"4","id":"4"},{"date":5,"name":"5","size":"5","id":"5"},{"date":6,"name":"6","size":"6","id":"6"},{"date":7,"name":"7","size":"7","id":"7"},{"date":8,"name":"8","size":"8","id":"8"},{"date":9,"name":"9","size":"9","id":"9"},{"date":10,"name":"10","size":"10","id":"10"},{"date":11,"name":"11","size":"11","id":"11"},{"date":12,"name":"12","size":"12","id":"12"},{"date":13,"name":"13","size":"13","id":"13"},{"date":14,"name":"14","size":"14","id":"14"},{"date":15,"name":"15","size":"15","id":"15"},{"date":16,"name":"16","size":"16","id":"16"},{"date":17,"name":"17","size":"17","id":"17"},{"date":18,"name":"18","size":"18","id":"18"},{"date":19,"name":"19","size":"19","id":"19"},{"date":20,"name":"20","size":"20","id":"20"},{"date":21,"name":"21","size":"21","id":"21"},{"date":22,"name":"22","size":"22","id":"22"},{"date":23,"name":"23","size":"23","id":"23"},{"date":24,"name":"24","size":"24","id":"24"},{"date":25,"name":"25","size":"25","id":"25"},{"date":26,"name":"26","size":"26","id":"26"},{"date":27,"name":"27","size":"27","id":"27"},{"date":28,"name":"28","size":"28","id":"28"},{"date":29,"name":"29","size":"29","id":"29"},{"date":30,"name":"30","size":"30","id":"30"},{"date":31,"name":"31","size":"31","id":"31"},{"date":32,"name":"32","size":"32","id":"32"},{"date":33,"name":"33","size":"33","id":"33"},{"date":34,"name":"34","size":"34","id":"34"},{"date":35,"name":"35","size":"35","id":"35"},{"date":36,"name":"36","size":"36","id":"36"},{"date":37,"name":"37","size":"37","id":"37"},{"date":38,"name":"38","size":"38","id":"38"},{"date":39,"name":"39","size":"39","id":"39"},{"date":40,"name":"40","size":"40","id":"40"},{"date":41,"name":"41","size":"41","id":"41"},{"date":42,"name":"42","size":"42","id":"42"},{"date":43,"name":"43","size":"43","id":"43"},{"date":44,"name":"44","size":"44","id":"44"},{"date":45,"name":"45","size":"45","id":"45"},{"date":46,"name":"46","size":"46","id":"46"},{"date":47,"name":"47","size":"47","id":"47"},{"date":48,"name":"48","size":"48","id":"48"},{"date":49,"name":"49","size":"49","id":"49"},{"date":50,"name":"50","size":"50","id":"50"},{"date":51,"name":"51","size":"51","id":"51"},{"date":52,"name":"52","size":"52","id":"52"},{"date":53,"name":"53","size":"53","id":"53"},{"date":54,"name":"54","size":"54","id":"54"},{"date":55,"name":"55","size":"55","id":"55"},{"date":56,"name":"56","size":"56","id":"56"},{"date":57,"name":"57","size":"57","id":"57"},{"date":58,"name":"58","size":"58","id":"58"},{"date":59,"name":"59","size":"59","id":"59"},{"date":60,"name":"60","size":"60","id":"60"},{"date":61,"name":"61","size":"61","id":"61"},{"date":62,"name":"62","size":"62","id":"62"},{"date":63,"name":"63","size":"63","id":"63"},{"date":64,"name":"64","size":"64","id":"64"},{"date":65,"name":"65","size":"65","id":"65"},{"date":66,"name":"66","size":"66","id":"66"},{"date":67,"name":"67","size":"67","id":"67"},{"date":68,"name":"68","size":"68","id":"68"},{"date":69,"name":"69","size":"69","id":"69"},{"date":70,"name":"70","size":"70","id":"70"},{"date":71,"name":"71","size":"71","id":"71"},{"date":72,"name":"72","size":"72","id":"72"},{"date":73,"name":"73","size":"73","id":"73"},{"date":74,"name":"74","size":"74","id":"74"},{"date":75,"name":"75","size":"75","id":"75"},{"date":76,"name":"76","size":"76","id":"76"},{"date":77,"name":"77","size":"77","id":"77"},{"date":78,"name":"78","size":"78","id":"78"},{"date":79,"name":"79","size":"79","id":"79"},{"date":80,"name":"80","size":"80","id":"80"},{"date":81,"name":"81","size":"81","id":"81"},{"date":82,"name":"82","size":"82","id":"82"},{"date":83,"name":"83","size":"83","id":"83"},{"date":84,"name":"84","size":"84","id":"84"},{"date":85,"name":"85","size":"85","id":"85"},{"date":86,"name":"86","size":"86","id":"86"},{"date":87,"name":"87","size":"87","id":"87"},{"date":88,"name":"88","size":"88","id":"88"},{"date":89,"name":"89","size":"89","id":"89"},{"date":90,"name":"90","size":"90","id":"90"},{"date":91,"name":"91","size":"91","id":"91"},{"date":92,"name":"92","size":"92","id":"92"},{"date":93,"name":"93","size":"93","id":"93"},{"date":94,"name":"94","size":"94","id":"94"},{"date":95,"name":"95","size":"95","id":"95"},{"date":96,"name":"96","size":"96","id":"96"},{"date":97,"name":"97","size":"97","id":"97"},{"date":98,"name":"98","size":"98","id":"98"},{"date":99,"name":"99","size":"99","id":"99"},{"date":100,"name":"100","size":"100","id":"100"},{"date":101,"name":"101","size":"101","id":"101"},{"date":102,"name":"102","size":"102","id":"102"},{"date":103,"name":"103","size":"103","id":"103"},{"date":104,"name":"104","size":"104","id":"104"},{"date":105,"name":"105","size":"105","id":"105"},{"date":106,"name":"106","size":"106","id":"106"},{"date":107,"name":"107","size":"107","id":"107"},{"date":108,"name":"108","size":"108","id":"108"},{"date":109,"name":"109","size":"109","id":"109"}]
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncStrategy] items = [{"date":0,"name":"0","size":"0","id":"110"},{"date":1,"name":"1","size":"1","id":"111"},{"date":2,"name":"2","size":"2","id":"112"},{"date":3,"name":"3","size":"3","id":"113"},{"date":4,"name":"4","size":"4","id":"114"},{"date":5,"name":"5","size":"5","id":"115"},{"date":6,"name":"6","size":"6","id":"116"},{"date":7,"name":"7","size":"7","id":"117"},{"date":8,"name":"8","size":"8","id":"118"},{"date":9,"name":"9","size":"9","id":"119"},{"date":10,"name":"10","size":"10","id":"120"},{"date":11,"name":"11","size":"11","id":"121"},{"date":12,"name":"12","size":"12","id":"122"},{"date":13,"name":"13","size":"13","id":"123"},{"date":14,"name":"14","size":"14","id":"124"},{"date":15,"name":"15","size":"15","id":"125"},{"date":16,"name":"16","size":"16","id":"126"},{"date":17,"name":"17","size":"17","id":"127"},{"date":18,"name":"18","size":"18","id":"128"},{"date":19,"name":"19","size":"19","id":"129"}]
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 110
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 110 local CRC 110
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 0 remote CRC 0
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 111
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 111 local CRC 111
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 1 remote CRC 1
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 112
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 112 local CRC 112
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 2 remote CRC 2
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 113
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 113 local CRC 113
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 3 remote CRC 3
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 114
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 114 local CRC 114
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 4 remote CRC 4
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 115
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 115 local CRC 115
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 5 remote CRC 5
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 116
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 116 local CRC 116
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 6 remote CRC 6
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 117
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 117 local CRC 117
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 7 remote CRC 7
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 118
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 118 local CRC 118
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 8 remote CRC 8
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 119
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 119 local CRC 119
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 9 remote CRC 9
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 120
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 120 local CRC 120
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 10 remote CRC 10
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 121
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 121 local CRC 121
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 11 remote CRC 11
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 122
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 122 local CRC 122
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 12 remote CRC 12
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 123
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 123 local CRC 123
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 13 remote CRC 13
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 124
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 124 local CRC 124
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 14 remote CRC 14
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 125
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 125 local CRC 125
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 15 remote CRC 15
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 126
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 126 local CRC 126
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 16 remote CRC 16
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 127
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 127 local CRC 127
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 17 remote CRC 17
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 128
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 128 local CRC 128
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 18 remote CRC 18
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Comparing items corresponding to id 129
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Local name 129 local CRC 129
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] Remote name 19 remote CRC 19
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] This update changed the item metadata
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Starting download phase with mode: 204
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Performing incremental download
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] apply new update items to source test
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] apply new update items to source test
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 110,110
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 111,111
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 112,112
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 113,113
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 114,114
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 115,115
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 116,116
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 117,117
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 118,118
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 119,119
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 120,120
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 121,121
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 122,122
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 123,123
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 124,124
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 125,125
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 126,126
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 127,127
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 128,128
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Updating mapping info for renamed item: 129,129
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] applyDelItems
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Starting upload phase with mode: 203
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Uploading items count: 0
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: no more items to send for slow sync
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] End sync for source test
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Starting sync
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Resume is not active
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Resetting mapping
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Begin sync for source 'test' with mode 201
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Resume = false
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Difference in time between server and client is -1393335027465
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Computing changes set for fast sync
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncStrategy] prepareSyncFullDownload
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Starting download phase with mode: 205
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Performing full download
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Updating download anchor to -1
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Starting upload phase with mode: 203
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Setting up items count filter with maxSending=8
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Uploading items count: 8
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item0
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item1
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item2
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item3
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item4
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item5
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item6
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item7
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item8
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] End sync for source test
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Starting sync
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Resume is not active
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Begin sync for source 'test' with mode 200
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Resume = false
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Difference in time between server and client is -1393335027479
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Computing changes set for fast sync
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncStrategy] prepareSyncFullDownload
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: no more updated items to send
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: no more deletetd items to send
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Starting download phase with mode: 205
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Performing full download
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Updating download anchor to -1
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Starting upload phase with mode: 202
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Setting up items count filter with maxSending=12
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Uploading items count: 12
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item11
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item12
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item13
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item14
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item15
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item16
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item17
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item18
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item19
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item20
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item21
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item22
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Item23
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] End sync for source test
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Starting sync
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Resume is not active
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Resetting mapping
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Begin sync for source 'test' with mode 201
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Resume = false
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Difference in time between server and client is -1393335027497
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Computing changes set for fast sync
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncStrategy] prepareSyncFullDownload
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncStrategy] items = [{"date":0,"size":"0","id":"0"},{"date":1,"size":"1","id":"1"},{"date":2,"size":"2","id":"2"},{"date":3,"size":"3","id":"3"},{"date":4,"size":"4","id":"4"},{"date":5,"size":"5","id":"5"},{"date":6,"size":"6","id":"6"},{"date":7,"size":"7","id":"7"},{"date":8,"size":"8","id":"8"},{"date":9,"size":"9","id":"9"}]
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] The source doesn't accept more items
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Starting download phase with mode: 205
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Performing full download
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] apply new update items to source test
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Updating download anchor to -1
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Starting upload phase with mode: 203
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Uploading items count: 0
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: no more items to send for slow sync
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] End sync for source test
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Starting sync
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Resume is not active
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Resetting mapping
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Begin sync for source 'test' with mode 201
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Resume = false
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Difference in time between server and client is -1393335027505
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Computing changes set for fast sync
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncStrategy] prepareSyncFullDownload
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncStrategy] items = [{"date":0,"name":"0","size":"0","id":"0"},{"date":1,"name":"1","size":"1","id":"1"},{"date":2,"name":"2","size":"2","id":"2"},{"date":3,"name":"3","size":"3","id":"3"},{"date":4,"name":"4","size":"4","id":"4"},{"date":5,"name":"5","size":"5","id":"5"},{"date":6,"name":"6","size":"6","id":"6"},{"date":7,"name":"7","size":"7","id":"7"},{"date":8,"name":"8","size":"8","id":"8"},{"date":9,"name":"9","size":"9","id":"9"},{"date":10,"name":"10","size":"10","id":"10"},{"date":11,"name":"11","size":"11","id":"11"},{"date":12,"name":"12","size":"12","id":"12"},{"date":13,"name":"13","size":"13","id":"13"},{"date":14,"name":"14","size":"14","id":"14"},{"date":15,"name":"15","size":"15","id":"15"},{"date":16,"name":"16","size":"16","id":"16"},{"date":17,"name":"17","size":"17","id":"17"},{"date":18,"name":"18","size":"18","id":"18"},{"date":19,"name":"19","size":"19","id":"19"},{"date":20,"name":"20","size":"20","id":"20"},{"date":21,"name":"21","size":"21","id":"21"},{"date":22,"name":"22","size":"22","id":"22"},{"date":23,"name":"23","size":"23","id":"23"},{"date":24,"name":"24","size":"24","id":"24"},{"date":25,"name":"25","size":"25","id":"25"},{"date":26,"name":"26","size":"26","id":"26"},{"date":27,"name":"27","size":"27","id":"27"},{"date":28,"name":"28","size":"28","id":"28"},{"date":29,"name":"29","size":"29","id":"29"},{"date":30,"name":"30","size":"30","id":"30"},{"date":31,"name":"31","size":"31","id":"31"},{"date":32,"name":"32","size":"32","id":"32"},{"date":33,"name":"33","size":"33","id":"33"},{"date":34,"name":"34","size":"34","id":"34"},{"date":35,"name":"35","size":"35","id":"35"},{"date":36,"name":"36","size":"36","id":"36"},{"date":37,"name":"37","size":"37","id":"37"},{"date":38,"name":"38","size":"38","id":"38"},{"date":39,"name":"39","size":"39","id":"39"},{"date":40,"name":"40","size":"40","id":"40"},{"date":41,"name":"41","size":"41","id":"41"},{"date":42,"name":"42","size":"42","id":"42"},{"date":43,"name":"43","size":"43","id":"43"},{"date":44,"name":"44","size":"44","id":"44"},{"date":45,"name":"45","size":"45","id":"45"},{"date":46,"name":"46","size":"46","id":"46"},{"date":47,"name":"47","size":"47","id":"47"},{"date":48,"name":"48","size":"48","id":"48"},{"date":49,"name":"49","size":"49","id":"49"},{"date":50,"name":"50","size":"50","id":"50"},{"date":51,"name":"51","size":"51","id":"51"},{"date":52,"name":"52","size":"52","id":"52"},{"date":53,"name":"53","size":"53","id":"53"},{"date":54,"name":"54","size":"54","id":"54"},{"date":55,"name":"55","size":"55","id":"55"},{"date":56,"name":"56","size":"56","id":"56"},{"date":57,"name":"57","size":"57","id":"57"},{"date":58,"name":"58","size":"58","id":"58"},{"date":59,"name":"59","size":"59","id":"59"},{"date":60,"name":"60","size":"60","id":"60"},{"date":61,"name":"61","size":"61","id":"61"},{"date":62,"name":"62","size":"62","id":"62"},{"date":63,"name":"63","size":"63","id":"63"},{"date":64,"name":"64","size":"64","id":"64"},{"date":65,"name":"65","size":"65","id":"65"},{"date":66,"name":"66","size":"66","id":"66"},{"date":67,"name":"67","size":"67","id":"67"},{"date":68,"name":"68","size":"68","id":"68"},{"date":69,"name":"69","size":"69","id":"69"},{"date":70,"name":"70","size":"70","id":"70"},{"date":71,"name":"71","size":"71","id":"71"},{"date":72,"name":"72","size":"72","id":"72"},{"date":73,"name":"73","size":"73","id":"73"},{"date":74,"name":"74","size":"74","id":"74"},{"date":75,"name":"75","size":"75","id":"75"},{"date":76,"name":"76","size":"76","id":"76"},{"date":77,"name":"77","size":"77","id":"77"},{"date":78,"name":"78","size":"78","id":"78"},{"date":79,"name":"79","size":"79","id":"79"},{"date":80,"name":"80","size":"80","id":"80"},{"date":81,"name":"81","size":"81","id":"81"},{"date":82,"name":"82","size":"82","id":"82"},{"date":83,"name":"83","size":"83","id":"83"},{"date":84,"name":"84","size":"84","id":"84"},{"date":85,"name":"85","size":"85","id":"85"},{"date":86,"name":"86","size":"86","id":"86"},{"date":87,"name":"87","size":"87","id":"87"},{"date":88,"name":"88","size":"88","id":"88"},{"date":89,"name":"89","size":"89","id":"89"},{"date":90,"name":"90","size":"90","id":"90"},{"date":91,"name":"91","size":"91","id":"91"},{"date":92,"name":"92","size":"92","id":"92"},{"date":93,"name":"93","size":"93","id":"93"},{"date":94,"name":"94","size":"94","id":"94"},{"date":95,"name":"95","size":"95","id":"95"},{"date":96,"name":"96","size":"96","id":"96"},{"date":97,"name":"97","size":"97","id":"97"},{"date":98,"name":"98","size":"98","id":"98"},{"date":99,"name":"99","size":"99","id":"99"},{"date":100,"name":"100","size":"100","id":"100"},{"date":101,"name":"101","size":"101","id":"101"},{"date":102,"name":"102","size":"102","id":"102"},{"date":103,"name":"103","size":"103","id":"103"},{"date":104,"name":"104","size":"104","id":"104"},{"date":105,"name":"105","size":"105","id":"105"},{"date":106,"name":"106","size":"106","id":"106"},{"date":107,"name":"107","size":"107","id":"107"},{"date":108,"name":"108","size":"108","id":"108"},{"date":109,"name":"109","size":"109","id":"109"},{"date":110,"name":"110","size":"110","id":"110"},{"date":111,"name":"111","size":"111","id":"111"},{"date":112,"name":"112","size":"112","id":"112"},{"date":113,"name":"113","size":"113","id":"113"},{"date":114,"name":"114","size":"114","id":"114"},{"date":115,"name":"115","size":"115","id":"115"},{"date":116,"name":"116","size":"116","id":"116"},{"date":117,"name":"117","size":"117","id":"117"},{"date":118,"name":"118","size":"118","id":"118"},{"date":119,"name":"119","size":"119","id":"119"},{"date":120,"name":"120","size":"120","id":"120"},{"date":121,"name":"121","size":"121","id":"121"},{"date":122,"name":"122","size":"122","id":"122"},{"date":123,"name":"123","size":"123","id":"123"},{"date":124,"name":"124","size":"124","id":"124"},{"date":125,"name":"125","size":"125","id":"125"},{"date":126,"name":"126","size":"126","id":"126"},{"date":127,"name":"127","size":"127","id":"127"},{"date":128,"name":"128","size":"128","id":"128"},{"date":129,"name":"129","size":"129","id":"129"},{"date":130,"name":"130","size":"130","id":"130"},{"date":131,"name":"131","size":"131","id":"131"},{"date":132,"name":"132","size":"132","id":"132"},{"date":133,"name":"133","size":"133","id":"133"},{"date":134,"name":"134","size":"134","id":"134"},{"date":135,"name":"135","size":"135","id":"135"},{"date":136,"name":"136","size":"136","id":"136"},{"date":137,"name":"137","size":"137","id":"137"},{"date":138,"name":"138","size":"138","id":"138"},{"date":139,"name":"139","size":"139","id":"139"},{"date":140,"name":"140","size":"140","id":"140"},{"date":141,"name":"141","size":"141","id":"141"},{"date":142,"name":"142","size":"142","id":"142"},{"date":143,"name":"143","size":"143","id":"143"},{"date":144,"name":"144","size":"144","id":"144"},{"date":145,"name":"145","size":"145","id":"145"},{"date":146,"name":"146","size":"146","id":"146"},{"date":147,"name":"147","size":"147","id":"147"},{"date":148,"name":"148","size":"148","id":"148"},{"date":149,"name":"149","size":"149","id":"149"},{"date":150,"name":"150","size":"150","id":"150"},{"date":151,"name":"151","size":"151","id":"151"},{"date":152,"name":"152","size":"152","id":"152"},{"date":153,"name":"153","size":"153","id":"153"},{"date":154,"name":"154","size":"154","id":"154"},{"date":155,"name":"155","size":"155","id":"155"},{"date":156,"name":"156","size":"156","id":"156"},{"date":157,"name":"157","size":"157","id":"157"},{"date":158,"name":"158","size":"158","id":"158"},{"date":159,"name":"159","size":"159","id":"159"},{"date":160,"name":"160","size":"160","id":"160"},{"date":161,"name":"161","size":"161","id":"161"},{"date":162,"name":"162","size":"162","id":"162"},{"date":163,"name":"163","size":"163","id":"163"},{"date":164,"name":"164","size":"164","id":"164"},{"date":165,"name":"165","size":"165","id":"165"},{"date":166,"name":"166","size":"166","id":"166"},{"date":167,"name":"167","size":"167","id":"167"},{"date":168,"name":"168","size":"168","id":"168"},{"date":169,"name":"169","size":"169","id":"169"},{"date":170,"name":"170","size":"170","id":"170"},{"date":171,"name":"171","size":"171","id":"171"},{"date":172,"name":"172","size":"172","id":"172"},{"date":173,"name":"173","size":"173","id":"173"},{"date":174,"name":"174","size":"174","id":"174"},{"date":175,"name":"175","size":"175","id":"175"},{"date":176,"name":"176","size":"176","id":"176"},{"date":177,"name":"177","size":"177","id":"177"},{"date":178,"name":"178","size":"178","id":"178"},{"date":179,"name":"179","size":"179","id":"179"},{"date":180,"name":"180","size":"180","id":"180"},{"date":181,"name":"181","size":"181","id":"181"},{"date":182,"name":"182","size":"182","id":"182"},{"date":183,"name":"183","size":"183","id":"183"},{"date":184,"name":"184","size":"184","id":"184"},{"date":185,"name":"185","size":"185","id":"185"},{"date":186,"name":"186","size":"186","id":"186"},{"date":187,"name":"187","size":"187","id":"187"},{"date":188,"name":"188","size":"188","id":"188"},{"date":189,"name":"189","size":"189","id":"189"},{"date":190,"name":"190","size":"190","id":"190"},{"date":191,"name":"191","size":"191","id":"191"},{"date":192,"name":"192","size":"192","id":"192"},{"date":193,"name":"193","size":"193","id":"193"},{"date":194,"name":"194","size":"194","id":"194"},{"date":195,"name":"195","size":"195","id":"195"},{"date":196,"name":"196","size":"196","id":"196"},{"date":197,"name":"197","size":"197","id":"197"},{"date":198,"name":"198","size":"198","id":"198"},{"date":199,"name":"199","size":"199","id":"199"},{"date":200,"name":"200","size":"200","id":"200"},{"date":201,"name":"201","size":"201","id":"201"},{"date":202,"name":"202","size":"202","id":"202"},{"date":203,"name":"203","size":"203","id":"203"},{"date":204,"name":"204","size":"204","id":"204"},{"date":205,"name":"205","size":"205","id":"205"},{"date":206,"name":"206","size":"206","id":"206"},{"date":207,"name":"207","size":"207","id":"207"},{"date":208,"name":"208","size":"208","id":"208"},{"date":209,"name":"209","size":"209","id":"209"},{"date":210,"name":"210","size":"210","id":"210"},{"date":211,"name":"211","size":"211","id":"211"},{"date":212,"name":"212","size":"212","id":"212"},{"date":213,"name":"213","size":"213","id":"213"},{"date":214,"name":"214","size":"214","id":"214"},{"date":215,"name":"215","size":"215","id":"215"},{"date":216,"name":"216","size":"216","id":"216"},{"date":217,"name":"217","size":"217","id":"217"},{"date":218,"name":"218","size":"218","id":"218"},{"date":219,"name":"219","size":"219","id":"219"},{"date":220,"name":"220","size":"220","id":"220"},{"date":221,"name":"221","size":"221","id":"221"},{"date":222,"name":"222","size":"222","id":"222"},{"date":223,"name":"223","size":"223","id":"223"},{"date":224,"name":"224","size":"224","id":"224"},{"date":225,"name":"225","size":"225","id":"225"},{"date":226,"name":"226","size":"226","id":"226"},{"date":227,"name":"227","size":"227","id":"227"},{"date":228,"name":"228","size":"228","id":"228"},{"date":229,"name":"229","size":"229","id":"229"},{"date":230,"name":"230","size":"230","id":"230"},{"date":231,"name":"231","size":"231","id":"231"},{"date":232,"name":"232","size":"232","id":"232"},{"date":233,"name":"233","size":"233","id":"233"},{"date":234,"name":"234","size":"234","id":"234"},{"date":235,"name":"235","size":"235","id":"235"},{"date":236,"name":"236","size":"236","id":"236"},{"date":237,"name":"237","size":"237","id":"237"},{"date":238,"name":"238","size":"238","id":"238"},{"date":239,"name":"239","size":"239","id":"239"},{"date":240,"name":"240","size":"240","id":"240"},{"date":241,"name":"241","size":"241","id":"241"},{"date":242,"name":"242","size":"242","id":"242"},{"date":243,"name":"243","size":"243","id":"243"},{"date":244,"name":"244","size":"244","id":"244"},{"date":245,"name":"245","size":"245","id":"245"},{"date":246,"name":"246","size":"246","id":"246"},{"date":247,"name":"247","size":"247","id":"247"},{"date":248,"name":"248","size":"248","id":"248"},{"date":249,"name":"249","size":"249","id":"249"},{"date":250,"name":"250","size":"250","id":"250"},{"date":251,"name":"251","size":"251","id":"251"},{"date":252,"name":"252","size":"252","id":"252"},{"date":253,"name":"253","size":"253","id":"253"},{"date":254,"name":"254","size":"254","id":"254"},{"date":255,"name":"255","size":"255","id":"255"},{"date":256,"name":"256","size":"256","id":"256"},{"date":257,"name":"257","size":"257","id":"257"},{"date":258,"name":"258","size":"258","id":"258"},{"date":259,"name":"259","size":"259","id":"259"},{"date":260,"name":"260","size":"260","id":"260"},{"date":261,"name":"261","size":"261","id":"261"},{"date":262,"name":"262","size":"262","id":"262"},{"date":263,"name":"263","size":"263","id":"263"},{"date":264,"name":"264","size":"264","id":"264"},{"date":265,"name":"265","size":"265","id":"265"},{"date":266,"name":"266","size":"266","id":"266"},{"date":267,"name":"267","size":"267","id":"267"},{"date":268,"name":"268","size":"268","id":"268"},{"date":269,"name":"269","size":"269","id":"269"},{"date":270,"name":"270","size":"270","id":"270"},{"date":271,"name":"271","size":"271","id":"271"},{"date":272,"name":"272","size":"272","id":"272"},{"date":273,"name":"273","size":"273","id":"273"},{"date":274,"name":"274","size":"274","id":"274"},{"date":275,"name":"275","size":"275","id":"275"},{"date":276,"name":"276","size":"276","id":"276"},{"date":277,"name":"277","size":"277","id":"277"},{"date":278,"name":"278","size":"278","id":"278"},{"date":279,"name":"279","size":"279","id":"279"},{"date":280,"name":"280","size":"280","id":"280"},{"date":281,"name":"281","size":"281","id":"281"},{"date":282,"name":"282","size":"282","id":"282"},{"date":283,"name":"283","size":"283","id":"283"},{"date":284,"name":"284","size":"284","id":"284"},{"date":285,"name":"285","size":"285","id":"285"},{"date":286,"name":"286","size":"286","id":"286"},{"date":287,"name":"287","size":"287","id":"287"},{"date":288,"name":"288","size":"288","id":"288"},{"date":289,"name":"289","size":"289","id":"289"},{"date":290,"name":"290","size":"290","id":"290"},{"date":291,"name":"291","size":"291","id":"291"},{"date":292,"name":"292","size":"292","id":"292"},{"date":293,"name":"293","size":"293","id":"293"},{"date":294,"name":"294","size":"294","id":"294"},{"date":295,"name":"295","size":"295","id":"295"},{"date":296,"name":"296","size":"296","id":"296"},{"date":297,"name":"297","size":"297","id":"297"},{"date":298,"name":"298","size":"298","id":"298"},{"date":299,"name":"299","size":"299","id":"299"}]
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncStrategy] items = [{"date":300,"name":"300","size":"300","id":"300"},{"date":301,"name":"301","size":"301","id":"301"},{"date":302,"name":"302","size":"302","id":"302"},{"date":303,"name":"303","size":"303","id":"303"},{"date":304,"name":"304","size":"304","id":"304"},{"date":305,"name":"305","size":"305","id":"305"},{"date":306,"name":"306","size":"306","id":"306"},{"date":307,"name":"307","size":"307","id":"307"},{"date":308,"name":"308","size":"308","id":"308"},{"date":309,"name":"309","size":"309","id":"309"},{"date":310,"name":"310","size":"310","id":"310"},{"date":311,"name":"311","size":"311","id":"311"},{"date":312,"name":"312","size":"312","id":"312"},{"date":313,"name":"313","size":"313","id":"313"},{"date":314,"name":"314","size":"314","id":"314"},{"date":315,"name":"315","size":"315","id":"315"},{"date":316,"name":"316","size":"316","id":"316"},{"date":317,"name":"317","size":"317","id":"317"},{"date":318,"name":"318","size":"318","id":"318"},{"date":319,"name":"319","size":"319","id":"319"},{"date":320,"name":"320","size":"320","id":"320"},{"date":321,"name":"321","size":"321","id":"321"},{"date":322,"name":"322","size":"322","id":"322"},{"date":323,"name":"323","size":"323","id":"323"},{"date":324,"name":"324","size":"324","id":"324"},{"date":325,"name":"325","size":"325","id":"325"},{"date":326,"name":"326","size":"326","id":"326"},{"date":327,"name":"327","size":"327","id":"327"},{"date":328,"name":"328","size":"328","id":"328"},{"date":329,"name":"329","size":"329","id":"329"},{"date":330,"name":"330","size":"330","id":"330"},{"date":331,"name":"331","size":"331","id":"331"},{"date":332,"name":"332","size":"332","id":"332"},{"date":333,"name":"333","size":"333","id":"333"},{"date":334,"name":"334","size":"334","id":"334"},{"date":335,"name":"335","size":"335","id":"335"},{"date":336,"name":"336","size":"336","id":"336"},{"date":337,"name":"337","size":"337","id":"337"},{"date":338,"name":"338","size":"338","id":"338"},{"date":339,"name":"339","size":"339","id":"339"}]
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncStrategy] The source doesn't accept more items
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Starting download phase with mode: 205
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Performing full download
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] apply new update items to source test
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Updating download anchor to -1
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Starting upload phase with mode: 203
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Uploading items count: 0
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: no more items to send for slow sync
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] End sync for source test
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Starting sync
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Resume is not active
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Resetting mapping
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Begin sync for source 'test' with mode 201
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Resume = false
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Difference in time between server and client is -1393335027552
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Computing changes set for fast sync
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncStrategy] prepareSyncFullDownload
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncStrategy] Adjusting from filter by -1393335027552
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncStrategy] items = [{"date":0,"name":"0","size":"0","datecreated":100,"id":"0"},{"date":1,"name":"1","size":"1","datecreated":100,"id":"1"},{"date":2,"name":"2","size":"2","datecreated":100,"id":"2"},{"date":3,"name":"3","size":"3","datecreated":100,"id":"3"},{"date":4,"name":"4","size":"4","datecreated":100,"id":"4"},{"date":5,"name":"5","size":"5","datecreated":100,"id":"5"},{"date":6,"name":"6","size":"6","datecreated":100,"id":"6"},{"date":7,"name":"7","size":"7","datecreated":100,"id":"7"},{"date":8,"name":"8","size":"8","datecreated":100,"id":"8"},{"date":9,"name":"9","size":"9","datecreated":100,"id":"9"}]
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Starting download phase with mode: 205
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Performing full download
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] apply new update items to source test
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Updating download anchor to -1
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Starting upload phase with mode: 203
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Uploading items count: 0
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: no more items to send for slow sync
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] End sync for source test
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManagerTwinTest] testTwinDetection start
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Starting sync
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Resume is not active
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Resetting mapping
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Begin sync for source 'test' with mode 201
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Resume = false
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiSyncManager] Difference in time between server and client is -1393335027559
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Computing changes set for fast sync
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncStrategy] prepareSyncFullDownload
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncStrategy] items = [{"size":"1230","id":"Twin0"},{"size":"1230","id":"Twin1"},{"size":"1230","id":"Twin2"},{"size":"1230","id":"Twin3"},{"size":"1230","id":"Twin4"},{"size":"1230","id":"Twin5"},{"size":"1230","id":"Twin6"},{"size":"1230","id":"Twin7"},{"size":"1230","id":"Twin8"},{"size":"1230","id":"Twin9"},{"size":"1230","id":"Twin10"},{"size":"1230","id":"Twin11"},{"size":"1230","id":"Twin12"},{"size":"1230","id":"Twin13"},{"size":"1230","id":"Twin14"},{"size":"1230","id":"Twin15"},{"size":"1230","id":"Twin16"},{"size":"1230","id":"Twin17"},{"size":"1230","id":"Twin18"},{"size":"1230","id":"Twin19"}]
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Found a twin for incoming command, ignoring it Twin0
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Found a twin for incoming command, ignoring it Twin1
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Found a twin for incoming command, ignoring it Twin2
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Found a twin for incoming command, ignoring it Twin3
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Found a twin for incoming command, ignoring it Twin4
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Found a twin for incoming command, ignoring it Twin5
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Found a twin for incoming command, ignoring it Twin6
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Found a twin for incoming command, ignoring it Twin7
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Found a twin for incoming command, ignoring it Twin8
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Found a twin for incoming command, ignoring it Twin9
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Found a twin for incoming command, ignoring it Twin10
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Found a twin for incoming command, ignoring it Twin11
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Found a twin for incoming command, ignoring it Twin12
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Found a twin for incoming command, ignoring it Twin13
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Found a twin for incoming command, ignoring it Twin14
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Found a twin for incoming command, ignoring it Twin15
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Found a twin for incoming command, ignoring it Twin16
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Found a twin for incoming command, ignoring it Twin17
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Found a twin for incoming command, ignoring it Twin18
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncStrategy] Found a twin for incoming command, ignoring it Twin19
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Starting download phase with mode: 205
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiSyncManager] Performing full download
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Updating download anchor to -1
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Starting upload phase with mode: 203
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Uploading items count: 30
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin0
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Exclude twin item to be uploaded: Twin0
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin1
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Exclude twin item to be uploaded: Twin1
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin2
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Exclude twin item to be uploaded: Twin2
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin3
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Exclude twin item to be uploaded: Twin3
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin4
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Exclude twin item to be uploaded: Twin4
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin5
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Exclude twin item to be uploaded: Twin5
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin6
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Exclude twin item to be uploaded: Twin6
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin7
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Exclude twin item to be uploaded: Twin7
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin8
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Exclude twin item to be uploaded: Twin8
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin9
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Exclude twin item to be uploaded: Twin9
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin10
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Exclude twin item to be uploaded: Twin10
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin11
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Exclude twin item to be uploaded: Twin11
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin12
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Exclude twin item to be uploaded: Twin12
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin13
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Exclude twin item to be uploaded: Twin13
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin14
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Exclude twin item to be uploaded: Twin14
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin15
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Exclude twin item to be uploaded: Twin15
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin16
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Exclude twin item to be uploaded: Twin16
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin17
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Exclude twin item to be uploaded: Twin17
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin18
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Exclude twin item to be uploaded: Twin18
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin19
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManager] Exclude twin item to be uploaded: Twin19
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin20
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin21
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin22
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin23
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin24
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin25
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin26
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin27
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin28
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin29
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin30
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin31
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin32
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin33
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin34
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin35
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin36
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin37
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin38
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin39
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin40
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin41
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin42
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin43
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin44
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin45
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin46
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin47
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin48
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: sending item Twin49
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] Source test: no more items to send for slow sync
+Tue Feb 25 21:30:27 CST 2014 [INFO] [BaseSyncSource] End sync for source test
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiSyncManagerTwinTest] testTwinDetection end
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiHandlerTest] url=http://my.funambol.com:9090/sapi/mobile?action=signup&login=test&password=test
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiHandlerTest] url=http://my.funambol.com:9090/sapi/mobile?action=signup
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiHandler] Requesting url: http://my.funambol.com:9090/sapi/mobile?action=signup
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiHandler] Setting content length to 0
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiHandler] Setting auth header to: Basic dGVzdDp0ZXN0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiHandler] Response code is: 200
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiHandler] response length is known 38
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiHandler] response is:{"data":{ "user":{ "active":true } } }
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiHandlerTest] url=http://my.funambol.com:9090/sapi/mobile?action=signup&login=test+%26%24&password=test+%26%24
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiHandlerTest] testSapi1
+Tue Feb 25 21:30:27 CST 2014 [INFO] [SapiHandler] Requesting url: http://my.funambol.com:9090/sapi/mobile?action=signup&login=test&password=test
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiHandler] Setting content type to: application/octet-stream
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [SapiHandler] Setting content length to 49
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiHandler] Response code is: 200
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiHandler] response length is known 38
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [SapiHandler] response is:{"data":{ "user":{ "active":true } } }
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] begin
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTrackerWithRenames] setItemStatus old.txt,0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] isSuccess 0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] setItemStatus old.txt,0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] isSuccess 0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] computeFingerprint
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] status set for item: old.txt
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] end
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] begin
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] Computing fingerprint for new.txt
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] computeFingerprint
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] Fingerprint is: mJLtEkduXOnio14Gggb96A==
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] Found a new item with key: new.txt
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] Found a deleted item with key: old.txt
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [CacheTrackerWithRenames] Checking renames
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] computeFingerprint
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTrackerWithRenames] Comparing added/deleted fingerprint for new.txt and old.txt whose fingerprint are mJLtEkduXOnio14Gggb96A== and mJLtEkduXOnio14Gggb96A==
+Tue Feb 25 21:30:27 CST 2014 [INFO] [CacheTrackerWithRenames] Found a renamed item. Was old.txt and now is new.txt
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] getUpdatedItems
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTrackerWithRenames] setItemStatus new.txt,0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] isSuccess 0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] computeFingerprint
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] end
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] begin
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTrackerWithRenames] setItemStatus old.txt,0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] isSuccess 0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] setItemStatus old.txt,0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] isSuccess 0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] computeFingerprint
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] status set for item: old.txt
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] end
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] begin
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] Computing fingerprint for new.txt
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] computeFingerprint
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] Fingerprint is: A1y4v4/Sy3P2M8MOu993Qg==
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] Found a new item with key: new.txt
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] Found a deleted item with key: old.txt
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [CacheTrackerWithRenames] Checking renames
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] computeFingerprint
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTrackerWithRenames] Comparing added/deleted fingerprint for new.txt and old.txt whose fingerprint are A1y4v4/Sy3P2M8MOu993Qg== and mJLtEkduXOnio14Gggb96A==
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTrackerWithRenames] setItemStatus new.txt,0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] isSuccess 0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] setItemStatus new.txt,0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] isSuccess 0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] isSuccess 0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] status set for item: new.txt
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTrackerWithRenames] setItemStatus old.txt,0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] isSuccess 0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] setItemStatus old.txt,0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] isSuccess 0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] isSuccess 0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] status set for item: old.txt
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] end
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] begin
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTrackerWithRenames] setItemStatus old.txt,0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] isSuccess 0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] setItemStatus old.txt,0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] isSuccess 0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] computeFingerprint
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] status set for item: old.txt
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] end
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] begin
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [CacheTrackerWithRenames] Checking renames
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] end
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] begin
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTrackerWithRenames] setItemStatus old.txt,0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] isSuccess 0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] setItemStatus old.txt,0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] isSuccess 0
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] computeFingerprint
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] status set for item: old.txt
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] end
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] Computing fingerprint for new.txt
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] computeFingerprint
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] Fingerprint is: mJLtEkduXOnio14Gggb96A==
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] Computing fingerprint for old.txt
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] computeFingerprint
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] Fingerprint is: mJLtEkduXOnio14Gggb96A==
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] begin
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] Computing fingerprint for new.txt
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] computeFingerprint
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] Fingerprint is: mJLtEkduXOnio14Gggb96A==
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] Computing fingerprint for old.txt
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] computeFingerprint
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] Fingerprint is: mJLtEkduXOnio14Gggb96A==
+Tue Feb 25 21:30:27 CST 2014 [DEBUG] [CacheTrackerWithRenames] Checking renames
+Tue Feb 25 21:30:27 CST 2014 [TRACE] [CacheTracker] end
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

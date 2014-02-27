@@ -1,0 +1,112 @@
+Testsuite: FunTestSuite
+Tests run: 54, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.176 sec
+------------- Standard Output ---------------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [INITLOG] ---------
+Tue Feb 25 19:13:50 CST 2014 [DEBUG] Size: 15
+Sav file not found or not accessible
+LOG MESSAGE level: 0
+LOG MESSAGE level: 1
+LOG MESSAGE level: 2
+LOG MESSAGE level: 3
+Sav file not found or not accessible
+credentials in byte: 786b735a7a766d316b4f7041386f63645842623654673d3d
+Expected: (hex) 786b735a7a766d316b4f7041386f63645842623654673d3d
+Expected: xksZzvm1kOpA8ocdXBb6Tg==
+Actual: xksZzvm1kOpA8ocdXBb6Tg==
+------------- ---------------- ---------------
+
+Testcase: testConstructor took 0.003 sec
+Testcase: testClose took 0 sec
+Testcase: testCreateExistsDelete took 0.001 sec
+Testcase: testOpenOutputStream took 0.002 sec
+Testcase: testGetSize took 0.001 sec
+Testcase: testOpenInputStream took 0 sec
+Testcase: testMkdir took 0.001 sec
+Testcase: testGetName took 0 sec
+Testcase: testModified took 0 sec
+Testcase: testPutGet took 0.001 sec
+Testcase: testSaveLoad took 0.001 sec
+Testcase: testKeys took 0 sec
+Testcase: testContains took 0 sec
+Testcase: testRemove took 0 sec
+Testcase: testRemove2 took 0.001 sec
+Testcase: testUpdate1 took 0 sec
+Testcase: testUpdate2 took 0.001 sec
+Testcase: testReset1 took 0.001 sec
+Testcase: testExtractAddressFromUrl took 0.001 sec
+Testcase: testParseDateTime took 0.001 sec
+Testcase: testParseDateTime2 took 0 sec
+Testcase: testParseDateTime3 took 0 sec
+Testcase: testRound took 0.01 sec
+Testcase: testWriteLog took 0.008 sec
+Testcase: testGetLogContent took 0.002 sec
+Testcase: testExtractDigestProperty took 0.002 sec
+Testcase: testGenerateAuthResponseString took 0.002 sec
+Testcase: testCalculateResponse took 0 sec
+Testcase: testCalculateHa1 took 0 sec
+Testcase: testCalculateHa2 took 0.001 sec
+Testcase: testInitLog took 0.002 sec
+Testcase: testSetLogLevel took 0 sec
+Testcase: testLogErrorContext took 0 sec
+Testcase: testLogErrorContext2 took 0.06 sec
+Testcase: testIsLoggable took 0 sec
+Testcase: testAuth took 0.002 sec
+Testcase: testMD5 took 0 sec
+Testcase: testReplaceAll took 0 sec
+Testcase: testReplaceAll2 took 0 sec
+Testcase: testExtractAddressFromUrl took 0 sec
+Testcase: testExtractAddress took 0 sec
+Testcase: testIsNullOrEmpty took 0 sec
+Testcase: testTrim took 0 sec
+Testcase: testGetBooleanValue took 0 sec
+Testcase: testEqualsIgnoreCase took 0 sec
+Testcase: testRemoveBackslashes took 0 sec
+Testcase: testRemoveBlanks took 0 sec
+Testcase: testSplit took 0.001 sec
+Testcase: testGetVectorFromArray took 0 sec
+Testcase: testRemovePortFromUrl took 0 sec
+Testcase: testRemoveProtocolFromUrl took 0 sec
+Testcase: testGetProtocolFromUrl took 0 sec
+Testcase: testEndsWithIgnoreCase took 0.001 sec
+Testcase: testLastIndexOf took 0 sec

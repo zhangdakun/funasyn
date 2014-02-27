@@ -1,0 +1,62 @@
+import junit.framework.*;
+
+public class FunTestSuite extends TestSuite {
+    public static Test suite() {
+        FunTestSuite suite = new FunTestSuite();
+        suite.addTest(new com.funambol.platform.FileAdapterTest("testConstructor"));
+        suite.addTest(new com.funambol.platform.FileAdapterTest("testClose"));
+        suite.addTest(new com.funambol.platform.FileAdapterTest("testCreateExistsDelete"));
+        suite.addTest(new com.funambol.platform.FileAdapterTest("testOpenOutputStream"));
+        suite.addTest(new com.funambol.platform.FileAdapterTest("testGetSize"));
+        suite.addTest(new com.funambol.platform.FileAdapterTest("testOpenInputStream"));
+        suite.addTest(new com.funambol.platform.FileAdapterTest("testMkdir"));
+        suite.addTest(new com.funambol.platform.FileAdapterTest("testGetName"));
+        suite.addTest(new com.funambol.platform.FileAdapterTest("testModified"));
+        suite.addTest(new com.funambol.storage.StringKeyValueFileStoreTest("testPutGet"));
+        suite.addTest(new com.funambol.storage.StringKeyValueFileStoreTest("testSaveLoad"));
+        suite.addTest(new com.funambol.storage.StringKeyValueFileStoreTest("testKeys"));
+        suite.addTest(new com.funambol.storage.StringKeyValueFileStoreTest("testContains"));
+        suite.addTest(new com.funambol.storage.StringKeyValueFileStoreTest("testRemove"));
+        suite.addTest(new com.funambol.storage.StringKeyValueFileStoreTest("testRemove2"));
+        suite.addTest(new com.funambol.storage.StringKeyValueFileStoreTest("testUpdate1"));
+        suite.addTest(new com.funambol.storage.StringKeyValueFileStoreTest("testUpdate2"));
+        suite.addTest(new com.funambol.storage.StringKeyValueFileStoreTest("testReset1"));
+        suite.addTest(new com.funambol.util.DateUtilTest("testExtractAddressFromUrl"));
+        suite.addTest(new com.funambol.util.DateUtilTest("testParseDateTime"));
+        suite.addTest(new com.funambol.util.DateUtilTest("testParseDateTime2"));
+        suite.addTest(new com.funambol.util.DateUtilTest("testParseDateTime3"));
+        suite.addTest(new com.funambol.util.DateUtilTest("testRound"));
+        suite.addTest(new com.funambol.util.FileAppenderTest("testWriteLog"));
+        suite.addTest(new com.funambol.util.FileAppenderTest("testGetLogContent"));
+        suite.addTest(new com.funambol.util.HttpDigestAuthenticationTest("testExtractDigestProperty"));
+        suite.addTest(new com.funambol.util.HttpDigestAuthenticationTest("testGenerateAuthResponseString"));
+        suite.addTest(new com.funambol.util.HttpDigestAuthenticationTest("testCalculateResponse"));
+        suite.addTest(new com.funambol.util.HttpDigestAuthenticationTest("testCalculateHa1"));
+        suite.addTest(new com.funambol.util.HttpDigestAuthenticationTest("testCalculateHa2"));
+        suite.addTest(new com.funambol.util.LogTest("testInitLog"));
+        suite.addTest(new com.funambol.util.LogTest("testSetLogLevel"));
+        suite.addTest(new com.funambol.util.LogTest("testLogErrorContext"));
+        suite.addTest(new com.funambol.util.LogTest("testLogErrorContext2"));
+        suite.addTest(new com.funambol.util.LogTest("testIsLoggable"));
+        suite.addTest(new com.funambol.util.MD5Test("testAuth"));
+        suite.addTest(new com.funambol.util.MD5Test("testMD5"));
+        suite.addTest(new com.funambol.util.StringUtilTest("testReplaceAll"));
+        suite.addTest(new com.funambol.util.StringUtilTest("testReplaceAll2"));
+        suite.addTest(new com.funambol.util.StringUtilTest("testExtractAddressFromUrl"));
+        suite.addTest(new com.funambol.util.StringUtilTest("testExtractAddress"));
+        suite.addTest(new com.funambol.util.StringUtilTest("testIsNullOrEmpty"));
+        suite.addTest(new com.funambol.util.StringUtilTest("testTrim"));
+        suite.addTest(new com.funambol.util.StringUtilTest("testGetBooleanValue"));
+        suite.addTest(new com.funambol.util.StringUtilTest("testEqualsIgnoreCase"));
+        suite.addTest(new com.funambol.util.StringUtilTest("testRemoveBackslashes"));
+        suite.addTest(new com.funambol.util.StringUtilTest("testRemoveBlanks"));
+        suite.addTest(new com.funambol.util.StringUtilTest("testSplit"));
+        suite.addTest(new com.funambol.util.StringUtilTest("testGetVectorFromArray"));
+        suite.addTest(new com.funambol.util.StringUtilTest("testRemovePortFromUrl"));
+        suite.addTest(new com.funambol.util.StringUtilTest("testRemoveProtocolFromUrl"));
+        suite.addTest(new com.funambol.util.StringUtilTest("testGetProtocolFromUrl"));
+        suite.addTest(new com.funambol.util.StringUtilTest("testEndsWithIgnoreCase"));
+        suite.addTest(new com.funambol.util.StringUtilTest("testLastIndexOf"));
+        return suite;
+    }
+}
