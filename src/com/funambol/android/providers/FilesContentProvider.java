@@ -55,7 +55,7 @@ import android.provider.MediaStore.MediaColumns;
  */
 public class FilesContentProvider extends ContentProvider {
 
-    public static final Uri CONTENT_URI  = Uri.parse("content://com.funambol.files");
+    public static final Uri CONTENT_URI  = Uri.parse("content://com.eben.files");
 
     /* (non-Javadoc)
      * @see android.content.ContentProvider#delete(android.net.Uri, java.lang.String, java.lang.String[])

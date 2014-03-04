@@ -124,26 +124,28 @@ public class FunambolAccountsAuthenticator extends Service {
                             + "com.funambol.android.UnitTestAuthenticator");
                 }
             }
-            if(customization.getMobileSignupEnabled() &&
-                    !controller.getConfiguration().getSignupAccountCreated()) {
-                return AndroidSignupScreen.class;
-            } else {
-                String accountScreenClassName = customization.getLoginScreenClassName();
-                Class accountScreenClass = null;
-                try {
-                    accountScreenClass = Class.forName(accountScreenClassName);
-                    if (Log.isLoggable(Log.TRACE)) {
-                        Log.trace(TAG, "accountScreenClass = " + accountScreenClass);
-                    }
-                } catch (Exception e) {
-                    Log.error(TAG, "Cannot find account screen class " + accountScreenClassName);
-                }
-                // In case of error we revert to the standard one
-                if (accountScreenClass == null) {
-                    accountScreenClass = AndroidLoginScreen.class;
-                }
-                return accountScreenClass;
-            }
+            
+            return AndroidLoginScreen.class;
+//            if(customization.getMobileSignupEnabled() &&
+//                    !controller.getConfiguration().getSignupAccountCreated()) {
+//                return AndroidSignupScreen.class;
+//            } else {
+//                String accountScreenClassName = customization.getLoginScreenClassName();
+//                Class accountScreenClass = null;
+//                try {
+//                    accountScreenClass = Class.forName(accountScreenClassName);
+//                    if (Log.isLoggable(Log.TRACE)) {
+//                        Log.trace(TAG, "accountScreenClass = " + accountScreenClass);
+//                    }
+//                } catch (Exception e) {
+//                    Log.error(TAG, "Cannot find account screen class " + accountScreenClassName);
+//                }
+//                // In case of error we revert to the standard one
+//                if (accountScreenClass == null) {
+//                    accountScreenClass = AndroidLoginScreen.class;
+//                }
+//                return accountScreenClass;
+//            }
         }
 
         @Override

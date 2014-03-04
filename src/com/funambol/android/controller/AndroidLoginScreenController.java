@@ -139,22 +139,24 @@ public class AndroidLoginScreenController extends AccountScreenController {
     }
 
     public void login() {
-        if(hasChanges() && AndroidAccountManager.getNativeAccount(
-                (Activity)screen.getUiScreen()) != null) {
-            ((Activity)screen.getUiScreen()).runOnUiThread(new AlertUIThread(
-                    localization.getLanguage("alert_contacts_reset"),
-                    new Runnable() {
-                        public void run() {
-                            saveAndCheck();
-                        }
-                    },
-                    new Runnable() {
-                        public void run() {
-                        }
-                    }));
-        } else {
-            saveAndCheck();
-        }
+//        if(hasChanges() && AndroidAccountManager.getNativeAccount(
+//                (Activity)screen.getUiScreen()) != null) {
+//            ((Activity)screen.getUiScreen()).runOnUiThread(new AlertUIThread(
+//                    localization.getLanguage("alert_contacts_reset"),
+//                    new Runnable() {
+//                        public void run() {
+//                            saveAndCheck();
+//                        }
+//                    },
+//                    new Runnable() {
+//                        public void run() {
+//                        }
+//                    }));
+//        } else {
+//            saveAndCheck();
+//        }
+    	
+    	saveAndCheck();
     }
 
     public boolean hasChanges() {

@@ -150,7 +150,7 @@ public class AndroidCustomization implements Customization {
     private final int  DEFAULT_POLLING_INTERVAL = POLLING_PIM_INTERVAL_CHOICES[1];
 
     // Specifies if the sync url is editable in both the login and setting screens
-    private final boolean SYNC_URI_EDITABLE = true;
+    private final boolean SYNC_URI_EDITABLE = false;
     
     // This is the account screen class name. It can be customized for versions
     // with a different account screen implementation

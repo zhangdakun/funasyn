@@ -158,11 +158,11 @@ public class AndroidLoginScreen extends AccountAuthenticatorActivity
         gc.setLoginScreenController(controller);
 
         // Remove the login footer if an account was already created
-        if(gc.getConfiguration().getSignupAccountCreated()
-                || !customization.getMobileSignupEnabled()) {
-            ViewGroup mainView = (ViewGroup)findViewById(R.id.signup_main_view);
-            mainView.removeView(mainView.findViewById(R.id.login_footer));
-        }
+//        if(gc.getConfiguration().getSignupAccountCreated()
+//                || !customization.getMobileSignupEnabled()) {
+//            ViewGroup mainView = (ViewGroup)findViewById(R.id.signup_main_view);
+//            mainView.removeView(mainView.findViewById(R.id.login_footer));
+//        }
 
         // Check if there's any extras parameter containing the actual credentials
         Intent intent = getIntent();

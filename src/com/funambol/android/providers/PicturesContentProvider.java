@@ -49,7 +49,7 @@ public class PicturesContentProvider extends MediaContentProvider {
 
     private static final String TAG_LOG = "PicturesContentProvider";
 
-    private static final String CONTENT_URI_STRING = "content://com.funambol.images";
+    private static final String CONTENT_URI_STRING = "content://com.eben.images";
     private static final String EXTERNAL_URI_STRING = CONTENT_URI_STRING + EXTERNAL_CONTENT_URI_STRING;
     private static final String INTERNAL_URI_STRING = CONTENT_URI_STRING + INTERNAL_CONTENT_URI_STRING;
 

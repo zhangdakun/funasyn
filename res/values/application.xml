@@ -35,9 +35,9 @@
  -->
 
 <resources>
-    <string name="app_name">Funambol Sync</string>
-    <string name="company_name">Funambol Inc.</string>
-    <string name="account_label">Funambol</string>
-    <string name="account_type">com.funambol</string>
-    <string name="calendar_name">Funambol</string>
+    <string name="app_name">E本通讯录同步</string>
+    <string name="company_name">eben Inc.</string>
+    <string name="account_label">eben</string>
+    <string name="account_type">eben</string>
+    <string name="calendar_name">eben</string>
 </resources>

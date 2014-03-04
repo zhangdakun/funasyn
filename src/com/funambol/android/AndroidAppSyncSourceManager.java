@@ -54,6 +54,7 @@ import com.funambol.android.source.pim.contact.ContactExternalAppManager;
 import com.funambol.android.source.pim.contact.ContactAppSyncSourceConfig;
 import com.funambol.android.source.pim.contact.ContactAppSyncSource;
 import com.funambol.android.source.pim.contact.ContactSettingsUISyncSource;
+import com.funambol.android.source.pim.contact.DirtyChangesTrackerMd5;
 import com.funambol.android.source.pim.calendar.CalendarSyncSource;
 import com.funambol.android.source.pim.calendar.EventSyncSource;
 import com.funambol.android.source.pim.calendar.CalendarManager;
@@ -315,7 +316,15 @@ public class AndroidAppSyncSourceManager extends AppSyncSourceManager {
                 asc.save();
             }
 
-            ChangesTracker tracker = new DirtyChangesTracker(context, cm);
+//            ChangesTracker tracker = new DirtyChangesTracker(context, cm);
+            DirtyChangesTrackerMd5 tracker = new DirtyChangesTrackerMd5(context, cm);
+            
+            // Create the sync source
+            StringKeyValueSQLiteStore trackerStore =
+                    new StringKeyValueSQLiteStore(context,
+                    ((AndroidCustomization)customization).getFunambolSQLiteDbName(),
+                    sc.getName());
+            tracker.setStatus(trackerStore);
 
             ContactSyncSource src = new ContactSyncSource(sc, tracker, context,
                     configuration, appSyncSource, cm);

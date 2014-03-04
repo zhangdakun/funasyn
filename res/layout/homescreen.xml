@@ -49,7 +49,7 @@
                 android:padding="6dip"
                 android:layout_weight="1.0">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
                       android:id="@+id/buttons"
                       android:orientation="vertical"
                       android:layout_width="fill_parent"
@@ -58,7 +58,7 @@
         </LinearLayout>
     </ScrollView> 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    <LinearLayout  
                   android:id="@+id/homeScreenButtonBar"
                   android:layout_width="fill_parent"
                   android:layout_height="wrap_content"

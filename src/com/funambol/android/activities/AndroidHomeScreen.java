@@ -266,13 +266,13 @@ public class AndroidHomeScreen extends Activity implements HomeScreen, UISyncSou
             syncItemText = localization.getLanguage("menu_sync");
         }
 
-        MenuItem settingsItem = menu.add(0, SETTINGS_ID, Menu.NONE, localization.getLanguage("menu_settings"));
-        settingsItem.setIcon(android.R.drawable.ic_menu_preferences);
+//        MenuItem settingsItem = menu.add(0, SETTINGS_ID, Menu.NONE, localization.getLanguage("menu_settings"));
+//        settingsItem.setIcon(android.R.drawable.ic_menu_preferences);
         MenuItem logoutItem = menu.add(0, LOGOUT_ID, Menu.NONE, localization.getLanguage("menu_logout"));
         logoutItem.setIcon(R.drawable.ic_menu_logout);
-        MenuItem aboutItem = menu.add(0, ABOUT_ID, Menu.NONE, localization.getLanguage("menu_about"));
-        aboutItem.setShortcut('0', 'A');
-        aboutItem.setIcon(android.R.drawable.ic_menu_info_details);
+//        MenuItem aboutItem = menu.add(0, ABOUT_ID, Menu.NONE, localization.getLanguage("menu_about"));
+//        aboutItem.setShortcut('0', 'A');
+//        aboutItem.setIcon(android.R.drawable.ic_menu_info_details);
 
         // This code is here only for the test recording build
         if (BuildInfo.TEST_RECORDING_ENABLED) {
@@ -543,6 +543,7 @@ public class AndroidHomeScreen extends Activity implements HomeScreen, UISyncSou
             if (Log.isLoggable(Log.DEBUG)) {
                 Log.debug(TAG, "Clicked on the alone source");
             }
+            if(!homeScreenController.isSynchronizing())
             homeScreenController.aloneSourcePressed();
         }
     }

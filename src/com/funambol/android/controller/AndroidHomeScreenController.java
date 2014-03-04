@@ -334,7 +334,12 @@ public class AndroidHomeScreenController extends HomeScreenController {
             showSyncInProgressMessage();
             return;
         }
+        
         configuration.setCredentialsCheckPending(true);
+        
+        configuration.setUsername("");
+        configuration.setPassword("");
+        
         configuration.save();
         try {
             controller.getDisplayManager().showScreen(screen, Controller.LOGIN_SCREEN_ID);

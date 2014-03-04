@@ -109,8 +109,11 @@
                                 android:singleLine="true"/>
                         </TableRow>
                         
-                        <TableRow android:paddingTop="3dip"
-                            android:id="@+id/account_sync_url_row">
+                        <TableRow
+                            android:id="@+id/account_sync_url_row"
+                            android:paddingTop="3dip"
+                            android:visibility="gone" >
+
                             <TextView android:text="@string/sync_url_label" 
                                 style="@style/funambol_standard_text" 
                                 android:textStyle="bold"/>
@@ -146,14 +149,16 @@
                                    android:layout_gravity="center_horizontal"
                                    android:background="@drawable/signup_divider"/>
                                
-                <LinearLayout android:id="@+id/buttons_bar" 
+                <LinearLayout
+                    android:id="@+id/buttons_bar"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:paddingRight="4dip"
-                    android:paddingLeft="4dip"
-                    android:paddingTop="5dip"
+                    android:gravity="right"
                     android:paddingBottom="1dip"
-                    android:gravity="right">
+                    android:paddingLeft="4dip"
+                    android:paddingRight="4dip"
+                    android:paddingTop="5dip"
+                    android:visibility="gone" >
 
                     <TextView android:text="@string/login_signup_label" 
                             style="@style/funambol_standard_text" 

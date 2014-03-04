@@ -347,7 +347,8 @@ public abstract class ContactManager extends AbstractDataManager<Contact> {
     @Override
     public Enumeration getAllKeys() throws IOException {
 
-        Cursor peopleCur = getContactsCursor();
+//        Cursor peopleCur = getContactsCursor();
+        Cursor peopleCur = getAllContactsCursor();
 
         try {
             int contactListSize = peopleCur.getCount();
@@ -2282,6 +2283,21 @@ public abstract class ContactManager extends AbstractDataManager<Contact> {
     /**
      * @return
      */
+    protected Cursor getAllContactsCursor() {
+        String cols[] = {ContactsContract.RawContacts._ID};
+        StringBuffer whereClause = new StringBuffer();
+//        if (accountName != null) {
+//            whereClause.append(ContactsContract.RawContacts.ACCOUNT_NAME).append("='").append(accountName).append("'");
+//            whereClause.append(" AND ");
+//            whereClause.append(ContactsContract.RawContacts.ACCOUNT_TYPE).append("='").append(accountType).append("'");
+//            whereClause.append(" AND ");
+//        }
+//        whereClause.append(ContactsContract.RawContacts.DELETED).append("=").append("0");
+        Cursor peopleCur = resolver.query(ContactsContract.RawContacts.CONTENT_URI,
+                cols, null, null, null);
+        return peopleCur;
+    }
+    
     protected Cursor getContactsCursor() {
         String cols[] = {ContactsContract.RawContacts._ID};
         StringBuffer whereClause = new StringBuffer();

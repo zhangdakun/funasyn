@@ -34,7 +34,7 @@
  * the words "Powered by Funambol". 
  -->
 <account-authenticator xmlns:android="http://schemas.android.com/apk/res/android"
-    android:accountType="com.funambol"
+    android:accountType="eben"
     android:icon="@drawable/logo"
     android:smallIcon="@drawable/logo"
     android:label="@string/account_label" />
