@@ -53,7 +53,7 @@ import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
 
 import com.funambol.android.AndroidCustomization;
-import com.funambol.androidsync.R;
+import com.eben.androidsync.R;
 import com.funambol.android.source.AbstractDataManager;
 
 import com.funambol.common.pim.model.common.Property;
@@ -508,12 +508,14 @@ public abstract class ContactManager extends AbstractDataManager<Contact> {
 
         // Move to first element
         if (!allFields.moveToFirst()) {
-            if(!exists("" + id)) {
-                throw new IOException("Cannot find person " + id);
-            } else {
+//            if(!exists("" + id)) {
+//                throw new IOException("Cannot find person " + id);
+//            } else {
                 // The contact exists but there is nothing to load
+        	
+        		Log.error(TAG_LOG, "error ,not found id ,"+id);
                 return;
-            }
+//            }
         }
 
         loadFromCursor(contact, allFields, fieldsMap);
@@ -539,7 +541,7 @@ public abstract class ContactManager extends AbstractDataManager<Contact> {
                 } else if (CommonDataKinds.Email.CONTENT_ITEM_TYPE.equals(mimeType)) {
                     loadEmailField(contact, cur, fieldsMap);
                 } else if (CommonDataKinds.Photo.CONTENT_ITEM_TYPE.equals(mimeType)) {
-                    loadPhotoField(contact, cur, fieldsMap);
+//                    loadPhotoField(contact, cur, fieldsMap);
                 } else if (CommonDataKinds.Organization.CONTENT_ITEM_TYPE.equals(mimeType)) {
                     loadOrganizationField(contact, cur, fieldsMap);
                 } else if (CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE.equals(mimeType)) {

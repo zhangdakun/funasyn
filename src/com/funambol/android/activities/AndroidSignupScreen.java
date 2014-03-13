@@ -62,7 +62,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.funambol.android.App;
-import com.funambol.androidsync.R;
+import com.eben.androidsync.R;
 import com.funambol.android.AndroidAppSyncSourceManager;
 import com.funambol.android.AppInitializer;
 import com.funambol.android.controller.AndroidController;
@@ -134,16 +134,16 @@ public class AndroidSignupScreen extends AccountAuthenticatorActivity
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
-        Account account = AndroidController.getNativeAccount();
+//        Account account = AndroidController.getNativeAccount();
 
         // Check if a Funambol account already exists
-        if(account != null) {
-            String label = getString(R.string.alert_one_account_supported_1) + " " +
-                           getString(R.string.account_label) + " " +
-                           getString(R.string.alert_one_account_supported_2);
-            Toast.makeText(this, label, Toast.LENGTH_LONG).show();
-            finish();
-        }
+//        if(account != null) {
+//            String label = getString(R.string.alert_one_account_supported_1) + " " +
+//                           getString(R.string.account_label) + " " +
+//                           getString(R.string.alert_one_account_supported_2);
+//            Toast.makeText(this, label, Toast.LENGTH_LONG).show();
+//            finish();
+//        }
 
         if(!AndroidController.isInitialized()) {
             AppInitializer initializer = App.i().getAppInitializer();

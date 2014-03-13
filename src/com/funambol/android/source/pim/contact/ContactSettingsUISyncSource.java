@@ -38,7 +38,7 @@ package com.funambol.android.source.pim.contact;
 import android.widget.LinearLayout;
 import android.app.Activity;
 
-import com.funambol.androidsync.R;
+import com.eben.androidsync.R;
 import com.funambol.android.activities.settings.AndroidSettingsUISyncSource;
 import com.funambol.android.activities.settings.TwoLinesCheckBox;
 import com.funambol.client.configuration.Configuration;

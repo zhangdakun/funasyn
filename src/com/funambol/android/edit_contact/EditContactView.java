@@ -53,7 +53,7 @@
 
 package com.funambol.android.edit_contact;
 
-import com.funambol.androidsync.R;
+import com.eben.androidsync.R;
 import com.funambol.android.edit_contact.ContactDataStructure.ContactData;
 
 import android.content.Context;

@@ -51,7 +51,7 @@ import android.widget.Toast;
 import com.funambol.android.AndroidAppSyncSourceManager;
 
 import com.funambol.android.App;
-import com.funambol.androidsync.R;
+import com.eben.androidsync.R;
 import com.funambol.android.AppInitializer;
 import com.funambol.android.controller.AndroidController;
 import com.funambol.android.controller.AndroidLoginScreenController;
@@ -105,18 +105,18 @@ public class AndroidLoginScreen extends AccountAuthenticatorActivity
             initializer.initController();
         }
         
-        Account account = AndroidController.getNativeAccount();
+//        Account account = AndroidController.getNativeAccount();
         AndroidController gc = AndroidController.getInstance();
         Configuration configuration = gc.getConfiguration();
 
         // Check if a Funambol account already exists
-        if(account != null && !configuration.getCredentialsCheckPending()) {
-            String label = getString(R.string.alert_one_account_supported_1) + " " +
-                           getString(R.string.account_label) + " " +
-                           getString(R.string.alert_one_account_supported_2);
-            Toast.makeText(this, label, Toast.LENGTH_LONG).show();
-            finish();
-        }
+//        if(account != null && !configuration.getCredentialsCheckPending()) {
+//            String label = getString(R.string.alert_one_account_supported_1) + " " +
+//                           getString(R.string.account_label) + " " +
+//                           getString(R.string.alert_one_account_supported_2);
+//            Toast.makeText(this, label, Toast.LENGTH_LONG).show();
+//            finish();
+//        }
 
         customization = gc.getCustomization();
         localization  = gc.getLocalization();

@@ -127,7 +127,9 @@ public class VCardFormatter extends BaseFormatter {
         output.append(composeFieldXTag(contact.getXTags()));
         output.append(composeFieldRevision(contact.getRevision()));
         output.append(composeFieldCategories(contact.getCategories()));
-        output.append(composeFieldPhoto(contact.getPersonalDetail().getPhotos()));
+        
+//        output.append(composeFieldPhoto(contact.getPersonalDetail().getPhotos()));
+        
         output.append(composeFieldUid(contact.getUid()));
         output.append(composeFieldFolder(contact.getFolder()));
         output.append(composeFieldFreeBusy(contact.getFreeBusy()));

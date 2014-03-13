@@ -43,7 +43,7 @@ import android.view.Gravity;
 import android.app.Activity;
 
 import com.funambol.android.AndroidCustomization;
-import com.funambol.androidsync.R;
+import com.eben.androidsync.R;
 import com.funambol.android.App;
 import com.funambol.android.controller.AndroidController;
 

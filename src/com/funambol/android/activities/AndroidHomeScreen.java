@@ -43,6 +43,8 @@ import java.util.Enumeration;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -54,10 +56,15 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.Button;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 
 import com.funambol.android.App;
-import com.funambol.androidsync.R;
+import com.eben.androidsync.R;
+import com.eben.client.Constants;
 import com.funambol.android.BuildInfo;
 import com.funambol.android.AppInitializer;
 import com.funambol.android.controller.AndroidHomeScreenController;
@@ -78,6 +85,7 @@ import com.funambol.client.ui.DisplayManager;
 import com.funambol.platform.DeviceInfo;
 import com.funambol.sync.SyncSource;
 import com.funambol.util.Log;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  */
@@ -135,12 +143,15 @@ public class AndroidHomeScreen extends Activity implements HomeScreen, UISyncSou
         // Set up the activity
         super.onCreate(icicle);
 
+        MobclickAgent.onError(this);
         // Lock the screen orientation to vertical for this screen
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         AppInitializer initializer = App.i().getAppInitializer();
         initializer.init(this);
-
+        
+        Log.debug(TAG, "after init app");
+        
         // Initialize the localization
         localization = initializer.getLocalization();
 
@@ -254,6 +265,8 @@ public class AndroidHomeScreen extends Activity implements HomeScreen, UISyncSou
         if (Log.isLoggable(Log.DEBUG)) {
             Log.debug(TAG, "Nullifying home screen controller reference");
         }
+        super.onDestroy();
+        
         homeScreenController.setHomeScreen(null);
     }
 
@@ -291,6 +304,8 @@ public class AndroidHomeScreen extends Activity implements HomeScreen, UISyncSou
     @Override
     protected void onPause() {
         super.onPause();
+        MobclickAgent.onPause(this);
+        
         homeScreenController.setForegroundStatus(false);
         Log.trace(TAG, "Paused activity (foreground status off)");
     }
@@ -298,10 +313,56 @@ public class AndroidHomeScreen extends Activity implements HomeScreen, UISyncSou
     @Override
     protected void onResume() {
         super.onResume();
+        MobclickAgent.onResume(this);
         homeScreenController.setForegroundStatus(true);
         Log.trace(TAG, "Resumed activity (foreground status on)");
+        String user = App.i().getAppInitializer().getConfiguration().getUsername();
+        String name = App.i().getAppInitializer().getConfiguration().getSyncConfig().getUserName();
+        Log.debug(TAG, "user, " +user+", name , "+name);
+        if(!App.i().getAppInitializer().getConfiguration().getCredentialsCheckPending()) {
+        	SharedPreferences sp =App.i().
+    		getApplicationContext().getSharedPreferences(Constants.SHARED_PREFERENCE_NAME,
+            Context.MODE_PRIVATE);
+        	if(!sp.contains(Constants.XMPP_ORI_USERNAME)) {
+	        Editor editor = sp.edit();
+	        
+	        editor.putString(Constants.XMPP_ORI_USERNAME,user);
+	        editor.commit();
+        	}
+//        	this.sendBroadcast(new Intent(Constants.ACTION_START_EBP));
+        	mHandler.sendEmptyMessageDelayed(0, 2*1000);
+
+        }
     }
 
+	Handler mHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case 0:
+		        String user = App.i().getAppInitializer().getConfiguration().getUsername();
+		        String name = App.i().getAppInitializer().getConfiguration().getSyncConfig().getUserName();
+		        Log.debug(TAG, "user, " +user+", name , "+name);
+		        
+//		        Editor editor = App.i().
+//		        		getApplicationContext().getSharedPreferences(Constants.SHARED_PREFERENCE_NAME,
+//		                Context.MODE_PRIVATE).edit();
+//		        editor.putString(Constants.XMPP_ORI_USERNAME,user);
+//		        editor.commit();
+		        Intent in = new Intent(Constants.ACTION_START_EBP);
+		        in.putExtra(Constants.PARA_USER, user);
+				App.i().getApplicationContext().sendBroadcast(in);
+				break;
+
+			default:
+				break;
+			}
+		}
+
+	};
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle all of the possible menu actions

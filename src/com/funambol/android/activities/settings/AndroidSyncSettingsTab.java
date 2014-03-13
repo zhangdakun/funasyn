@@ -48,7 +48,7 @@ import android.widget.ImageView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.os.Bundle;
 
-import com.funambol.androidsync.R;
+import com.eben.androidsync.R;
 import com.funambol.client.configuration.Configuration;
 import com.funambol.client.ui.SettingsUISyncSource;
 import com.funambol.client.ui.SyncSettingsScreen;

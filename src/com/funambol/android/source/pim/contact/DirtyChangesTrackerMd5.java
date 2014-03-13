@@ -95,7 +95,7 @@ public class DirtyChangesTrackerMd5 extends DirtyChangesTracker {
     	return MD5Util.md5(item.getContent());
 
     }
-    
+    public static String EntryMD5 = "90E5DB91BA9D01165E91B8B5C59F44BE";
     public void begin(int syncMode, boolean reset) throws TrackerException {
         if (Log.isLoggable(Log.TRACE)) {
             Log.trace(TAG_LOG, "begin");
@@ -153,7 +153,11 @@ public class DirtyChangesTrackerMd5 extends DirtyChangesTracker {
                             Log.trace(TAG_LOG, "New fingerprint is: " + newFP);
                             Log.trace(TAG_LOG, "Old fingerprint is: " + oldFP);
                         }
-                        updatedItems.put(newKey, newFP);
+                        if(!EntryMD5.equalsIgnoreCase(newFP)) {
+                        	updatedItems.put(newKey, newFP);
+                        } else {
+                        	Log.error(TAG_LOG, "a empty update,ignore,maybe deleted");
+                        }
                     }
                 }
             }

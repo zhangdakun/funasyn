@@ -149,7 +149,7 @@ public class AutoSyncSwitcher {
             Log.debug(TAG_LOG, "Switching to custom auto sync");
         }
 
-        Account account = AndroidAccountManager.getNativeAccount(mContext);
+//        Account account = AndroidAccountManager.getNativeAccount(mContext);
         Enumeration sources = appSyncSourceManager.getEnabledAndWorkingSources();
 
         observers               = new Vector<ContentObserver>();

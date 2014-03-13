@@ -38,10 +38,11 @@ package com.funambol.android.activities;
 import android.widget.RelativeLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.view.View;
 import android.view.ViewGroup;
 import android.app.Activity;
 
-import com.funambol.androidsync.R;
+import com.eben.androidsync.R;
 import com.funambol.client.ui.UISyncSource;
 import com.funambol.client.ui.UISyncSourceContainer;
 import com.funambol.client.ui.Bitmap;
@@ -111,6 +112,10 @@ public class AndroidUISyncSource extends RelativeLayout implements UISyncSource 
 
         // Create the status text
         statusTextView = createStatusText(activity);
+        
+        statusIconView.setVisibility(View.INVISIBLE);
+        statusTextView.setVisibility(View.INVISIBLE);
+        sourceIconView.setVisibility(View.INVISIBLE);
     }
 
     protected ImageView createSourceIcon(Activity activity) {

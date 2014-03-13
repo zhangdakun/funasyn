@@ -46,7 +46,7 @@ import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
-import com.funambol.androidsync.R;
+import com.eben.androidsync.R;
 import com.funambol.android.controller.AndroidController;
 import com.funambol.client.controller.Controller;
 import com.funambol.client.localization.Localization;

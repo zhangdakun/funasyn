@@ -54,7 +54,7 @@
 package com.funambol.android.edit_contact;
 
 import android.content.ContentValues;
-import com.funambol.androidsync.R;
+import com.eben.androidsync.R;
 import com.funambol.android.edit_contact.ContactDataStructure.ContactData;
 import com.funambol.android.edit_contact.ContactDataStructure.ContactDataType;
 import com.funambol.android.edit_contact.ContactDataStructure.EditorListener;

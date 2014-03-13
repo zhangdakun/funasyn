@@ -302,19 +302,19 @@ public class AndroidAppSyncSourceManager extends AppSyncSourceManager {
             asc.load(sc);
             appSyncSource.setConfig(asc);
 
-            if(!asc.getUseDirtyChangesTracker()) {
-                // Migrate tracker store only if the user has already synced
-                SyncMLAnchor anchor = (SyncMLAnchor)sc.getSyncAnchor();
-                if(anchor.getLast() != 0) {
-                    try {
-                        ContactSyncSource.migrateToDirtyChangesTracker(sc, cm, context);
-                    } catch(Throwable t) {
-                        Log.error(TAG_LOG, "Failed to migrate changes tracker store", t);
-                    }
-                }
-                asc.setUseDirtyChangesTracker(true);
-                asc.save();
-            }
+//            if(!asc.getUseDirtyChangesTracker()) {
+//                // Migrate tracker store only if the user has already synced
+//                SyncMLAnchor anchor = (SyncMLAnchor)sc.getSyncAnchor();
+//                if(anchor.getLast() != 0) {
+//                    try {
+//                        ContactSyncSource.migrateToDirtyChangesTracker(sc, cm, context);
+//                    } catch(Throwable t) {
+//                        Log.error(TAG_LOG, "Failed to migrate changes tracker store", t);
+//                    }
+//                }
+//                asc.setUseDirtyChangesTracker(true);
+//                asc.save();
+//            }
 
 //            ChangesTracker tracker = new DirtyChangesTracker(context, cm);
             DirtyChangesTrackerMd5 tracker = new DirtyChangesTrackerMd5(context, cm);

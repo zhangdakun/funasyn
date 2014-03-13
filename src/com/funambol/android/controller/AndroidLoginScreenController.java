@@ -87,14 +87,14 @@ public class AndroidLoginScreenController extends AccountScreenController {
 
         Activity activity = (Activity)screen.getUiScreen();
 
-        Account nativeAccount = AndroidAccountManager.getNativeAccount(
-                (Activity)screen.getUiScreen());
-
-        if(hasChanges() || nativeAccount == null) {
-            // Add the new account
-            AndroidAccountManager.addNewFunambolAccount(getUsername(),
-                    (AccountAuthenticatorActivity)activity);
-        }
+//        Account nativeAccount = AndroidAccountManager.getNativeAccount(
+//                (Activity)screen.getUiScreen());
+//
+//        if(hasChanges() || nativeAccount == null) {
+//            // Add the new account
+//            AndroidAccountManager.addNewFunambolAccount(getUsername(),
+//                    (AccountAuthenticatorActivity)activity);
+//        }
 
         // An account has been created. So keep track of it in order to not
         // display the signup screen again
@@ -108,9 +108,9 @@ public class AndroidLoginScreenController extends AccountScreenController {
         screen.checkSucceeded();
 
         // Run contacts import only if the user changed the credentials
-        if(hasChanges() || nativeAccount == null) {
-            runContactsImport();
-        }
+//        if(hasChanges() || nativeAccount == null) {
+//            runContactsImport();
+//        }
     }
 
     private void runContactsImport() {

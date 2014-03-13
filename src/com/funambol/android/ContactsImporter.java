@@ -99,6 +99,9 @@ public class ContactsImporter {
      */
     public void importContacts(boolean reset) {
 
+    	if(true) {
+    		return;
+    	}
         // Check screen validity
         if(getScreen() == null) {
             if (Log.isLoggable(Log.DEBUG)) {

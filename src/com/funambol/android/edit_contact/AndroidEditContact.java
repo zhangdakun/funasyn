@@ -95,7 +95,7 @@ import com.funambol.android.App;
 import com.funambol.android.AndroidAccountManager;
 import com.funambol.android.AppInitializer;
 import com.funambol.android.BuildInfo;
-import com.funambol.androidsync.R;
+import com.eben.androidsync.R;
 import com.funambol.android.services.EmptyService;
 import com.funambol.android.source.pim.contact.ContactAppSyncSourceConfig;
 import com.funambol.client.source.AppSyncSource;

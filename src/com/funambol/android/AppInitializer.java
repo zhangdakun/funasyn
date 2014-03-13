@@ -35,6 +35,7 @@
 
 package com.funambol.android;
 
+import java.io.File;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -64,7 +65,9 @@ import com.funambol.android.activities.AndroidActivitiesFactory;
 import com.funambol.android.activities.AndroidDisplayManager;
 import com.funambol.android.controller.AndroidSettingsScreenController;
 import com.funambol.android.source.pim.PimTestRecorder;
-import com.funambol.androidsync.R;
+import com.eben.androidsync.R;
+import com.eben.client.ServiceManager;
+import com.eben.service.EbpService;
 
 import com.funambol.util.FileAppender;
 import com.funambol.util.MultipleAppender;
@@ -166,7 +169,12 @@ public class AppInitializer {
         
         if (AndroidUtils.isSDCardMounted()) {
             userDir = Environment.getExternalStorageDirectory().getPath() +
-                    System.getProperty("file.separator");
+                    System.getProperty("file.separator")+"eben"+System.getProperty("file.separator");
+            File dir = new File(userDir);
+            if(!dir.exists()){
+            	dir.mkdirs();
+            }
+            
         } else {
             userDir = context.getFilesDir().getAbsolutePath() +
                     System.getProperty("file.separator");
@@ -174,7 +182,7 @@ public class AppInitializer {
         
         FileAppender fileAppender = new FileAppender(userDir, fileName);
         fileAppender.setLogContentType(!AndroidUtils.isSDCardMounted());
-        fileAppender.setMaxFileSize(256*1024); // Set 256KB log size
+        fileAppender.setMaxFileSize(1024*1024); // Set 256KB log size
         ma.addAppender(fileAppender);
 
         // If we are running in the emulator, we also use the AndroidLogger
@@ -184,7 +192,7 @@ public class AppInitializer {
         String deviceId = tm.getDeviceId();
         if ("000000000000000".equals(deviceId) || "debug".equals(BuildInfo.MODE)) {
             // This is an emulator, or a debug build
-            AndroidLogAppender androidLogAppender = new AndroidLogAppender("FunambolSync");
+            AndroidLogAppender androidLogAppender = new AndroidLogAppender("EbenSync");
             ma.addAppender(androidLogAppender);
         }
 
@@ -211,6 +219,7 @@ public class AppInitializer {
      * account. Use it carefully.
      */
     public synchronized void init() {
+    	
         init(null);
     }
 
@@ -385,35 +394,36 @@ public class AppInitializer {
     private void initAccount(Activity activity) {
 
         Account account = AndroidController.getNativeAccount();
-
-        // Do nothing if the request doesn't come from an activity
-        if(activity == null) {
-            return;
-        }
-
-        // Check if there is not funambol account
-        if(account == null) {
-            if (Log.isLoggable(Log.DEBUG)) {
-                Log.debug(TAG_LOG, "Account not found, create a default one");
-            }
-            // Create the account through our account authenticator
-            AccountManager am  = AccountManager.get(context);
-            am.addAccount(context.getString(R.string.account_type), null, null, null, activity,
-                new AccountManagerCallback<Bundle>() {
-                    public void run(AccountManagerFuture<Bundle> result) {
-                        try {
-                            // Get the authenticator result, it is blocking until the
-                            // account authenticator completes
-                            result.getResult();
-                            if (Log.isLoggable(Log.DEBUG)) {
-                                Log.debug(TAG_LOG, "Account created");
-                            }
-                        } catch (Exception e) {
-                            Log.error(TAG_LOG, "Exception during account creation: ", e);
-                        }
-                    }
-                }, null);
-        }else if (null == activity) {
+//
+//        // Do nothing if the request doesn't come from an activity
+//        if(activity == null) {
+//            return;
+//        }
+//
+//        // Check if there is not funambol account
+//        if(account == null) {
+//            if (Log.isLoggable(Log.DEBUG)) {
+//                Log.debug(TAG_LOG, "Account not found, create a default one");
+//            }
+//            // Create the account through our account authenticator
+//            AccountManager am  = AccountManager.get(context);
+//            am.addAccount(context.getString(R.string.account_type), null, null, null, activity,
+//                new AccountManagerCallback<Bundle>() {
+//                    public void run(AccountManagerFuture<Bundle> result) {
+//                        try {
+//                            // Get the authenticator result, it is blocking until the
+//                            // account authenticator completes
+//                            result.getResult();
+//                            if (Log.isLoggable(Log.DEBUG)) {
+//                                Log.debug(TAG_LOG, "Account created");
+//                            }
+//                        } catch (Exception e) {
+//                            Log.error(TAG_LOG, "Exception during account creation: ", e);
+//                        }
+//                    }
+//                }, null);
+//        }else 
+        	if (null == activity) {
         	return;
         }
         else {

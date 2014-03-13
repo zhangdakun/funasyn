@@ -67,7 +67,7 @@ public class AndroidLocalization implements Localization {
         // Get an handle to the resource class
         this.context = context;
         try {
-            stringsClass = Class.forName("com.funambol.androidsync.R$string");
+            stringsClass = Class.forName("com.eben.androidsync.R$string");
         } catch (Exception e) {
             Log.error(TAG, "Cannot load strings ", e);
         }

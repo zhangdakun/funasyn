@@ -43,7 +43,7 @@ import com.funambol.client.customization.Customization;
 import com.funambol.client.source.AppSyncSourceManager;
 import com.funambol.client.ui.Bitmap;
 import com.funambol.util.Log;
-import com.funambol.androidsync.R;
+import com.eben.androidsync.R;
 import com.funambol.platform.DeviceInfo;
 import com.funambol.platform.DeviceInfoInterface;
 import com.funambol.platform.DeviceInfoInterface.DeviceRole;
@@ -248,7 +248,7 @@ public class AndroidCustomization implements Customization {
 
     private final String  HTTP_UPLOAD_PREFIX            = "sapi/media";
 
-    private final boolean CONTACTS_IMPORT_ENABLED       = true;
+    private final boolean CONTACTS_IMPORT_ENABLED       = false;
 
     // Mobile Sign Up customizations
     private final boolean MOBILE_SIGNUP_ENABLED         = true;

@@ -44,7 +44,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 
-import com.funambol.androidsync.R;
+import com.eben.androidsync.R;
 
 
 public class TwoLinesCheckBox extends LinearLayout implements OnClickListener {

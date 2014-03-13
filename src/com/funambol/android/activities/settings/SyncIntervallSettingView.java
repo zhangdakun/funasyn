@@ -41,7 +41,7 @@ import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 import android.app.Activity;
 
-import com.funambol.androidsync.R;
+import com.eben.androidsync.R;
 import com.funambol.android.controller.AndroidController;
 import com.funambol.client.ui.SettingsUIItem;
 import com.funambol.client.configuration.Configuration;

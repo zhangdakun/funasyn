@@ -48,7 +48,7 @@ import android.os.Bundle;
 import com.funambol.android.activities.AndroidDisplayManager;
 import com.funambol.android.controller.AndroidController;
 import com.funambol.android.controller.AndroidHomeScreenController;
-import com.funambol.androidsync.R;
+import com.eben.androidsync.R;
 import com.funambol.client.configuration.Configuration;
 import com.funambol.client.controller.AboutScreenController;
 import com.funambol.client.controller.AccountScreenController;

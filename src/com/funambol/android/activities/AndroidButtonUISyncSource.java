@@ -40,7 +40,7 @@ import android.widget.ImageView;
 import android.view.Gravity;
 import android.app.Activity;
 
-import com.funambol.androidsync.R;
+import com.eben.androidsync.R;
 
 public class AndroidButtonUISyncSource extends AndroidUISyncSource {
 

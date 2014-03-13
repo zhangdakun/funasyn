@@ -47,7 +47,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.os.Bundle;
 
-import com.funambol.androidsync.R;
+import com.eben.androidsync.R;
 import com.funambol.android.activities.AndroidSettingsScreen;
 import com.funambol.android.activities.AndroidDisplayManager;
 import com.funambol.android.controller.AndroidAdvancedSettingsScreenController;

@@ -46,7 +46,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.funambol.android.AndroidCustomization;
-import com.funambol.androidsync.R;
+import com.eben.androidsync.R;
 import com.funambol.android.activities.settings.AndroidDevSettingsUISyncSource;
 import com.funambol.android.controller.AndroidController;
 import com.funambol.android.controller.AndroidHomeScreenController;

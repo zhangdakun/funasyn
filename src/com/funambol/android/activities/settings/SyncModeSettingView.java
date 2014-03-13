@@ -52,7 +52,7 @@ import android.accounts.Account;
 
 import com.funambol.android.AndroidAccountManager;
 import com.funambol.android.AndroidAppSyncSource;
-import com.funambol.androidsync.R;
+import com.eben.androidsync.R;
 import com.funambol.android.controller.AndroidController;
 
 import com.funambol.client.ui.SettingsUIItem;
@@ -207,6 +207,11 @@ public class SyncModeSettingView extends LinearLayout implements SettingsUIItem 
         if (customization.isS2CSmsPushEnabled()) {
             boolean enableAuto = syncMode == Configuration.SYNC_MODE_PUSH;
             Account account = AndroidAccountManager.getNativeAccount(getContext());
+            
+            if(null == account) {
+            	Log.error(TAG_LOG, "error account null");
+            	return;
+            }
 
             // Save the auto sync setting for each source
             Enumeration sources = AndroidController.getInstance()

@@ -42,6 +42,7 @@ import java.util.Vector;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences.Editor;
 
 import com.funambol.android.AndroidCustomization;
 import com.funambol.android.App;
@@ -49,7 +50,9 @@ import com.funambol.android.AppInitializer;
 import com.funambol.android.activities.AndroidDisplayManager;
 import com.funambol.android.activities.AndroidHomeScreen;
 import com.funambol.android.services.AutoSyncServiceHandler;
-import com.funambol.androidsync.R;
+import com.eben.androidsync.R;
+import com.eben.client.Constants;
+import com.eben.client.NotificationService;
 
 import com.funambol.platform.NetworkStatus;
 import com.funambol.client.controller.HomeScreenController;
@@ -161,26 +164,26 @@ public class AndroidHomeScreenController extends HomeScreenController {
         if(Log.isLoggable(Log.DEBUG)) {
             Log.debug(TAG_LOG, "Show sync notification");
         }
-        int icon = android.R.drawable.stat_notify_sync;
-        CharSequence tickerText = context.getString(R.string.notification_sync_in_progress_ticker_started);
-        
-        long when = System.currentTimeMillis();
-
-        Notification notification = new Notification(icon, tickerText, when);
-
-        CharSequence contentTitle = context.getString(R.string.app_name);
-        CharSequence contentText = context.getString(R.string.notification_sync_in_progress_message);
-
-        Intent notificationIntent = new Intent(context, AndroidHomeScreen.class);
-        //prevent to open the activity twice
-        notificationIntent.setAction("android.intent.action.MAIN");
-        notificationIntent.addCategory("android.intent.category.LAUNCHER");
-
-        PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
-        notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
-
-        notification.flags = Notification.FLAG_ONGOING_EVENT | Notification.FLAG_NO_CLEAR;
-        notificationManager.notify(AUTO_SYNC_NOTIFICATION_ID, notification);
+//        int icon = android.R.drawable.stat_notify_sync;
+//        CharSequence tickerText = context.getString(R.string.notification_sync_in_progress_ticker_started);
+//        
+//        long when = System.currentTimeMillis();
+//
+//        Notification notification = new Notification(icon, tickerText, when);
+//
+//        CharSequence contentTitle = context.getString(R.string.app_name);
+//        CharSequence contentText = context.getString(R.string.notification_sync_in_progress_message);
+//
+//        Intent notificationIntent = new Intent(context, AndroidHomeScreen.class);
+//        //prevent to open the activity twice
+//        notificationIntent.setAction("android.intent.action.MAIN");
+//        notificationIntent.addCategory("android.intent.category.LAUNCHER");
+//
+//        PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+//        notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
+//
+//        notification.flags = Notification.FLAG_ONGOING_EVENT | Notification.FLAG_NO_CLEAR;
+//        notificationManager.notify(AUTO_SYNC_NOTIFICATION_ID, notification);
     }
 
     private void hideSyncNotification() {
@@ -340,7 +343,16 @@ public class AndroidHomeScreenController extends HomeScreenController {
         configuration.setUsername("");
         configuration.setPassword("");
         
-        configuration.save();
+        configuration.save();       
+        
+        Editor editor = context.getSharedPreferences(Constants.SHARED_PREFERENCE_NAME,
+                Context.MODE_PRIVATE).edit();
+        editor.remove(Constants.XMPP_USERNAME);
+        editor.remove(Constants.XMPP_PASSWORD);
+        editor.remove(Constants.XMPP_ORI_USERNAME);
+        
+        context.stopService(NotificationService.getIntent());
+        
         try {
             controller.getDisplayManager().showScreen(screen, Controller.LOGIN_SCREEN_ID);
         } catch(Exception ex) {

@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<project name="funambol-android-sync-client" default="debug">
+<project name="ebenSync" default="debug">
     
     <!-- To use this copy your ant-contrib-x.y.jar to your $ANT_HOME/lib folder -->
     <taskdef resource="net/sf/antcontrib/antcontrib.properties" />
@@ -62,10 +62,10 @@
     <property name="android-tools-platform" value="${sdk-folder}/platform-tools"/>
 
     <!-- Application Package Name -->
-    <property name="application.package" value="com.funambol.androidsync" />
+    <property name="application.package" value="com.eben.androidsync" />
     
     <!-- Application default locale -->
-    <property name="default.locale" value="en" />
+    <property name="default.locale" value="cn" />
 
     <property name="funambol.j2me"               value="${basedir}/externals/java-sdk" />
     <property name="funambol.j2me.common"        value="${funambol.j2me}/common" />
@@ -95,6 +95,7 @@
     <!-- External dependencies -->
     <property name="lib.joda.time"               value="${funambol.j2me.pim}/lib/joda-time-1.6.jar"/>
     <property name="lib.external"                value="${basedir}/lib"/>
+	<property name="eben.libs" value="${basedir}/eben-libs/" />
 
     <!-- The intermediates directory -->
     <!-- Eclipse uses "bin" for its own output, so we do the same. -->
@@ -164,14 +165,15 @@
         <os family="windows"/>
     </condition>
 
-    <property name="out-debug-package" value="${outdir}/${ant.project.name}-${application.version}-debug.apk" />
+  <!--   <property name="out-debug-package" value="${outdir}/${ant.project.name}-${application.version}-debug.apk" /> -->
+    <property name="out-debug-package" value="${outdir}/${ant.project.name}.apk" />
     <condition property="out-debug-package-ospath"
             value="${basedir}\${out-debug-package}"
             else="${basedir}/${out-debug-package}" >
         <os family="windows"/>
     </condition>
-
-    <property name="out-unsigned-package" value="${outdir}/${ant.project.name}-${application.version}-unsigned.apk" />
+	<property name="out-unsigned-package" value="${outdir}/${ant.project.name}-${application.version}-unsigned.apk" />
+    <property name="out-temp-signed-package" value="${outdir}/${ant.project.name}-${application.version}-temp-signed.apk" />
     <condition property="out-unsigned-package-ospath"
             value="${basedir}\${out-unsigned-package}"
             else="${basedir}/${out-unsigned-package}" >
@@ -415,6 +417,8 @@
             <fileset dir="${funambol.j2me.client.output}">
                 <include name="*.jar"/>
             </fileset>
+        	<fileset dir="${eben.libs}" includes="umeng_sdk.jar"/>
+        	<fileset dir="${eben.libs}" includes="asmack.jar"/>
         </copy>
         <copy file="${lib.joda.time}" todir="${external-libs-ospath}" />
         <copy todir="${external-libs-ospath}">
@@ -509,7 +513,7 @@
     <target name="prepare-manifest-package-name">
         <echo>Prepare package name: ${application.package}</echo> 
         <replace file="${outdir.manifest}/AndroidManifest.xml" 
-            token="&quot;com.funambol.androidsync&quot;" 
+            token="&quot;com.eben.androidsync&quot;" 
             value="&quot;${application.package}&quot;"/>
     </target>
     

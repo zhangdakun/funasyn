@@ -277,11 +277,11 @@ public class FunambolContactManager extends ContactManager {
             null)
         });
 
-        addProperty(properties, "PHOTO", null, new PropParam[] {
-            new PropParam("TYPE", null,
-                    new String[] {"BMP", "JPEG", "PNG", "GIF"}, null),
-            new PropParam("ENCODING", null, new String[] {"BASE64"}, null)
-        });
+//        addProperty(properties, "PHOTO", null, new PropParam[] {
+//            new PropParam("TYPE", null,
+//                    new String[] {"BMP", "JPEG", "PNG", "GIF"}, null),
+//            new PropParam("ENCODING", null, new String[] {"BASE64"}, null)
+//        });
 
         return properties;
     }
