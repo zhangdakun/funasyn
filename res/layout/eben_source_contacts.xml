@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/contact_btn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+<!--     <LinearLayout
+        android:id="@+id/info_domain"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="1dip" >
+
+        <TextView
+            android:id="@+id/local_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="localcontacts" />
+
+        <TextView
+            android:id="@+id/server_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="server contacts" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/des_domain"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="1dip" >
+
+        <TextView
+            android:id="@+id/des_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="sync to cloud server descriptions" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/time_domain"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="1dip" >
+
+        <TextView
+            android:id="@+id/tm_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="this last sync time" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/set_domain"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="1dip" >
+
+        <TextView
+            android:id="@+id/tm_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="set area" />
+
+
+    </LinearLayout>
+ -->
+</LinearLayout>

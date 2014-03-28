@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/set_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/personal_homepage_title_bar" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="0.0dip"
+        android:layout_weight="1.0"
+        android:background="@color/set_bg"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/contact_pim_upper_background" />
+
+                <TextView
+                    android:id="@+id/pim_sync_state_tips"
+                    style="@style/NetDisk.TextAppearance.Small.White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="25.0dip"
+                    android:text="@string/pim_sync_init_state_tips" />
+
+                <ImageView
+                    android:id="@+id/pim_running_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="60.0dip"
+                    android:background="@drawable/contact_pim_normal_arrow" />
+
+                <Button
+                    android:id="@+id/pim_manual_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="111.0dip"
+                    android:background="@drawable/btn_pim_start_selector" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/set_padding"
+                android:background="@color/set_bg"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/set_portion_bg"
+                    android:orientation="vertical"
+                    android:padding="1.0dip" >
+
+                    <RelativeLayout
+                        android:id="@+id/pim_auto_sync_layout"
+                        android:layout_width="fill_parent"
+                        android:layout_height="@dimen/set_item_height_huge"
+                        android:background="@drawable/list_item_background"
+                        android:paddingLeft="16.0dip" >
+
+                        <TextView
+                            android:id="@+id/pim_sync_text"
+                            style="@style/NetDisk.TextAppearance.Content.BlackWhiteReverse"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:duplicateParentState="true"
+                            android:text="@string/pim_synchro" />
+
+                        <CheckBox
+                            android:id="@+id/pim_sync_checkbox"
+                            style="@style/CheckboxStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="4.0dip"
+                            android:clickable="false"
+                            android:duplicateParentState="true" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4.0dip"
+                    android:layout_marginTop="20.0dip"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        style="@style/NetDisk.TextAppearance.Smsrecord.Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/pim_setting_backup" />
+
+                    <TextView
+                        style="@style/NetDisk.TextAppearance.Smsrecord.Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pim_backups_info" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4.0dip"
+                    android:layout_marginTop="20.0dip"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        style="@style/NetDisk.TextAppearance.Smsrecord.Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/pim_setting_recovery" />
+
+                    <TextView
+                        style="@style/NetDisk.TextAppearance.Smsrecord.Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pim_recover_info" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+<!--     <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/sms_main_bottom_bg"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            style="@style/NetDisk.TextAppearance.Small.White"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="11.0dip"
+            android:layout_marginTop="11.0dip"
+            android:drawableLeft="@drawable/album_manage"
+            android:drawablePadding="@dimen/set_item_icon_title_padding"
+            android:text="@string/description_eben_web"
+            android:textSize="12.0dip" />
+    </LinearLayout> -->
+
+</LinearLayout>

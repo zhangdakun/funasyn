@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/personal_home_title_bar"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/titlebar_background_netdisk"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/personal_home_title"
+        style="@style/NetDisk.AppTitleBar.Blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:clickable="true"
+        android:ellipsize="middle"
+        android:paddingLeft="60.0dip"
+        android:paddingRight="60.0dip"
+        android:singleLine="true" />
+
+    <ImageView
+        android:id="@+id/personal_home_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:clickable="true"
+        android:src="@drawable/titlebar_back_button_selector" />
+
+<!--     <ImageView
+        android:id="@id/personal_home_go_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:clickable="true"
+        android:src="@drawable/personal_homepage_titl_home_btn_selector" /> -->
+
+</RelativeLayout>
