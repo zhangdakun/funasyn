@@ -46,7 +46,7 @@ import android.content.res.Resources;
 
 import com.funambol.android.activities.settings.AndroidSettingsUISyncSource;
 import com.funambol.android.activities.settings.TwoLinesCheckBox;
-import com.eben.androidsync.R;
+import cn.eben.androidsync.R;
 import com.funambol.client.configuration.Configuration;
 import com.funambol.sync.SyncSource;
 import com.funambol.util.Log;

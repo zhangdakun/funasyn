@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+
+    <PreferenceCategory
+        android:key="internetCommunication"
+        android:title="@string/person_data" >
+        <com.eben.activities.TwoLevelSyncStatePreference
+            android:key="cloud_contacts"
+            android:persistent="false"
+            android:icon="@drawable/ic_sina_weibo"
+            android:summary="2012-05-23"
+            android:title="@string/type_contacts" />
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

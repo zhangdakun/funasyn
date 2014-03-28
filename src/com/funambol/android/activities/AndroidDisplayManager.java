@@ -56,6 +56,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
 
+import com.eben.activities.EbenHomeScreen;
 import com.funambol.android.App;
 import com.funambol.client.controller.Controller;
 import com.funambol.client.controller.DialogOption;
@@ -147,7 +148,8 @@ public class AndroidDisplayManager implements DisplayManager {
                 break;
             }
             case Controller.HOME_SCREEN_ID: {
-                intent = new Intent(context, AndroidHomeScreen.class);
+//                intent = new Intent(context, AndroidHomeScreen.class);//lierbao
+            	intent = new Intent(context, EbenHomeScreen.class);
                 break;
             }
             default:
@@ -701,7 +703,8 @@ public class AndroidDisplayManager implements DisplayManager {
             notificationIntent = new Intent(context, activity.getClass());
         } else {
             //insert fallback activity for a notification
-            notificationIntent = new Intent(context, AndroidHomeScreen.class);
+//            notificationIntent = new Intent(context, AndroidHomeScreen.class);//lierbao
+            notificationIntent = new Intent(context, EbenHomeScreen.class);
             //prevent to open the activity twice
             notificationIntent.setAction("android.intent.action.MAIN");
             notificationIntent.addCategory("android.intent.category.LAUNCHER");

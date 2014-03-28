@@ -40,7 +40,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
 import java.util.Vector;
-import com.eben.androidsync.R;
+import cn.eben.androidsync.R;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;

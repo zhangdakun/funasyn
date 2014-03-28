@@ -54,7 +54,7 @@
 package com.funambol.android.edit_contact;
 
 import android.content.ContentValues;
-import com.eben.androidsync.R;
+import cn.eben.androidsync.R;
 
 import android.content.Context;
 import android.graphics.Bitmap;

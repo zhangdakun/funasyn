@@ -50,7 +50,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.funambol.android.AndroidCustomization;
-import com.eben.androidsync.R;
+import cn.eben.androidsync.R;
 import com.funambol.android.activities.settings.AndroidSettingsTab;
 import com.funambol.android.activities.settings.AndroidSyncSettingsTab;
 import com.funambol.android.activities.settings.AndroidAdvancedSettingsTab;

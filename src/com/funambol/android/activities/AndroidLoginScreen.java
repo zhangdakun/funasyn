@@ -51,7 +51,7 @@ import android.widget.Toast;
 import com.funambol.android.AndroidAppSyncSourceManager;
 
 import com.funambol.android.App;
-import com.eben.androidsync.R;
+import cn.eben.androidsync.R;
 import com.funambol.android.AppInitializer;
 import com.funambol.android.controller.AndroidController;
 import com.funambol.android.controller.AndroidLoginScreenController;

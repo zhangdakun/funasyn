@@ -63,7 +63,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 
 import com.funambol.android.App;
-import com.eben.androidsync.R;
+import cn.eben.androidsync.R;
 import com.eben.client.Constants;
 import com.funambol.android.BuildInfo;
 import com.funambol.android.AppInitializer;

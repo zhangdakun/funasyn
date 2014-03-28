@@ -53,7 +53,7 @@ import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
 
 import com.funambol.android.AndroidCustomization;
-import com.eben.androidsync.R;
+import cn.eben.androidsync.R;
 import com.funambol.android.source.AbstractDataManager;
 
 import com.funambol.common.pim.model.common.Property;

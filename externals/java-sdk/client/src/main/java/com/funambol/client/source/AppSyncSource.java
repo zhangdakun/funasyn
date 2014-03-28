@@ -227,7 +227,9 @@ public class AppSyncSource {
     public UISyncSource getUISyncSource() {
         return uiSource;
     }
-
+    public void setUISyncSource(UISyncSource source) {
+         uiSource = source;
+    }
     public void setButtonUIClass(Class buttonClass) {
         this.buttonClass = buttonClass;
     }

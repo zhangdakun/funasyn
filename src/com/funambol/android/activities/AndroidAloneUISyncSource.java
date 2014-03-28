@@ -42,7 +42,7 @@ import android.view.Gravity;
 import android.view.ContextMenu;
 import android.app.Activity;
 
-import com.eben.androidsync.R;
+import cn.eben.androidsync.R;
 import com.funambol.client.ui.Bitmap;
 import com.funambol.client.controller.SyncingAnimation;
 import com.funambol.client.customization.Customization;

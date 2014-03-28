@@ -3,7 +3,7 @@
 <resources>
 <string name="message_config_error_user_password">server, username and password are required</string>
 <string name="dialog_start_import">Start Import</string>
-<string name="menu_cancel_sync">Cancel Sync</string>
+<string name="menu_cancel_sync">\u540C\u6B65\u6570\u636E..</string>
 <string name="label_office_location">Office location</string>
 <string name="signup_failed_invalid_captcha">Oops! The code you entered did not match. Try again!</string>
 <string name="label_company">Company</string>
@@ -16,6 +16,7 @@
 <string name="message_saving_contact">Saving contact...</string>
 <string name="advanced_settings_band_saver_title">Bandwidth Saver</string>
 <string name="status_connecting">Connecting...</string>
+<string name="pim_recover_info">\u65B0\u624B\u673A\u5F00\u542F\u6B64\u8BBE\u7F6E\u540E\uFF0C\u901A\u8BAF\u5F55\u4F1A\u81EA\u52A8\u6062\u590D\u5230\u624B\u673A</string>
 <string name="sync_files_folder_label">The files in the folder below are synched from your phone to the server</string>
 <string name="dialog_import_sim_contacts">SIM contacts</string>
 <string name="home_powered">Powered by Funambol</string>
@@ -24,10 +25,11 @@
 <string name="label_data_event">Event</string>
 <string name="sendlog_no_username">You must enter your username to send logs</string>
 <string name="label_street">Street</string>
-<string name="psw_label">PASSWORD</string>
+<string name="psw_label">\u5BC6\u7801</string>
 <string name="menu_close">Close</string>
 <string name="label_data_relation">Relation</string>
 <string name="signup_logging_in">Logging you in...</string>
+<string name="person_data">\u4E2A\u4EBA\u6570\u636E</string>
 <string name="sync_pictures_folder_label">The pictures in the folder below are synched from your phone to the server</string>
 <string name="sync_direction_do_nothing">Do nothing</string>
 <string name="sync_mode_manual">Manual</string>
@@ -45,11 +47,12 @@
 <string name="dialog_save">Do you want to save?</string>
 <string name="advanced_settings_view_log_button_label">View Log</string>
 <string name="label_select">Select label</string>
+<string name="description_eben_web">\u7535\u8111\u767B\u5F55yun.eben.cn\u67E5\u770B\u7BA1\u7406\u4E2A\u4EBA\u6570\u636E</string>
 <string name="signup_terms_and_conditions4">Privacy Policy</string>
 <string name="signup_terms_and_conditions3">and</string>
 <string name="signup_terms_and_conditions2">Terms &amp; Conditions</string>
 <string name="signup_terms_and_conditions1">By clicking SIGN UP, I agree to the</string>
-<string name="dialog_ok">Ok</string>
+<string name="dialog_ok">\u786E\u5B9A</string>
 <string name="advanced_settings_import_button_label">Import...</string>
 <string name="notification_online_quota_full_server_title">__APP_NAME__ warning</string>
 <string name="signup_failed_username_exists">Oops! This phone number is already used by an existing account. Choose a different username to create a new account or, if you already have an account, use your username and password to login.</string>
@@ -78,8 +81,10 @@
 <string name="type_notes">Notes</string>
 <string name="label_from">from</string>
 <string name="description_upload_video">Videos are uploaded from your device\'s media gallery. Maximum size is 100 MBs per video.</string>
+<string name="cloud_open">\u5F00\u542F</string>
 <string name="dialog_refresh">Reset</string>
 <string name="label_zip_code">ZIP code</string>
+<string name="cloud_close">\u5173\u95ED</string>
 <string name="conf_c2s_push">Push client changes to the server</string>
 <string name="type_files">Files</string>
 <string name="dialog_wait_for_media_identification">Please wait...</string>
@@ -135,6 +140,7 @@
 <string name="dialog_slow_text1">The server has requested a full sync for </string>
 <string name="attachToContact">Contact icon</string>
 <string name="label_given_name">Given name</string>
+<string name="pim_sync_init_state_tips">\u7ACB\u5373\u540C\u6B65,\u901A\u8BAF\u5F55\u5B58\u4E8E\u4E91\u7AEF,\u5B89\u5168\u4E0D\u4E22\u5931</string>
 <string name="dialog_server_full">You have reached your account\'s storage limit and cannot sync more media and files.\n\nTo upgrade for more storage, login to your online account using your computer.</string>
 <string name="advanced_settings_log_level_none">Disabled</string>
 <string name="message_contact_deleted">Contact deleted</string>
@@ -149,6 +155,7 @@
 <string name="advanced_settings_log_level_info">Info</string>
 <string name="home_not_available">Never synchronized</string>
 <string name="label_pobox">PO box</string>
+<string name="mind_cloud">\u667A\u6167\u4E91</string>
 <string name="signup_failed_generic_message">Sorry! Signup failed. Cause unknown. Try again later.</string>
 <string name="label_data_email">Email</string>
 <string name="advanced_settings_band_saver_info">You may use this setting to save bandwidth  when synching media if you have a limited data plan.</string>
@@ -164,7 +171,7 @@
 <string name="type_tasks">Tasks</string>
 <string name="label_data_im">IM</string>
 <string name="dialog_refresh_which">Reset which way?</string>
-<string name="login_help_text">Enter your account information below and click LOGIN to access and sync with your online account.</string>
+<string name="login_help_text">\u8F93\u5165E\u672C\u8D26\u53F7\u4E0E\u5BC6\u7801</string>
 <string name="advanced_settings_log_level_error">Error</string>
 <string name="label_family_name">Family name</string>
 <string name="label_data_nickname">Nickname</string>
@@ -178,21 +185,24 @@
 <string name="sync_mode_scheduled">Scheduled</string>
 <string name="home_unsynchronized">Not synchronized</string>
 <string name="label_unknown">Unknown</string>
+<string name="pim_synchro">\u901A\u8BAF\u5F55\u81EA\u52A8\u540C\u6B65</string>
 <string name="notification_online_quota_full_server_message">Insufficient online storage</string>
 <string name="sync_url_label">SERVER URL</string>
 <string name="advanced_settings_dev_settings_button_label">Remote Names</string>
 <string name="dialog_importing_contacts">Importing contacts</string>
 <string name="description_two_way_picture">Pictures are uploaded from and downloaded to your device\'s media gallery. Pictures in a format that cannot be displayed by your device may be viewed using third party viewers.</string>
 <string name="status_mapping_done">Ending...</string>
+<string name="auto_contacts">\u901A\u8BAF\u5F55\u81EA\u52A8\u540C\u6B65\u5DF2\u5F00\u542F</string>
 <string name="dialog_import_error">There were errors during import.</string>
 <string name="advanced_settings_import_title">Import Contacts</string>
+<string name="pim_sync_running_state_tips">\u6B63\u5728\u540C\u6B65,\u8BF7\u7A0D\u5019\u2026</string>
 <string name="signup_failed_empty_fields_message">Please enter all the requested information.</string>
 <string name="label_other">Other</string>
 <string name="conf_upload_older_media_warning">Uploading your older __source__ may consume lots of your online account storage. It is recommended for premium accounts only.</string>
-<string name="login_failed_empty_params">Sorry! Username, Password and Server Url are required. Try again!</string>
+<string name="login_failed_empty_params">\u7528\u6237\u540D\u6216\u5BC6\u7801\u9519\u8BEF</string>
 <string name="advanced_settings_log_level_title">Logging level</string>
 <string name="type_all">All</string>
-<string name="checking_credentials_title">Logging in...</string>
+<string name="checking_credentials_title">\u767B\u5F55\u4E2D ...</string>
 <string name="signup_signing_up">Creating your account...</string>
 <string name="status_removing_item">Deleting:</string>
 <string name="deleteConfirmation">This contact will be deleted.</string>
@@ -200,7 +210,7 @@
 <string name="dialog_new_contact_account">Create contact under account</string>
 <string name="label_data_note">Notes</string>
 <string name="conf_sync_mode_title">Sync with server</string>
-<string name="type_contacts">Contacts</string>
+<string name="type_contacts">\u901A\u8BAF\u5F55</string>
 <string name="notification_storage_full_device_message">Insufficient device storage</string>
 <string name="sync_mode_automatically">Automatically</string>
 <string name="conf_upload_older_media">Upload older __source__</string>
@@ -209,7 +219,7 @@
 <string name="signup_succeeded">Congratulations! You\'re signed up and can now sync. Please record your username \"__USERNAME__\" and your password \"__PASSWORD__\" for future reference.</string>
 <string name="dialog_edit_contact_account">Edit contact under account</string>
 <string name="word_today">Today</string>
-<string name="message_no_signal">Your signal is too weak.  Please try again when your signal is stronger.</string>
+<string name="message_no_signal">\u7F51\u7EDC\u4E0D\u7ED9\u529B</string>
 <string name="dialog_refresh_warn2">After you select a direction, you will be able to select a category. </string>
 <string name="login_signup_label">Don\'t have an account?</string>
 <string name="settings_advanced_tab">Advanced</string>
@@ -218,7 +228,7 @@
 <string name="dialog_delete2">. If you select yes, this data will be deleted on the server.  Do you want to sync these deletes?</string>
 <string name="dialog_delete1">This application has detected a large number of deleted data for: </string>
 <string name="notification_sync_in_progress_ticker_started">Sync started</string>
-<string name="usr_label">USERNAME</string>
+<string name="usr_label">\u7528\u6237</string>
 <string name="settings_sync_tab">Sync</string>
 <string name="status_network_error">Network Error</string>
 <string name="status_forbidden_error">Access forbidden</string>
@@ -227,6 +237,7 @@
 <string name="dialog_continue">Continue</string>
 <string name="dialog_import_later">You may Import at any time from the Advanced tab in Settings.</string>
 <string name="status_generic_error">Generic error</string>
+<string name="pim_backups_info">\u5F00\u542F\u540C\u6B65\uFF0C\u624B\u673A\u8054\u7CFB\u4EBA\u5C06\u81EA\u52A8\u5907\u4EFD\u5230\u4E91\u7AEF</string>
 <string name="conf_days">days</string>
 <string name="signup_login_button">LOGIN</string>
 <string name="revert_button">Revert</string>
@@ -251,17 +262,18 @@
 <string name="copy_right">All rights reserved.</string>
 <string name="sync_videos_folder_label">The videos in the folder below are synched from your phone to the server</string>
 <string name="menu_sync">Sync</string>
-<string name="login_button">LOGIN</string>
+<string name="press_exit">\u518D\u6309\u4E00\u6B21\u79BB\u5F00\u667A\u6167\u4E91</string>
+<string name="login_button">\u767B\u5F55</string>
 <string name="label_type_birthday">Birthday</string>
 <string name="signup_plus">+</string>
-<string name="menu_logout">Logout</string>
+<string name="menu_logout">\u6CE8\u9500\u7528\u6237</string>
 <string name="conf_hour">hour</string>
 <string name="word_at">at</string>
 <string name="label_position">Position</string>
 <string name="type_photos">Pictures</string>
 <string name="label_contact_insert">Create contact</string>
 <string name="label_department">Department</string>
-<string name="home_source_title_prefix">Sync</string>
+<string name="home_source_title_prefix">\u540C\u6B65</string>
 <string name="menu_delete">Delete contact</string>
 <string name="photoPickerNotFoundText">No pictures are available on the phone.</string>
 <string name="label_data_website">Website</string>
@@ -272,6 +284,6 @@
 <string name="status_receiving_item">Receiving:</string>
 <string name="notification_storage_full_device_ticker">__APP_NAME__ warning</string>
 <string name="source_remote_db_name">Remote Name</string>
-<string name="status_invalid_credentials">Invalid Credentials</string>
+<string name="status_invalid_credentials">\u7528\u6237\u540D\u6216\u5BC6\u7801\u9519\u8BEF</string>
 <string name="dialog_try_later">Try later</string>
 </resources>

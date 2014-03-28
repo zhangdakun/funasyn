@@ -42,7 +42,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.app.Activity;
 
-import com.eben.androidsync.R;
+import cn.eben.androidsync.R;
 import com.funambol.client.ui.UISyncSource;
 import com.funambol.client.ui.UISyncSourceContainer;
 import com.funambol.client.ui.Bitmap;
@@ -113,9 +113,9 @@ public class AndroidUISyncSource extends RelativeLayout implements UISyncSource 
         // Create the status text
         statusTextView = createStatusText(activity);
         
-        statusIconView.setVisibility(View.INVISIBLE);
-        statusTextView.setVisibility(View.INVISIBLE);
-        sourceIconView.setVisibility(View.INVISIBLE);
+//        statusIconView.setVisibility(View.INVISIBLE);
+//        statusTextView.setVisibility(View.INVISIBLE);
+//        sourceIconView.setVisibility(View.INVISIBLE);
     }
 
     protected ImageView createSourceIcon(Activity activity) {
@@ -227,6 +227,7 @@ public class AndroidUISyncSource extends RelativeLayout implements UISyncSource 
     }
 
     public void setProgress(int percentage) {
+    	Log.debug(TAG, "setProgress, "+percentage);
     }
 
     /**

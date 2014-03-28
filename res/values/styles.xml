@@ -224,4 +224,1075 @@
         <item name="android:textColor">@color/tab_indicator_text</item>
     </style>
 
+    <style name="Yi" />
+<!--     <style name="Yi.Theme" parent="@*android:style/Theme">
+        <item name="android:colorBackground">@color/baidu_window_background</item>
+        <item name="android:textAppearance">@style/Yi.TextAppearance.Normal</item>
+        <item name="android:textAppearanceLarge">@style/Yi.TextAppearance.Large</item>
+        <item name="android:textAppearanceMedium">@style/Yi.TextAppearance.Medium</item>
+        <item name="android:textAppearanceSmall">@style/Yi.TextAppearance.Small</item>
+        <item name="android:textAppearanceLargeInverse">@style/Yi.TextAppearance.Large.Inverse</item>
+        <item name="android:textAppearanceMediumInverse">@style/Yi.TextAppearance.Medium.Inverse</item>
+        <item name="android:buttonStyle">@style/Yi.Widget.Button</item>
+        <item name="android:windowBackground">@drawable/yi_ic_element_window_background</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowTitleSize">52.0dip</item>
+        <item name="android:windowTitleStyle">@style/WindowTitleBaidu</item>
+        <item name="android:windowTitleBackgroundStyle">@style/WindowTitleBackground</item>
+        <item name="android:listViewStyle">@style/Yi.Widget.ListView</item>
+        <item name="android:progressBarStyle">@style/Yi.Widget.ProgressBar</item>
+        <item name="android:progressBarStyleHorizontal">@style/Yi.Widget.ProgressBar.Horizontal</item>
+        <item name="android:progressBarStyleSmall">@style/Yi.Widget.ProgressBar.Small</item>
+        <item name="android:progressBarStyleLarge">@style/Yi.Widget.ProgressBar.Large</item>
+        <item name="android:tabWidgetStyle">@style/Yi.Widget.TabWidget</item>
+        <item name="android:fastScrollThumbDrawable">@drawable/fast_scroll_selector</item>
+        <item name="windowTitleBackground">@drawable/yi_titlebar_background</item>
+        <item name="functionBarStyle">@style/Yi.Widget.FunctionBar</item>
+        <item name="functionBarItemStyle">@style/Yi.Widget.FunctionBarItem</item>
+        <item name="functionBarItemRedStyle">@style/Yi.Widget.FunctionBarItem.Red</item>
+        <item name="buttonStyleGreen">@style/Yi.Widget.Button.Green</item>
+        <item name="listButtonStyle">@style/Yi.Widget.Button.List</item>
+        <item name="contentAreaTopImage">@drawable/yi_ic_element_content_top_background</item>
+        <item name="windowTitleButton">@drawable/yi_title_btn</item>
+        <item name="popupMenuStyle">@style/Yi.Widget.PopupMenu</item>
+        <item name="buttonStyleRed">@style/Yi.Widget.Button.Red</item>
+        <item name="buttonStyleSub">@style/Yi.Widget.Button.Sub</item>
+        <item name="editTextStyle">@style/Yi.Widget.EditText.Baidu</item>
+        <item name="searchEditTextStyle">@style/Yi.Widget.EditText.Baidu.Search</item>
+    </style> -->
+<!--     <style name="Yi.Theme.Translucent" parent="@style/Yi.Theme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+    <style name="Yi.Theme.NoTitleBar" parent="@style/Yi.Theme">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+    <style name="Yi.Theme.NoTitleBar.WelCome" parent="@style/Yi.Theme.NoTitleBar">
+        <item name="android:windowBackground">@drawable/welcome</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+    <style name="Yi.Widget" parent="@style/Yi">
+        <item name="android:textAppearance">?android:textAppearanceLarge</item>
+    </style>
+    <style name="Yi.Widget.AbsListView" parent="@style/Yi.Widget">
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:fadingEdge">vertical</item>
+    </style>
+    <style name="Yi.Widget.ListView" parent="@style/Yi.Widget.AbsListView">
+        <item name="android:listSelector">@drawable/yi_list_selector_background</item>
+        <item name="android:divider">@color/listview_divider_color</item>
+    </style>
+    <style name="Yi.Widget.Button" parent="@style/Yi.Widget">
+        <item name="android:textAppearance">?android:textAppearanceMediumInverse</item>
+        <item name="android:textColor">@color/yi_btn_default_1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/yi_btn_default</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+    </style>
+    <style name="Yi.Widget.Button.List" parent="@style/Yi.Widget.Button">
+        <item name="android:background">@drawable/yi_btn_list_default</item>
+    </style>
+    <style name="Yi.Widget.Button.Green" parent="@style/Yi.Widget.Button">
+        <item name="android:textAppearance">?android:textAppearanceMediumInverse</item>
+        <item name="android:textColor">@color/yi_btn_green</item>
+        <item name="android:background">@drawable/yi_btn_green</item>
+    </style>
+    <style name="Yi.Widget.FunctionBar" parent="@style/Yi.Widget">
+        <item name="android:background">@drawable/ic_function_bar_background</item>
+        <item name="android:paddingLeft">3.0dip</item>
+        <item name="android:paddingRight">4.0dip</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">60.0dip</item>
+    </style>
+    <style name="Yi.Widget.FunctionBarItem" parent="@style/Yi.Widget">
+        <item name="android:textAppearance">?android:textAppearanceMediumInverse</item>
+        <item name="android:textColor">?android:textColorPrimaryInverse</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/yi_btn_default</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:layout_width">0.0dip</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">2.0dip</item>
+        <item name="android:layout_weight">1.0</item>
+    </style>
+    <style name="Yi.Widget.FunctionBarItem.Red" parent="@style/Yi.Widget.FunctionBarItem">
+        <item name="android:textColor">@color/yi_btn_red</item>
+        <item name="android:background">@drawable/yi_btn_red</item>
+    </style>
+    <style name="Yi.Widget.ProgressBar" parent="@style/Yi.Widget">
+        <item name="android:maxWidth">28.0dip</item>
+        <item name="android:maxHeight">28.0dip</item>
+        <item name="android:indeterminateOnly">true</item>
+        <item name="android:indeterminateDrawable">@drawable/yi_progress_medium_blue</item>
+        <item name="android:indeterminateDuration">3500</item>
+        <item name="android:indeterminateBehavior">repeat</item>
+        <item name="android:minWidth">28.0dip</item>
+        <item name="android:minHeight">28.0dip</item>
+    </style>
+    <style name="Yi.Widget.ProgressBar.Small" parent="@style/Yi.Widget.ProgressBar">
+        <item name="android:maxWidth">17.0dip</item>
+        <item name="android:maxHeight">17.0dip</item>
+        <item name="android:indeterminateDrawable">@drawable/yi_progress_small_blue</item>
+        <item name="android:minWidth">17.0dip</item>
+        <item name="android:minHeight">17.0dip</item>
+    </style>
+    <style name="Yi.Widget.ProgressBar.Large" parent="@style/Yi.Widget.ProgressBar">
+        <item name="android:maxWidth">58.0dip</item>
+        <item name="android:maxHeight">58.0dip</item>
+        <item name="android:indeterminateOnly">true</item>
+        <item name="android:indeterminateDrawable">@drawable/yi_progress_large_blue</item>
+        <item name="android:indeterminateDuration">3500</item>
+        <item name="android:indeterminateBehavior">repeat</item>
+        <item name="android:minWidth">58.0dip</item>
+        <item name="android:minHeight">58.0dip</item>
+    </style>
+    <style name="Yi.Widget.ProgressBar.Horizontal" parent="@style/Yi.Widget.ProgressBar">
+        <item name="android:maxHeight">14.0dip</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>
+        <item name="android:progressDrawable">@drawable/yi_progress_horizontal</item>
+        <item name="android:minHeight">14.0dip</item>
+    </style>
+    <style name="Yi.Widget.TabWidget" parent="@style/Yi.Widget">
+        <item name="android:textAppearance">@style/Yi.TextAppearance.Widget.TabWidget</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:shadowColor">#4c000000</item>
+        <item name="android:shadowDx">1.2</item>
+        <item name="android:shadowDy">1.2</item>
+        <item name="android:shadowRadius">1.2</item>
+        <item name="android:tabStripEnabled">false</item>
+    </style>
+    <style name="WindowTitleBackground">
+        <item name="android:background">@drawable/titlebar_background</item>
+        <item name="android:paddingLeft">5.0dip</item>
+        <item name="android:paddingTop">7.0dip</item>
+        <item name="android:paddingRight">5.0dip</item>
+        <item name="android:paddingBottom">6.0dip</item>
+    </style> -->
+<!--     <style name="WindowTitleBaidu">
+        <item name="android:textAppearance">@style/Yi.TextAppearance.Large</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:paddingLeft">10.0dip</item>
+        <item name="android:paddingRight">10.0dip</item>
+        <item name="android:layout_marginTop">6.0dip</item>
+        <item name="android:maxWidth">161.0dip</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:shadowColor">#4c000000</item>
+        <item name="android:shadowDx">1.2</item>
+        <item name="android:shadowDy">1.2</item>
+        <item name="android:shadowRadius">1.2</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:marqueeRepeatLimit">0</item>
+    </style> -->
+  <!--   <style name="Yi.TextAppearance" parent="@*android:style/TextAppearance">
+        <item name="android:textColorHighlight">#ffbfddf3</item>
+    </style>
+    <style name="Yi.TextAppearance.Big" parent="@style/Yi.TextAppearance">
+        <item name="android:textSize">18.0sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+    <style name="Yi.TextAppearance.Normal" parent="@style/Yi.TextAppearance">
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+    <style name="Yi.TextAppearance.Large" parent="@style/Yi.TextAppearance">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+    <style name="Yi.TextAppearance.Large.Inverse" parent="@style/Yi.TextAppearance.Large">
+        <item name="android:textColor">?android:textColorPrimaryInverse</item>
+        <item name="android:textColorHint">?android:textColorHintInverse</item>
+    </style>
+    <style name="Yi.TextAppearance.Medium" parent="@style/Yi.TextAppearance">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+    <style name="Yi.TextAppearance.Medium.Inverse" parent="@style/Yi.TextAppearance.Medium">
+        <item name="android:textColor">?android:textColorPrimaryInverse</item>
+        <item name="android:textColorHint">?android:textColorHintInverse</item>
+    </style>
+    <style name="Yi.TextAppearance.Small" parent="@style/Yi.TextAppearance">
+        <item name="android:textSize">11.0sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+    <style name="Yi.TextAppearance.Setting.Small" parent="@style/Yi.TextAppearance.Small">
+        <item name="android:textColor">@drawable/yi_list_item_text_color_selector_small</item>
+    </style>
+    <style name="Yi.TextAppearance.Small.Inverse" parent="@style/Yi.TextAppearance.Small">
+        <item name="android:textColor">?android:textColorSecondaryInverse</item>
+        <item name="android:textColorHint">?android:textColorHintInverse</item>
+    </style>
+    <style name="Yi.TextAppearance.Widget" parent="@style/Yi.TextAppearance" />
+    <style name="Yi.TextAppearance.Widget.TabWidget" parent="@style/Yi.TextAppearance.Small.Inverse">
+        <item name="android:textColor">#ffffffff</item>
+    </style>
+    <style name="Yi.TextAppearance.Widget.ButtonGroup" parent="@style/Yi.TextAppearance.Small.Inverse.Shadow">
+        <item name="android:textColor">#ffffffff</item>
+    </style>
+    <style name="Yi.TextAppearance.Small.Inverse.Shadow" parent="@style/Yi.TextAppearance.Small.Inverse">
+        <item name="android:shadowColor">#4c000000</item>
+        <item name="android:shadowDx">1.2</item>
+        <item name="android:shadowDy">1.2</item>
+        <item name="android:shadowRadius">1.2</item>
+    </style>
+    <style name="Yi.ListItem" parent="@style/Yi" />
+    <style name="Yi.ListItem.TextAppearance" parent="@style/Yi.ListItem" />
+    <style name="Yi.ListItem.TextAppearance.Large" parent="@style/Yi.TextAppearance.Big">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textColor">@drawable/yi_list_item_text_color_selector_normal</item>
+    </style>
+    <style name="Yi.ListItem.TextAppearance.Medium" parent="@style/Yi.TextAppearance.Big">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textColor">@drawable/yi_list_item_text_color_selector_small</item>
+    </style>
+    <style name="Yi.ListItem.TextAppearance.Medium.normal" parent="@style/Yi.TextAppearance.Big">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textColor">@color/normal</item>
+    </style> -->
+<!--     <style name="Type.TextView" parent="@style/Yi.ListItem.TextAppearance.Large">
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">15.0dip</item>
+        <item name="android:layout_marginRight">15.0dip</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <style name="Type.TextView.Large" parent="@style/Type.TextView">
+        <item name="android:textSize">22.0dip</item>
+    </style> -->
+<!--     <style name="Type.TextView.Small" parent="@style/Type.TextView">
+        <item name="android:textSize">13.0dip</item>
+        <item name="android:textColor">@drawable/yi_list_item_text_color_selector_small</item>
+        <item name="android:layout_marginTop">3.0dip</item>
+    </style> -->
+<!--     <style name="TextAppearance.BaiduTitleButton" parent="@style/Yi.TextAppearance.Medium.Inverse">
+        <item name="android:textSize">12.0dip</item>
+        <item name="android:textColor">?android:textColorPrimaryDisableOnly</item>
+        <item name="android:shadowColor">#4c000000</item>
+        <item name="android:shadowDx">1.2</item>
+        <item name="android:shadowDy">1.2</item>
+        <item name="android:shadowRadius">1.2</item>
+    </style>
+    <style name="Yi.Animation" parent="@*android:style/Animation" />
+    <style name="Yi.Animation.PopupMenu" parent="@style/Yi.Animation">
+        <item name="android:windowEnterAnimation">@anim/yi_popup_menu_enter</item>
+        <item name="android:windowExitAnimation">@anim/yi_popup_menu_exit</item>
+    </style>
+    <style name="Yi.Animation.PopupSubMenu" parent="@style/Yi.Animation">
+        <item name="android:windowEnterAnimation">@anim/yi_popup_submenu_enter</item>
+        <item name="android:windowExitAnimation">@anim/yi_popup_submenu_exit</item>
+    </style>
+    <style name="Yi.Widget.PopupMenu" parent="@style/Yi.Widget">
+        <item name="android:background">@drawable/yi_ic_element_popup_menu_background</item>
+        <item name="paddingLeft">10.0dip</item>
+        <item name="paddingRight">10.0dip</item>
+        <item name="paddingTop">8.0dip</item>
+        <item name="paddingBottom">6.0dip</item>
+        <item name="itemMargin">6.0dip</item>
+    </style>
+    <style name="Yi.Widget.Button.Red" parent="@style/Yi.Widget.Button">
+        <item name="android:textAppearance">?android:textAppearanceMediumInverse</item>
+        <item name="android:textColor">@color/yi_btn_red</item>
+        <item name="android:background">@drawable/yi_btn_red</item>
+    </style>
+    <style name="Yi.Widget.Button.Sub" parent="@style/Yi.Widget.Button">
+        <item name="android:background">@drawable/yi_btn_sub</item>
+    </style>
+    <style name="TextAppearance.DialogWindowTitle" parent="@*android:style/TextAppearance">
+        <item name="android:textSize">18.0sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+    <style name="DialogWindowTitle">
+        <item name="android:textAppearance">@style/TextAppearance.DialogWindowTitle</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:scrollHorizontally">true</item>
+    </style>
+    <style name="Yi.Theme.Dialog" parent="@style/Yi.Theme">
+        <item name="android:windowBackground">@drawable/yi_panel_background</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowTitleStyle">@style/DialogWindowTitle</item>
+        <item name="android:windowAnimationStyle">@*android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">adjustPan</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+    <style name="Yi.Theme.Dialog.DateTimePicker" parent="@style/Yi.Theme.Dialog">
+        <item name="android:screenOrientation">unspecified</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+        <item name="android:windowBackground">@drawable/yi_ic_element_popup_menu_background</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/Yi.Animation.PopupMenu</item>
+    </style>
+    <style name="Yi.Widget.Button.Search" parent="@style/Yi.Widget.Button">
+        <item name="android:background">@drawable/yi_btn_search_default</item>
+    </style>
+    <style name="Yi.Widget.EditText" parent="@style/Yi.Widget">
+        <item name="android:textAppearance">?android:textAppearanceLargeInverse</item>
+        <item name="android:textColor">@color/yi_edittext</item>
+        <item name="android:textColorHint">?android:textColorHintInverse</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/yi_edit_text</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:clickable">true</item>
+    </style>
+    <style name="Yi.Widget.EditText.Baidu" parent="@style/Yi.Widget.EditText">
+        <item name="android:background">@drawable/yi_edit_text_single</item>
+        <item name="android:paddingRight">6.0dip</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:drawablePadding">0.0dip</item>
+    </style>
+    <style name="Yi.Widget.EditText.Baidu.Search" parent="@style/Yi.Widget.EditText.Baidu">
+        <item name="android:background">@drawable/yi_edit_text</item>
+        <item name="android:paddingLeft">12.0dip</item>
+        <item name="android:layout_height">34.0dip</item>
+        <item name="android:drawableLeft">@drawable/yi_searchedittext_magnifier</item>
+        <item name="android:drawablePadding">4.0dip</item>
+    </style>
+    <style name="Yi.Theme.Translucent.NoTitleBar" parent="@style/Yi.Theme.Translucent">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+    <style name="TitleTheme" parent="@*android:style/Theme">
+        <item name="android:textAppearance">@style/CustomWindowTitleText</item>
+        <item name="android:windowTitleSize">50.0dip</item>
+        <item name="android:windowTitleBackgroundStyle">@style/StatusBarBackground</item>
+        <item name="android:textSize">18.0dip</item>
+    </style> -->
+<!--     <style name="StatusBarBackground">
+        <item name="android:background">@drawable/titlebar_background</item>
+    </style> -->
+    <style name="notitledialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:background">@android:color/black</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <style name="CustomWindowTitleText">
+        <item name="android:textSize">18.0sp</item>
+        <item name="android:textColor">@drawable/black_white_reverse_drawable</item>
+    </style>
+    <style name="TextAppearanceStatusBarContent">
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textColor">@color/notification_content_color</item>
+    </style>
+<!--     <style name="EditCheckboxStyle" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/edit_checkbox_selector</item>
+    </style> -->
+    <style name="CheckboxStyle" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/chb_on_off_selector</item>
+        <item name="android:width">57.0dip</item>
+    </style>
+<!--     <style name="SettingsEditCheckboxStyle" parent="@*android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:background">@drawable/editable_mode_unchecked_tag</item>
+        <item name="android:button">@drawable/edit_checkbox_selector</item>
+    </style>
+    <style name="UserGuidCheckboxStyle" parent="@*android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:background">@null</item>
+        <item name="android:button">@drawable/user_guide_checkbox_selector</item>
+    </style> -->
+<!--     <style name="QuickSettingsVideoCheckboxStyle" parent="@*android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/video_quick_settings_checkbox_selector</item>
+    </style>
+    <style name="SortCheckboxStyle" parent="@*android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/sort_checkbox_selector</item>
+    </style>
+    <style name="BaiduNetDiskDialogTheme" parent="@*android:style/Theme.Dialog">
+        <item name="android:windowBackground">@*android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+    <style name="BaiduNetDiskDialogVideoInfoLoadingTheme" parent="@*android:style/Theme.NoTitleBar.Fullscreen">
+        <item name="android:windowBackground">@*android:color/background_dark</item>
+    </style>
+    <style name="BaiduNetDiskDialogThemes" parent="@*android:style/Theme">
+        <item name="android:windowBackground">@*android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style> -->
+    <style name="SMSMMSDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+    <style name="BaiduNetDiskDialogBackgroundstyle">
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:padding">20.0dip</item>
+        <item name="android:layout_width">320.0dip</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_marginLeft">14.0dip</item>
+        <item name="android:layout_marginRight">14.0dip</item>
+        <item name="android:minWidth">320.0dip</item>
+    </style>
+    <style name="MoreFunctionNetDiskDialogBackgroundstyle">
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:padding">0.0dip</item>
+        <item name="android:layout_width">470.0dip</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_marginLeft">0.0dip</item>
+        <item name="android:layout_marginTop">14.0dip</item>
+        <item name="android:layout_marginRight">0.0dip</item>
+        <item name="android:minWidth">464.0dip</item>
+    </style>
+    <style name="PreViewDialogBackgroundstyle" parent="@android:style/Theme.Dialog">
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:padding">20.0dip</item>
+        <item name="android:layout_width">320.0dip</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_marginLeft">14.0dip</item>
+        <item name="android:layout_marginRight">14.0dip</item>
+        <item name="android:minWidth">320.0dip</item>
+    </style>
+    <style name="ImagePreViewLoadingDialogBackgroundstyle" parent="@android:style/Theme.Dialog">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+    </style>
+    <style name="ChooseAppDialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:padding">20.0dip</item>
+        <item name="android:layout_width">380.0dip</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_marginLeft">14.0dip</item>
+        <item name="android:layout_marginRight">14.0dip</item>
+        <item name="android:minWidth">380.0dip</item>
+    </style>
+    <style name="NetDisk" />
+    <style name="NetDisk.Theme" parent="@style/NetDisk" />
+    <style name="NetDisk.TextAppearance" parent="@style/NetDisk">
+        <item name="android:textColor">@color/text_default</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Huge.BlackWhiteReverse" parent="@style/NetDisk.TextAppearance.Huge">
+        <item name="android:textColor">@drawable/black_white_reverse_drawable</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Huge" parent="@style/NetDisk.TextAppearance">
+        <item name="android:textSize">20.0dip</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Huge.TitleBlack" parent="@style/NetDisk.TextAppearance.Huge">
+        <item name="android:textColor">@color/title_black</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Huge.TitleWhite" parent="@style/NetDisk.TextAppearance.Huge">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+    <style name="NetDisk.AppTitleBar" parent="@style/NetDisk.TextAppearance.Huge.TitleWhite">
+        <item name="android:shadowDx">2.0</item>
+        <item name="android:shadowDy">2.0</item>
+        <item name="android:shadowRadius">4.0</item>
+    </style>
+    <style name="NetDisk.AppTitleBar.Blue" parent="@style/NetDisk.AppTitleBar">
+        <item name="android:shadowColor">#d82074d4</item>
+    </style>
+    <style name="NetDisk.AppTitleBar.Red" parent="@style/NetDisk.AppTitleBar">
+        <item name="android:shadowColor">#88c12b20</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Large" parent="@style/NetDisk.TextAppearance">
+        <item name="android:textSize">18.0dip</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Large.Gray" parent="@style/NetDisk.TextAppearance.Large">
+        <item name="android:textColor">@color/text_gray</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Large.TitleBarWhite" parent="@style/NetDisk.TextAppearance.Large">
+        <item name="android:textColor">@color/transfer_titlebar_white</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Middle.TitleBarWhite" parent="@style/NetDisk.TextAppearance.Middle">
+        <item name="android:textColor">@color/transfer_titlebar_white</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Middle.AnonymousTitle" parent="@style/NetDisk.TextAppearance.Middle">
+        <item name="android:textColor">@color/anonymous_filelist_title</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Large.color323232" parent="@style/NetDisk.TextAppearance.Large">
+        <item name="android:textColor">@color/color_323232</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Large.color848484" parent="@style/NetDisk.TextAppearance.Large">
+        <item name="android:textColor">@color/color_848484</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Large.White" parent="@style/NetDisk.TextAppearance.Large">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Large.TitleBlack" parent="@style/NetDisk.TextAppearance.Large">
+        <item name="android:textColor">@color/title_black</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Large.Disabled" parent="@style/NetDisk.TextAppearance.Large">
+        <item name="android:textColor">@color/upload_select_button_text_disabled</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Large.Blue" parent="@style/NetDisk.TextAppearance.Large">
+        <item name="android:textColor">@color/progress_pic_blue</item>
+    </style>
+<!--     <style name="NetDisk.TextAppearance.Large.BlackWhiteReverse" parent="@style/NetDisk.TextAppearance.Large">
+        <item name="android:textColor">@drawable/black_white_reverse_drawable</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Large.GrayWhiteReverse" parent="@style/NetDisk.TextAppearance.Large">
+        <item name="android:textColor">@drawable/gray_white_reverse_drawable</item>
+    </style> -->
+    <style name="NetDisk.TextAppearance.Middle" parent="@style/NetDisk.TextAppearance">
+        <item name="android:textSize">15.0dip</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Middle2" parent="@style/NetDisk.TextAppearance">
+        <item name="android:textSize">14.0dip</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Middle.EmptyInfo" parent="@style/NetDisk.TextAppearance.Middle">
+        <item name="android:textSize">14.0dip</item>
+        <item name="android:textColor">@color/empty_text_gray</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Middle.HotResource" parent="@style/NetDisk.TextAppearance.Middle">
+        <item name="android:textColor">@color/text_hot_resource</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Middle.color323232" parent="@style/NetDisk.TextAppearance.Middle">
+        <item name="android:textColor">@color/color_323232</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Middle.color848484" parent="@style/NetDisk.TextAppearance.Middle">
+        <item name="android:textColor">@color/color_848484</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Middle.TitleGray" parent="@style/NetDisk.TextAppearance.Middle">
+        <item name="android:textColor">@color/title_gray</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Middle.TitleBlack" parent="@style/NetDisk.TextAppearance.Middle">
+        <item name="android:textColor">@color/title_black</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Middle.TitleWhite" parent="@style/NetDisk.TextAppearance.Middle">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+    <style name="NetDisk.TextAppearance.BlackMiddle" parent="@style/NetDisk.TextAppearance">
+        <item name="android:textSize">17.0dip</item>
+        <item name="android:textColor">@color/coded_lock_prompt_text</item>
+    </style>
+    <style name="NetDisk.TextAppearance.RedMiddle" parent="@style/NetDisk.TextAppearance">
+        <item name="android:textSize">15.0dip</item>
+        <item name="android:textColor">@color/red</item>
+    </style>
+    <style name="NetDisk.TextAppearance.GrayMiddle" parent="@style/NetDisk.TextAppearance">
+        <item name="android:textSize">13.0dip</item>
+        <item name="android:textColor">@drawable/gray_white_reverse_drawable</item>
+    </style>
+    <style name="NetDisk.TextAppearance.NumericText" parent="@style/NetDisk.TextAppearance">
+        <item name="android:textSize">@dimen/numeric_edite_text_size</item>
+        <item name="android:textColor">@color/numeric_text_prompt_text</item>
+    </style>
+    <style name="NetDisk.TextAppearance.NumericKeyboardText" parent="@style/NetDisk.TextAppearance">
+        <item name="android:textSize">@dimen/numeric_edite_text_size</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="NetDisk.TextAppearance.NumericKeyboardCancleText" parent="@style/NetDisk.TextAppearance">
+        <item name="android:textSize">@dimen/numeric_edite_text_size</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+     <style name="NetDisk.TextAppearance.Middle.Gray" parent="@style/NetDisk.TextAppearance.Middle">
+        <item name="android:textColor">@drawable/gray_white_reverse_drawable</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Middle.Default" parent="@style/NetDisk.TextAppearance.Middle">
+        <item name="android:textColor">@color/text_default</item>
+    </style>
+    <style name="NetDisk.TextAppearance.ChooseAppTitle" parent="@style/NetDisk.TextAppearance">
+        <item name="android:textSize">22.0dip</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Middle.White" parent="@style/NetDisk.TextAppearance.Middle">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Middle.Black" parent="@style/NetDisk.TextAppearance.Middle">
+        <item name="android:textColor">@color/black</item>
+    </style>
+<!--     <style name="NetDisk.TextAppearance.Middle.BlackWhiteReverse" parent="@style/NetDisk.TextAppearance.Middle">
+        <item name="android:textColor">@drawable/black_white_reverse_drawable</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Middle.GrayWhiteReverse" parent="@style/NetDisk.TextAppearance.Middle">
+        <item name="android:textColor">@drawable/gray_white_reverse_drawable</item>
+    </style> -->
+    <style name="NetDisk.TextAppearance.Smsrecord" parent="@style/NetDisk.TextAppearance">
+        <item name="android:textSize">14.0dip</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Smsrecord.Green" parent="@style/NetDisk.TextAppearance.Smsrecord">
+        <item name="android:textColor">@color/text_green</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Smsrecord.Black" parent="@style/NetDisk.TextAppearance.Smsrecord">
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Smsrecord.Gray" parent="@style/NetDisk.TextAppearance.Smsrecord">
+        <item name="android:textColor">@color/text_gray</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Smsrecord.color323232" parent="@style/NetDisk.TextAppearance.Smsrecord">
+        <item name="android:textColor">@color/color_323232</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Smsrecord.color848484" parent="@style/NetDisk.TextAppearance.Smsrecord">
+        <item name="android:textColor">@color/color_848484</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Smsrecord.White" parent="@style/NetDisk.TextAppearance.Smsrecord">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Smsrecord.Num" parent="@style/NetDisk.TextAppearance.Smsrecord">
+        <item name="android:textColor">@color/text_little_blue</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Small" parent="@style/NetDisk.TextAppearance">
+        <item name="android:textSize">12.0dip</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Small.Black" parent="@style/NetDisk.TextAppearance.Small">
+        <item name="android:textColor">@color/text_default</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Small.Red" parent="@style/NetDisk.TextAppearance.Small">
+        <item name="android:textColor">@color/text_red</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Small.Green" parent="@style/NetDisk.TextAppearance.Small">
+        <item name="android:textColor">@color/text_green</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Small.Gray" parent="@style/NetDisk.TextAppearance.Small">
+        <item name="android:textColor">@color/text_gray</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Small.AnonymousContent" parent="@style/NetDisk.TextAppearance.Small">
+        <item name="android:textColor">@color/anonymous_filelist_content</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Small.color848484" parent="@style/NetDisk.TextAppearance.Small">
+        <item name="android:textColor">@color/color_848484</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Small.GrayB" parent="@style/NetDisk.TextAppearance.Small">
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Small.GrayC" parent="@style/NetDisk.TextAppearance.Small">
+        <item name="android:textColor">@color/color_gray</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Small.White" parent="@style/NetDisk.TextAppearance.Small">
+        <item name="android:textColor">@color/white</item>
+    </style>
+<!--     <style name="NetDisk.TextAppearance.Small.BlackWhiteReverse" parent="@style/NetDisk.TextAppearance.Small">
+        <item name="android:textColor">@drawable/black_white_reverse_drawable</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Small.GrayWhiteReverse" parent="@style/NetDisk.TextAppearance.Small">
+        <item name="android:textColor">@drawable/gray_white_reverse_drawable</item>
+    </style> -->
+    <style name="NetDisk.TextAppearance.Mini" parent="@style/NetDisk.TextAppearance">
+        <item name="android:textSize">10.0dip</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Mini.Red" parent="@style/NetDisk.TextAppearance.Mini">
+        <item name="android:textColor">@color/text_red</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Mini.Gray" parent="@style/NetDisk.TextAppearance.Mini">
+        <item name="android:textColor">@color/text_gray</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Mini.GrayB" parent="@style/NetDisk.TextAppearance.Mini">
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Mini.White" parent="@style/NetDisk.TextAppearance.Mini">
+        <item name="android:textColor">@color/white</item>
+    </style>
+<!--     <style name="NetDisk.TextAppearance.Mini.BlackWhiteReverse" parent="@style/NetDisk.TextAppearance.Mini">
+        <item name="android:textColor">@drawable/black_white_reverse_drawable</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Mini.GrayWhiteReverse" parent="@style/NetDisk.TextAppearance.Mini">
+        <item name="android:textColor">@drawable/gray_white_reverse_drawable</item>
+    </style> -->
+    <style name="NetDisk.TextAppearance.Content" parent="@style/NetDisk.TextAppearance">
+        <item name="android:textSize">16.0dip</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Content.Gray" parent="@style/NetDisk.TextAppearance.Content">
+        <item name="android:textColor">@color/text_gray</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Content.White" parent="@style/NetDisk.TextAppearance.Content">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Content.Red" parent="@style/NetDisk.TextAppearance.Content">
+        <item name="android:textColor">@color/red</item>
+    </style>
+     <style name="NetDisk.TextAppearance.Content.BlackWhiteReverse" parent="@style/NetDisk.TextAppearance.Content">
+        <item name="android:textColor">@drawable/black_white_reverse_drawable</item>
+    </style>
+    <style name="NetDisk.TextAppearance.Content.BlackBlueReverse" parent="@style/NetDisk.TextAppearance.Content">
+        <item name="android:textColor">@drawable/black_blue_reverse_drawable</item>
+    </style> 
+    <style name="NetDisk.TextAppearance.Content.Blue" parent="@style/NetDisk.TextAppearance.Content">
+        <item name="android:textColor">@color/progress_blue</item>
+    </style>
+<!--     <style name="NetDisk.TextAppearance.Content.GrayWhiteReverse" parent="@style/NetDisk.TextAppearance.Content">
+        <item name="android:textColor">@drawable/gray_white_reverse_drawable</item>
+    </style> -->
+    <style name="NetDisk.TextAppearance.Content.loginOtherAuth" parent="@style/NetDisk.TextAppearance.Content">
+        <item name="android:textSize">14.0dip</item>
+        <item name="android:textColor">@color/login_other_auth</item>
+    </style>
+<!--     <style name="NetDisk.TextAppearance.Content.BlueWhiteReverse" parent="@style/NetDisk.TextAppearance.Content">
+        <item name="android:textColor">@drawable/blue_text_drawable</item>
+    </style> -->
+    <style name="SapiTheme" parent="@android:style/Theme.NoTitleBar">
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+    <style name="StatusBarProgressBar">
+        <item name="android:maxHeight">14.0dip</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>
+        <item name="android:progressDrawable">@drawable/progressbar_drawable</item>
+        <item name="android:minHeight">14.0dip</item>
+    </style>
+    <style name="album_backup_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <style name="NetDiskPlayerPlugin" />
+    <style name="NetDiskPlayerPlugin.Theme" parent="@style/NetDiskPlayerPlugin" />
+    <style name="NetDiskPlayerPlugin.TextAppearance" parent="@style/NetDiskPlayerPlugin">
+        <item name="android:textColor">@color/text_default_color</item>
+    </style>
+    <style name="NetDiskPlayerPlugin.TextAppearance.Large" parent="@style/NetDiskPlayerPlugin.TextAppearance">
+        <item name="android:textSize">18.0dip</item>
+    </style>
+    <style name="NetDiskPlayerPlugin.TextAppearance.Content" parent="@style/NetDiskPlayerPlugin.TextAppearance">
+        <item name="android:textSize">17.0dip</item>
+    </style>
+    <style name="NetDiskPlayerPlugin.TextAppearance.Middle" parent="@style/NetDiskPlayerPlugin.TextAppearance">
+        <item name="android:textSize">15.0dip</item>
+    </style>
+    <style name="NetDiskPlayerPlugin.TextAppearance.Small" parent="@style/NetDiskPlayerPlugin.TextAppearance">
+        <item name="android:textSize">12.0dip</item>
+    </style>
+    <style name="NetDiskPlayerPlugin.TextAppearance.ChooseAppTitle" parent="@style/NetDiskPlayerPlugin.TextAppearance">
+        <item name="android:textSize">22.0dip</item>
+    </style>
+<!--     <style name="NetDiskPlayerPlugin.TextAppearance.Content.BlackWhiteReverse" parent="@style/NetDiskPlayerPlugin.TextAppearance.Content">
+        <item name="android:textColor">@drawable/black_white_reverse_drawable</item>
+    </style> -->
+    <style name="textStyle_16_333333">
+        <item name="android:textSize">16.0dip</item>
+        <item name="android:textColor">#ff333333</item>
+    </style>
+ <!--    <style name="Animation.Activity.Bottom" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/push_bottom_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/appear_prompt</item>
+        <item name="android:activityCloseEnterAnimation">@anim/appear_prompt</item>
+        <item name="android:activityCloseExitAnimation">@anim/push_bottom_out</item>
+    </style>
+    <style name="Theme.AppearBottomTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        <item name="android:windowAnimationStyle">@style/Animation.Activity.Bottom</item>
+    </style>
+    <style name="SwitchTheme" parent="@*android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:paddingRight">30.0dip</item>
+        <item name="android:button">@drawable/chb_on_off_selector</item>
+        <item name="android:maxHeight">50.0dip</item>
+        <item name="android:minWidth">50.0dip</item>
+    </style>
+    <style name="NetDisk.TextAppearance.ShareButtonText" parent="@style/NetDisk.TextAppearance">
+        <item name="android:textSize">15.0dip</item>
+        <item name="android:textColor">@color/video_listview_text_color</item>
+    </style> -->
+    <style name="AppTheme" parent="@android:style/Theme" />
+<!--     <style name="wap2netdiskBottomStyle">
+        <item name="android:background">@drawable/upload_bottom_box_bg</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">80.0dip</item>
+    </style> -->
+<!--     <style name="VideoWidgetBarProgressBar">
+        <item name="android:maxHeight">64.0dip</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:indeterminateDrawable">@*android:drawable/progress_indeterminate_horizontal</item>
+        <item name="android:progressDrawable">@drawable/progressbar_video_widget_drawable</item>
+        <item name="android:minHeight">24.0dip</item>
+    </style>
+    <style name="AlbumBackupBarProgressBar">
+        <item name="android:maxHeight">10.0dip</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:indeterminateDrawable">@*android:drawable/progress_indeterminate_horizontal</item>
+        <item name="android:progressDrawable">@drawable/progressbar_album_backup_drawable</item>
+        <item name="android:minHeight">10.0dip</item>
+    </style>
+    <style name="NarrowBlueButton">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/button_blue_selector</item>
+    </style> -->
+    <style name="NetDisk.Unified" parent="@style/NetDisk" />
+    <style name="NetDisk.Unified.AmazingLarge" parent="@style/NetDisk.Unified">
+        <item name="android:textSize">@dimen/text_size_amazing_large</item>
+    </style>
+    <style name="NetDisk.Unified.SuperLarge" parent="@style/NetDisk.Unified">
+        <item name="android:textSize">@dimen/text_size_super_large</item>
+    </style>
+    <style name="NetDisk.Unified.Large" parent="@style/NetDisk.Unified">
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+    <style name="NetDisk.Unified.Large.Red" parent="@style/NetDisk.Unified.Large">
+        <item name="android:textColor">@color/color_red</item>
+    </style>
+    <style name="NetDisk.Unified.Large.Blue" parent="@style/NetDisk.Unified.Large">
+        <item name="android:textColor">@color/color_blue</item>
+    </style>
+    <style name="NetDisk.Unified.Middle" parent="@style/NetDisk.Unified">
+        <item name="android:textSize">@dimen/text_size_middle</item>
+    </style>
+    <style name="NetDisk.Unified.Small" parent="@style/NetDisk.Unified">
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+    <style name="NetDisk.Unified.Smaller" parent="@style/NetDisk.Unified">
+        <item name="android:textSize">@dimen/text_size_smaller</item>
+    </style>
+    <style name="NetDisk.Unified.Least" parent="@style/NetDisk.Unified">
+        <item name="android:textSize">@dimen/text_size_least</item>
+    </style>
+    <style name="NetDisk.Unified.Tiny" parent="@style/NetDisk.Unified">
+        <item name="android:textSize">@dimen/text_size_tiny</item>
+    </style>
+    <style name="NetDisk.Unified.Large.Black" parent="@style/NetDisk.Unified.Large">
+        <item name="android:textColor">@color/color_black</item>
+    </style>
+<!--     <style name="NetDisk.Unified.Least.Blue2Gray" parent="@style/NetDisk.Unified.Least">
+        <item name="android:textColor">@drawable/blue_gray_reverse_drawable</item>
+    </style>
+    <style name="NetDisk.Unified.Least.Red2Gray" parent="@style/NetDisk.Unified.Least">
+        <item name="android:textColor">@drawable/red_gray_reverse_drawable</item>
+    </style>
+    <style name="NetDisk.Unified.Smaller.Blue2Gray" parent="@style/NetDisk.Unified.Smaller">
+        <item name="android:textColor">@drawable/blue_gray_reverse_drawable</item>
+    </style>
+    <style name="NetDisk.Unified.Smaller.Blue2TabBarGray" parent="@style/NetDisk.Unified.Smaller">
+        <item name="android:textColor">@drawable/blue_tabbargray_reverse_drawable</item>
+    </style>
+    <style name="NetDisk.Unified.Smaller.Blue2Black" parent="@style/NetDisk.Unified.Smaller">
+        <item name="android:textColor">@drawable/blue_black_reverse_drawable</item>
+    </style>
+    <style name="NetDisk.Unified.Smaller.Red2Gray" parent="@style/NetDisk.Unified.Smaller">
+        <item name="android:textColor">@drawable/red_gray_reverse_drawable</item>
+    </style>
+    <style name="NetDisk.Unified.Smaller.Red2TabBarGray" parent="@style/NetDisk.Unified.Smaller">
+        <item name="android:textColor">@drawable/red_tabbargray_reverse_drawable</item>
+    </style>
+    <style name="NetDisk.Unified.Smaller.Red2Black" parent="@style/NetDisk.Unified.Smaller">
+        <item name="android:textColor">@drawable/red_black_reverse_drawable</item>
+    </style> -->
+    <style name="NetDisk.Unified.Smaller.Gray" parent="@style/NetDisk.Unified.Smaller">
+        <item name="android:textColor">@color/color_gray</item>
+    </style>
+    <style name="NetDisk.Unified.Smaller.DarkGray" parent="@style/NetDisk.Unified.Smaller">
+        <item name="android:textColor">@color/color_gray_6d</item>
+    </style>
+    <style name="NetDisk.Unified.Smaller.White" parent="@style/NetDisk.Unified.Smaller">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+    <style name="NetDisk.Unified.Smaller.Black" parent="@style/NetDisk.Unified.Smaller">
+        <item name="android:textColor">@color/color_black</item>
+    </style>
+    <style name="NetDisk.Unified.Smaller.Blue" parent="@style/NetDisk.Unified.Smaller">
+        <item name="android:textColor">@color/color_blue</item>
+    </style>
+    <style name="NetDisk.Unified.Middle.DarkGray" parent="@style/NetDisk.Unified.Middle">
+        <item name="android:textColor">@color/color_gray_6d</item>
+    </style>
+    <style name="NetDisk.Unified.Smaller.Red" parent="@style/NetDisk.Unified.Smaller">
+        <item name="android:textColor">@color/color_red</item>
+    </style>
+    <style name="NetDisk.Unified.Middle.Black" parent="@style/NetDisk.Unified.Middle">
+        <item name="android:textColor">@color/color_black</item>
+    </style>
+<!--     <style name="NetDisk.Unified.Middle.Blue2Black" parent="@style/NetDisk.Unified.Middle">
+        <item name="android:textColor">@drawable/blue_black_reverse_drawable</item>
+    </style> -->
+    <style name="NetDisk.Unified.Middle.Gray" parent="@style/NetDisk.Unified.Middle">
+        <item name="android:textColor">@color/color_gray</item>
+    </style>
+    <style name="NetDisk.Unified.Middle.Red" parent="@style/NetDisk.Unified.Middle">
+        <item name="android:textColor">@color/color_red</item>
+    </style>
+    <style name="NetDisk.Unified.Middle.Blue" parent="@style/NetDisk.Unified.Middle">
+        <item name="android:textColor">@color/color_blue</item>
+    </style>
+    <style name="NetDisk.Unified.Tiny.Red" parent="@style/NetDisk.Unified.Tiny">
+        <item name="android:textColor">@color/color_red</item>
+    </style>
+    <style name="NetDisk.Unified.Tiny.Gray" parent="@style/NetDisk.Unified.Tiny">
+        <item name="android:textColor">@color/color_gray</item>
+    </style>
+    <style name="NetDisk.Unified.AmazingLarge.White" parent="@style/NetDisk.Unified.AmazingLarge">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+    <style name="NetDisk.Unified.AmazingLarge.Blue" parent="@style/NetDisk.Unified.AmazingLarge">
+        <item name="android:textColor">@color/color_blue</item>
+    </style>
+    <style name="NetDisk.Unified.AmazingLarge.DarkGray" parent="@style/NetDisk.Unified.AmazingLarge">
+        <item name="android:textColor">@color/color_dark_gray</item>
+    </style>
+    <style name="NetDisk.Unified.Large.White" parent="@style/NetDisk.Unified.Large">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+    <style name="NetDisk.Unified.SuperLarge.White" parent="@style/NetDisk.Unified.SuperLarge">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+  <!--   <style name="NetDisk.Unified.Small.Gray2Black" parent="@style/NetDisk.Unified.Small">
+        <item name="android:textColor">@drawable/gray_black_reverse_drawable</item>
+    </style> -->
+    <style name="NetDisk.Unified.Middle.White" parent="@style/NetDisk.Unified.Middle">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+    <style name="NetDisk.Unified.Small.Gray" parent="@style/NetDisk.Unified.Small">
+        <item name="android:textColor">@color/color_gray</item>
+    </style>
+<!--     <style name="NetDisk.Unified.Small.Gray2White" parent="@style/NetDisk.Unified.Small">
+        <item name="android:textColor">@drawable/gray_white_reverse_drawable</item>
+    </style>
+    <style name="NetDisk.Unified.Small.Gray2Blue" parent="@style/NetDisk.Unified.Small">
+        <item name="android:textColor">@drawable/blue_gray_reverse_drawable</item>
+    </style> -->
+    <style name="NetDisk.Unified.Small.Black" parent="@style/NetDisk.Unified.Small">
+        <item name="android:textColor">@color/color_black</item>
+    </style>
+    <style name="NetDisk.Unified.Small.Blue" parent="@style/NetDisk.Unified.Small">
+        <item name="android:textColor">@color/color_blue</item>
+    </style>
+    <style name="NetDisk.Unified.Small.DarkGray" parent="@style/NetDisk.Unified.Small">
+        <item name="android:textColor">@color/color_dark_gray</item>
+    </style>
+    <style name="NetDisk.Unified.Small.White" parent="@style/NetDisk.Unified.Small">
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+    <style name="NetDisk.Unified.Least.Gray" parent="@style/NetDisk.Unified.Least">
+        <item name="android:textColor">@color/color_gray</item>
+    </style>
+    <style name="NetDisk.Unified.Least.Black" parent="@style/NetDisk.Unified.Least">
+        <item name="android:textColor">@color/color_black</item>
+    </style>
+    <style name="NetDisk.Unified.Huge" parent="@style/NetDisk.Unified">
+        <item name="android:textSize">@dimen/text_size_huge</item>
+    </style>
+    <style name="NetDisk.Unified.Huge.Blue" parent="@style/NetDisk.Unified.Huge">
+        <item name="android:textColor">@color/color_blue</item>
+    </style>
+    <style name="NetDisk.Unified.Huge.Blue.Blod" parent="@style/NetDisk.Unified.Huge.Blue">
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="NetDisk.Unified.Huge.DarkGray" parent="@style/NetDisk.Unified.Huge">
+        <item name="android:textColor">@color/color_dark_gray</item>
+    </style>
+    <style name="NetDisk.Unified.Huge.Black" parent="@style/NetDisk.Unified.Huge">
+        <item name="android:textColor">@color/color_black</item>
+    </style>
+    <style name="NetDisk.Unified.Huge.DarkGray.Blod" parent="@style/NetDisk.Unified.Huge.DarkGray">
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="NetDisk.Unified.Huge.Black.Blod" parent="@style/NetDisk.Unified.Huge.Black">
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="NetDisk.Unified.Big" parent="@style/NetDisk.Unified">
+        <item name="android:textSize">@dimen/text_size_big</item>
+    </style>
+    <style name="NetDisk.Unified.Big.Blue" parent="@style/NetDisk.Unified.Big">
+        <item name="android:textColor">@color/color_blue</item>
+    </style>
+    <style name="NetDisk.Unified.Big.DarkGray" parent="@style/NetDisk.Unified.Big">
+        <item name="android:textColor">@color/color_dark_gray</item>
+    </style>
+    <style name="NetDisk.Unified.Button" parent="@style/NetDisk.Unified" />
+<!--     <style name="NetDisk.Unified.Button.Red" parent="@style/NetDisk.Unified.Button">
+        <item name="android:textStyle">italic</item>
+        <item name="android:background">@drawable/feed_detail_item_personal_attention_selector</item>
+    </style>
+    <style name="NetDisk.Unified.Button.Red.Follow" parent="@style/NetDisk.Unified.Button.Red">
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/personal_homepage_user_attention_selector</item>
+    </style>
+    <style name="NetDisk.Unified.Button.Red.Cancle" parent="@style/NetDisk.Unified.Button.Red">
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/personal_homepage_user_cancel_follow_selector</item>
+    </style>
+    <style name="NetDisk.Unified.Button.WhiteWithGrayBorder" parent="@style/NetDisk.Unified.Button">
+        <item name="android:textStyle"></item>
+        <item name="android:background">@drawable/background_button_white_with_gray_border</item>
+    </style> -->
+<!--     <style name="Netdisk.PopupMemu" parent="@android:style/Animation.Dialog" />
+    <style name="Netdisk.PopupMemu.Fade" parent="@style/Netdisk.PopupMemu">
+        <item name="android:windowEnterAnimation">@anim/alpha_03_10</item>
+        <item name="android:windowExitAnimation">@anim/alpha_10_00</item>
+    </style>
+    <style name="NetDisk.ListView" parent="@style/NetDisk" />
+    <style name="NetDisk.ImageGridView" parent="@style/NetDisk">
+        <item name="android:horizontalSpacing">1.0dip</item>
+    </style>
+    <style name="NetDisk.ListView.Item" parent="@style/NetDisk.ListView" />
+    <style name="NetDisk.ListView.Item.Icon" parent="@style/NetDisk.ListView.Item">
+        <item name="android:layout_width">44.0dip</item>
+        <item name="android:layout_height">44.0dip</item>
+        <item name="android:layout_marginLeft">8.0dip</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+    <style name="NetDisk.Unified.Middle.Similarity" parent="@style/NetDisk.Unified.Middle">
+        <item name="android:textColor">#ff5d3609</item>
+    </style>
+    <style name="NetDisk.PluginItemView" parent="@style/NetDisk">
+        <item name="android:layout_marginTop">13.0dip</item>
+        <item name="android:layout_marginBottom">15.0dip</item>
+    </style>
+    <style name="NetDisk.CategoryItemText" parent="@style/NetDisk">
+        <item name="android:textSize">14.0dip</item> 
+    </style>-->
+    
+    
+<!--         <style name="V5.TextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/v5_text_font_size_primary</item>
+    </style> -->
+
+    <style name="PreferenceList" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_font_size_primary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/preference_primary_text_light</item>
+    </style>
+
+    
+    <style name="ListSecondary" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_font_size_list_secondary</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/preference_secondary_text_light</item>
+        <item name="android:shadowColor">@color/list_secondary_text_shadow_light</item>
+        <item name="android:shadowDx">0.0</item>
+        <item name="android:shadowDy">1.0</item>
+        <item name="android:shadowRadius">1.0</item>
+    </style>
+
+    <style name="DialogTitle">
+        <item name="android:textSize">@dimen/text_font_size_list_primary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/title_text_color_dark</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="UserNameStyle">
+        <item name="android:textSize">@dimen/settings_user_id_text_size</item>
+        <item name="android:textColor">@color/title_text_color_dark</item>
+    </style>
+    
+    <style name="ArrowIndicator">
+        <item name="android:src">@drawable/arrow_right</item>
+    </style>
+    
+    
+     <style name="ActionBarStyleShowCustom">
+        <item name="android:background">@drawable/cloud_settings_title_bg</item>
+        <item name="android:height">@dimen/cloud_settings_title_height</item>
+        <item name="android:displayOptions">showCustom</item>
+        
+    </style>   
+    <style name="MiCloudSettings" parent="@android:style/Theme.Holo.Light">  
+        <item name="android:actionBarStyle">@style/ActionBarStyleShowCustom</item>
+         <item name="android:windowBackground">@drawable/settings_window_bg_light</item>
+    </style>
 </resources>

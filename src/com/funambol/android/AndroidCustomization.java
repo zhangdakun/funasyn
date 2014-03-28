@@ -43,7 +43,7 @@ import com.funambol.client.customization.Customization;
 import com.funambol.client.source.AppSyncSourceManager;
 import com.funambol.client.ui.Bitmap;
 import com.funambol.util.Log;
-import com.eben.androidsync.R;
+import cn.eben.androidsync.R;
 import com.funambol.platform.DeviceInfo;
 import com.funambol.platform.DeviceInfoInterface;
 import com.funambol.platform.DeviceInfoInterface.DeviceRole;
@@ -83,7 +83,8 @@ public class AndroidCustomization implements Customization {
     private final String   PORTAL_URL              = "http://my.funambol.com";
 
     // Sync sources customization
-    private final String   CONTACTS_DEFAULT_URI    = "card";
+//    private final String   CONTACTS_DEFAULT_URI    = "card";
+    private final String   CONTACTS_DEFAULT_URI    = "ecard";//lierbao
     private final boolean  CONTACTS_AVAILABLE      = true;
     private final boolean  CONTACTS_ENABLED        = true;
 
@@ -160,8 +161,9 @@ public class AndroidCustomization implements Customization {
     private final String  UT_ACCOUNT_SCREEN_CLASS_NAME = "com.funambol.android.UnitTestAuthenticator";
 
     // Defines the classto use while displaying a single sync source in the home screen
-    private final String  ALONE_UI_SYNC_SOURCE_CLASS_NAME = "com.funambol.android.activities.AndroidAloneUISyncSource";
-
+//    private final String  ALONE_UI_SYNC_SOURCE_CLASS_NAME = "com.funambol.android.activities.AndroidAloneUISyncSource";
+    private final String  ALONE_UI_SYNC_SOURCE_CLASS_NAME = "com.eben.activities.EbenAloneUISyncSource";
+    
     // Normally the sync adapter set the account as syncable during its
     // initialization. Set this value to false to change this behavior.
     private boolean ENABLE_SYNC_AUTOMATICALLY = true;
@@ -211,7 +213,7 @@ public class AndroidCustomization implements Customization {
     // Specifies if the S2C SMS push must be enabled in the client
     private final boolean ENABLE_S2C_SMS_PUSH           = false;
 
-    private final int C2S_PUSH_DELAY                    = 60 * 1000; // 1 minute
+    private final int C2S_PUSH_DELAY                    = 10 * 1000; // 1 minute
 
     // Show non working sources in the home screen
     private final boolean SHOW_NON_WORKING_SOURCES      = false;

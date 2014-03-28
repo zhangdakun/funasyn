@@ -65,7 +65,7 @@ import com.funambol.android.activities.AndroidActivitiesFactory;
 import com.funambol.android.activities.AndroidDisplayManager;
 import com.funambol.android.controller.AndroidSettingsScreenController;
 import com.funambol.android.source.pim.PimTestRecorder;
-import com.eben.androidsync.R;
+import cn.eben.androidsync.R;
 import com.eben.client.ServiceManager;
 import com.eben.service.EbpService;
 

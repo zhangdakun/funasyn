@@ -44,7 +44,7 @@ import android.widget.TextView;
 import android.widget.ImageView;
 
 import com.funambol.android.App;
-import com.eben.androidsync.R;
+import cn.eben.androidsync.R;
 import com.funambol.android.AppInitializer;
 import com.funambol.android.controller.AndroidController;
 

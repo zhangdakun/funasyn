@@ -62,7 +62,7 @@
     <property name="android-tools-platform" value="${sdk-folder}/platform-tools"/>
 
     <!-- Application Package Name -->
-    <property name="application.package" value="com.eben.androidsync" />
+    <property name="application.package" value="cn.eben.androidsync" />
     
     <!-- Application default locale -->
     <property name="default.locale" value="cn" />
@@ -419,6 +419,7 @@
             </fileset>
         	<fileset dir="${eben.libs}" includes="umeng_sdk.jar"/>
         	<fileset dir="${eben.libs}" includes="asmack.jar"/>
+		<fileset dir="${eben.libs}" includes="android-support-v4.jar"/>
         </copy>
         <copy file="${lib.joda.time}" todir="${external-libs-ospath}" />
         <copy todir="${external-libs-ospath}">
@@ -513,7 +514,7 @@
     <target name="prepare-manifest-package-name">
         <echo>Prepare package name: ${application.package}</echo> 
         <replace file="${outdir.manifest}/AndroidManifest.xml" 
-            token="&quot;com.eben.androidsync&quot;" 
+            token="&quot;cn.eben.androidsync&quot;" 
             value="&quot;${application.package}&quot;"/>
     </target>
     

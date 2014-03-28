@@ -52,7 +52,7 @@ import android.accounts.Account;
 
 import com.funambol.android.AndroidAccountManager;
 import com.funambol.android.AndroidAppSyncSource;
-import com.eben.androidsync.R;
+import cn.eben.androidsync.R;
 import com.funambol.android.controller.AndroidController;
 
 import com.funambol.client.ui.SettingsUIItem;

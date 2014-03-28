@@ -142,7 +142,12 @@ public class DirtyChangesTrackerMd5 extends DirtyChangesTracker {
                     if (Log.isLoggable(Log.TRACE)) {
                         Log.trace(TAG_LOG, "Found a new item with key: " + newKey);
                     }
+                    String newFP = (String)snapshot.get(newKey);
+                    if(!EntryMD5.equalsIgnoreCase(newFP)) {
                     newItems.put(newKey, snapshot.get(newKey));
+                    }  else {
+                    	Log.error(TAG_LOG, "a empty new,ignore,maybe deleted");
+                    }
                 } else {
                     // Check if their fingerprints are the same
                     String oldFP = (String)this.status.get(newKey);
@@ -351,20 +356,22 @@ public class DirtyChangesTrackerMd5 extends DirtyChangesTracker {
     }
 
     public boolean hasChanges() {
-        boolean result = false;
-
-        StringBuffer whereClause = getAccountWhereClause();
-        whereClause.append(" AND ");
-        whereClause.append(RawContacts.DIRTY).append("=1");
-
-        Cursor items = resolver.query(RawContacts.CONTENT_URI, 
-                new String[] {ContactsContract.RawContacts.DIRTY},
-                whereClause.toString(), null, null);
-
-        result = items.getCount() > 0;
-        items.close();
-
-        return result;
+//        boolean result = false;
+//
+//        StringBuffer whereClause = getAccountWhereClause();
+//        whereClause.append(" AND ");
+//        whereClause.append(RawContacts.DIRTY).append("=1");
+//
+//        Cursor items = resolver.query(RawContacts.CONTENT_URI, 
+//                new String[] {ContactsContract.RawContacts.DIRTY},
+//                whereClause.toString(), null, null);
+//
+//        result = items.getCount() > 0;
+//        items.close();
+//
+//        return result;
+    	
+    	return true;
     }
 
     private StringBuffer getAccountWhereClause() {

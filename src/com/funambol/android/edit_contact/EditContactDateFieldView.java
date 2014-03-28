@@ -62,7 +62,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 
-import com.eben.androidsync.R;
+import cn.eben.androidsync.R;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;

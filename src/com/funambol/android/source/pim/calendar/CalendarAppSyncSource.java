@@ -44,7 +44,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
-import com.eben.androidsync.R;
+import cn.eben.androidsync.R;
 import com.funambol.android.AndroidUtils;
 import com.funambol.android.AndroidAppSyncSource;
 import com.funambol.android.controller.AndroidController;

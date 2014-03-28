@@ -46,7 +46,7 @@ public class EbpService extends Service {
 		// TODO Auto-generated method stub
 		super.onCreate();
 		serviceInit(this);
-		startForegroundCompat();
+//		startForegroundCompat();
 	}
 
 	public void serviceInit(Context context) {
@@ -62,7 +62,7 @@ public class EbpService extends Service {
 	@Override
 	public void onDestroy() {
 		// TODO Auto-generated method stub
-		stopForegroundCompat();
+//		stopForegroundCompat();
 		super.onDestroy();
 	}
  

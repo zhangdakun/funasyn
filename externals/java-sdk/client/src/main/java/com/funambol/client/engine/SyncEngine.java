@@ -454,7 +454,7 @@ public class SyncEngine implements SyncSchedulerListener {
                         listener.sourceEnded(appSource);
                     }
                 } catch (final Exception e) {
-
+                	e.printStackTrace();
                     boolean compressError = (e instanceof CompressedSyncException);
                     if (compressError) {
                         if (!compressionRetry) {

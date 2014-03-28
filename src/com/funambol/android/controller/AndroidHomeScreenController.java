@@ -50,7 +50,7 @@ import com.funambol.android.AppInitializer;
 import com.funambol.android.activities.AndroidDisplayManager;
 import com.funambol.android.activities.AndroidHomeScreen;
 import com.funambol.android.services.AutoSyncServiceHandler;
-import com.eben.androidsync.R;
+import cn.eben.androidsync.R;
 import com.eben.client.Constants;
 import com.eben.client.NotificationService;
 

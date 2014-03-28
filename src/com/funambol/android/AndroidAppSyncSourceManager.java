@@ -260,7 +260,7 @@ public class AndroidAppSyncSourceManager extends AppSyncSourceManager {
         Class devSettings = Class.forName("com.funambol.android.activities.settings.AndroidDevSettingsUISyncSource");
         appSyncSource.setDevSettingsUIClass(devSettings);
 
-        Class buttonView = Class.forName("com.funambol.android.activities.AndroidButtonUISyncSource");
+        Class buttonView = Class.forName("com.eben.activities.EbenButtonUISyncSource");
         appSyncSource.setButtonUIClass(buttonView);
 
         Class aloneView = Class.forName(((AndroidCustomization)customization)
