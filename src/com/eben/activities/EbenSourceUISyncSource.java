@@ -59,7 +59,7 @@ public class EbenSourceUISyncSource extends AndroidUISyncSource {
 
         LayoutInflater inflater = activity.getLayoutInflater();
         
-        this.addView(inflater.inflate(R.layout.pim_setting_layout, null),
+        this.addView(inflater.inflate(R.layout.eben_pim_layout, null),
         		new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 //        activity.ge
 //        this.setBackgroundResource(R.drawable.sync_shape);
@@ -155,7 +155,7 @@ public class EbenSourceUISyncSource extends AndroidUISyncSource {
 
 	@Override
 	public void syncEnded() {
-		// TODO Auto-generated method stub
+		
 		if(null != handler) {
 			handler.sendEmptyMessage(0);
 		}

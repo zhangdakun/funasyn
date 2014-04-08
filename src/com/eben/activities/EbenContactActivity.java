@@ -1,77 +1,12 @@
-/*
- * Funambol is a mobile platform developed by Funambol, Inc.
- * Copyright (C) 2009 Funambol, Inc.
- *
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Affero General Public License version 3 as published by
- * the Free Software Foundation with the addition of the following permission
- * added to Section 15 as permitted in Section 7(a): FOR ANY PART OF THE COVERED
- * WORK IN WHICH THE COPYRIGHT IS OWNED BY FUNAMBOL, FUNAMBOL DISCLAIMS THE
- * WARRANTY OF NON INFRINGEMENT  OF THIRD PARTY RIGHTS.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program; if not, see http://www.gnu.org/licenses or write to
- * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
- * MA 02110-1301 USA.
- *
- * You can contact Funambol, Inc. headquarters at 643 Bair Island Road, Suite
- * 305, Redwood City, CA 94063, USA, or at email address info@funambol.com.
- *
- * The interactive user interfaces in modified source and object code versions
- * of this program must display Appropriate Legal Notices, as required under
- * Section 5 of the GNU Affero General Public License version 3.
- *
- * In accordance with Section 7(b) of the GNU Affero General Public License
- * version 3, these Appropriate Legal Notices must retain the display of the
- * "Powered by Funambol" logo. If the display of the logo is not reasonably
- * feasible for technical reasons, the Appropriate Legal Notices must display
- * the words "Powered by Funambol".
- */
-
 package com.eben.activities;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.Vector;
 
-import android.app.ActionBar;
-import android.app.Activity;
-import android.app.Dialog;
-import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.content.pm.ActivityInfo;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.preference.Preference;
-import android.preference.PreferenceActivity;
-import android.preference.PreferenceScreen;
-import android.support.v4.app.Fragment;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
-import android.view.ViewGroup.LayoutParams;
-import android.view.Window;
-import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 import cn.eben.androidsync.R;
 
 import com.eben.client.Constants;
@@ -86,6 +21,7 @@ import com.funambol.android.source.pim.PimTestRecorder;
 import com.funambol.client.configuration.Configuration;
 import com.funambol.client.controller.Controller;
 import com.funambol.client.controller.HomeScreenController;
+import com.funambol.client.controller.UISyncSourceController;
 import com.funambol.client.customization.Customization;
 import com.funambol.client.localization.Localization;
 import com.funambol.client.source.AppSyncSource;
@@ -96,12 +32,68 @@ import com.funambol.client.ui.UISyncSourceContainer;
 import com.funambol.util.Log;
 import com.umeng.analytics.MobclickAgent;
 
-/**
- */
-public class EbenHomeScreen extends Activity implements HomeScreen, UISyncSourceContainer {
-//	public class EbenHomeScreen extends PreferenceActivity implements HomeScreen, UISyncSourceContainer {
-    private static final String TAG = "EbenHomeScreen";
+import android.app.ActionBar;
+import android.app.Activity;
+import android.app.Dialog;
+import android.app.FragmentTransaction;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.content.pm.ActivityInfo;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.preference.Preference;
+import android.preference.PreferenceScreen;
+import android.provider.ContactsContract;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
+import android.view.ViewGroup.LayoutParams;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
+public class EbenContactActivity extends Activity implements HomeScreen, UISyncSourceContainer {
+
+    private static final String TAG = "EbenContactActivity";
+
+	private ImageView mPimRunningView;
+	private ImageView mHomeBack;
+	private Button mPimStartButton;
+	
+	private TextView mPimSyncStateTips;
+	private TextView pim_sync_state_progress;
+	private TextView number_local;
+	private TextView number_cloud;
+//	private FragmentActivity mActivity;
+	
+	private long lastSyncTS = 0;
+	private CheckBox mPimSyncCheckbox;
+	private RelativeLayout mPimAutoSyncLayout;
+	 
+	private final String auto_sync = "auto_sync";
+	private SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
+	
     private static final String FIRST_SYNC_ALERT_PENDING = "FirstSyncAlertPending";
     private static final String WIFI_NOT_AVAILABLE_ALERT_PENDING = "WifiNotAvailableAlertPending";
 
@@ -146,7 +138,6 @@ public class EbenHomeScreen extends Activity implements HomeScreen, UISyncSource
     public static Fragment fsources;
     public static Fragment fcontacts;
     
-    LinearLayout contact_layout;
 	public static int viewid = 0;
     /**
      * Called with the activity is first created.
@@ -155,16 +146,13 @@ public class EbenHomeScreen extends Activity implements HomeScreen, UISyncSource
     public void onCreate(Bundle icicle) {
 
         // Set up the activity
-    	Log.debug(TAG, "onCreate 0");
         super.onCreate(icicle);
-        Log.debug(TAG, "onCreate 1");
+
         MobclickAgent.onError(this);
-        Log.debug(TAG, "onCreate 2");
         // Lock the screen orientation to vertical for this screen
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        Log.debug(TAG, "onCreate 3");
+
         AppInitializer initializer = App.i().getAppInitializer();
-        Log.debug(TAG, "onCreate 4");
         initializer.init(this);
         
         Log.debug(TAG, "after init app");
@@ -175,11 +163,10 @@ public class EbenHomeScreen extends Activity implements HomeScreen, UISyncSource
         // By default we set the multi buttons layout
 //        setMultiButtonsLayout();
 //        fsources = new SourceListFragment();
-//        fcontacts = new ContactsFragment();
+        fcontacts = new ContactsFragment();
         
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-
+        setEbenLayout();
         
 //        getSupportFragmentManager().beginTransaction().add(R.id.main_home, fsources)
 //        	.add(R.id.main_home, fcontacts).commit();
@@ -193,13 +180,7 @@ public class EbenHomeScreen extends Activity implements HomeScreen, UISyncSource
         homeScreenController.setHomeScreen(this);
 
         this.dm = (AndroidDisplayManager) controller.getDisplayManager();
-        setContentView(R.layout.eben_pim_main);
-        setEbenLayout();
-        
-//        contact_layout = (LinearLayout) findViewById(R.id.contact_layout);
-//        contact_layout.setClickable(true);
-//        contact_layout.setOnClickListener(viewListener);
-//        
+
         // We have to explicitely call the initialize here
         initialize(homeScreenController);
 
@@ -340,72 +321,41 @@ public class EbenHomeScreen extends Activity implements HomeScreen, UISyncSource
         homeScreenController.setForegroundStatus(false);
         Log.trace(TAG, "Paused activity (foreground status off)");
     }
-	private void addSettingFragment() {
-		Log.debug(TAG,"addSettingFragment");
-		EbenCloudSettingsFragment fragment = new EbenCloudSettingsFragment();
-
-		getFragmentManager().beginTransaction()
-				.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-				.replace(android.R.id.content, fragment, "activated").commit();
-	}    
+//	private void addSettingFragment() {
+//		Log.debug(TAG,"addSettingFragment");
+//		EbenCloudSettingsFragment fragment = new EbenCloudSettingsFragment();
+//
+//		getFragmentManager().beginTransaction()
+//				.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+//				.replace(android.R.id.content, fragment, "activated").commit();
+//	}    
     @Override
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
-        homeScreenController.setHomeScreen(this);
-        
         homeScreenController.setForegroundStatus(true);
         Log.trace(TAG, "Resumed activity (foreground status on)");
-        String user = App.i().getAppInitializer().getConfiguration().getUsername();
-        String name = App.i().getAppInitializer().getConfiguration().getSyncConfig().getUserName();
-        Log.debug(TAG, "user, " +user+", name , "+name);
-        if(!App.i().getAppInitializer().getConfiguration().getCredentialsCheckPending()) {
-        	SharedPreferences sp =App.i().
-    		getApplicationContext().getSharedPreferences(Constants.SHARED_PREFERENCE_NAME,
-            Context.MODE_PRIVATE);
-        	if(!sp.contains(Constants.XMPP_ORI_USERNAME)) {
-	        Editor editor = sp.edit();
-	        
-	        editor.putString(Constants.XMPP_ORI_USERNAME,user);
-	        editor.commit();
-        	}
-//        	this.sendBroadcast(new Intent(Constants.ACTION_START_EBP));
-        	mHandler.sendEmptyMessageDelayed(0, 2*1000);
-
-        }
+//        String user = App.i().getAppInitializer().getConfiguration().getUsername();
+//        String name = App.i().getAppInitializer().getConfiguration().getSyncConfig().getUserName();
+//        Log.debug(TAG, "user, " +user+", name , "+name);
+//        if(!App.i().getAppInitializer().getConfiguration().getCredentialsCheckPending()) {
+//        	SharedPreferences sp =App.i().
+//    		getApplicationContext().getSharedPreferences(Constants.SHARED_PREFERENCE_NAME,
+//            Context.MODE_PRIVATE);
+//        	if(!sp.contains(Constants.XMPP_ORI_USERNAME)) {
+//	        Editor editor = sp.edit();
+//	        
+//	        editor.putString(Constants.XMPP_ORI_USERNAME,user);
+//	        editor.commit();
+//        	}
+//        	mHandler.sendEmptyMessageDelayed(0, 2*1000);
+//
+//        }
         
-        setEbenLayout();
 //        addSettingFragment();
     }
 
-	Handler mHandler = new Handler() {
 
-		@Override
-		public void handleMessage(Message msg) {
-			// TODO Auto-generated method stub
-			super.handleMessage(msg);
-			switch (msg.what) {
-			case 0:
-		        String user = App.i().getAppInitializer().getConfiguration().getUsername();
-		        String name = App.i().getAppInitializer().getConfiguration().getSyncConfig().getUserName();
-		        Log.debug(TAG, "user, " +user+", name , "+name);
-		        
-//		        Editor editor = App.i().
-//		        		getApplicationContext().getSharedPreferences(Constants.SHARED_PREFERENCE_NAME,
-//		                Context.MODE_PRIVATE).edit();
-//		        editor.putString(Constants.XMPP_ORI_USERNAME,user);
-//		        editor.commit();
-		        Intent in = new Intent(Constants.ACTION_START_EBP);
-		        in.putExtra(Constants.PARA_USER, user);
-				App.i().getApplicationContext().sendBroadcast(in);
-				break;
-
-			default:
-				break;
-			}
-		}
-
-	};
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle all of the possible menu actions
@@ -590,66 +540,16 @@ public class EbenHomeScreen extends Activity implements HomeScreen, UISyncSource
 	private ImageView mAvatarView;
 	private View mTitleView;
 	private TextView mUserIdView;
-	private TextView contact_summary;
-	
-	private SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
 	
     private void setEbenLayout() {
         // Set the content view
-//        setContentView(R.layout.eben_homescreen);
-//    	setContentView(R.layout.eben_pim_main);
+        setContentView(R.layout.eben_sync_contacts);
 //		ActionBar localActionBar = getActionBar();
 		Log.debug(TAG,"setEbenLayout");
-//		View custom = getLayoutInflater().inflate(R.layout.eben_cloud_title, null);
-//		if (localActionBar != null) {
-//			localActionBar.setCustomView(custom,
-//					new  ActionBar.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-//			getActionBar().setDisplayShowHomeEnabled(false);
-//
-//			getActionBar().setDisplayShowTitleEnabled(false);
-//
-//			getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-//
-//			getActionBar().setDisplayShowCustomEnabled(true);
-			this.mAvatarView = ((ImageView) findViewById(R.id.avatar));
-			this.mUserIdView = ((TextView) findViewById(R.id.user_id));
-			this.mTitleView = findViewById(R.id.title_bar);
-			
-			String user = App.i().getAppInitializer().getConfiguration().getUsername();
-			if(null !=user && !user.isEmpty())
-			mUserIdView.setText(user);
-//		} else {
-//			Log.error(TAG, "get action bar null!!!");
-//		}
+		buttons = (LinearLayout) findViewById(R.id.contact_btn) ;
         // Grab the views 
 //        mainLayout = (LinearLayout)findViewById(R.id.mainLayout);
 
-			
-			boolean isAuto = this.getSharedPreferences("eben_para", 0).
-					getBoolean("auto_sync", false);
-//			sync_status
-			TextView sync_status = (TextView) this.findViewById(R.id.sync_status);
-			if(isAuto)
-				sync_status.setText(R.string.cloud_open);
-			else 
-				sync_status.setText(R.string.cloud_close);
-	
-	        contact_layout = (LinearLayout) findViewById(R.id.contact_layout);
-	        contact_layout.setClickable(true);
-	        contact_layout.setOnClickListener(viewListener);
-	        
-	        contact_summary = (TextView) findViewById(R.id.contact_summary);
-			AppSyncSource appSource = 
-					(AppSyncSource)homeScreenController.getVisibleItems().get(0);
-	        long lastSyncTS = appSource.getConfig().getLastSyncTimestamp();
-	        
-	        
-			if(0 != lastSyncTS) {
-				contact_summary.setText(mDateFormat.format(new Date(lastSyncTS)));
-			} else {
-				contact_summary.setText("");
-			}
-			
     }
     
 //    private void setMultiButtonsLayout() {
@@ -807,7 +707,7 @@ public class EbenHomeScreen extends Activity implements HomeScreen, UISyncSource
             }
         }
     }
-
+    private ProgressWheel prgWheel;
     private class SetSyncAllEnabledUIThread implements Runnable {
         private boolean enabled;
 
@@ -827,113 +727,130 @@ public class EbenHomeScreen extends Activity implements HomeScreen, UISyncSource
 
     private class UpdateAvailableSourcesUIThread implements Runnable {
 
-        private EbenHomeScreen screen;
+        private EbenContactActivity screen;
 
-        public UpdateAvailableSourcesUIThread(EbenHomeScreen screen) {
-            this.screen = screen;
+        public UpdateAvailableSourcesUIThread(EbenContactActivity contactActivity) {
+            this.screen = contactActivity;
         }
 
         public void run() {
-        	setEbenLayout();
 
-//            if (homeScreenController == null) {
-//                return;
-//            }
-//
-//            // Remove all buttons first
-//            buttons.removeAllViews();
-//
-//            // Initialize the sources listed
-//            Vector appSources = homeScreenController.getVisibleItems();
-//            Enumeration iter  = appSources.elements();
-//
-//            int idx = 0;
-//
-//            while(iter.hasMoreElements()) {
-//                AppSyncSource appSource = (AppSyncSource) iter.nextElement();
-//
-//
-//                UISyncSourceController itemController;
-//                itemController = appSource.getUISyncSourceController();
-//
-//                // Prepare the source icon to be displayed
-//                Bitmap sourceIcon = null;
-//                if (appSource.isWorking() && appSource.isEnabled()) {
-//                    sourceIcon = customization.getSourceIcon(appSource.getId());
-//                } else {
-//                    sourceIcon = customization.getSourceDisabledIcon(appSource.getId());
-//                }
-//
-//                // Create an item for each entry, if there is only one entry,
-//                // then we build a stand alone representation
-//                AndroidUISyncSource item = null;
-//                LinearLayout.LayoutParams lp = null;
-//                if (idx == 0 && !iter.hasMoreElements()) {
-//                    // The source is alone
-//                    item = (AndroidUISyncSource)appSource.createAloneUISyncSource(screen);
-//                    if (item != null) {
-//                        // Change the overall layout
-//                        setSingleButtonLayout();
-//                        // Remove the sync all button
-//                        lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
-//                        int margin = adaptSizeToDensity(10);
-//                        lp.setMargins(0, 0, 0, margin);
-//                        // Disable the status animation supplied by the controller
-//                        itemController.disableStatusAnimation();
-//                        // Set localization and customization
-//                        if (item instanceof EbenAloneUISyncSource) {
-//                        	EbenAloneUISyncSource aloneItem = (EbenAloneUISyncSource)item;
-//                            aloneItem.setLocalization(localization);
-//                            aloneItem.setCustomization(customization);
-//                            aloneItem.setHomeScreenView(EbenHomeScreen.this);
-//                        }
-//                        // Register the button listener
-//                        AloneButtonListener buttonListener = new AloneButtonListener();
-//                        item.setOnClickListener(buttonListener);
-//                    }
-//                }
-//                if (item == null) {
-//                    if (idx == 0) {
+            if (homeScreenController == null) {
+                return;
+            }
+
+            // Remove all buttons first
+            buttons.removeAllViews();
+
+            // Initialize the sources listed
+            Vector appSources = homeScreenController.getVisibleItems();
+            Enumeration iter  = appSources.elements();
+
+            int idx = 0;
+
+            while(iter.hasMoreElements()) {
+                AppSyncSource appSource = (AppSyncSource) iter.nextElement();
+
+
+                UISyncSourceController itemController;
+                itemController = appSource.getUISyncSourceController();
+
+                // Prepare the source icon to be displayed
+                Bitmap sourceIcon = null;
+                if (appSource.isWorking() && appSource.isEnabled()) {
+                    sourceIcon = customization.getSourceIcon(appSource.getId());
+                } else {
+                    sourceIcon = customization.getSourceDisabledIcon(appSource.getId());
+                }
+
+                // Create an item for each entry, if there is only one entry,
+                // then we build a stand alone representation
+                EbenSourceUISyncSource item = null;
+                LinearLayout.LayoutParams lp = null;
+
+                if (item == null) {
+                    if (idx == 0) {
 //                        setMultiButtonsLayout();
-//                    }
+                    }
 //                    item = (AndroidUISyncSource)appSource.createButtonUISyncSource(screen);
-//                    // The buttons shall only wrap the content
-//                    lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+                    item = new EbenSourceUISyncSource(screen);
+                    // The buttons shall only wrap the content
+                    lp = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 //                    int margin = adaptSizeToDensity(2);
 //                    lp.setMargins(margin, margin, margin, margin);
-//                    // Enable the status animation supplied by the controller
-//                    itemController.enableStatusAnimation();
-//                    // Register the button listener
-//                    ButtonListener buttonListener = new ButtonListener(idx);
-//                    item.setOnClickListener(buttonListener);
-//
-//                }
-//                item.setSource(appSource);
-//
-//                itemController.setUISyncSource(item);
-//
-//                // All these buttons are associated to a given application
-//                // source
-//                item.setSource(appSource);
-//                item.setContainer(screen);
-//
-//                if (sourceIcon != null) {
-//                    item.setIcon(sourceIcon);
-//                }
-//
-//                item.setTitle(appSource.getName());
-//                listItems.add(item);
-//
-//                // Add this button to the main list and the appropriate listeners
+                    // Enable the status animation supplied by the controller
+                    itemController.enableStatusAnimation();
+                    // Register the button listener
+                    ButtonListener buttonListener = new ButtonListener(idx);
+                    item.setOnClickListener(buttonListener);
+                    item.setHandler(mHandler);
+                }
+                
+                appSource.setUISyncSource(item);
+                
+                item.setSource(appSource);
+
+                itemController.setUISyncSource(item);
+
+                // All these buttons are associated to a given application
+                // source
+                item.setSource(appSource);
+                item.setContainer(screen);
+
+                if (sourceIcon != null) {
+                    item.setIcon(sourceIcon);
+                }
+
+                item.setTitle(appSource.getName());
+//                EbenHomeScreen.listItems.add(item);
+
+                // Add this button to the main list and the appropriate listeners
 //                FocusListener  focusListener = new FocusListener(idx);
 //                item.setOnFocusChangeListener(focusListener);
-//                // We use the app source id as view id so we can quickly recognize
-//                // it in the context menu handling
-//                item.setId(appSource.getId());
-//                registerForContextMenu(item);
-//                buttons.addView(item, lp);
+                // We use the app source id as view id so we can quickly recognize
+                // it in the context menu handling
+                item.setId(appSource.getId());
+                registerForContextMenu(item);
+                buttons.addView(item, lp);
+        		TextView title = (TextView) buttons.findViewById(R.id.personal_home_title);
+        		
+        		title.setText(R.string.type_contacts);
+                
+        		mPimRunningView = (ImageView) buttons.findViewById(R.id.pim_running_view);
+        		mPimStartButton = (Button) buttons.findViewById(R.id.pim_manual_start);
+        		
+        		mHomeBack = (ImageView) buttons.findViewById(R.id.personal_home_back);
+        		mHomeBack.setOnClickListener(listener);
+//                item.requestFocus();// lieb
 //                idx++;
-//            }
+        		mPimStartButton.setOnClickListener(listener);
+        		mPimSyncStateTips = ((TextView)buttons.findViewById(R.id.pim_sync_state_tips));
+        		pim_sync_state_progress = ((TextView)buttons.findViewById(R.id.pim_sync_state_progress));
+        	
+                lastSyncTS = appSource.getConfig().getLastSyncTimestamp();
+        		if(0 != lastSyncTS) {
+        			mPimSyncStateTips.setText(mDateFormat.format(new Date(lastSyncTS)));
+        		}
+        		
+        		mPimSyncCheckbox = (CheckBox) buttons.findViewById(R.id.pim_sync_checkbox);
+        		mPimSyncCheckbox.setChecked(getSharedPreferences("eben_para", 0).getBoolean(auto_sync, false));
+//        		mPimSyncCheckbox.set
+        		mPimAutoSyncLayout = (RelativeLayout) buttons.findViewById(R.id.pim_auto_sync_layout);
+        		mPimAutoSyncLayout.setOnClickListener(listener);
+        		
+        		prgWheel = (ProgressWheel) findViewById(R.id.progressWheel);
+        		
+        		number_local = (TextView) buttons.findViewById(R.id.number_local);
+        		number_cloud = (TextView) buttons.findViewById(R.id.number_cloud);
+        		
+        		number_local.setText(String.valueOf(getLocalCount()));
+        		
+        		int count_cloud = getSharedPreferences("eben_para", 0).getInt("cloud_contact", 0);
+        		if(0!=count_cloud) {
+        			number_cloud.setText(String.valueOf(count_cloud));
+        		}
+                break;
+            }
         }
     }
 
@@ -950,15 +867,15 @@ public class EbenHomeScreen extends Activity implements HomeScreen, UISyncSource
 //	        hide(fcontacts).show(fsources).commit();
 //		} else 
 		{
-	        if((System.currentTimeMillis()-exitTime) > 2000){  
-		            Toast.makeText(getApplicationContext(),getString(R.string.press_exit), Toast.LENGTH_SHORT).show();                                
-		            exitTime = System.currentTimeMillis();   
-		        } else {
-		            finish();
-		            System.exit(0);
-		        }
+//	        if((System.currentTimeMillis()-exitTime) > 2000){  
+//		            Toast.makeText(getApplicationContext(),getString(R.string.press_exit), Toast.LENGTH_SHORT).show();                                
+//		            exitTime = System.currentTimeMillis();   
+//		        } else {
+//		            finish();
+//		            System.exit(0);
+//		        }
 
-
+			finish();
 		}
 	}
     
@@ -988,48 +905,235 @@ public class EbenHomeScreen extends Activity implements HomeScreen, UISyncSource
 		builder.show();
 	}
 
-//	@Override
-//	@Deprecated
-//	public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
-//			Preference preference) {
-//		Log.debug(TAG,"onPreferenceTreeClick");
-//		if("cloud_contacts".equalsIgnoreCase(preference.getKey())) {
-//			startConacts();
-//		}
-//		
-//		return true;
-//	}
 
-	private void startConacts() {
-		// TODO Auto-generated method stub
-		Log.debug(TAG, "startConacts");
-		Intent intent = new Intent();
-		
-		intent.setClass(this, EbenContactActivity.class);
-		
-		this.startActivity(intent);
-	}
+	private View.OnClickListener listener = new View.OnClickListener() {
 
-	View.OnClickListener viewListener = new View.OnClickListener() {
-		
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			Log.debug(TAG, "onClick");
 			
-			if(v.getId() == R.id.contact_layout) {
-				 startConacts();
+			switch (v.getId()) {
+			case R.id.pim_manual_start:
+				if(!homeScreenController.isSynchronizing()) {
+					setPimRunningView();
+					homeScreenController.buttonPressed(0);
+				}
+				break;
+			case R.id.personal_home_back:
+//                ((FragmentActivity) mActivity).getSupportFragmentManager().beginTransaction().hide(EbenHomeScreen.fsources).
+//                hide(EbenHomeScreen.fcontacts).show(EbenHomeScreen.fsources).commit();
+				finish();
+				break;
+			case R.id.pim_auto_sync_layout:
+				if(!mPimSyncCheckbox.isChecked()) {
+					Toast.makeText(getApplicationContext(),
+							getString(R.string.auto_contacts), Toast.LENGTH_SHORT).show();
+					if(!EbenHomeScreen.homeScreenController.isSynchronizing()) {
+						setPimRunningView();
+						homeScreenController.buttonPressed(0);
+					}
+				}
+				getSharedPreferences("eben_para", 0).edit().putBoolean
+					(auto_sync, !mPimSyncCheckbox.isChecked()).commit();
+				mPimSyncCheckbox.setChecked(!mPimSyncCheckbox.isChecked());
+				break;
+			default:
+				break;
 			}
+		}
+	
+	};
+    private void setPimRunningView()
+    {
+    	startwheel();
+      startRunningAnimation();
+      this.mPimSyncStateTips.setText(R.string.pim_sync_running_state_tips);
+    }
+    private void startRunningAnimation()
+    {
+      this.mPimRunningView.setBackgroundResource(R.drawable.contact_pim_running_arrow);
+      Animation localAnimation = AnimationUtils.loadAnimation(this, R.anim.clockwise_rotate_animation);
+      localAnimation.setInterpolator(new LinearInterpolator());
+      this.mPimRunningView.startAnimation(localAnimation);
+      this.mPimStartButton.setEnabled(false);
+    }
+    private final int BTN_EBANLE = 0x1005;
+    private void endRunningAnimation()
+    {
+      this.mPimRunningView.clearAnimation();
+      this.mPimRunningView.setBackgroundResource(R.drawable.contact_pim_normal_arrow);
+      mHandler.sendEmptyMessageDelayed(BTN_EBANLE, 2*1000);
+//      this.mPimStartButton.setEnabled(true);
+      
+      stopWheel();
+    }
+    
+    
+
+	private Handler mHandler = new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			switch (msg.what) {
+			case 0: //sync end
+				endRunningAnimation();
+				AppSyncSource appSource = 
+						(AppSyncSource) EbenHomeScreen.homeScreenController.getVisibleItems().get(0);
+                lastSyncTS = appSource.getConfig().getLastSyncTimestamp();
+        		if(0 != lastSyncTS) {
+        			mPimSyncStateTips.setText(mDateFormat.format(new Date(lastSyncTS)));
+        		} else {
+        			mPimSyncStateTips.setText(R.string.pim_sync_init_state_tips);
+        		}
+        		
+        		int status = appSource.getConfig().getLastSyncStatus();
+        		Log.debug(TAG, "sync status : " +status);//128 for ok
+        		
+        		int count = getLocalCount();
+        		if(128 == status) {
+        			if(count != 0) {
+        			getSharedPreferences("eben_para", 0).edit().putInt("cloud_contact", count).commit();
+        			number_cloud.setText(String.valueOf(count));
+        			}
+        		}
+        		if(count !=  0) {
+        			number_local.setText(String.valueOf(count));
+        		}
+        		
+				break;
+			case BTN_EBANLE:
+				mPimStartButton.setEnabled(true);
+				break;
+			case PROG_MSG:
+				int Progress = msg.getData().getInt("prog");
+				if(Progress > 100 || Progress <= 0) {
+					pim_sync_state_progress.setText("");
+				} else {
+				pim_sync_state_progress.setText(String.valueOf(Progress)+"%");
+				}
+			default:
+				break;
+			}
+		}
+		
+	};
+	float wprogress = 0;
+	boolean wRunning = false;	
+	int w_sleep = 40;
+	Object w_sync = new Object();
+	final int PROG_MSG = 0x2001;
+	
+	boolean b_finish = false;
+	final Runnable wRun = new Runnable() {
+		public void run() {
+			wRunning = true;
+			while (wprogress < 361) {
+				if (null != prgWheel)
+//					prgWheel.incrementProgress();
+//				synchronized (w_sync) {
+					if (b_finish) {
+						wprogress += 4;
+						prgWheel.setProgress((int)wprogress);
+						w_sleep = 5;
+					} else {
+						if(wprogress > 180 ) {
+							wprogress += 1;
+						} else if (wprogress > 90) {
+							wprogress += 2;
+						} else if(wprogress > 240) {
+							wprogress += 0.5;
+						} else if (wprogress > 300) {
+							wprogress += 0.3;
+						}
+						else if (wprogress > 340) {
+							wprogress += 0.1;
+							
+						} else if (wprogress > 350) {
+							// do thing
+						} else {
+							wprogress += 4;
+						}
+						
+						prgWheel.setProgress((int)wprogress);
+					}
+//				}
+				int progrss = (int) ((wprogress*100)/360 < 1000 ? (wprogress*100)/360:100);
+				
+				Message msg = new Message();
+				msg.what = PROG_MSG;
+				Bundle bl = new Bundle();
+				bl.putInt("prog", progrss);
+				msg.setData(bl);
+				mHandler.sendMessage(msg);
+//				pim_sync_state_progress.setText(String.valueOf(progrss)+"%");
+				
+				try {
+					Thread.sleep(w_sleep);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			prgWheel.setProgress(0);
+			
+			Message msg = new Message();
+			msg.what = PROG_MSG;
+			Bundle bl = new Bundle();
+			bl.putInt("prog", 0);
+			msg.setData(bl);
+			mHandler.sendMessage(msg);
+			
+
+			wRunning = false;
+
+			mHandler.sendEmptyMessage(12345);
 		}
 	};
 	
-	public void onClick(View v) {
-		Log.debug(TAG, "onClick2");
+    private void startwheel() {
+	if (!wRunning) {
+		// prgWheel.setVisibility(View.VISIBLE);
+		wprogress = 0;
+		b_finish = false;
+		w_sleep = 40;
 		
-		if(v.getId() == R.id.contact_layout) {
-			 startConacts();
-		}
-	
+		prgWheel.resetCount();
+		Thread s = new Thread(wRun);
+		s.start();
+
+
 	}
+    }
+    
+	private void stopWheel() {
+		// TODO Auto-generated method stub
+		if(wRunning) {
+			synchronized (w_sync) {
+//			wprogress = 361;
+				b_finish= true;
+			}
+		}
+	}
+
+//    private class ProgUIThread implements Runnable {
+//    	private int prog;
+//        public ProgUIThread(int prog) {
+//        	this.prog = prog;
+//        }
+//
+//        public void run() {
+//        	pim_sync_state_progress.setText(String.valueOf(prog)+"%");
+//        }
+//    }
 	
+	private int getLocalCount() {
+		ContentResolver resolver = getContentResolver();
+		String cols[] = {ContactsContract.RawContacts._ID};
+        Cursor peopleCur = resolver.query(ContactsContract.RawContacts.CONTENT_URI,
+                cols, null, null, null);
+        int contactListSize = peopleCur.getCount();
+        
+        return contactListSize;
+	}
 }

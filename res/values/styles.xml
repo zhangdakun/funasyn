@@ -604,6 +604,14 @@
         <item name="android:button">@drawable/chb_on_off_selector</item>
         <item name="android:width">57.0dip</item>
     </style>
+    <style name="ebenCheckboxStyle" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/pw_on_off_selector</item>
+
+    </style>
+        <style name="ebCheckboxStyle" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/chb_on_off_selector</item>
+
+    </style>
 <!--     <style name="SettingsEditCheckboxStyle" parent="@*android:style/Widget.CompoundButton.CheckBox">
         <item name="android:background">@drawable/editable_mode_unchecked_tag</item>
         <item name="android:button">@drawable/edit_checkbox_selector</item>

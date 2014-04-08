@@ -41,13 +41,20 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.accounts.AccountAuthenticatorActivity;
 import android.content.Intent;
+import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.eben.activities.EbenHomeScreen;
 import com.funambol.android.AndroidAppSyncSourceManager;
 
 import com.funambol.android.App;
@@ -82,6 +89,9 @@ public class AndroidLoginScreen extends AccountAuthenticatorActivity
 
     private Button    signupButton;
     private Button    loginButton;
+    
+    private TextView personal_home_title;
+    private CheckBox pim_pw_checkbox;
 
     private View screenSeparator = null;
 
@@ -118,6 +128,8 @@ public class AndroidLoginScreen extends AccountAuthenticatorActivity
 //            finish();
 //        }
 
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        
         customization = gc.getCustomization();
         localization  = gc.getLocalization();
         displayManager = (AndroidDisplayManager)gc.getDisplayManager();
@@ -130,6 +142,12 @@ public class AndroidLoginScreen extends AccountAuthenticatorActivity
         passField = (EditText)findViewById(R.id.password);
         serverUrl = (EditText)findViewById(R.id.syncUrl);
 
+        personal_home_title  = (TextView) findViewById(R.id.personal_home_title);
+        personal_home_title.setText(R.string.mind_cloud);
+        
+        pim_pw_checkbox = (CheckBox) findViewById(R.id.pim_pw_checkbox);
+        pim_pw_checkbox.setOnCheckedChangeListener(listener);
+        
         screenSeparator = findViewById(R.id.login_screen_separator);
         screenSeparator.setFocusable(true);
         screenSeparator.setFocusableInTouchMode(true);
@@ -295,5 +313,43 @@ public class AndroidLoginScreen extends AccountAuthenticatorActivity
             return super.onCreateDialog(id);
         }
     }
+    
+    
+	private CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
+
+		@Override
+		public void onCheckedChanged(CompoundButton compoundbutton, boolean flag) {
+			// TODO Auto-generated method stub
+			EditText password = (EditText) findViewById(R.id.password);
+			Log.debug(TAG_LOG, "onCheckedChanged, "+flag);
+			if(flag) {
+				password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+				
+			}else {
+				password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+			}
+		}
+
+//		@Override
+//		public void onClick(View v) {
+//			// TODO Auto-generated method stub
+//			
+//			switch (v.getId()) {
+//			case R.id.pim_pw_checkbox:
+//				EditText password = (EditText) findViewById(R.id.password);
+//				if(pim_pw_checkbox.isChecked()) {
+//					password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+//				} else {
+//					password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+//				}
+//
+//				break;
+//
+//			default:
+//				break;
+//			}
+//		}
+	
+	};
 }
 

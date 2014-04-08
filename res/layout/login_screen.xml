@@ -41,7 +41,7 @@
               android:layout_gravity="center_vertical"
               android:gravity="center_horizontal"
               android:orientation="vertical">
-              
+              <include layout="@layout/eben_homepage_title_bar" />
     <ScrollView android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:fillViewport="true">
@@ -78,10 +78,12 @@
                         android:layout_height="fill_parent"
                         android:orientation="vertical">
                         
-                    <TextView android:text="@string/login_help_text" 
+                    <TextView
+                        android:id="@+id/login_help_text"
                         style="@style/funambol_standard_text"
                         android:paddingBottom="2dip"
-                        android:id="@+id/login_help_text"/>
+                        android:text="@string/login_help_text"
+                        android:visibility="gone" />
                         
                     <TableLayout android:id="@+id/account_table"
                         android:layout_width="fill_parent"
@@ -92,26 +94,65 @@
                         
                         <TableRow android:paddingTop="3dip"
                             android:id="@+id/account_usr_row">
-                            <TextView android:text="@string/usr_label" 
-                                style="@style/funambol_standard_text" 
-                                android:textStyle="bold"/>
-                            <EditText android:id="@+id/username" 
-                                android:textSize="15dip"
+
+                            <TextView
+                                style="@style/funambol_standard_text"
+                                android:text="@string/usr_label"
+                                android:textStyle="bold"
+                                android:visibility="gone" />
+
+                            <EditText
+                                android:id="@+id/username"
+                                android:hint="@string/user_hint"
                                 android:scrollHorizontally="true"
-                                android:singleLine="true"/>
+                                android:singleLine="true"
+                                android:textSize="15dip" />
+
                         </TableRow>
                         
                         <TableRow android:paddingTop="3dip"
                             android:id="@+id/account_psw_row">
-                            <TextView android:text="@string/psw_label" 
-                                style="@style/funambol_standard_text" 
-                                android:textStyle="bold"/>
-                            <EditText android:id="@+id/password" 
-                                android:textSize="15dip"
+
+                            <TextView
+                                style="@style/funambol_standard_text"
+                                android:text="@string/psw_label"
+                                android:textStyle="bold"
+                                android:visibility="gone" />
+
+                            <EditText
+                                android:id="@+id/password"
+                                android:hint="@string/pw_hint"
+                                android:inputType="textPassword"
                                 android:scrollHorizontally="true"
-                                android:password="true" 
-                                android:singleLine="true"/>
+                                android:singleLine="true"
+                                android:textSize="15dip" />
+
                         </TableRow>
+                        
+                        <TableRow
+                            android:id="@+id/pw_sync_set"
+                            android:paddingTop="3dip">
+
+
+                        <CheckBox
+                            android:id="@+id/pim_pw_checkbox"
+                            style="@style/ebCheckboxStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_marginRight="4.0dip"
+
+                            android:duplicateParentState="true" />
+                        <TextView
+                            android:id="@+id/pim_sync_text"
+                            style="@style/NetDisk.TextAppearance.Content.BlackWhiteReverse"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:duplicateParentState="true"
+                            android:text="@string/eben_show_pw" />
+                        </TableRow>
+                        
                         
                         <TableRow
                             android:id="@+id/account_sync_url_row"
