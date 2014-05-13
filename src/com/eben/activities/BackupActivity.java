@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
@@ -68,18 +69,20 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
-public class EbenContactActivity extends Activity implements HomeScreen, UISyncSourceContainer {
+public class BackupActivity extends Activity implements HomeScreen, UISyncSourceContainer {
 
-    private static final String TAG = "EbenContactActivity";
+    private static final String TAG = "BackupActivity";
 
 	private ImageView mPimRunningView;
 	private ImageView mHomeBack;
 	private Button mPimStartButton;
+	
 	
 	private TextView mPimSyncStateTips;
 	private TextView pim_sync_state_progress;
@@ -135,13 +138,31 @@ public class EbenContactActivity extends Activity implements HomeScreen, UISyncS
 
     public static boolean screenLocked = false;
 
-    public static Fragment fsources;
-    public static Fragment fcontacts;
+//    public static Fragment fsources;
+//    public static Fragment fcontacts;
     
 	public static int viewid = 0;
     /**
      * Called with the activity is first created.
      */
+	
+	protected List dataMapList;
+	ListView backupList;
+	BackupProcessAdapter myAdapter;
+    private void addDatatoMap(String name,int image)//(DataType datatype)
+    {
+//        mDataList.add(datatype);
+        HashMap hashmap = new HashMap();
+//        hashmap.put("DATA_TYPE", datatype);
+        hashmap.put("DATA_NAME", name);//getString(/*CommonFunctionsStringRes.getDataNameRes(datatype)*/));
+        hashmap.put("PERCENT", null);
+//        hashmap.put("STATUS", image);
+        hashmap.put("animationDrawable", Boolean.valueOf(false));
+        hashmap.put("drawn", Boolean.valueOf(false));
+        hashmap.put("STATUS", getResources().getDrawable(image));
+        
+        dataMapList.add(hashmap);
+    }
     @Override
     public void onCreate(Bundle icicle) {
 
@@ -159,17 +180,10 @@ public class EbenContactActivity extends Activity implements HomeScreen, UISyncS
         
         // Initialize the localization
         localization = initializer.getLocalization();
-
-        // By default we set the multi buttons layout
-//        setMultiButtonsLayout();
-//        fsources = new SourceListFragment();
-        fcontacts = new ContactsFragment();
         
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setEbenLayout();
         
-//        getSupportFragmentManager().beginTransaction().add(R.id.main_home, fsources)
-//        	.add(R.id.main_home, fcontacts).commit();
+        setEbenLayout();
 
         // Now initialize everything
         customization = initializer.getCustomization();
@@ -321,14 +335,7 @@ public class EbenContactActivity extends Activity implements HomeScreen, UISyncS
         homeScreenController.setForegroundStatus(false);
         Log.trace(TAG, "Paused activity (foreground status off)");
     }
-//	private void addSettingFragment() {
-//		Log.debug(TAG,"addSettingFragment");
-//		EbenCloudSettingsFragment fragment = new EbenCloudSettingsFragment();
-//
-//		getFragmentManager().beginTransaction()
-//				.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-//				.replace(android.R.id.content, fragment, "activated").commit();
-//	}    
+ 
     @Override
     protected void onResume() {
         super.onResume();
@@ -727,9 +734,9 @@ public class EbenContactActivity extends Activity implements HomeScreen, UISyncS
 
     private class UpdateAvailableSourcesUIThread implements Runnable {
 
-        private EbenContactActivity screen;
+        private BackupActivity screen;
 
-        public UpdateAvailableSourcesUIThread(EbenContactActivity contactActivity) {
+        public UpdateAvailableSourcesUIThread(BackupActivity contactActivity) {
             this.screen = contactActivity;
         }
 
@@ -765,7 +772,7 @@ public class EbenContactActivity extends Activity implements HomeScreen, UISyncS
 
                 // Create an item for each entry, if there is only one entry,
                 // then we build a stand alone representation
-                EbenSourceUISyncSource item = null;
+                BackupUISyncSource item = null;
                 LinearLayout.LayoutParams lp = null;
 
                 if (item == null) {
@@ -773,7 +780,7 @@ public class EbenContactActivity extends Activity implements HomeScreen, UISyncS
 //                        setMultiButtonsLayout();
                     }
 //                    item = (AndroidUISyncSource)appSource.createButtonUISyncSource(screen);
-                    item = new EbenSourceUISyncSource(screen);
+                    item = new BackupUISyncSource(screen);
                     // The buttons shall only wrap the content
                     lp = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 //                    int margin = adaptSizeToDensity(2);
@@ -814,10 +821,11 @@ public class EbenContactActivity extends Activity implements HomeScreen, UISyncS
                 buttons.addView(item, lp);
         		TextView title = (TextView) buttons.findViewById(R.id.personal_home_title);
         		
-        		title.setText(R.string.type_contacts);
+        		title.setText(R.string.eben_backup);
                 
-        		mPimRunningView = (ImageView) buttons.findViewById(R.id.pim_running_view);
+//        		mPimRunningView = (ImageView) buttons.findViewById(R.id.pim_running_view);
         		mPimStartButton = (Button) buttons.findViewById(R.id.pim_manual_start);
+        		mPimStartButton.setText(R.string.btn_backup);
         		
         		mHomeBack = (ImageView) buttons.findViewById(R.id.personal_home_back);
         		mHomeBack.setOnClickListener(listener);
@@ -829,26 +837,38 @@ public class EbenContactActivity extends Activity implements HomeScreen, UISyncS
         	
                 lastSyncTS = appSource.getConfig().getLastSyncTimestamp();
         		if(0 != lastSyncTS) {
-        			mPimSyncStateTips.setText(mDateFormat.format(new Date(lastSyncTS)));
+        			mPimSyncStateTips.setText(screen.getString(R.string.lsbackup)+
+        					mDateFormat.format(new Date(lastSyncTS)));
         		}
         		
-        		mPimSyncCheckbox = (CheckBox) buttons.findViewById(R.id.pim_sync_checkbox);
-        		mPimSyncCheckbox.setChecked(getSharedPreferences("eben_para", 0).getBoolean(auto_sync, false));
-//        		mPimSyncCheckbox.set
-        		mPimAutoSyncLayout = (RelativeLayout) buttons.findViewById(R.id.pim_auto_sync_layout);
-        		mPimAutoSyncLayout.setOnClickListener(listener);
+                dataMapList = new ArrayList();
+                addDatatoMap(screen.getString(R.string.type_contacts),R.drawable.point_blue);
+                addDatatoMap(screen.getString(R.string.backup_sms),R.drawable.point_blue);
+                addDatatoMap(screen.getString(R.string.backup_call),R.drawable.point_blue);
+                
+    			backupList = (ListView) findViewById(R.id.listViewbackup);
+    			
+    			myAdapter = new BackupProcessAdapter(this.screen, R.layout.backup_process_list, dataMapList,mHandler);
+    			backupList.setAdapter(myAdapter);
+    			backupList.setDivider(null);
+    			
+//        		mPimSyncCheckbox = (CheckBox) buttons.findViewById(R.id.pim_sync_checkbox);
+//        		mPimSyncCheckbox.setChecked(getSharedPreferences("eben_para", 0).getBoolean(auto_sync, false));
+////        		mPimSyncCheckbox.set
+//        		mPimAutoSyncLayout = (RelativeLayout) buttons.findViewById(R.id.pim_auto_sync_layout);
+//        		mPimAutoSyncLayout.setOnClickListener(listener);
         		
         		prgWheel = (ProgressWheel) findViewById(R.id.progressWheel);
-        		
-        		number_local = (TextView) buttons.findViewById(R.id.number_local);
-        		number_cloud = (TextView) buttons.findViewById(R.id.number_cloud);
-        		
-        		number_local.setText(String.valueOf(getLocalCount()));
-        		
-        		int count_cloud = getSharedPreferences("eben_para", 0).getInt("cloud_contact", 0);
-        		if(0!=count_cloud) {
-        			number_cloud.setText(String.valueOf(count_cloud));
-        		}
+//        		
+//        		number_local = (TextView) buttons.findViewById(R.id.number_local);
+//        		number_cloud = (TextView) buttons.findViewById(R.id.number_cloud);
+//        		
+//        		number_local.setText(String.valueOf(getLocalCount()));
+//        		
+//        		int count_cloud = getSharedPreferences("eben_para", 0).getInt("cloud_contact", 0);
+//        		if(0!=count_cloud) {
+//        			number_cloud.setText(String.valueOf(count_cloud));
+//        		}
                 break;
             }
         }
@@ -947,21 +967,21 @@ public class EbenContactActivity extends Activity implements HomeScreen, UISyncS
     {
     	startwheel();
       startRunningAnimation();
-      this.mPimSyncStateTips.setText(R.string.pim_sync_running_state_tips);
+//      this.mPimSyncStateTips.setText(R.string.pim_sync_running_state_tips);
     }
     private void startRunningAnimation()
     {
-      this.mPimRunningView.setBackgroundResource(R.drawable.contact_pim_running_arrow);
-      Animation localAnimation = AnimationUtils.loadAnimation(this, R.anim.clockwise_rotate_animation);
-      localAnimation.setInterpolator(new LinearInterpolator());
-      this.mPimRunningView.startAnimation(localAnimation);
+//      this.mPimRunningView.setBackgroundResource(R.drawable.contact_pim_running_arrow);
+//      Animation localAnimation = AnimationUtils.loadAnimation(this, R.anim.clockwise_rotate_animation);
+//      localAnimation.setInterpolator(new LinearInterpolator());
+//      this.mPimRunningView.startAnimation(localAnimation);
       this.mPimStartButton.setEnabled(false);
     }
     private final int BTN_EBANLE = 0x1005;
     private void endRunningAnimation()
     {
-      this.mPimRunningView.clearAnimation();
-      this.mPimRunningView.setBackgroundResource(R.drawable.contact_pim_normal_arrow);
+//      this.mPimRunningView.clearAnimation();
+//      this.mPimRunningView.setBackgroundResource(R.drawable.contact_pim_normal_arrow);
       mHandler.sendEmptyMessageDelayed(BTN_EBANLE, 2*1000);
 //      this.mPimStartButton.setEnabled(true);
       
@@ -982,24 +1002,13 @@ public class EbenContactActivity extends Activity implements HomeScreen, UISyncS
 						(AppSyncSource) EbenHomeScreen.homeScreenController.getVisibleItems().get(0);
                 lastSyncTS = appSource.getConfig().getLastSyncTimestamp();
         		if(0 != lastSyncTS) {
-        			mPimSyncStateTips.setText(mDateFormat.format(new Date(lastSyncTS)));
+        			mPimSyncStateTips.setText(BackupActivity.this.getString(R.string.lsbackup)+
+        					mDateFormat.format(new Date(lastSyncTS)));
         		} else {
         			mPimSyncStateTips.setText(R.string.pim_sync_init_state_tips);
         		}
+
         		
-        		int status = appSource.getConfig().getLastSyncStatus();
-        		Log.debug(TAG, "sync status : " +status);//128 for ok
-        		
-        		int count = getLocalCount();
-        		if(128 == status) {
-        			if(count != 0) {
-        			getSharedPreferences("eben_para", 0).edit().putInt("cloud_contact", count).commit();
-        			number_cloud.setText(String.valueOf(count));
-        			}
-        		}
-        		if(count !=  0) {
-        			number_local.setText(String.valueOf(count));
-        		}
         		
 				break;
 			case BTN_EBANLE:
@@ -1010,7 +1019,8 @@ public class EbenContactActivity extends Activity implements HomeScreen, UISyncS
 				if(Progress > 100 || Progress <= 0) {
 					pim_sync_state_progress.setText("");
 				} else {
-				pim_sync_state_progress.setText(String.valueOf(Progress)+"%");
+				pim_sync_state_progress.setText(BackupActivity.this.getString(R.string.eben_progress_pref)+
+						String.valueOf(Progress)+"%");
 				}
 			default:
 				break;

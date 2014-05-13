@@ -38,9 +38,9 @@ package com.eben.activities;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.FragmentTransaction;
@@ -53,9 +53,6 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.preference.Preference;
-import android.preference.PreferenceActivity;
-import android.preference.PreferenceScreen;
 import android.support.v4.app.Fragment;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -64,12 +61,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
-import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.eben.androidsync.R;
@@ -148,6 +147,26 @@ public class EbenHomeScreen extends Activity implements HomeScreen, UISyncSource
     
     LinearLayout contact_layout;
 	public static int viewid = 0;
+	
+	protected List dataMapList;
+	ListView backupList;
+	BackupListAdapter myAdapter;
+	 
+	 
+    private void addDatatoMap(String name,int image)//(DataType datatype)
+    {
+//        mDataList.add(datatype);
+        HashMap hashmap = new HashMap();
+//        hashmap.put("DATA_TYPE", datatype);
+        hashmap.put("DATA_NAME", name);//getString(/*CommonFunctionsStringRes.getDataNameRes(datatype)*/));
+        hashmap.put("PERCENT", null);
+//        hashmap.put("STATUS", image);
+        hashmap.put("animationDrawable", Boolean.valueOf(false));
+        hashmap.put("drawn", Boolean.valueOf(false));
+        hashmap.put("STATUS", getResources().getDrawable(image));
+        
+        dataMapList.add(hashmap);
+    }
     /**
      * Called with the activity is first created.
      */
@@ -194,6 +213,11 @@ public class EbenHomeScreen extends Activity implements HomeScreen, UISyncSource
 
         this.dm = (AndroidDisplayManager) controller.getDisplayManager();
         setContentView(R.layout.eben_pim_main);
+        
+        dataMapList = new ArrayList();
+        addDatatoMap(this.getString(R.string.eben_backup),R.drawable.backup);
+        addDatatoMap(this.getString(R.string.eben_restore),R.drawable.restore);
+        
         setEbenLayout();
         
 //        contact_layout = (LinearLayout) findViewById(R.id.contact_layout);
@@ -370,7 +394,7 @@ public class EbenHomeScreen extends Activity implements HomeScreen, UISyncSource
 	        editor.commit();
         	}
 //        	this.sendBroadcast(new Intent(Constants.ACTION_START_EBP));
-        	mHandler.sendEmptyMessageDelayed(0, 2*1000);
+//        	mHandler.sendEmptyMessageDelayed(0, 2*1000);
 
         }
         
@@ -379,7 +403,7 @@ public class EbenHomeScreen extends Activity implements HomeScreen, UISyncSource
     }
 
 	Handler mHandler = new Handler() {
-
+//		Context context;
 		@Override
 		public void handleMessage(Message msg) {
 			// TODO Auto-generated method stub
@@ -399,7 +423,13 @@ public class EbenHomeScreen extends Activity implements HomeScreen, UISyncSource
 		        in.putExtra(Constants.PARA_USER, user);
 				App.i().getApplicationContext().sendBroadcast(in);
 				break;
-
+			case 2:
+				Intent intent = new Intent();
+				
+				intent.setClass(EbenHomeScreen.this, BackupActivity.class);
+				
+				EbenHomeScreen.this.startActivity(intent);
+				break;
 			default:
 				break;
 			}
@@ -650,8 +680,23 @@ public class EbenHomeScreen extends Activity implements HomeScreen, UISyncSource
 				contact_summary.setText("");
 			}
 			
+			backupList = (ListView) findViewById(R.id.listViewbackup);
+			
+			myAdapter = new BackupListAdapter(this, R.layout.backuplist, dataMapList,mHandler);
+			backupList.setAdapter(myAdapter);
+			
+//			backupList.setOnItemClickListener(listener);
     }
-    
+    OnItemClickListener listener = new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			Log.debug(TAG, "onItemClick, "+view.getId()+", pos, "+position+", id , "+id);
+			
+		}
+    	
+    };
 //    private void setMultiButtonsLayout() {
 //        // Set the content view
 //        setContentView(R.layout.homescreen);

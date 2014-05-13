@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ProgressWheel="http://schemas.android.com/apk/res/cn.eben.androidsync"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/set_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/eben_homepage_title_bar" />
+
+    <!--
+         <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/sms_main_bottom_bg"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            style="@style/NetDisk.TextAppearance.Small.White"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="11.0dip"
+            android:layout_marginTop="11.0dip"
+            android:drawableLeft="@drawable/album_manage"
+            android:drawablePadding="@dimen/set_item_icon_title_padding"
+            android:text="@string/description_eben_web"
+            android:textSize="12.0dip" />
+    </LinearLayout>
+    -->
+
+    <TextView
+        android:id="@+id/backup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/eben_backup_des"
+        android:textColor="@color/black"
+        android:textSize="28dip" />
+
+    <ListView
+        android:id="@+id/listViewbackup"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="10.0dip"
+        android:layout_weight="1.0"
+        android:cacheColorHint="@android:color/transparent"
+        android:dividerHeight="0dp" >
+    </ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <TextView
+            android:id="@+id/vidble"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            android:text="@string/person_data"
+            android:textColor="@color/preference_secondary_text_color_disable_light"
+            android:textSize="16dip" />
+        <TextView
+            android:id="@+id/pim_sync_state_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="15dp"
+   
+            android:text=""
+            android:textColor="@color/preference_secondary_text_color_disable_light"
+            android:textSize="20dip" />
+
+<com.eben.activities.ProgressWheel
+        android:id="@+id/progressWheel"
+        android:layout_width="60dip"
+        android:layout_height="60dip"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="5.0dip"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="0dip"
+        ProgressWheel:barColor="#8d745e"
+        ProgressWheel:barLength="230dip"
+        ProgressWheel:barWidth="2dip"
+        ProgressWheel:endbarColor="#644c37"
+        ProgressWheel:rimColor="#00000000"
+        ProgressWheel:rimWidth="14dip"
+        ProgressWheel:spinSpeed="3dip"
+        ProgressWheel:text=""
+        ProgressWheel:textColor="#222222"
+        ProgressWheel:textSize="10dip" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/pim_manual_start"
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="@drawable/selector_btnbackup"
+        android:text="backup"
+        android:textColor="@color/white"
+        android:textSize="28dip" />
+
+    <TextView
+        android:id="@+id/pim_sync_state_tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:text=""
+        android:textColor="@color/preference_secondary_text_color_disable_light"
+        android:textSize="16dip" />
+
+</LinearLayout>

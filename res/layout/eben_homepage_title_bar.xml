@@ -3,7 +3,7 @@
     android:id="@+id/personal_home_title_bar"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/eben_titlebar_bg"
+    android:background="@drawable/bg_gray1"
     android:orientation="vertical" >
 
     <TextView

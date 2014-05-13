@@ -33,7 +33,7 @@ import android.provider.ContactsContract.RawContacts;
 
 public class DirtyChangesTrackerMd5 extends DirtyChangesTracker {
 	
-	private final String TAG_LOG = "DirtyChangesTracker";
+	private final String TAG_LOG = "DirtyChangesTrackerMd5";
 	
     protected StringKeyValueStore status;
     protected Hashtable newItems;

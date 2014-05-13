@@ -1,43 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/set_bg"
-    android:orientation="vertical" >
-
-    <include layout="@layout/eben_cloud_title" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="15dp"
-        android:visibility="gone"
-        android:text="@string/person_data"
-        android:textColor="@color/preference_secondary_text_color_disable_light"
-        android:textSize="16dip" />
-
-    <LinearLayout
-        android:id="@+id/contact_layout"
+<!--         android:background="@drawable/preference_item_bg" -->
+<LinearLayout
+    	xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/backup_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:background="@drawable/preference_item_bg"
+		android:background="@drawable/selector"
         android:cacheColorHint="@null"
         android:clickable="true"
         android:gravity="center_vertical"
-        android:minHeight="?android:listPreferredItemHeight"
-        android:onClick="onClick" >
+        android:minHeight="?android:listPreferredItemHeight" >
 
         <ImageView
-            android:id="@+id/contact_icon"
+            android:id="@+id/list_icon"
             android:layout_width="47.0dip"
             android:layout_height="47.0dip"
             android:layout_gravity="center"
             android:layout_marginLeft="20dp"
-            android:scaleType="fitCenter"
             android:src="@drawable/eben_contact" />
 
         <RelativeLayout
@@ -50,21 +29,21 @@
             android:layout_weight="1.0" >
 
             <TextView
-                android:id="@+id/contact_title"
+                android:id="@+id/list_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="marquee"
                 android:fadingEdge="horizontal"
                 android:singleLine="true"
-                android:text="@string/type_contacts"
+                android:text="BACKUP"
                 android:textAppearance="@style/PreferenceList" />
 
             <TextView
                 android:id="@+id/contact_summary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@id/contact_title"
-                android:layout_below="@id/contact_title"
+                android:layout_alignLeft="@id/list_title"
+                android:layout_below="@id/list_title"
                 android:maxLines="4"
                 android:textAppearance="@style/ListSecondary" />
         </RelativeLayout>
@@ -90,7 +69,6 @@
                     android:layout_marginRight="10dp"
                     android:textAppearance="@style/ListSecondary" />
 
-<!-- style="@style/ArrowIndicator" -->
 
                 <ImageView
                     android:id="@+id/sub_sync_indicator"
@@ -101,31 +79,3 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/backup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="15dp"
-        android:text="@string/backrestore"
-        android:textColor="@color/preference_secondary_text_color_disable_light"
-        android:textSize="16dip" />
-    <ListView
-        android:id="@+id/listViewbackup"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
-            android:layout_marginBottom="6.0dip"
-            android:layout_marginLeft="10.0dip"
-            android:layout_marginRight="6.0dip"
-            android:layout_marginTop="6.0dip"
-        android:layout_weight="1.0"
-        android:cacheColorHint="@android:color/transparent"
-        android:divider="@drawable/line" >
-
-    </ListView>
-</LinearLayout>

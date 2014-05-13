@@ -2295,7 +2295,9 @@ public abstract class ContactManager extends AbstractDataManager<Contact> {
 //            whereClause.append(" AND ");
 //        }
 //        whereClause.append(ContactsContract.RawContacts.DELETED).append("=").append("0");
-        Cursor peopleCur = resolver.query(ContactsContract.RawContacts.CONTENT_URI,
+//        Cursor peopleCur = resolver.query(ContactsContract.RawContacts.CONTENT_URI,
+//                cols, null, null, null);
+        Cursor peopleCur = resolver.query(ContactsContract.Contacts.CONTENT_URI,
                 cols, null, null, null);
         return peopleCur;
     }
