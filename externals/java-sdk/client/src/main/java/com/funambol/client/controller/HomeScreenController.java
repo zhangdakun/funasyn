@@ -36,22 +36,27 @@
 package com.funambol.client.controller;
 
 import java.util.Enumeration;
-import java.util.Vector;
 import java.util.Hashtable;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.Vector;
+
+import android.app.Activity;
 
 import com.funambol.client.source.AppSyncSource;
+import com.funambol.client.source.AppSyncSourceConfig;
 import com.funambol.client.source.ExternalAppManager;
-import com.funambol.client.ui.HomeScreen;
-import com.funambol.client.ui.UISyncSource;
 import com.funambol.client.ui.Bitmap;
 import com.funambol.client.ui.DisplayManager;
-import com.funambol.syncml.spds.SyncStatus;
+import com.funambol.client.ui.HomeScreen;
+import com.funambol.client.ui.UISyncSource;
+import com.funambol.platform.NetworkStatus;
 import com.funambol.sync.SyncException;
 import com.funambol.sync.SyncListener;
 import com.funambol.sync.SyncSource;
+import com.funambol.syncml.spds.SyncStatus;
 import com.funambol.util.Log;
 import com.funambol.util.StringUtil;
-import com.funambol.platform.NetworkStatus;
 
 /**
  * This class represents the controller for the home screen. Since the
@@ -74,7 +79,8 @@ public class HomeScreenController extends SynchronizationController {
     private boolean              updateAvailableSources = false;
 
     private boolean              syncAllButtonAdded = false;
-    
+    public int iSourceIndex = -1;
+    public boolean isFailue = false;
     /**
      *  This flag is to switch off the storage limit warning after
      *  it is displayed once. The warning must be displayed also more
@@ -92,9 +98,11 @@ public class HomeScreenController extends SynchronizationController {
      */
     protected boolean dontDisplayServerQuotaWarning = false;
     private boolean homeScreenRegisteredAndInForeground = false;
-
-
-     public HomeScreenController(Controller controller, HomeScreen homeScreen,NetworkStatus networkStatus) {
+    
+    protected final String SYNC_PROGRESS_SCREEN_NAME = "cn.eben.android.activities.AndroidSyncProgressScreen";
+    protected final String SYNC_RECOVER_SCREEN_NAME = "cn.eben.android.activities.AndroidRecoverActivity";
+    
+    public HomeScreenController(Controller controller, HomeScreen homeScreen,NetworkStatus networkStatus) {
         super(controller, homeScreen,networkStatus);
         this.controller = controller;
         this.homeScreen = homeScreen;
@@ -198,7 +206,7 @@ public class HomeScreenController extends SynchronizationController {
         }
     }
     
-    public void syncEnded() {
+	public void syncEnded() {
         if (Log.isLoggable(Log.TRACE)) {
             Log.trace(TAG_LOG, "sync ended");
         }
@@ -223,7 +231,14 @@ public class HomeScreenController extends SynchronizationController {
         }
 
         changeSyncLabelsOnSyncEnded();
-        unlockHomeScreen();
+        //add by eddie 20110928
+        if(screen != null){
+        	 Activity a = (Activity) screen.getUiScreen();
+             if(null != a && SYNC_PROGRESS_SCREEN_NAME.equals(a.getLocalClassName()))
+             	unlockHomeScreenProgress();
+             else
+             	unlockHomeScreen();
+        }
         setSelected(getFirstActiveItemIndex(), false);
 
         // If there are pending syncs, we start serving them
@@ -238,7 +253,6 @@ public class HomeScreenController extends SynchronizationController {
                 synchronize(com.funambol.client.controller.SynchronizationController.PUSH, sources);
             }
         }
-        
     }
 
     public void redraw() {
@@ -252,7 +266,92 @@ public class HomeScreenController extends SynchronizationController {
             homeScreen.redraw();
         }
     }
+//lierbao 2011-9-21
+    public void showProgDialog(int value, int direction){
+        if (Log.isLoggable(Log.INFO)) {
+            Log.error(TAG_LOG, "showProgDialog........ ");
+            Log.error(TAG_LOG, "value========="+value);
+        }
+        if(null == screen)
+        	return;
+        int idx = 0;
+        int nCount = 0;
 
+        int i = 0;
+        
+        Activity a = (Activity) screen.getUiScreen();
+        if(null!=a && SYNC_PROGRESS_SCREEN_NAME.equals(a.getLocalClassName()))
+        	return;
+        
+        Vector appSources = getVisibleItems();
+        for (i =0;i < appSources.size(); i++){
+        	AppSyncSource source = (AppSyncSource) appSources.elementAt(i);
+        	if((source.getId() & value) != 0){
+               nCount ++; 
+            }
+            if(0 == nCount)
+               idx ++;        		       	       	
+        }
+
+        if(nCount > 1)
+        	idx = -1;
+        
+        if (homeScreen != null) {
+//            homeScreen.showProgessDialog(idx, direction);
+        }   	
+    }
+    private class notiAppTask extends TimerTask{
+    	public static final long DEFAULT_DELAY = 5000;    	
+
+		public void run() {
+			// TODO Auto-generated method stub
+//			if (homeScreen != null)
+//				homeScreen.SyncStatusChanged(0);
+			
+		}
+    	
+    }
+    public void NotifyAppSyncStatusChanged(int s){
+    	Timer notiTimer = new Timer();
+    	notiTimer.schedule(new notiAppTask(), notiAppTask.DEFAULT_DELAY);
+    	   	
+    }
+    //lierbao end
+    //add eddie
+    protected void unlockHomeScreenProgress() {
+        if (Log.isLoggable(Log.ERROR)) {
+            Log.error(TAG_LOG, "unlockHomeScreenProgress");
+        }
+      if (customization.syncAllOnMainScreenRequired()) {
+          // enable the sync all button
+          if (!customization.syncAllActsAsCancelSync() && homeScreen != null) {
+              homeScreen.setSyncAllEnabled(true);
+          }
+      }
+//      int direction = homeScreen.getDirction();
+      for(int j=0;j<items.size();++j) {
+          AppSyncSource appSource = (AppSyncSource) items.elementAt(j);
+          // If this source is in sources then we shall enable it,
+          // otherwise we must disable it
+          UISyncSourceController uiSourceController = appSource.getUISyncSourceController();
+          if (appSource.isWorking() && appSource.isEnabled()) {
+              //uiSourceController.enableProgress(direction);
+              //add by eddie
+              //setLastSyncData(uiSourceController.getLastSyncTime());
+          } else {
+              uiSourceController.disable();
+          }
+          // If a UI Source is in the syncing state force it to stop
+//          if(uiSourceController.isSyncing()) {
+//              uiSourceController.resetStatus();
+//          }
+      }
+      if(homeScreen != null){
+          redraw();
+          homeScreen.unlock();
+      }
+  }
+    
     public Vector getVisibleItems() {
         return items;
     }
@@ -268,10 +367,15 @@ public class HomeScreenController extends SynchronizationController {
     }
 
     public void buttonPressed(int index) {
-        if (Log.isLoggable(Log.TRACE)) {
+        if (Log.isLoggable(Log.INFO)) {
             Log.trace(TAG_LOG, "Button pressed " + index);
         }
-        
+        if(null != screen){
+        Activity a = (Activity) screen.getUiScreen();
+        if(null != a && SYNC_PROGRESS_SCREEN_NAME.equals(a.getLocalClassName()))
+        	return;
+        }
+        iSourceIndex = index;
         AppSyncSource source = (AppSyncSource) items.elementAt(index);
         if (source.isWorking() && source.getConfig().getEnabled()) {
             syncSource(MANUAL, source);
@@ -279,7 +383,39 @@ public class HomeScreenController extends SynchronizationController {
             Log.error(TAG_LOG, "The user pressed a source disabled, this is an error in the code");
         }
     }
+    
+    public void buttonPressed(int index, int direction) {
+        if (Log.isLoggable(Log.INFO)) {
+            Log.error(TAG_LOG, "Button pressed " + index);
+        }
+        if(null != screen) {
+        Activity a = (Activity) screen.getUiScreen();
+        if(null != a && SYNC_PROGRESS_SCREEN_NAME.equals(a.getLocalClassName()))
+        	return;
+        }
+        iSourceIndex = index;
+        AppSyncSource source = (AppSyncSource) items.elementAt(index);
+        if (source.isWorking() && source.getConfig().getEnabled()) {
+//            syncSource(MANUAL, source);
+        	refresh(source.getId(), direction);
+        } else {
+            Log.error(TAG_LOG, "The user pressed a source disabled, this is an error in the code");
+        }
+    }
+    
+    public void syncIndex(int index) {
+        if (Log.isLoggable(Log.TRACE)) {
+            Log.trace(TAG_LOG, "Button pressed " + index);
+        }
 
+        iSourceIndex = index;
+        AppSyncSource source = (AppSyncSource) items.elementAt(index);
+        if (source.isWorking() && source.getConfig().getEnabled()) {
+            syncSource(MANUAL, source);
+        } else {
+            Log.error(TAG_LOG, "The user pressed a source disabled, this is an error in the code");
+        }
+    }   
     public void selectFirstAvailable() {
         if (Log.isLoggable(Log.TRACE)) {
             Log.trace(TAG_LOG, "Select first source available");
@@ -340,39 +476,120 @@ public class HomeScreenController extends SynchronizationController {
                 homeScreen.setSyncAllEnabled(false);
             }
         }
-
-        for(int j=0;j<items.size();++j) {
-            AppSyncSource appSource = (AppSyncSource) items.elementAt(j);
-            // If this source is in sources then we shall enable it,
-            // otherwise we must disable it
-            boolean enable = false;
-            for(int i=0;i<sources.size();++i) {
-                AppSyncSource appSource2 = (AppSyncSource)sources.elementAt(i);
-                if (appSource2.getId() == appSource.getId()) {
-                    enable = true;
-                    break;
-                }
-            }
-            UISyncSource uiSource = appSource.getUISyncSource();
-            uiSource.setEnabled(enable);
-        }
+// have progress sync dialog ,no need to lock it 
+//        for(int j=0;j<items.size();++j) {
+//            AppSyncSource appSource = (AppSyncSource) items.elementAt(j);
+//            // If this source is in sources then we shall enable it,
+//            // otherwise we must disable it
+//            boolean enable = false;
+//            for(int i=0;i<sources.size();++i) {
+//                AppSyncSource appSource2 = (AppSyncSource)sources.elementAt(i);
+//                if (appSource2.getId() == appSource.getId()) {
+//                    enable = true;
+//                    break;
+//                }
+//            }
+//            UISyncSource uiSource = appSource.getUISyncSource();
+//            uiSource.setEnabled(enable);
+//        }
         redraw();
         homeScreen.lock();
     }
+//lierbao 2011-9-22
+    public void updateDefaultSources(int direction, boolean isSyncFinish, int index) {
 
-    public void updateEnabledSources() {
-
-        if (Log.isLoggable(Log.TRACE)) {
-            Log.trace(TAG_LOG, "updateEnabledSources");
+        if (Log.isLoggable(Log.ERROR)) {
+            Log.error(TAG_LOG, "updateDefaultSources");
         }
 
         // If a sync is in progress, then we don't change the sources status,
         // otherwise we would corrupt the UI. On sync termination, the home
         // screen will get refreshed
-        if (isSynchronizing()  || (homeScreen != null && homeScreen.isLocked())) {
-            return;
+//        if (isSynchronizing()  || (homeScreen != null && homeScreen.isLocked())) {
+//            return;
+//        }
+        
+//        if(isSynchronizing()){
+//            return;
+//        }
+        
+        Enumeration sources = items.elements();
+        String sourceName = null;
+        if(-1 != index){
+            AppSyncSource source = (AppSyncSource) items.elementAt(index);
+            sourceName = source.getName();
         }
 
+        boolean atLeastOneEnabled = false;
+        while (sources.hasMoreElements()) {
+            AppSyncSource appSource = (AppSyncSource)sources.nextElement();
+            UISyncSourceController sourceController = appSource.getUISyncSourceController();
+            if (sourceController != null) {
+                if (appSource.getConfig().getActive()) {
+                    if (!appSource.isEnabled() || !appSource.isWorking()) {
+                        sourceController.disable();
+                        UISyncSource uiSource = appSource.getUISyncSource();
+                        // If this is the selected source, then we shall move the
+                        // selection to the first available
+                        if (uiSource != null && uiSource.isSelected()) {
+                            setSelected(getFirstActiveItemIndex(), false);
+                        }
+                    } else {
+                    	Activity a = (Activity) screen.getUiScreen();
+                    	if(-1 != index ){
+                            if(sourceName.equals(appSource.getName())){
+                            	if(null!=a && SYNC_PROGRESS_SCREEN_NAME.equals(a.getLocalClassName())){
+                            		sourceController.enableDefaultProgress(direction, isSyncFinish, index);
+                            	}else{
+                            		sourceController.enable();
+                            	}
+                            	return;
+                            }
+                    	}else{
+                        	if(null!=a && SYNC_PROGRESS_SCREEN_NAME.equals(a.getLocalClassName())){
+                        		sourceController.enableDefaultProgress(direction, isSyncFinish, index);
+                        	}else{
+                        		sourceController.enable();
+                        	}
+                        }
+                    	atLeastOneEnabled = true;
+                    }
+                }
+            }
+        }
+        // If there are no sources enabled, then we disable the sync all button
+        if (homeScreen != null) {
+            homeScreen.setSyncAllEnabled(atLeastOneEnabled);
+        
+        
+            if (!atLeastOneEnabled) {
+                // We must "deselect" all items because all are disabled
+                for(int i=0;i<items.size();++i) {
+                    setSelected(i, false);
+                }
+            }
+            
+            redraw();
+        }
+    }
+
+    public void updateEnabledSources() {
+
+        if (Log.isLoggable(Log.DEBUG)) {
+            Log.debug(TAG_LOG, "updateEnabledSources");
+        }
+
+        // If a sync is in progress, then we don't change the sources status,
+        // otherwise we would corrupt the UI. On sync termination, the home
+        // screen will get refreshed
+//        if (isSynchronizing()  || (homeScreen != null && homeScreen.isLocked())) {
+//            return;
+//        }
+        
+        if(isSynchronizing()){
+            return;
+        }
+        
         Enumeration sources = items.elements();
         boolean atLeastOneEnabled = false;
         while (sources.hasMoreElements()) {
@@ -390,7 +607,12 @@ public class HomeScreenController extends SynchronizationController {
                             setSelected(getFirstActiveItemIndex(), false);
                         }
                     } else {
-                        sourceController.enable();
+                    	 if (homeScreen != null) {
+                         	Activity activity = (Activity) homeScreen.getUiScreen();
+                         	if(null != activity && !SYNC_PROGRESS_SCREEN_NAME.equals(activity.getLocalClassName())){
+                                sourceController.enable();
+                        	}
+                    	 }
                         atLeastOneEnabled = true;
                     }
                 }
@@ -399,15 +621,17 @@ public class HomeScreenController extends SynchronizationController {
         // If there are no sources enabled, then we disable the sync all button
         if (homeScreen != null) {
             homeScreen.setSyncAllEnabled(atLeastOneEnabled);
-        }
-        if (!atLeastOneEnabled) {
-            // We must "deselect" all items because all are disabled
-            for(int i=0;i<items.size();++i) {
-                setSelected(i, false);
+        
+        
+            if (!atLeastOneEnabled) {
+                // We must "deselect" all items because all are disabled
+                for(int i=0;i<items.size();++i) {
+                    setSelected(i, false);
+                }
             }
+            
+            redraw();
         }
-
-        redraw();
     }
 
     protected void syncSource(String syncType, AppSyncSource appSource) {
@@ -429,7 +653,11 @@ public class HomeScreenController extends SynchronizationController {
         if (Log.isLoggable(Log.TRACE)) {
             Log.trace(TAG_LOG, "Sync All Button pressed");
         }
-
+        
+        Activity a = (Activity) screen.getUiScreen();
+        if(null!=a && SYNC_PROGRESS_SCREEN_NAME.equals(a.getLocalClassName()))
+        	return;
+        
         // If a sync is in progress, then this is a cancel sync request
         if (isSynchronizing() && customization.syncAllActsAsCancelSync()) {
             if (!doCancel) {
@@ -443,7 +671,23 @@ public class HomeScreenController extends SynchronizationController {
             syncAllSources(MANUAL);
         }
     }
+    //lierbao
+    public void syncProgressCancelPressed() {
+        if (Log.isLoggable(Log.TRACE)) {
+            Log.trace(TAG_LOG, "Sync All Button pressed");
+        }
 
+        // If a sync is in progress, then this is a cancel sync request
+        if (isSynchronizing() && customization.syncAllActsAsCancelSync()) {
+            if (!doCancel) {
+                cancelSync();
+            } else {
+                if (Log.isLoggable(Log.INFO)) {
+                    Log.info(TAG_LOG, "Cancelling already in progress");
+                }
+            }
+        }
+    }
     public void aloneSourcePressed() {
         if (Log.isLoggable(Log.TRACE)) {
             Log.trace(TAG_LOG, "Alone Source Button pressed");
@@ -617,12 +861,12 @@ public class HomeScreenController extends SynchronizationController {
     
 
     protected void unlockHomeScreen() {
-        if (homeScreen == null) {
-            return;
+        if (Log.isLoggable(Log.ERROR)) {
+            Log.error(TAG_LOG, "unlockHomeScreen");
         }
         if (customization.syncAllOnMainScreenRequired()) {
             // enable the sync all button
-            if (!customization.syncAllActsAsCancelSync()) {
+            if (!customization.syncAllActsAsCancelSync() && homeScreen != null) {
                 homeScreen.setSyncAllEnabled(true);
             }
         }
@@ -634,6 +878,8 @@ public class HomeScreenController extends SynchronizationController {
             UISyncSourceController uiSourceController = appSource.getUISyncSourceController();
             if (appSource.isWorking() && appSource.isEnabled()) {
                 uiSourceController.enable();
+                //add by eddie
+                //setLastSyncData(uiSourceController.getLastSyncTime());
             } else {
                 uiSourceController.disable();
             }
@@ -642,8 +888,10 @@ public class HomeScreenController extends SynchronizationController {
                 uiSourceController.resetStatus();
             }
         }
-        redraw();
-        homeScreen.unlock();
+        if(homeScreen != null){
+            redraw();
+            homeScreen.unlock();
+        }
     }
 
     protected void showSyncInProgressMessage() {
@@ -798,7 +1046,7 @@ public class HomeScreenController extends SynchronizationController {
         }
         homeScreen.setSyncMenuText(localization.getLanguage("menu_sync"));
     }
-
+    private int retry = 0;
     private void forceUpdateAvailableSources() {
         if (Log.isLoggable(Log.TRACE)) {
             Log.trace(TAG_LOG, "forceUpdateAvailableSources");
@@ -809,7 +1057,25 @@ public class HomeScreenController extends SynchronizationController {
         if (homeScreen != null) {
             homeScreen.updateVisibleItems();
         }
-        setSelected(getFirstActiveItemIndex(), false);
+        int index = -1;
+        try {
+
+        	index = getFirstActiveItemIndex();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			Log.error(TAG_LOG,"got exception  "+e +", retry is "+retry);
+			if(retry < 3) {
+				forceUpdateAvailableSources();
+			}
+			else {
+				retry = 0;
+				return;
+			}
+				
+		}       
+        
+        setSelected(index, false);
         updateAvailableSources = false;
     }
     
@@ -831,4 +1097,38 @@ public class HomeScreenController extends SynchronizationController {
         }
     }
     
+    //add by eddie 20111017
+    public void setHomeScreenDisable() {
+        if (Log.isLoggable(Log.ERROR)) {
+            Log.error(TAG_LOG, "unlockHomeScreen");
+        }
+      for(int j=0;j<items.size();++j) {
+          AppSyncSource appSource = (AppSyncSource) items.elementAt(j);
+          
+          AppSyncSourceConfig sConfig = appSource.getConfig();
+          // If this source is in sources then we shall enable it,
+          // otherwise we must disable it
+          UISyncSourceController uiSourceController = appSource.getUISyncSourceController();
+          if(Log.isLoggable(Log.DEBUG))
+        	  Log.debug(TAG_LOG, "sConfig===="+sConfig.getEnabled());
+          if (sConfig.getEnabled()) {
+              uiSourceController.enable();
+          } else {
+              uiSourceController.disable();
+          }
+      }
+      if(homeScreen != null){
+          redraw();
+      }
+  }
+    
+    public void showDownloadScreen() {
+        Controller globalController = getController();
+        globalController.showScreen(homeScreen, Controller.DOWNLOAD_SCREEN_ID);
+    }
+    
+    public void showUploadScreen() {
+        Controller globalController = getController();
+        globalController.showScreen(homeScreen, Controller.UPLOAD_SCREEN_ID);
+    }
 }

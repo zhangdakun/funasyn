@@ -37,6 +37,7 @@ package com.funambol.syncml.client;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 
 import com.funambol.util.Base64;
 import com.funambol.util.Log;
@@ -59,6 +60,9 @@ import com.funambol.util.Log;
 public class FileObjectInputStream extends InputStream {
     private static final int B64BUFFER_SIZE = 3;
 
+    /**Default max message size limit*/
+    public static final int SYNC_MAX_MSG_SIZE      = 1024 * 1024;
+    
     private InputStream is         = null;
     private String prologue        = null;
     private String epilogue        = null;
@@ -86,9 +90,17 @@ public class FileObjectInputStream extends InputStream {
         this.prologue = prologue;
         this.epilogue = epilogue;
         this.dataSize = dataSize;
-        int bodySize = Base64.computeEncodedSize(dataSize);
+//        int bodySize = Base64.computeEncodedSize(dataSize);
         // Set the size
-        totalSize = prologue.length() + bodySize + epilogue.length();
+//        totalSize = prologue.length() + dataSize + epilogue.length();
+        try {
+			totalSize = prologue.getBytes("utf-8").length+ dataSize + epilogue.getBytes("utf-8").length;
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        //Log.info("FileObjectInputStream prologue:" + prologue.length() + ", body:" + bodySize +
+        //		", data:" + dataSize + ", epilogue:" + epilogue.length());
     }
 
     /**
@@ -100,6 +112,8 @@ public class FileObjectInputStream extends InputStream {
      * @throws IOException if the underlying stream throws such an exception
      */
     public int read() throws IOException {
+    	Log.error("FileObjectInputStream read nothing......");
+    	
         // First of all we shall return the FileObject
         int ch;
         if (idx < prologue.length()) {
@@ -157,7 +171,77 @@ public class FileObjectInputStream extends InputStream {
         return ch;
     }
 
-    /**
+    //Overwrite by zhangcheng
+	public int read(byte[] b) throws IOException {
+    	boolean bEnd = false;
+    	int readLen = 0;
+    	int readSize = 0;
+    	while(readLen < b.length) {
+	        if (idx < prologue.getBytes("utf-8").length) {
+//	        	prologue.getBytes().length
+//	        	readSize = Math.min(b.length - readLen, prologue.length() - idx);
+	        	readSize = Math.min(b.length - readLen, prologue.getBytes("utf-8").length - idx);
+	            System.arraycopy(prologue.getBytes("utf-8"), 0, b, 0, readSize);
+	            idx += readSize;
+	            readLen += readSize;
+	        } else if (idx < prologue.getBytes("utf-8").length + dataSize ||
+	                   (encodedValues != null && encodedIdx < encodedValues.length)) {
+	            if (encodedValues != null && encodedIdx < encodedValues.length) {
+	            	readSize = encodedValues.length - encodedIdx;
+		            System.arraycopy(encodedValues, encodedIdx, b, readLen, readSize);
+		            readLen += readSize;
+		            encodedValues = null;
+		            encodedIdx = 0;
+	            } else {
+	            	int remain = SYNC_MAX_MSG_SIZE - totalIdx % (SYNC_MAX_MSG_SIZE);
+	            	int needRead = remain/4*3;
+	            	if(remain % 4 != 0)
+	            		needRead += 3;
+	            	
+	                byte values[] = new byte[needRead];
+	                int size = is.read(values);
+//	                encodedValues = Base64.encode(values, size);
+//	                encodedValues = values;
+//	                readSize = Math.min(b.length - readLen, encodedValues.length);
+//		            System.arraycopy(encodedValues, 0, b, readLen, readSize);
+	                readSize =  size;
+	                System.arraycopy(values, 0, b, readLen, readSize);
+		            idx += size;
+		            readLen += readSize;
+	                encodedIdx = readSize;
+	            }
+	        } else if (idx < prologue.getBytes("utf-8").length + dataSize + epilogue.getBytes("utf-8").length) {
+	        	readSize = Math.min(b.length - readLen, prologue.getBytes("utf-8").length + dataSize + epilogue.getBytes("utf-8").length - idx);
+	            System.arraycopy(epilogue.getBytes("utf-8"), 0, b, readLen, readSize);
+	            idx += readSize;
+	            readLen += readSize;
+	            if(readLen <= b.length)
+	            	break;
+	        } else {
+	            // We reached the end of this stream
+	        	bEnd = true;
+	            break;
+	        }
+    		
+    	}
+
+        totalIdx += readLen;
+
+        // Safety check
+        if (totalIdx > totalSize) {
+            // This should never happen, and if it does it is a bug in the code
+            throw new IOException("FileObjectInputStream internal error, exceeded file size limit");
+        }
+    	//Log.info("FileObjectInputStream read end......size:" + readLen + ", idx:" + idx + 
+    	//		", total:" + totalIdx + ", totalSize:" + totalSize);// + "\n" + new String(b));
+    	
+    	if(bEnd)
+    		return -1;
+    	else
+    		return readLen;
+	}
+
+	/**
      * Returns the number of available bytes.
      */
     public int available() throws IOException {

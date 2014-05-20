@@ -91,15 +91,30 @@ public class CalendarChangesTrackerMD5 extends CalendarChangesTracker {
                 // This is a new item
                 String itemFP = (String)newItems.get(key);
                 // Update the fingerprint
-                status.add(key, itemFP);
+                try {
+					status.add(key, itemFP);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             } else if (updatedItems.get(key) != null) {
                 // This is a new item
                 String itemFP = (String)updatedItems.get(key);
                 // Update the fingerprint
-                status.update(key, itemFP);
+                try {
+					status.update(key, itemFP);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             } else if (deletedItems.get(key) != null) {
                 // Update the fingerprint
-                status.remove(key);
+                try {
+					status.remove(key);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
             // Save the status after each item
             try {
@@ -152,7 +167,12 @@ public class CalendarChangesTrackerMD5 extends CalendarChangesTracker {
                 }
                 break;
             case SyncItem.STATE_DELETED:
-                status.remove(item.getKey());
+			try {
+				status.remove(item.getKey());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
                 break;
             default:
                 Log.error(TAG_LOG, "Cache Tracker cannot remove item");

@@ -146,4 +146,23 @@ public class NoteSyncSource extends PIMSyncSource<Note> {
             throw new SyncException(SyncException.CLIENT_ERROR, "Cannot get note content");
         }
     }
+
+	@Override
+	public void setSourceInfo(Object info) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void preSync(int syncMode, boolean resume) throws SyncException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isAvailble(int syncMode, boolean resume)
+			throws SyncException {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

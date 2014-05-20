@@ -245,5 +245,23 @@ public class BasicSyncListener implements SyncListener {
     public boolean startSyncing(int alertCode, Object devInf) {
         return true;
     }
+	public void startSession(SyncSource src) {
+	}
+	public void endSession(SyncReport report, SyncSource src) {
+	}
+	public void startConnecting(SyncSource src) {
+	}
+	public void endConnecting(int action,SyncSource src) {
+	}
+	public void syncStarted(int alertCode, SyncSource src) {
+	}
+	public void endSyncing(SyncSource src) {
+	}
+	public void startFinalizing(SyncSource src) {
+	}
+	public void endFinalizing(SyncSource src) {
+	}
+	public void startReceiving(int number, SyncSource src) {
+	}
 }
 

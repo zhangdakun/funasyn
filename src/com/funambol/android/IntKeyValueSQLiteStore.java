@@ -56,19 +56,21 @@ public class IntKeyValueSQLiteStore extends StringKeyValueSQLiteStore {
      * @param c The <code>Context</code>.
      * @param dbName The database file name.
      * @param tableName The table name.
+     * @throws Exception 
      */
-    public IntKeyValueSQLiteStore(Context c, String dbName, String tableName) {
+    public IntKeyValueSQLiteStore(Context c, String dbName, String tableName) throws Exception {
         super(c, dbName, tableName);
     }
 
     /**
      * Add an entry into the db. If the key is not an integer value, then
      * an IllegalArgumentException is thrown.
+     * @throws Exception 
      *
      * @see StringKeyValueStore#add(java.lang.String, java.lang.String)
      */
     @Override
-    public void add(String key, String value) {
+    public void add(String key, String value) throws Exception {
         checkKey(key);
         super.add(key, value);
     }
@@ -76,11 +78,12 @@ public class IntKeyValueSQLiteStore extends StringKeyValueSQLiteStore {
     /**
      * Update an existing entry in the db. If the key is not an integer value, then
      * an IllegalArgumentException is thrown.
+     * @throws Exception 
      *
      * @see StringKeyValueStore#update(java.lang.String, java.lang.String)
      */
     @Override
-    public void update(String key, String value) {
+    public void update(String key, String value) throws Exception {
         checkKey(key);
         super.update(key, value);
     }
@@ -88,11 +91,12 @@ public class IntKeyValueSQLiteStore extends StringKeyValueSQLiteStore {
     /**
      * Get the value of an existing key in the db. If the key is not an integer value, then
      * an IllegalArgumentException is thrown.
+     * @throws Exception 
      *
      * @see StringKeyValueStore#get(java.lang.String)
      */
     @Override
-    public String get(String key) {
+    public String get(String key) throws Exception {
         checkKey(key);
         return super.get(key);
     }
@@ -100,11 +104,12 @@ public class IntKeyValueSQLiteStore extends StringKeyValueSQLiteStore {
     /**
      * Check if a given key exists in the db. If the key is not an integer value, then 
      * an IllegalArgumentException is thrown.
+     * @throws Exception 
      *
      * @see StringKeyValueStore#contains(java.lang.String)
      */
     @Override
-    public boolean contains(String key) {
+    public boolean contains(String key) throws Exception {
         checkKey(key);
         return super.contains(key);
     }
@@ -112,11 +117,12 @@ public class IntKeyValueSQLiteStore extends StringKeyValueSQLiteStore {
     /**
      * Remove an entry from the db. If the key is not an integer value, then 
      * an IllegalArgumentException is thrown.
+     * @throws Exception 
      *
      * @see StringKeyValueStore#remove(java.lang.String)
      */
     @Override
-    public String remove(String key) {
+    public String remove(String key) throws Exception {
         checkKey(key);
         return super.remove(key);
     }

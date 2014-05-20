@@ -35,6 +35,7 @@
 
 package com.funambol.sapisync.source;
 
+import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -51,111 +52,141 @@ import com.funambol.util.Log;
  */
 public class CacheTrackerWithRenames extends CacheTracker {
 
-    private static final String TAG_LOG = "CacheTrackerWithRenames";
+	private static final String TAG_LOG = "CacheTrackerWithRenames";
 
-    private Hashtable renamesMap;
+	private Hashtable renamesMap;
+	private String sourceName;
 
-    public CacheTrackerWithRenames(String sourceName, StringKeyValueStore statusStore) {
-        super(statusStore);
-        this.renamesMap = new Hashtable();
-    }
+	public CacheTrackerWithRenames(String sourceName,
+			StringKeyValueStore statusStore) {
+		super(statusStore);
+		this.sourceName = sourceName;
+		this.renamesMap = new Hashtable();
+	}
 
-    public void begin(int syncMode, boolean reset) throws TrackerException {
-        super.begin(syncMode, reset);
-        if (syncMode == SyncSource.INCREMENTAL_SYNC || syncMode == SyncSource.INCREMENTAL_UPLOAD) {
-            if(Log.isLoggable(Log.DEBUG)) {
-                Log.debug(TAG_LOG, "Checking renames");
-            }
+	/*
+	 * public CacheTrackerWithRenames(StringKeyValueStore renamesStore,
+	 * StringKeyValueStore statusStore) { super(statusStore); this.renamesStore
+	 * = renamesStore; }
+	 */
 
-            if (newItems.isEmpty() || deletedItems.isEmpty()) {
-                return;
-            }
+	public void begin(int syncMode, boolean reset) throws TrackerException {
+		super.begin(syncMode, reset);
+		if (syncMode == SyncSource.INCREMENTAL_SYNC
+				|| syncMode == SyncSource.INCREMENTAL_UPLOAD) {
+			if (Log.isLoggable(Log.DEBUG)) {
+				Log.debug(TAG_LOG, "Checking renames");
+			}
 
-            // If we have a new item with the very same fingerprint as a deleted
-            // one, then we turn this pair of add/delete into an update
-            Enumeration nEnum = newItems.keys();
-            while(nEnum.hasMoreElements()) {
-                String nKey = (String)nEnum.nextElement();
-                SyncItem item = createItemForFingerprint(nKey);
-                String nfp = computeFingerprint(item);
-                // Now search among the deleted items
-                Enumeration dEnum = deletedItems.keys();
-                while(dEnum.hasMoreElements()) {
-                    String dKey = (String)dEnum.nextElement();
-                    String dfp = status.get(dKey);
-                    if (Log.isLoggable(Log.TRACE)) {
-                        Log.trace(TAG_LOG, "Comparing added/deleted fingerprint for " + nKey + " and " + dKey
-                                           + " whose fingerprint are " + nfp + " and " + dfp);
-                    }
-                    if (dfp != null && dfp.equals(nfp)) {
-                        if (Log.isLoggable(Log.INFO)) {
-                            Log.info(TAG_LOG, "Found a renamed item. Was " + dKey + " and now is " + nKey);
-                        }
-                        newItems.remove(nKey);
-                        deletedItems.remove(dKey);
-                        updatedItems.put(nKey, nfp);
+			if (newItems.size() == 0 || deletedItems.size() == 0) {
+				return;
+			}
+			try {
+				// If we have a new item with the very same fingerprint as a
+				// deleted
+				// one, then we turn this pair of add/delete into an update
+				Enumeration nEnum = newItems.keys();
+				while (nEnum.hasMoreElements()) {
+					String nKey = (String) nEnum.nextElement();
+					SyncItem item = createItemForFingerprint(nKey);
+					String nfp = computeFingerprint(item);
+					// Now search among the deleted items
+					Enumeration dEnum = deletedItems.keys();
+					while (dEnum.hasMoreElements()) {
+						String dKey = (String) dEnum.nextElement();
+						String dfp;
 
-                        renamesMap.put(nKey, dKey);
-                    }
-                }
-            }
-        }
-    }
+						dfp = status.get(dKey);
 
-    // TODO: redefine this to return just the key
-    protected SyncItem createItemForFingerprint(String key) {
-        SyncItem item = new SyncItem(key);
-        return getItemContent(item);
-    }
+						if (Log.isLoggable(Log.TRACE)) {
+							Log.trace(TAG_LOG,
+									"Comparing added/deleted fingerprint for "
+											+ nKey + " and " + dKey
+											+ " whose fingerprint are " + nfp
+											+ " and " + dfp);
+						}
+						if (dfp != null && dfp.equals(nfp)) {
+							if (Log.isLoggable(Log.INFO)) {
+								Log.info(TAG_LOG, "Found a renamed item. Was "
+										+ dKey + " and now is " + nKey);
+							}
+							newItems.remove(nKey);
+							deletedItems.remove(dKey);
+							updatedItems.put(nKey, nfp);
 
-    public String getRenamedFileName(String newFileName) {
-        return (String)renamesMap.get(newFileName);
-    }
+							renamesMap.put(nKey, dKey);
+						}
+					}
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				throw new TrackerException(e.toString());
+			}
+		}
+	}
 
-    public boolean isRenamedItemUpdated(String oldKey, String newKey) {
-        String oldFP = status.get(oldKey);
-        String newFP = (String)updatedItems.get(newKey);
-        boolean updated = true;
-        if(oldFP != null && newFP != null) {
-            updated = !oldFP.equals(newFP);
-        }
-        return updated;
-    }
+	// TODO: redefine this to return just the key
+	protected SyncItem createItemForFingerprint(String key) {
+		SyncItem item = new SyncItem(key);
+		return getItemContent(item);
+	}
 
-    public boolean isRenamedItem(String key) {
-        return renamesMap.get(key) != null;
-    }
+	public String getRenamedFileName(String newFileName) {
+		return (String) renamesMap.get(newFileName);
+	}
 
-    protected void setItemStatus(String key, int itemStatus) throws TrackerException {
-        if (Log.isLoggable(Log.TRACE)) {
-            Log.trace(TAG_LOG, "setItemStatus " + key + "," + itemStatus);
-        }
-        boolean renameStatusHandled = false;
-        if (isSuccess(itemStatus) && itemStatus != SyncSource.CHUNK_SUCCESS_STATUS) {
-            String deletedKey = (String)renamesMap.get(key);
-            if (deletedKey != null) {
-                // Update the base tracker status
-                removeItem(new SyncItem(key, null, SyncItem.STATE_NEW, null));
-                removeItem(new SyncItem(deletedKey, null, SyncItem.STATE_DELETED, null));
-                // Update the renames status
-                renamesMap.remove(key);
-                renameStatusHandled = true;
-            }
-        }
-        if(!renameStatusHandled) {
-            super.setItemStatus(key, itemStatus);
-        }
-    }
+	public boolean isRenamedItemUpdated(String oldKey, String newKey) {
+		String oldFP = null;
+		try {
+			oldFP = status.get(oldKey);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String newFP = (String) updatedItems.get(newKey);
+		boolean updated = true;
+		if (oldFP != null && newFP != null) {
+			updated = !oldFP.equals(newFP);
+		}
+		return updated;
+	}
 
-    public void reset() throws TrackerException {
-        super.reset();
-        renamesMap.clear();
-    }
+	public boolean isRenamedItem(String key) {
+		return renamesMap.get(key) != null;
+	}
 
-    public void empty() throws TrackerException {
-        super.empty();
-        renamesMap.clear();
-    }
+	protected void setItemStatus(String key, int itemStatus)
+			throws TrackerException {
+		if (Log.isLoggable(Log.TRACE)) {
+			Log.trace(TAG_LOG, "setItemStatus " + key + "," + itemStatus);
+		}
+		boolean renameStatusHandled = false;
+		if (isSuccess(itemStatus)
+				&& itemStatus != SyncSource.CHUNK_SUCCESS_STATUS) {
+			String deletedKey = (String) renamesMap.get(key);
+			if (deletedKey != null) {
+				// Update the base tracker status
+				removeItem(new SyncItem(key, null, SyncItem.STATE_NEW, null));
+				removeItem(new SyncItem(deletedKey, null,
+						SyncItem.STATE_DELETED, null));
+				// Update the renames status
+				renamesMap.remove(key);
+				renameStatusHandled = true;
+			}
+		}
+		if (!renameStatusHandled) {
+			super.setItemStatus(key, itemStatus);
+		}
+	}
+
+	public void reset() throws TrackerException {
+		super.reset();
+		renamesMap.clear();
+	}
+
+	public void empty() throws TrackerException {
+		super.empty();
+		renamesMap.clear();
+	}
 }
-
-

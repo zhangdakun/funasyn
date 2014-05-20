@@ -70,6 +70,46 @@ public class AndroidConfiguration extends Configuration {
     protected      SharedPreferences.Editor editor;
     private        DeviceConfig devconf;
 
+    protected static final String CONF_KEY_TOTALCAPACITITY = "cn.eben.page.totalCapacity";
+    protected static final String CONF_KEY_NOTEPADCOUNT = "cn.eben.page.notepadCount";
+    protected static final String CONF_KEY_NOTEPADUSECAPACITY = "cn.eben.page.notepadUseCapacity";
+    protected static final String CONF_KEY_EDISKUSECAPACITY = "cn.eben.page.ediskUseCapacity";
+
+    public static final String CONF_KEY_CAPACITITY_STATISTICS = "cn.eben.capa_statistics";
+    protected static final String CONF_KEY_AUTHOR_STATUS = "cn.eben.author";
+    protected static final String CONF_KEY_EXTERNAL_NAME = "cn.eben.externalApp";
+    protected static final String CONF_KEY_EXTERNAL_TYPE = "cn.ben.externalType";
+    protected static final String CONF_KEY_EXTERNAL_PACKAGE = "cn.ben.exPackage";
+    protected static final String CONF_KEY_EDISK_OLDNAME = "cn.ben.ediskoldname";
+    protected static final String CONF_KEY_EDISK_NEWNAME = "cn.ben.edisknewname";
+
+    private static final String CONFIG_NOTEPAD_SYNC_STATUS = "cn.eben.notepadsync.status";
+    private static final String CONFIG_NOTEPAD_SYNC_DIRECTION = "cn.eben.notepadsync.refreshDirection";
+    private static final String CONFIG_NOTEPAD_SYNCFAILURE_TIME = "cn.eben.notepadsync.failuretime";
+
+    private static final String CONFIG_CALENDAR_SYNC_STATUS = "cn.eben.calendarsync.status";
+    private static final String CONFIG_CALENDAR_SYNC_DIRECTION = "cn.eben.calendarsync.refreshDirection";
+    private static final String CONFIG_CALENDAR_SYNCFAILURE_TIME = "cn.eben.calendarsync.failuretime";
+
+    private static final String CONFIT_CARDNAME_SYNC_STATUS = "cn.eben.cardnamesync.status";
+    private static final String CONFIG_CARDNAME_SYNC_DIRECTION = "cn.eben.cardnamesync.refreshDirection";
+    private static final String CONFIG_CARDNAME_SYNCFAILURE_TIME = "cn.eben.cardnamesync.failuretime";
+    private static final String CONFIG_USER_TRUE_NAME_STRING = "cn.eben.usertruename";
+
+
+    public static final String ACTION_MINDCLOUD_CHANGE_SETTING = "cn.eben.mindcloud.CHANGE_SETTING";
+    public static final String KEY_SYNC_WLAN_ONLY = "sync_wlan_only";
+    public static final String KEY_NOTIFY_SYNC_STATUS = "notify_sync_status";
+    public static final String KEY_DEV_ID = "eben_dev_id";
+    public static final String KEY_MINDCLOUD_STATUS = "mindcloud_status";
+    public static final String KEY_MINDCLOUD_SOURCE = "mindcloud_source";
+    
+    public static final String KEY_MINDCLOUD_TOKEN = "eben_token";
+    public static final String KEY_MINDCLOUD_TOKENVER = "eben_tokenver";
+    
+    public static final String KEY_MINDCLOUD_CHECKFP = "eben_checkfp_";
+    public static final String KEY_MINDCLOUD_RENAME = "_rename";
+    public static final boolean authSyncInter = true;//lierbao
     /**
      * Private contructor to enforce the Singleton implementation
      * @param context the application Context

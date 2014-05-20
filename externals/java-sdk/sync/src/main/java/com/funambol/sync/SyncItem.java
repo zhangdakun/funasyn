@@ -292,6 +292,7 @@ public class SyncItem {
                 OutputStream sos = getOutputStream();
                 sos.write(content);
                 objectSize = content.length;
+                sos.close();
             } catch (IOException ioe) {
                 // We should never fall into this case, as the default
                 // implementation of the StreamingSyncItem writes in memory

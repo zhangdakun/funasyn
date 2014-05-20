@@ -37,11 +37,11 @@ package com.funambol.sync.client;
 
 import java.util.Enumeration;
 
-import com.funambol.sync.SourceConfig;
-import com.funambol.sync.SyncItem;
-import com.funambol.sync.SyncException;
-import com.funambol.sync.SyncSource;
 import com.funambol.storage.StringKeyValueStore;
+import com.funambol.sync.SourceConfig;
+import com.funambol.sync.SyncException;
+import com.funambol.sync.SyncItem;
+import com.funambol.sync.SyncSource;
 import com.funambol.util.Log;
 
 
@@ -81,8 +81,6 @@ public class ConfigSyncSource extends TrackableSyncSource {
                 throw new SyncException(SyncException.CLIENT_ERROR, "Cannot load config store " + e.toString());
             }
         }
-        // Shall be catched in order to end the sync successfully
-//        throw new SyncException(SyncException.CONTROLLED_INTERRUPTION, "Controlled interruption");
     }
 
     public void endSync() throws SyncException {
@@ -97,14 +95,27 @@ public class ConfigSyncSource extends TrackableSyncSource {
     }
 
     protected Enumeration getAllItemsKeys() throws SyncException {
-        Enumeration keys = store.keys();
+        Enumeration keys=null;
+		try {
+			keys = store.keys();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new SyncException(SyncException.CLIENT_ERROR,e.toString());
+		}
         return keys;
     }
 
     public int addItem(SyncItem item) throws SyncException {
         String key = item.getKey();
         String value = new String(item.getContent());
-        store.add(key, value);
+        try {
+			store.add(key, value);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new SyncException(SyncException.CLIENT_ERROR,e.toString());
+		}
         return SyncSource.SUCCESS_STATUS;
     }
 
@@ -113,7 +124,13 @@ public class ConfigSyncSource extends TrackableSyncSource {
     }
     
     public int deleteItem(String key) throws SyncException {
-        store.remove(key);
+        try {
+			store.remove(key);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new SyncException(SyncException.CLIENT_ERROR,e.toString());
+		}
         return SyncSource.SUCCESS_STATUS;
     }
 
@@ -122,7 +139,14 @@ public class ConfigSyncSource extends TrackableSyncSource {
             Log.trace(TAG_LOG, "getItemContent");
         }
         String key = item.getKey();
-        String value = store.get(key);
+        String value;
+		try {
+			value = store.get(key);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new SyncException(SyncException.CLIENT_ERROR,e.toString());
+		}
         SyncItem newItem = new SyncItem(item);
         newItem.setContent(value.getBytes());
         return newItem;
@@ -134,6 +158,25 @@ public class ConfigSyncSource extends TrackableSyncSource {
             Log.trace(TAG_LOG, "deleteAllItems");
         }
     }
+
+
+    public void setSourceInfo(Object info) {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+	public void preSync(int syncMode, boolean resume) throws SyncException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public boolean isAvailble(int syncMode, boolean resume)
+			throws SyncException {
+		// TODO Auto-generated method stub
+		return true;
+	}
     
 
 }

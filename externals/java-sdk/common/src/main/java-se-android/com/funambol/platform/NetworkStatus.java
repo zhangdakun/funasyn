@@ -35,11 +35,13 @@
 
 package com.funambol.platform;
 
+import java.util.Date;
+
 import android.content.Context;
-import android.telephony.TelephonyManager;
-import android.telephony.ServiceState;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.telephony.ServiceState;
 
 public class NetworkStatus {
 
@@ -77,6 +79,36 @@ public class NetworkStatus {
         ServiceState serviceState = new ServiceState();
         return serviceState.getState() == ServiceState.STATE_POWER_OFF;
     }
+    
+    
+    public  boolean isNetworkAvailable() {
+    	/* 【WLAN和3G、GSM等网络、有线网络】 */
+    	ConnectivityManager cwjManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = cwjManager.getActiveNetworkInfo();
+        if(null == info || !info.isAvailable()) {
+        	sendprogress();
+        	return false;
+        }
+        return true;
+    }  
+   //new EbenSyncProgress(NOTSYNC, 0, 0, "notepad", "notepad", "", err).send(); 
+    private void sendprogress() {
+		// TODO Auto-generated method stub
 
+		Intent intent = new Intent("cn.eben.sync.PROGRESS");
+		intent.putExtra("issync", 0);
+		intent.putExtra("source", "edisk");
+		intent.putExtra("needsync", 0);
+		intent.putExtra("cursync", 0);
+
+		intent.putExtra("itemname", "");
+		intent.putExtra("appname", "edisk");
+		intent.putExtra("errcode", 2);
+		long time = new Date().getTime();
+		intent.putExtra("time", time);
+	   
+		context.sendBroadcast(intent);
+
+	}
 
 }

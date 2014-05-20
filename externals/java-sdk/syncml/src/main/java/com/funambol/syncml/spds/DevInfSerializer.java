@@ -53,7 +53,9 @@ public class DevInfSerializer {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         SyncMLFormatter formatter = new SyncMLFormatter(false);
         formatter.formatXmlDevInf(devInf, os, "UTF-8");
-        return os.toString();
+        String data = os.toString();
+        os.close();
+        return data;
     }
 
     public DevInf deserialize(String devInf) throws SyncMLParserException {

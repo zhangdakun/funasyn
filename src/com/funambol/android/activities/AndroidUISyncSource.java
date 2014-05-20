@@ -412,6 +412,18 @@ public class AndroidUISyncSource extends RelativeLayout implements UISyncSource 
         }
     }
 
+	@Override
+	public String getStatusString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setStatusIconId(int iconId) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
 
 

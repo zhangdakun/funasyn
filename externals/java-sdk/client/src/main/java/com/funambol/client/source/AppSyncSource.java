@@ -85,7 +85,8 @@ public class AppSyncSource {
 
     protected SyncSource           source;
     private String                 name;
-    private int                    id     = -1;
+    private String                 pkgName;
+	private int                    id     = -1;
     private String                 enabledLabel     = null;
     private String                 disabledLabel    = null;
     private String                 iconName         = null;
@@ -186,7 +187,13 @@ public class AppSyncSource {
     public String getName() {
         return name;
     }
+    public String getPkgName() {
+		return pkgName;
+	}
 
+	public void setPkgName(String pkgName) {
+		this.pkgName = pkgName;
+	}
     public String getEnabledLabel() {
         return enabledLabel;
     }

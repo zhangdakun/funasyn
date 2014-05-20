@@ -498,10 +498,17 @@ public class ContactSyncSource extends PIMSyncSource<Contact> {
         // Initialize the old tracker store in order to retrieve the current
         // updated items. All contacts except these ones must have 0 dirty flag
 
-        IntKeyValueSQLiteStore trackerStore = new IntKeyValueSQLiteStore(c,
-            ((AndroidCustomization)customization).getFunambolSQLiteDbName(),
-            sc.getName());
+        IntKeyValueSQLiteStore  trackerStore = null;
+        try {
+			
 
+	        trackerStore = new IntKeyValueSQLiteStore(c,
+	            ((AndroidCustomization)customization).getFunambolSQLiteDbName(),
+	            sc.getName());
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+        
         // Retrieve current modifications
         AndroidChangesTracker oldTracker = new VersionCacheTracker(
                 trackerStore, c, cm);
@@ -577,4 +584,23 @@ public class ContactSyncSource extends PIMSyncSource<Contact> {
             }
         }
     }
+
+	@Override
+	public void setSourceInfo(Object info) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void preSync(int syncMode, boolean resume) throws SyncException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isAvailble(int syncMode, boolean resume)
+			throws SyncException {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }

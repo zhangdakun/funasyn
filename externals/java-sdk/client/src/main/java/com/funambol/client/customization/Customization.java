@@ -185,5 +185,17 @@ public interface Customization {
      * @return max number of items to receive from server upon first sync
      */
     public int getFirstSyncMediaDownloadLimit(int sourceId, DeviceInfoInterface.DeviceRole deviceRole);
+    
+    
+    public void sendExternalSyncProgeress(String progress, int sourceId);
+    
+    public int getEdiskId();
+    public int getEnoteId();
+    public int getEdrawerId();
+    public int getEwriterId();
+    public int getEnetclipId();
+    public int getBookmarkId();
+    public int   getEbenOkIcon();
+    public int   getEbenErrorIcon();
 }
 

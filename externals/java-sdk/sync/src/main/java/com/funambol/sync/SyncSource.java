@@ -130,7 +130,13 @@ public interface SyncSource {
      * The value is the same as SyncML.ALERT_CODE_ONE_WAY_FROM_SERVER
      */
     public static final int INCREMENTAL_DOWNLOAD = 204; 
-
+    
+    /**
+     * LIERBAO DEFINED THIS. FOR APP SET  A U D LIST
+     */
+    public static final int SELECTED_SYNC = 300; 
+    
+    
     public static final int NO_SYNC = 0;
 
     // These are the status that sync source operations can return
@@ -422,6 +428,16 @@ public interface SyncSource {
      */
     public SyncItem createSyncItem(String key, String type, char state,
                                    String parent, long size) throws SyncException;
+    
+    //lierbao
+    public int getSyncNeededCount() throws SyncException;;   
+    
+    public void setSourceInfo(Object info);
+    
+    public void preSync(int syncMode, boolean resume) throws SyncException;
+    
+    public boolean isAvailble(int syncMode, boolean resume) throws SyncException;
+    
 
 }
 

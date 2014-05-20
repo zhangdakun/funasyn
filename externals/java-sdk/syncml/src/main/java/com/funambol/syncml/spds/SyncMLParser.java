@@ -132,6 +132,7 @@ public class SyncMLParser {
                 nextSkipSpaces(parser);
             }
             require(parser, parser.END_TAG, null, SyncML.TAG_SYNCML);
+            is.close();
         } catch (Exception e) {
             Log.error(TAG_LOG, "Error parsing command", e);
             throw new SyncMLParserException("Cannot parse command: " + e.toString());
@@ -163,7 +164,9 @@ public class SyncMLParser {
             // If the first tag is not the SyncML start tag, then this is an
             // invalid message
             require(parser, parser.START_TAG, null, SyncML.TAG_DEVINF);
-            return parseDevInf(parser);
+            DevInf devInf = parseDevInf(parser);
+            is.close();
+            return devInf;
         } catch (Exception e) {
             Log.error(TAG_LOG, "Cannot parse dev inf", e);
             throw new SyncMLParserException("Cannot parse dev inf");
@@ -1519,6 +1522,7 @@ public class SyncMLParser {
             nextSkipSpaces(devInfParser);
             require(devInfParser, parser.START_TAG, null, SyncML.TAG_DEVINF);
             devInf = parseDevInf(devInfParser);
+            is.close();
         } else if (wbxml && parser.getEventType() == parser.TEXT) {
             // The whole devinf is embedded in a single TEXT string
             XmlPullParser devInfParser = new KXmlParser();
@@ -1537,6 +1541,7 @@ public class SyncMLParser {
             devInf = parseDevInf(devInfParser);
             // Move ahead
             nextSkipSpaces(parser);
+            is.close();
         } else {
             if (parser.getEventType() == parser.TEXT) {
                 nextSkipSpaces(parser);

@@ -8,7 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.view.*;
 import android.view.View.OnClickListener;
 import android.widget.*;
@@ -30,6 +32,7 @@ public class BackupListAdapter extends BaseAdapter
         public ImageView mImage;
 //        public Button mInstall;
 //        public TextView mPercentText;
+        int index;
         public TextView mText;
 
         public ViewHolder()
@@ -172,9 +175,11 @@ public class BackupListAdapter extends BaseAdapter
             view = layoutInflater.inflate(layoutID, null);
             viewholder.mText = (TextView)view.findViewById(R.id.list_title);
             viewholder.mImage = (ImageView)view.findViewById(R.id.list_icon);
+            viewholder.index = i;
 //            viewholder.mPercentText = (TextView)view.findViewById(0x7f0c0059);
 //            viewholder.mInstall = (Button)view.findViewById(0x7f0c005a);
             view.setTag(viewholder);
+            
         } else
         {
             viewholder = (ViewHolder)view.getTag();
@@ -227,7 +232,16 @@ public class BackupListAdapter extends BaseAdapter
 //			App.i().getApplicationContext().startActivity(intent);
 //			
 			if(null != mHandler) {
-				mHandler.sendEmptyMessage(2);
+//				mHandler.sendEmptyMessage(2);
+				if(null != v.getTag()) {
+					int i = ((ViewHolder)v.getTag()).index ;
+					Message msg = new Message();
+					msg.what = 2;
+					Bundle bl = new Bundle();
+					bl.putInt("index", i);
+					msg.setData(bl);
+					mHandler.sendMessage(msg);
+				}
 			}
 		}
     	

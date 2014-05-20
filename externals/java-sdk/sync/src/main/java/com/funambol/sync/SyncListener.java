@@ -101,7 +101,11 @@ public interface SyncListener {
     public static final int LOCAL_CLIENT_FULL_ERROR         = 154;
     public static final int NOT_SUPPORTED                   = 155;
     public static final int SD_CARD_UNAVAILABLE             = 156;
+    public static final int LOCAL_CLIENT_TIMEOUT         	= 157;
+    public static final int ERR_SYNC_SOURCE_DISABLED = 2012 ;
+    public static final int ERR_SYNCITEM_CAPACITYLIMIT = 2013 ;
 
+    public static final int SERVICE_EXPIRED = 2015;
     /**
      * Used when the messages to send or received is not know to
      * the mail protocol subsystem
@@ -115,6 +119,7 @@ public interface SyncListener {
      * connection with the server
      */
     public void startSession();
+    public void startSession(SyncSource src);
 
     /**
      * Invoked at the end of a session after the last message was exchanged (or
@@ -124,12 +129,14 @@ public interface SyncListener {
      *               including the overall status.
      */
     public void endSession(SyncReport report);
+    public void endSession(SyncReport report,SyncSource src);
 
     /**
      * Invoked at the beginning of the login phase.
      *
      */
     public void startConnecting();
+    public void startConnecting(SyncSource src);
 
     /**
      * Invoked at the end of the login phase.
@@ -138,6 +145,7 @@ public interface SyncListener {
      * repository dependent)
      */
     public void endConnecting(int action);
+    public void endConnecting(int action,SyncSource src);
 
 
     /**
@@ -148,23 +156,25 @@ public interface SyncListener {
      * @param serverDevInf is the 
      */
     public void syncStarted(int alertCode);
+    public void syncStarted(int alertCode, SyncSource src);
 
     /**
      * Invoked at the end of the syncing phase
      */
     public void endSyncing();
-
+    public void endSyncing(SyncSource src);
 
     /**
      * Invoked at the beginning of the finalizing phase
      */
     public void startFinalizing();
+    public void startFinalizing(SyncSource src);
 
     /**
      * Invoked at the end of the finalizing phase
      */
     public void endFinalizing();
-
+    public void endFinalizing(SyncSource src);
 
     /**
      * Invoked when items are ready to be received from the server.
@@ -173,6 +183,7 @@ public interface SyncListener {
      *               session, if known, or ITEMS_NUMBER_UNKNOWN otherwise.
      */
     public void startReceiving(int number);
+    public void startReceiving(int number, SyncSource src);
 
     /**
      * Invoked when the receiving of a new item has started

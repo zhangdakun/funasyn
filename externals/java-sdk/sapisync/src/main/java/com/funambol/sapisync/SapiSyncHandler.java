@@ -152,6 +152,8 @@ public class SapiSyncHandler {
             return new ResumeResult(remoteUri, crc);
         }
 
+        Hashtable headers = new Hashtable();
+        headers.put("Content-Range","bytes */" + json.getSize());
         long length = -1;
         try {
             length = sapiHandler.getMediaPartialUploadLength(remoteUri, guid, json.getSize());
@@ -827,6 +829,13 @@ public class SapiSyncHandler {
             throw SapiException.SAPI_EXCEPTION_UNKNOWN;
         }
 
+        if(is != null) {
+        	try {
+                is.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+        }
 
         // Send the upload request
         JSONObject uploadResponse = null;

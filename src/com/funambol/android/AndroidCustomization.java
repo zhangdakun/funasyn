@@ -35,14 +35,22 @@
 
 package com.funambol.android;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 
 import com.funambol.client.configuration.Configuration;
 import com.funambol.client.controller.SignupHandler;
 import com.funambol.client.customization.Customization;
 import com.funambol.client.source.AppSyncSourceManager;
 import com.funambol.client.ui.Bitmap;
+import com.funambol.client.ui.Screen;
 import com.funambol.util.Log;
+
+import cn.eben.android.EbenConst;
+import cn.eben.android.util.EbenHelpers;
 import cn.eben.androidsync.R;
 import com.funambol.platform.DeviceInfo;
 import com.funambol.platform.DeviceInfoInterface;
@@ -52,8 +60,13 @@ import com.funambol.sync.SyncSource;
 import com.funambol.sync.client.PercentageStorageLimit;
 import com.funambol.sync.client.StorageLimit;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.Hashtable;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Implements the Customization interface for Android platform
@@ -65,7 +78,7 @@ public class AndroidCustomization implements Customization {
     // Settings customization
 //    private final String   SERVER_URI              = "http://my.funambol.com/sync";
 //    private final String   SERVER_URI              = "http://192.168.6.224:8080/ds";
-    private final String   SERVER_URI              = "http://42.120.48.112/funambol/ds";
+    private final String   SERVER_URI              = EbenConst.HTTP_HOST+"funambol/ds";
     private final String   USERNAME                = "";
     private final String   PASSWORD                = "";
     
@@ -88,6 +101,10 @@ public class AndroidCustomization implements Customization {
     private final boolean  CONTACTS_AVAILABLE      = true;
     private final boolean  CONTACTS_ENABLED        = true;
 
+    private final String   BACKUP_DEFAULT_URI    = "ebackup";//lierbao
+    private final boolean  BACKUP_AVAILABLE      = true;
+    private final boolean  BACKUP_ENABLED        = true;
+    
     private final String   EVENTS_DEFAULT_URI      = "event";
     private final boolean  EVENTS_AVAILABLE        = false;
     private final boolean  EVENTS_ENABLED          = false;
@@ -171,6 +188,7 @@ public class AndroidCustomization implements Customization {
     // Note: this array must be kept aligned with the list of sources that we
     // register (see initSourcesInfo below)
     private final int SOURCES_ORDER[] = { AndroidAppSyncSourceManager.CONTACTS_ID,
+    									   AndroidAppSyncSourceManager.BACKUP_ID
 //                                          AndroidAppSyncSourceManager.EVENTS_ID,
                                           //AndroidAppSyncSourceManager.TASKS_ID,
                                           //AndroidAppSyncSourceManager.NOTES_ID,
@@ -787,6 +805,18 @@ public class AndroidCustomization implements Customization {
             sourcesIcon.put(new Integer(id), new Bitmap(R.drawable.icon_contacts));
             sourcesDisabledIcon.put(new Integer(id), new Bitmap(R.drawable.icon_contacts_grey));
         }
+        
+        if(BACKUP_AVAILABLE) {
+            int id = AndroidAppSyncSourceManager.BACKUP_ID;
+//            if (Log.isLoggable(Log.DEBUG)) {
+                Log.debug(TAG_LOG, "Initializing source: " + id);
+//            }
+            sourcesUri.put(new Integer(id), BACKUP_DEFAULT_URI);
+            activeSourcesEnabledState.put(new Integer(id), BACKUP_ENABLED);
+            sourcesIcon.put(new Integer(id), new Bitmap(R.drawable.icon_contacts));
+            sourcesDisabledIcon.put(new Integer(id), new Bitmap(R.drawable.icon_contacts_grey));
+        }
+        
         if(EVENTS_AVAILABLE) {
             int id = AndroidAppSyncSourceManager.EVENTS_ID;
             if (Log.isLoggable(Log.DEBUG)) {
@@ -975,5 +1005,186 @@ public class AndroidCustomization implements Customization {
                 //fallback value
                 return 0;
         }
+    }
+    
+    public void sendExternalSyncProgeress(String progress, int sourceId){
+//        Intent i = new Intent(ACTION_SYNC_PROGRESS);
+//        i.putExtra(EXTRAS_SYNC_PROGRESS, progress);
+//        i.putExtra(EXTRAS_SYNCID, sourceId);
+//        PendingIntent pi = PendingIntent.getBroadcast(App.i().getApplicationContext(), 0, i,
+//                PendingIntent.FLAG_UPDATE_CURRENT);
+//        AlarmManager am = (AlarmManager) App.i().getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+//        am.set(AlarmManager.RTC, 0, pi);
+//        App.i().getApplicationContext().sendBroadcast(i);
+    }
+    
+    public int getEdiskId(){
+        return EbenConst.EBEN_EDISK_ID;
+    }
+    public int getEnoteId(){
+        return EbenConst.EBEN_ENOTE_ID;
+    }
+    public int getEdrawerId(){
+        return EbenConst.EBEN_EDRAWER_ID;
+    }
+    public int getEwriterId(){
+        return EbenConst.EBEN_EWRITER_ID;
+    }
+    public int getEnetclipId(){
+        return EbenConst.EBEN_ENETCLIP_ID;
+    }  
+    public int getBookmarkId(){
+        return EbenConst.EBEN_BOOKMARK_ID;
+    }    
+    public int getEimageId(){
+        return EbenConst.EBEN_IMAGE_ID;
+    } 
+    private static final String CONFIG_SOURCE_SYNC_STATUS = "cn.eben.sourcesync.status";
+    private static final String CONFIG_SOURCE_SYNC_DIRECTION = "cn.eben.sourcesync.refreshDirection";
+    private static final String CONFIG_SOURCE_SYNCFAILURE_TIME = "cn.eben.sourcesync.failuretime";
+      
+    public static void saveSourceSyncStatus(Screen screen, long sourceId, boolean isSuccess, int refreshDirection){
+            if(screen == null) return;
+
+            
+            if(sourceId == EbenConst.EBEN_CARDNAME_GROUP_ID || sourceId == EbenConst.EBEN_CARDNAME_DATA_ID){
+            	 sourceId = EbenConst.EBEN_CARDNAME_CARD_ID;
+            }
+            
+            if(sourceId == EbenConst.EBEN_CAL_ALARM_ID ){
+           	 sourceId = EbenConst.EBEN_CAL_CALENDAR_ID;
+           }
+            
+            Activity activity = (Activity)screen.getUiScreen();
+            if(activity != null) {
+	            SharedPreferences sharedP = activity.getPreferences(Context.MODE_PRIVATE);
+	            sharedP.edit().putBoolean(CONFIG_SOURCE_SYNC_STATUS + sourceId, isSuccess).commit();
+	            sharedP.edit().putInt(CONFIG_SOURCE_SYNC_DIRECTION + sourceId, refreshDirection).commit();
+	            sharedP.edit().putLong(CONFIG_SOURCE_SYNCFAILURE_TIME + sourceId, new Date().getTime()).commit();
+            }
+    }
+     
+    public static boolean isSourceSyncSuccess(Screen screen, long sourceId){
+        if(screen == null || screen.getUiScreen() == null) return true;
+        Activity activity = (Activity)screen.getUiScreen();
+        SharedPreferences sharedP = activity.getPreferences(Context.MODE_PRIVATE);
+        return sharedP.getBoolean(CONFIG_SOURCE_SYNC_STATUS + sourceId, true);
+         
+    }
+    public static String loadSyncFailureTime(Activity activity, long sourceId){
+        if(activity == null) return null;
+        SharedPreferences sharedP = activity.getPreferences(Context.MODE_PRIVATE);
+        long failureTime = sharedP.getLong(CONFIG_SOURCE_SYNCFAILURE_TIME + sourceId, new Date().getTime());
+        //CharSequence val = DateFormat.format("yyyy/MM/dd HH:mm", new Date(failureTime));
+        CharSequence val = EbenHelpers.toFormatDate(failureTime, EbenConst.formatData);
+        return val.toString();
+        
+    }
+    public static int loadRefreshDirection(Screen screen, long sourceId){
+        if(screen == null || screen.getUiScreen()==null) return -1;
+        Activity activity = (Activity)screen.getUiScreen();
+        SharedPreferences sharedP = activity.getPreferences(Context.MODE_PRIVATE);
+        return sharedP.getInt(CONFIG_SOURCE_SYNC_DIRECTION + sourceId, -1);
+        
+    }
+    
+    public static final  int NOTEPAD_VERSIONCODE = 99;
+    
+    public static boolean checkNotepadVersionCode(PackageManager pManager){
+        
+        try {
+//            String[] versionName = pManager.getPackageInfo("com.ebensz.notepad", 0).versionName.split("\\.");
+//
+//            if(versionName.length == 3){
+//                if(Integer.valueOf(versionName[0]) > 1){
+//                    return true;
+//                }
+//                if(Integer.valueOf(versionName[1]) > 2 && Integer.valueOf(versionName[2]) > 1){
+//                    return true;
+//                }
+//            }
+            return pManager.getPackageInfo("com.ebensz.notepad", 0).versionCode > NOTEPAD_VERSIONCODE;
+        } catch (NameNotFoundException e) {
+            // not
+        }
+        return false;
+    }
+    
+    final public static class ActivationDeviceInfo{
+        final String  mUserName;
+        final String  mMod;
+        final String    mCatime;
+        final boolean mIsOpen;
+        final String  mSerial_no;
+        final String  mNickname;
+        
+        public String getUserName(){
+            return mUserName;
+        }
+        
+        public String getMod(){
+            return mMod;
+        }
+        
+        public String getCatime(){
+            return mCatime;
+        }
+        
+        public boolean getIsOpen(){
+            return mIsOpen;
+        }
+        
+        public String getSerial_no(){
+            return mSerial_no;
+        }
+        
+        public String getNickname(){
+            return mNickname;
+        }
+        
+        private ActivationDeviceInfo(String name, String mod, String catime, boolean isOpen, String serial_no, String nickname) {
+
+            mUserName = name;
+            mMod = mod;
+            mCatime = catime;
+            mIsOpen = isOpen;
+            mSerial_no = serial_no;
+            mNickname = nickname;
+        }
+        
+        public static ActivationDeviceInfo valueOf(JSONObject user) {
+
+            try {
+                final String userName = user.has("username") ? user.getString("username") : null;
+                final boolean isopen = user.has("isopen") ? (user.getInt("isopen")==1? true:false) : false;
+                final String mod = user.has("mod") ? user.getString("mod") : null;
+                final String catime = user.has("catime") ? user.getString("catime") : null;
+                final String serial_no = user.has("serial_no") ? user.getString("serial_no") : null;
+                String nickname = user.has("nickname") ? user.getString("nickname") : null;
+                String strnickname = new String(nickname.getBytes(), "UTF-8");
+                
+//                CharSequence val = DateFormat.format("yyyy-MM-dd h:mm", new Date(catime));
+                
+                return new ActivationDeviceInfo(userName, mod, catime, isopen, serial_no, strnickname);
+            } catch (final JSONException ex) {
+                // Error parsing JSON user object
+            }
+            catch (UnsupportedEncodingException e) {
+             // Error parsing JSON user object
+            }
+            return null;
+        }
+    }
+
+
+    
+    @Override
+    public int getEbenOkIcon(){
+    	return R.drawable.icon_complete;
+    }
+    
+    @Override
+    public int getEbenErrorIcon(){
+    	return R.drawable.icon_failed_complete;
     }
 }

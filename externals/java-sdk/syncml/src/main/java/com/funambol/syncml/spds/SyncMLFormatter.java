@@ -44,7 +44,8 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlSerializer;
 //import org.xmlpull.v1.XmlPullParserFactory;
 import com.funambol.org.kxml2.io.KXmlParser;
-import com.funambol.org.kxml2.io.KXmlSerializer;
+//import com.funambol.org.kxml2.io.KXmlSerializer;
+import com.funambol.util.KXmlSerializer;
 
 // For WBXML support
 import com.funambol.org.kxml2.wap.WbxmlSerializer;
@@ -400,7 +401,7 @@ public class SyncMLFormatter {
 
         Data data = item.getData();
 
-        formatData(data, meta);
+        formatDataWithCdata(data, meta);
 
         if (item.isMoreData()) {
             formatSimpleTag(SyncML.TAG_MORE_DATA, "");
@@ -622,7 +623,7 @@ public class SyncMLFormatter {
         formatData(data, null);
     }
 
-    private void formatData(Data data, Meta meta) throws IOException {
+    private void formatDataWithCdata(Data data, Meta meta) throws IOException {
         if (data != null) {
             // We expect only of these four possibilities to have a valid value
             String str = data.getData();
@@ -630,7 +631,15 @@ public class SyncMLFormatter {
             DevInf devInf = data.getDevInf();
             byte   binData[] = data.getBinData();
             if (str != null) {
-                formatSimpleTag(SyncML.TAG_DATA, str);
+                if(!hideData || data.getSize() <= 1024) {
+                    formatter.startTag(null, SyncML.TAG_DATA);
+                    formatter.cdsect(str);
+                    endTag(SyncML.TAG_DATA);
+                } else {
+                    formatter.startTag(null, SyncML.TAG_DATA);
+                	formatter.text("......Data hidden(" + data.getSize() + " Bytes).......");
+                    endTag(SyncML.TAG_DATA);
+        		}
             } else if (anchor != null) {
                 startTag(SyncML.TAG_DATA);
                 formatAnchor(anchor);
@@ -640,9 +649,50 @@ public class SyncMLFormatter {
                 formatDevInf(devInf);
                 endTag(SyncML.TAG_DATA);
             } else if (binData != null) {
+                if(!hideData || data.getSize() <= 1024) {
                 startTag(SyncML.TAG_DATA);
                 formatBinData(binData, meta);
+                    endTag(SyncML.TAG_DATA);
+                } else {
+                    formatter.startTag(null, SyncML.TAG_DATA);
+                	formatter.text("......Binary Data hidden(" + data.getSize() + " Bytes).......");
+                    endTag(SyncML.TAG_DATA);
+        		}
+            }
+        }
+    }
+    private void formatData(Data data, Meta meta) throws IOException {
+        if (data != null) {
+            String str = data.getData();
+            Anchor anchor = data.getAnchor();
+            DevInf devInf = data.getDevInf();
+            byte   binData[] = data.getBinData();
+            if (str != null) {
+                if(!hideData || data.getSize() <= 1024) {
+                	formatSimpleTag(SyncML.TAG_DATA, str);
+                } else {
+                    formatter.startTag(null, SyncML.TAG_DATA);
+                	formatter.text("......Data hidden(" + data.getSize() + " Bytes).......");
+                    endTag(SyncML.TAG_DATA);
+        		}
+            } else if (anchor != null) {
+                startTag(SyncML.TAG_DATA);
+                formatAnchor(anchor);
                 endTag(SyncML.TAG_DATA);
+            } else if (devInf != null) {
+                startTag(SyncML.TAG_DATA);
+                formatDevInf(devInf);
+                endTag(SyncML.TAG_DATA);
+            } else if (binData != null) {
+                if(!hideData || data.getSize() <= 1024) {
+                    startTag(SyncML.TAG_DATA);
+                    formatBinData(binData, meta);
+                    endTag(SyncML.TAG_DATA);
+                } else {
+                    formatter.startTag(null, SyncML.TAG_DATA);
+                	formatter.text("......Binary Data hidden(" + data.getSize() + " Bytes).......");
+                    endTag(SyncML.TAG_DATA);
+        		}
             }
         }
     }

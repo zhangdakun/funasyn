@@ -128,7 +128,13 @@ public class CalendarChangesTracker extends CacheTracker implements AndroidChang
             // Get the snapshot column indexes
             int keyColumnIndex     = snapshot.getColumnIndexOrThrow(CalendarManager.Events._ID);
 
-            Enumeration statusPairs = status.keyValuePairs();
+            Enumeration statusPairs = null;
+			try {
+				statusPairs = status.keyValuePairs();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
             // We have two ordered sets to compare
             try {
@@ -218,13 +224,12 @@ public class CalendarChangesTracker extends CacheTracker implements AndroidChang
         } else if(syncMode == SyncSource.FULL_SYNC ||
                   syncMode == SyncSource.FULL_UPLOAD ||
                   syncMode == SyncSource.FULL_DOWNLOAD) {
-            // Reset the status when performing a slow sync
             try {
-                status.reset();
-            } catch(IOException ex) {
-                Log.error(TAG_LOG, "Cannot reset status", ex);
-                throw new TrackerException("Cannot reset status");
-            }
+				status.reset();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
     }
 
@@ -232,18 +237,38 @@ public class CalendarChangesTracker extends CacheTracker implements AndroidChang
     public void setItemStatus(String key, int itemStatus) throws TrackerException {
         if(syncMode == SyncSource.FULL_SYNC ||
            syncMode == SyncSource.FULL_UPLOAD) {
-            if(status.get(key) == null) {
-                status.add(key, "1");
-            }
+            try {
+				if(status.get(key) == null) {
+				    try {
+						status.add(key, "1");
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         } else if (isSuccess(itemStatus) && itemStatus != SyncSource.CHUNK_SUCCESS_STATUS) {
             // We must update the fingerprint store with the value of the
             // fingerprint at the last sync
             if (newItems.get(key) != null) {
                 // Update the fingerprint
-                status.add(key, "1");
+                try {
+					status.add(key, "1");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             } else if (deletedItems.get(key) != null) {
                 // Update the fingerprint
-                status.remove(key);
+                try {
+					status.remove(key);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         }
         // If the item was succesfully synchronized, then we clear the dirty
@@ -261,13 +286,23 @@ public class CalendarChangesTracker extends CacheTracker implements AndroidChang
         }
 
         if (item.getState() == SyncItem.STATE_DELETED) {
-            status.remove(item.getKey());
+            try {
+				status.remove(item.getKey());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         } else {
             if (Log.isLoggable(Log.TRACE)) {
                 Log.trace(TAG_LOG, "Updating status");
             }
             if (item.getState() == SyncItem.STATE_NEW) {
-                status.add(item.getKey(), "1");
+                try {
+					status.add(item.getKey(), "1");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
             if (Log.isLoggable(Log.TRACE)) {
                 Log.trace(TAG_LOG, "Updating events table");

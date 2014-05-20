@@ -70,7 +70,15 @@ public class SyncingAnimation {
                 }
             };
         }
-        anim.start();
+        try {
+	        //add by eddie 20111026
+	        if(!isRunning()){
+	            anim.start();	
+	        }
+        } catch (IllegalThreadStateException e) {
+        	// TODO: handle exception
+        }
+        
     }
 
     /**

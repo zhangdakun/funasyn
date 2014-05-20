@@ -205,8 +205,6 @@ public class HttpDownloader  {
             }
 
             boolean ok;
-            conn.execute(null, -1);
-
             int respCode = conn.getResponseCode();
             if (resume) {
                 if (respCode == HttpConnectionAdapter.HTTP_PARTIAL) {

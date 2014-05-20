@@ -138,43 +138,65 @@ public class DirtyChangesTrackerMd5 extends DirtyChangesTracker {
             // Detect new items and updated items
             while (snapshotKeys.hasMoreElements()) {
                 String newKey = (String)snapshotKeys.nextElement();
-                if (status.get(newKey) == null) {
-                    if (Log.isLoggable(Log.TRACE)) {
-                        Log.trace(TAG_LOG, "Found a new item with key: " + newKey);
-                    }
-                    String newFP = (String)snapshot.get(newKey);
-                    if(!EntryMD5.equalsIgnoreCase(newFP)) {
-                    newItems.put(newKey, snapshot.get(newKey));
-                    }  else {
-                    	Log.error(TAG_LOG, "a empty new,ignore,maybe deleted");
-                    }
-                } else {
-                    // Check if their fingerprints are the same
-                    String oldFP = (String)this.status.get(newKey);
-                    String newFP = (String)snapshot.get(newKey);
-                    if (!oldFP.equals(newFP)) {
-                        if (Log.isLoggable(Log.TRACE)) {
-                            Log.trace(TAG_LOG, "Found an updated item with key: " + newKey);
-                            Log.trace(TAG_LOG, "New fingerprint is: " + newFP);
-                            Log.trace(TAG_LOG, "Old fingerprint is: " + oldFP);
-                        }
-                        if(!EntryMD5.equalsIgnoreCase(newFP)) {
-                        	updatedItems.put(newKey, newFP);
-                        } else {
-                        	Log.error(TAG_LOG, "a empty update,ignore,maybe deleted");
-                        }
-                    }
-                }
+                try {
+					if (status.get(newKey) == null) {
+					    if (Log.isLoggable(Log.TRACE)) {
+					        Log.trace(TAG_LOG, "Found a new item with key: " + newKey);
+					    }
+					    String newFP = (String)snapshot.get(newKey);
+					    if(!EntryMD5.equalsIgnoreCase(newFP)) {
+					    newItems.put(newKey, snapshot.get(newKey));
+					    }  else {
+					    	Log.error(TAG_LOG, "a empty new,ignore,maybe deleted");
+					    }
+					} else {
+					    // Check if their fingerprints are the same
+					    String oldFP="";
+						try {
+							oldFP = (String)this.status.get(newKey);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					    String newFP = (String)snapshot.get(newKey);
+					    if (!oldFP.equals(newFP)) {
+					        if (Log.isLoggable(Log.TRACE)) {
+					            Log.trace(TAG_LOG, "Found an updated item with key: " + newKey);
+					            Log.trace(TAG_LOG, "New fingerprint is: " + newFP);
+					            Log.trace(TAG_LOG, "Old fingerprint is: " + oldFP);
+					        }
+					        if(!EntryMD5.equalsIgnoreCase(newFP)) {
+					        	updatedItems.put(newKey, newFP);
+					        } else {
+					        	Log.error(TAG_LOG, "a empty update,ignore,maybe deleted");
+					        }
+					    }
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
             // Detect deleted items
-            Enumeration statusKeys = this.status.keys();
+            Enumeration statusKeys=null;
+			try {
+				statusKeys = this.status.keys();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             while (statusKeys.hasMoreElements()) {
                 String oldKey = (String)statusKeys.nextElement();
                 if (snapshot.get(oldKey) == null) {
                     if (Log.isLoggable(Log.TRACE)) {
                         Log.trace(TAG_LOG, "Found a deleted item with key: " + oldKey);
                     }
-                    deletedItems.put(oldKey, (String)status.get(oldKey));
+                    try {
+						deletedItems.put(oldKey, (String)status.get(oldKey));
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
                 }
             }
             
@@ -183,13 +205,12 @@ public class DirtyChangesTrackerMd5 extends DirtyChangesTracker {
         } else if(syncMode == SyncSource.FULL_SYNC ||
                   syncMode == SyncSource.FULL_UPLOAD ||
                   syncMode == SyncSource.FULL_DOWNLOAD) {
-            // Reset the status when performing a slow sync
             try {
-                status.reset();
-            } catch(IOException ex) {
-                Log.error(TAG_LOG, "Cannot reset status", ex);
-                throw new TrackerException("Cannot reset status");
-            }
+				status.reset();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
     }
     
@@ -412,11 +433,21 @@ public class DirtyChangesTrackerMd5 extends DirtyChangesTracker {
             } catch(SyncException ex) {
                 throw new TrackerException(ex.toString());
             }
-            if(status.get(key) != null) {
-                status.update(key, computeFingerprint(item));
-            } else {
-                status.add(key, computeFingerprint(item));
-            }
+            try {
+				if(status.get(key) != null) {
+				    try {
+						status.update(key, computeFingerprint(item));
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} else {
+				    status.add(key, computeFingerprint(item));
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         } else if (isSuccess(itemStatus) && itemStatus != SyncSource.CHUNK_SUCCESS_STATUS) {
             // We must update the fingerprint store with the value of the
             // fingerprint at the last sync
@@ -424,15 +455,30 @@ public class DirtyChangesTrackerMd5 extends DirtyChangesTracker {
                 // This is a new item
                 String itemFP = (String)newItems.get(key);
                 // Update the fingerprint
-                status.add(key, itemFP);
+                try {
+					status.add(key, itemFP);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             } else if (updatedItems.get(key) != null) {
                 // This is a new item
                 String itemFP = (String)updatedItems.get(key);
                 // Update the fingerprint
-                status.update(key, itemFP);
+                try {
+					status.update(key, itemFP);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             } else if (deletedItems.get(key) != null) {
                 // Update the fingerprint
-                status.remove(key);
+                try {
+					status.remove(key);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
             // Save the status after each item
             try {

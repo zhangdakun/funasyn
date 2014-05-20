@@ -38,7 +38,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.io.ByteArrayInputStream;
 import java.util.TimerTask;
 import java.util.Timer;
 import java.util.Hashtable;
@@ -60,7 +59,7 @@ public final class HttpTransportAgent implements TransportAgent {
     // --------------------------------------------------------------- Constants
     private static final String TAG_LOG = "HttpTransportAgent";
 
-    private static final int NUM_RETRY = 3;
+    private static final int NUM_RETRY = 1; // retry at outside
     private static final String PROP_MICROEDITION_CONFIGURATION =
             "microedition.configuration";
     private static final String PROP_CONTENT_LANGUAGE =
@@ -104,6 +103,7 @@ public final class HttpTransportAgent implements TransportAgent {
     private String requestURL;
     private String requestContentType = DEFAULT_CONTENT_TYPE;
     private String responseContentType;
+    private String servCookie;
     
     // Compression parameters
     private int sizeThreshold;
@@ -125,7 +125,7 @@ public final class HttpTransportAgent implements TransportAgent {
     private Timer timer = null;
     
     /** IO timeout (timer delay) */
-    private long delay = 60000 * 5; // 5 min
+    private long delay = 2*60*1000;// * 5; // 5 min
     
     /** Object to lock thread for read inputStrem receiving respone */
     private final Object responseLock = new Object();
@@ -364,16 +364,22 @@ public final class HttpTransportAgent implements TransportAgent {
                         //server and set the related byte array
                         data = readResponse(data);
                     } catch(CodedException ex) {
-                        if (Log.isLoggable(Log.DEBUG)) {
-                            Log.debug(TAG_LOG, "Attempt " + (i+1) + " failed. " +
+                        if (Log.isLoggable(Log.INFO)) {
+                            Log.info(TAG_LOG, "Attempt " + (i+1) + " failed. " +
                                                "Error in readResponse: " + ex);
                         }
-                        if(resendMessageOnErrors && i<NUM_RETRY-1) {
+                        Log.info(TAG_LOG,"CodedExcetpion is code "+ex.getCode());
+                        if (timer != null) {
+                            timer.cancel();
+                        }
+                        clear();
+                        if(/*resendMessageOnErrors && */i<NUM_RETRY-1 /*&& ex.getCode() == CodedException.OPERATION_TIMEOUT*/) {
                             if (Log.isLoggable(Log.DEBUG)) {
                                 Log.debug(TAG_LOG, "Retry writing request...");
                             }
                             continue;
                         } else {
+                        	Log.info(TAG_LOG,"throw exception ex code is "+ex.getCode());
                             // Forward the exception
                             throw ex;
                         }
@@ -382,6 +388,7 @@ public final class HttpTransportAgent implements TransportAgent {
                 }
 
                 if (auth != null && auth.getRetryWithAuth()) {
+                	Log.info(TAG_LOG,"send request again");
                     return sendMessage(request);
                 }
 
@@ -487,16 +494,41 @@ public final class HttpTransportAgent implements TransportAgent {
         status = OPEN_CONNECTION;
 
         //Log setted to debug mode for request from customer
-        if (Log.isLoggable(Log.DEBUG)) {
-            Log.debug(TAG_LOG, "Url: [" + requestURL + "]");
-        }
+//        if (Log.isLoggable(Log.DEBUG)) {
+            Log.info(TAG_LOG, "Url: [" + requestURL + "]");
+//        }
 
         /*
          * Use the connectionManager instance to open up the connection
          *
          */
-        c = connectionManager.openHttpConnection(requestURL, proxyConfig, "wrapper");
-
+        for(int loop =0; loop<NUM_RETRY; loop++) {
+	        try {
+				 c = connectionManager.openHttpConnection(requestURL, proxyConfig, "wrapper");
+				 c.setConnectTimeout((int) delay);//lierbao set timeout parameter 20111128
+				 c.setReadTimeout((int) delay);
+				 
+			} catch (IOException e) {
+				throw e;
+			}
+	        catch (Exception e) {
+				e.printStackTrace();
+				Log.error(TAG_LOG,"open http connection error , loop = "+loop);
+				if(loop < NUM_RETRY) {
+					try {
+						Thread.sleep(5000);
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					continue;
+				}	
+				else {
+					throw new IOException(e.toString());
+				}
+			}
+			break;
+        }
      
         /*
          * Set the timer after we have opened the connection because Connector.open() method is syncronized
@@ -538,9 +570,9 @@ public final class HttpTransportAgent implements TransportAgent {
                     status = WRITE_REQUEST;
                     //Write the message to send into the stream
                     //forceBreakConnection();
+                    os = c.openOutputStream();
 
-                    c.execute(new ByteArrayInputStream(request), request.length);
-
+                    os.write(request);
                     if (Log.isLoggable(Log.INFO)) {
                         Log.info(TAG_LOG, "Message sent at attempt " + (i + 1) + ", waiting for response.");
                     }
@@ -554,6 +586,9 @@ public final class HttpTransportAgent implements TransportAgent {
                 break;
             } catch (IOException e) {
                 Log.error(TAG_LOG, "Attempt n." + (i + 1) + " failed. Retrying...", e);
+                if (timer != null) {
+                    timer.cancel();
+                }
                 clear();
                 if (i == retryOnWrite - 1) {
                     CodedException exc;
@@ -646,7 +681,14 @@ public final class HttpTransportAgent implements TransportAgent {
                         if (Log.isLoggable(Log.INFO)) {
                             Log.info(TAG_LOG, "Encoding Response Type from server: " + responseContentType);
                         }
-
+						// for slb cookie lierbao
+                       String tempCookie = c.getHeaderField("set-cookie");
+                        if(null != tempCookie && !"".equals(tempCookie))
+                            servCookie = tempCookie;
+                        if (Log.isLoggable(Log.INFO)) {
+                            Log.info(TAG_LOG, "servCookie: " + servCookie);
+                        }                        
+                        
                         uncompressedLength = getHeaderFieldInt(PROP_UNCOMPR_LENGHT, -1);
                         if (Log.isLoggable(Log.INFO)) {
                             Log.info(TAG_LOG, "Uncompressed Content Lenght: " + uncompressedLength);
@@ -700,12 +742,16 @@ public final class HttpTransportAgent implements TransportAgent {
                     String exMsg = "";
 
                     if(ex == null){
+                    	Log.info(TAG_LOG,"throw timeout");
                         exMsg = "Timeout expired to contact server";
+                        throw new CodedException(CodedException.OPERATION_TIMEOUT,
+                        "Timeout expired to contact server");
                     }else{
                         exMsg = ex.getMessage();
+                        throw new IOException(exMsg);
                     }
 
-                    throw new IOException(exMsg);
+                   
                 }
             }
         } catch (CodedException e) {
@@ -719,9 +765,15 @@ public final class HttpTransportAgent implements TransportAgent {
             String msg = "Error reading server response --> "
                          + ioe.toString();
             Log.error(TAG_LOG, msg);
-            //New Read Exception or New writeException
-            throw new CodedException(CodedException.READ_SERVER_RESPONSE_ERROR,
-                                     "Network problem: Cannot read the server response");
+//            if(ioe.toString().contains("jsessionid")) {
+	            throw new CodedException(CodedException.READ_SERVER_RESPONSE_ERROR,
+                "Network problem: Cannot read the server response");
+//            }
+//            else {
+//	            //New Read Exception or New writeException
+//	            throw new CodedException(CodedException.OPERATION_TIMEOUT,
+//	                                     "Network problem: Cannot read the server response");
+//            }
         } catch (InterruptedException ie) {
             Log.error(TAG_LOG, "Error reading server response", ie);
             throw new CodedException(CodedException.OPERATION_INTERRUPTED, "Thread interrupted");
@@ -777,6 +829,11 @@ public final class HttpTransportAgent implements TransportAgent {
    
         c.setRequestProperty(PROP_CONTENT_TYPE, requestContentType);
         c.setRequestProperty(PROP_CONTENT_LENGTH, String.valueOf(length));
+//        X-ECLIENT-VERSION
+        // lierbao for 1.1
+        c.setRequestProperty("X-ECLIENT-VERSION", "1.1");
+        c.setRequestProperty("x-ebuild-version", "8785");
+        
 
         if (length == 0) {
             Log.error(TAG_LOG, "Content length has been set to 0 !");
@@ -833,7 +890,9 @@ public final class HttpTransportAgent implements TransportAgent {
             String cookieValue = jsessionidString.substring(posEquals + 1);
             c.setRequestProperty("Cookie", cookieName.toUpperCase() + "=" + cookieValue);
         }
-
+        if(null!=servCookie && !"".equals(servCookie)) {
+            c.setRequestProperty("Cookie", servCookie);
+        }
         if (customHeaders != null) {
             setCustomHeaders(customHeaders, c);
         }
@@ -982,23 +1041,54 @@ public final class HttpTransportAgent implements TransportAgent {
         }
 
         public void run (){
-            try{
-                if (Log.isLoggable(Log.DEBUG)) {
-                    Log.debug(TAG_LOG, "opening inputstream");
-                }
-                is = c.openInputStream();
-            } catch (IOException ioe) {
-                ioex = ioe;
-            } catch (Exception e) {
-                // On some systems (e.g. Android) we have NPE if the stream is
-                // closed. We interpret all these exceptions like IOException
-                ioex = new IOException(e.toString());
-            } finally{
-                synchronized(responseLock) {
-                    responseLock.notify();
-                }
+            int httpCode  = -1;
+			try {
+				httpCode = c.getResponseCode();
+	            if (Log.isLoggable(Log.ERROR)) {
+	                Log.error(TAG_LOG, "Http Code: " + httpCode);
+	            }	
+	            if (httpCode != HttpConnectionAdapter.HTTP_OK) {
+	            	String msg = "Http error: code=[" + httpCode + "] msg=[" + c.getResponseMessage() + "]";
+	            	Log.error(TAG_LOG, msg);
+	            	ioex = new IOException(msg);
+
+	            }
+			} catch (IOException ioe) {
+				// TODO Auto-generated catch block
+				ioex = ioe;
+				ioe.printStackTrace();
+
+			} catch (Exception e) {
+				ioex = new IOException(e.toString());
+				e.printStackTrace();
+			}
+			
+			
+			if(httpCode == HttpConnectionAdapter.HTTP_OK) {
+	            try{
+	                if (Log.isLoggable(Log.DEBUG)) {
+	                    Log.debug(TAG_LOG, "opening inputstream");
+	                }
+	                is = c.openInputStream();
+	            } catch (IOException ioe) {
+	                ioex = ioe;
+	            } catch (Exception e) {
+	                // On some systems (e.g. Android) we have NPE if the stream is
+	                // closed. We interpret all these exceptions like IOException
+	                ioex = new IOException(e.toString());
+	            } 
+
+			}
+
+
+            synchronized(responseLock) {
+
+            	responseLock.notify();
             }
+
+
         }
+
 
         protected IOException getException(){
             return ioex;

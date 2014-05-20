@@ -251,14 +251,7 @@ public abstract class TrackableSyncSource implements SyncSource {
                 // delete all the items in the database
                 // (possibly asking the user before that)
 
-                // delete all items only if the syncsource allow this
-                // (generally, for PIM syncsources is yes, for media syncsources is no)
-                if (isDeleteAllItemsAllowed()) {
-                    deleteAllItems();
-                } else {
-                    Log.debug(TAG_LOG, "Skipping deletion of local items");
-                }
-                
+                deleteAllItems();
                 // No modifications to send.
                 newItems = null;
                 updItems = null;
@@ -269,6 +262,8 @@ public abstract class TrackableSyncSource implements SyncSource {
                 clientReplaceItemsNumber = 0;
                 clientDeleteItemsNumber = 0;
                 break;
+            case SELECTED_SYNC:
+            	break;
             default:
                 throw new SyncException(SyncException.SERVER_ERROR,
                                         "SyncSource "+getName()+
@@ -711,16 +706,21 @@ public abstract class TrackableSyncSource implements SyncSource {
     protected boolean isCancelled() throws SyncException {
         return cancel;
     }
+	public int getSyncNeededCount() throws SyncException {
+		// TODO Auto-generated method stub
+		int count = 0;
+		try {
+			beginSync(INCREMENTAL_SYNC, false);	
+			count = getClientItemsNumber();
+	        allItems = null;
+	        newItems = null;
+	        updItems = null;
+	        delItems = null;			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-    /**
-     * Returns true if, during a {@link SyncSource#FULL_DOWNLOAD},
-     * items on client can be deleted. Otherwise false.
-     * For example, PIM items can be deleted, media items no.
-     *   
-     * @return true if local items can be deleted, otherwise false 
-     */
-    protected boolean isDeleteAllItemsAllowed() {
-        return true;
-    }
+		return count;
+	}   
 }
 

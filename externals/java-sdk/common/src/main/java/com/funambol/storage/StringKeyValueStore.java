@@ -56,8 +56,9 @@ public interface StringKeyValueStore {
      *
      * @param key the unique key for this item (cannot be null)
      * @param value the value to be stored
+     * @throws Exception 
      */
-    public void add(String key, String value);
+    public void add(String key, String value) throws Exception;
 
     /**
      * Update and existing item into the store. The item is not persisted but it
@@ -65,8 +66,9 @@ public interface StringKeyValueStore {
      *
      * @param key the unique key of the existing item
      * @param value the value to be stored
+     * @throws Exception 
      */
-    public void update(String key, String value);
+    public void update(String key, String value) throws Exception;
 
     /**
      * Add a new item into the store. The item is not persisted but it is
@@ -89,7 +91,7 @@ public interface StringKeyValueStore {
      * @param key is the key (cannot be null)
      * @return the value in the store or null if not present
      */
-    public String get(String key);
+    public String get(String key) throws Exception;
 
     /**
      * Returns an enumeration with all the keys in the store.
@@ -98,7 +100,7 @@ public interface StringKeyValueStore {
      *
      * @return the keys
      */
-    public Enumeration keys();
+    public Enumeration keys() throws Exception;
 
     /**
      * Returns an enumeration of all the key/value pairs in the store.
@@ -107,12 +109,12 @@ public interface StringKeyValueStore {
      *
      * @return the key/value pairs
      */
-    public Enumeration keyValuePairs();
+    public Enumeration keyValuePairs() throws Exception;
 
     /**
      * Returns true iff key is contained in this store.
      */
-    public boolean contains(String key);
+    public boolean contains(String key) throws Exception;
 
     /**
      * Removes an entry from the store
@@ -120,7 +122,7 @@ public interface StringKeyValueStore {
      * @return the value associated to the item being deleted or null if the
      * item is not in the store
      */
-    public String remove(String key);
+    public String remove(String key) throws Exception;
 
     /**
      * Persist this store.
@@ -140,8 +142,9 @@ public interface StringKeyValueStore {
      * Resets this data store. All data is lost after this call.
      *
      * @throws IOException if the operation fails
+     * @throws Exception 
      */
-    public void reset() throws IOException;
+    public void reset() throws IOException, Exception;
 
 }
 

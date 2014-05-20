@@ -119,7 +119,7 @@ public class MappingManager {
     public void resetMappings(String sourceName) {
         try {
             store.reset();
-        } catch (IOException ioe) {
+        } catch (Exception ioe) {
             Log.error(TAG_LOG, "Cannot reset store ", ioe);
         }
     }

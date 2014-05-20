@@ -90,6 +90,10 @@ public class FileAdapter {
         this(path, false);
     }
 
+    public FileAdapter(File file) {
+        this.file = file;
+    }
+
     /**
      * Construct a new FileAdapter, opening the underlying File.
      * @param readonly open the file in readonly mode. This is currently ignored
@@ -155,8 +159,8 @@ public class FileAdapter {
     /** 
      * Delete the file with the name of this FileAdapter.
      */
-    public void delete() throws IOException {
-        file.delete();
+    public boolean delete() throws IOException {
+        return file.delete();
     }
 
     /** 
@@ -166,8 +170,8 @@ public class FileAdapter {
      * @param newName - the File containing the new name. 
      * @return true if the File was renamed, false otherwise.
      */
-    public void rename(String newName) throws IOException {
-        file.renameTo(new File(newName));
+    public boolean rename(String newName) throws IOException {
+       return file.renameTo(new File(newName));
     }
 
     /** 
@@ -274,7 +278,12 @@ public class FileAdapter {
             throw new IOException("Directory creation failed " + file.getAbsolutePath());
         }
     }
-
+    public void mkdirs() throws IOException {
+        boolean created = file.mkdirs();
+        if (!created) {
+            throw new IOException("Directory creation failed " + file.getAbsolutePath());
+        }
+    }
     /**
      * Returns the timestamp of the last modification to the file
      */
@@ -299,8 +308,24 @@ public class FileAdapter {
      *
      * @throws IOException if the operation fails
      */
-    public void setLastModified(long date) throws IOException {
-        file.setLastModified(date);
+    public boolean setLastModified(long date) throws IOException {
+       return file.setLastModified(date);
     }
+    
+    public boolean canWrite() {
+    	return file.canWrite();
+    }
+    public boolean canRead() {
+    	return file.canRead();
+    }
+    public FileAdapter getParentFile() {
+    	return new FileAdapter(file.getParentFile());
+    }
+
+
+	public String toString() {
+		return file.toString();
+	}
+    
 }
 

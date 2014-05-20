@@ -35,24 +35,19 @@
 
 package com.funambol.syncml.client;
 
-import java.util.Enumeration;
-import java.util.Vector;
-import java.util.Date;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Date;
 
-import com.funambol.sync.SyncItem;
+import com.funambol.platform.FileAdapter;
 import com.funambol.sync.SourceConfig;
-import com.funambol.sync.SyncException;
-import com.funambol.sync.SyncAnchor;
-import com.funambol.sync.client.RawFileSyncSource;
+import com.funambol.sync.SyncItem;
 import com.funambol.sync.client.ChangesTracker;
 
-import com.funambol.syncml.protocol.SyncMLStatus;
-import com.funambol.platform.FileAdapter;
-import com.funambol.util.Log;
+import com.funambol.sync.client.RawFileSyncSource;
 import com.funambol.util.Base64;
+import com.funambol.util.Log;
 
 /**
  * An implementation of TrackableSyncSource, providing
@@ -170,6 +165,7 @@ public class FileSyncSource extends RawFileSyncSource {
             if (newName != null) {
                 fsi.setKey(directory + newName);
             }
+            foos.close();
         }
     }
 

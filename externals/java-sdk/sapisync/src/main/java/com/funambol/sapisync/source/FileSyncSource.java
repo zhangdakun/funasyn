@@ -811,5 +811,13 @@ public class FileSyncSource extends JSONSyncSource implements
         public void setItemsMetadata(Hashtable itemsMetadata);
     }
 
+    public void setSourceInfo(Object info) {
+    }
+	public void preSync(int syncMode, boolean resume) throws SyncException {
+	}
+	public boolean isAvailble(int syncMode, boolean resume)
+			throws SyncException {
+		return true;
+	}
 }
 

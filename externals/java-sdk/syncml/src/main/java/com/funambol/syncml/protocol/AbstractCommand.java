@@ -34,10 +34,11 @@
  */
 package com.funambol.syncml.protocol;
 
+import java.io.Serializable;
 /**
  * This is a base class for "command" classes
  */
-public abstract class AbstractCommand {
+public abstract class AbstractCommand implements Serializable {
 
     // ---------------------------------------------------------- Protected data
     protected String  cmdID     ;

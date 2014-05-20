@@ -90,6 +90,8 @@ public class OTAConfigMessageParser {
             parseSection(din);
             sections++;
         }
+        din.close();
+        bin.close();
         message.setRemoteURIs(this.remoteURIs);
         return message;
     }

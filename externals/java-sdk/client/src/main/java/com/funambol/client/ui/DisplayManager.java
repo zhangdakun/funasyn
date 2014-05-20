@@ -134,6 +134,15 @@ public interface DisplayManager extends BasicDisplayManager {
      * @param delay the message delay
      */
     public void showMessage(Screen screen, String message, int delay);
+    
+    
+    /**
+     * Prompt a message to the user for a given amount of time
+     * @param screen the screen where to prompt the message
+     * @param message the String formatted message to display
+     * @param delay the message delay
+     */
+    public void showMessage(Screen screen, String message, boolean isFlag);
 
     /**
      * Prompt a selection of different options to the user

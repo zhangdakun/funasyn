@@ -75,7 +75,8 @@ public class AppSyncSourceManager {
     public static final int VIDEOS_ID   = 128;
     public static final int FILES_ID    = 256;
     public static final int ALL_ID      = 511;
-
+    public static final int BACKUP_ID = 1024;
+    
     // Types
     public static final String  CONTACT_TYPE_VCARD        = SourceConfig.VCARD_TYPE;
     public static final String  CONTACT_TYPE_SIF          = "text/x-s4j-sifc";

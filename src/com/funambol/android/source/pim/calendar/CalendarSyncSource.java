@@ -220,4 +220,23 @@ public class CalendarSyncSource extends PIMSyncSource<Calendar> {
             throw new SyncException(SyncException.CLIENT_ERROR, "Cannot get calendar content");
         }
     }
+
+	@Override
+	public void setSourceInfo(Object info) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void preSync(int syncMode, boolean resume) throws SyncException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isAvailble(int syncMode, boolean resume)
+			throws SyncException {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

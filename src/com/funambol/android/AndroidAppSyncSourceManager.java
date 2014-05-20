@@ -35,80 +35,85 @@
 
 package com.funambol.android;
 
-import java.util.Vector;
 import java.io.IOException;
+import java.util.Vector;
 
 import android.content.Context;
-import android.os.Build;
-import android.provider.ContactsContract;
-import android.provider.MediaStore.Images.Media;
 import android.content.pm.PackageManager;
 import android.content.pm.ProviderInfo;
+import android.os.Build;
 import android.os.Environment;
+import android.provider.ContactsContract;
+import android.provider.MediaStore.Images.Media;
+import cn.eben.android.source.edisk.EdiskAppSyncSource;
+import cn.eben.android.source.edisk.EdiskAppSyncSourceConfig;
+import cn.eben.android.source.edisk.EdiskExternalAppManager;
+import cn.eben.android.source.edisk.EdiskSyncSource;
+import cn.eben.android.source.edisk.EdiskTracker;
+import cn.eben.android.util.SystemInfo;
 
 import com.funambol.android.providers.FilesContentProvider;
+import com.funambol.android.services.AutoSyncServiceHandler;
 import com.funambol.android.source.AbstractDataManager;
-import com.funambol.android.source.pim.AndroidPIMCacheTracker;
-import com.funambol.android.source.pim.contact.ContactSyncSource;
-import com.funambol.android.source.pim.contact.ContactExternalAppManager;
-import com.funambol.android.source.pim.contact.ContactAppSyncSourceConfig;
-import com.funambol.android.source.pim.contact.ContactAppSyncSource;
-import com.funambol.android.source.pim.contact.ContactSettingsUISyncSource;
-import com.funambol.android.source.pim.contact.DirtyChangesTrackerMd5;
-import com.funambol.android.source.pim.calendar.CalendarSyncSource;
-import com.funambol.android.source.pim.calendar.EventSyncSource;
-import com.funambol.android.source.pim.calendar.CalendarManager;
-import com.funambol.android.source.pim.calendar.CalendarAppSyncSource;
-import com.funambol.android.source.pim.calendar.CalendarChangesTracker;
-import com.funambol.android.source.pim.calendar.CalendarChangesTrackerMD5;
-import com.funambol.android.source.pim.calendar.CalendarExternalAppManager;
-import com.funambol.android.source.pim.calendar.CalendarAppSyncSourceConfig;
-import com.funambol.android.source.pim.task.AstridTaskManager;
-import com.funambol.android.source.pim.note.NoteSyncSource;
-import com.funambol.android.source.pim.note.OINoteManager;
 import com.funambol.android.source.media.MediaAppSyncSource;
-import com.funambol.android.source.media.picture.PictureAppSyncSourceConfig;
 import com.funambol.android.source.media.MediaExternalAppManager;
+import com.funambol.android.source.media.file.AndroidFileSyncSource;
 import com.funambol.android.source.media.file.FileAppSyncSourceConfig;
 import com.funambol.android.source.media.file.FileTracker;
+import com.funambol.android.source.media.picture.PictureAppSyncSourceConfig;
 import com.funambol.android.source.media.picture.PictureSyncSource;
 import com.funambol.android.source.media.picture.PictureTracker;
 import com.funambol.android.source.media.video.VideoAppSyncSourceConfig;
 import com.funambol.android.source.media.video.VideoSyncSource;
+import com.funambol.android.source.pim.AndroidPIMCacheTracker;
+import com.funambol.android.source.pim.calendar.CalendarAppSyncSource;
+import com.funambol.android.source.pim.calendar.CalendarAppSyncSourceConfig;
+import com.funambol.android.source.pim.calendar.CalendarChangesTracker;
+import com.funambol.android.source.pim.calendar.CalendarChangesTrackerMD5;
+import com.funambol.android.source.pim.calendar.CalendarExternalAppManager;
+import com.funambol.android.source.pim.calendar.CalendarManager;
+import com.funambol.android.source.pim.calendar.CalendarSyncSource;
+import com.funambol.android.source.pim.calendar.EventSyncSource;
+import com.funambol.android.source.pim.contact.ContactAppSyncSource;
+import com.funambol.android.source.pim.contact.ContactAppSyncSourceConfig;
+import com.funambol.android.source.pim.contact.ContactExternalAppManager;
 import com.funambol.android.source.pim.contact.ContactManager;
-import com.funambol.android.source.pim.contact.DirtyChangesTracker;
+import com.funambol.android.source.pim.contact.ContactSettingsUISyncSource;
+import com.funambol.android.source.pim.contact.ContactSyncSource;
+import com.funambol.android.source.pim.contact.DirtyChangesTrackerMd5;
 import com.funambol.android.source.pim.contact.FunambolContactManager;
-import com.funambol.android.source.media.file.AndroidFileSyncSource;
-import com.funambol.android.services.AutoSyncServiceHandler;
+import com.funambol.android.source.pim.note.NoteSyncSource;
+import com.funambol.android.source.pim.note.OINoteManager;
+import com.funambol.android.source.pim.task.AstridTaskManager;
 import com.funambol.client.controller.SynchronizationController;
 import com.funambol.client.customization.Customization;
+import com.funambol.client.localization.Localization;
 import com.funambol.client.source.AppSyncSource;
 import com.funambol.client.source.AppSyncSourceConfig;
 import com.funambol.client.source.AppSyncSourceManager;
-import com.funambol.client.localization.Localization;
 import com.funambol.platform.DeviceInfo;
 import com.funambol.platform.DeviceInfoInterface;
 import com.funambol.platform.FileAdapter;
-import com.funambol.storage.StringKeyValueMemoryStore;
-import com.funambol.sync.SyncSource;
-import com.funambol.sync.SourceConfig;
-import com.funambol.sync.client.ConfigSyncSource;
-import com.funambol.sync.client.CacheTracker;
-import com.funambol.sync.client.ChangesTracker;
-import com.funambol.syncml.spds.SyncMLSourceConfig;
-import com.funambol.syncml.spds.SyncMLAnchor;
 import com.funambol.sapisync.SapiSyncAnchor;
 import com.funambol.sapisync.source.FileSyncSource;
 import com.funambol.sapisync.source.util.MediaItemsSorter;
+import com.funambol.storage.StringKeyValueMemoryStore;
 import com.funambol.storage.StringKeyValueSQLiteStore;
+import com.funambol.storage.StringKeyValueStoreFactory;
 import com.funambol.sync.Filter;
+import com.funambol.sync.SourceConfig;
 import com.funambol.sync.SyncFilter;
+import com.funambol.sync.SyncSource;
+import com.funambol.sync.client.CacheTracker;
+import com.funambol.sync.client.ConfigSyncSource;
 import com.funambol.syncml.protocol.CTCap;
 import com.funambol.syncml.protocol.CTInfo;
 import com.funambol.syncml.protocol.DataStore;
 import com.funambol.syncml.protocol.SourceRef;
 import com.funambol.syncml.protocol.SyncCap;
 import com.funambol.syncml.protocol.SyncType;
+import com.funambol.syncml.spds.SyncMLAnchor;
+import com.funambol.syncml.spds.SyncMLSourceConfig;
 import com.funambol.util.Log;
 
 /**
@@ -180,14 +185,20 @@ public class AndroidAppSyncSourceManager extends AppSyncSourceManager {
      * @throws Exception
      */
     public AppSyncSource setupSource(int sourceId, AndroidConfiguration configuration) throws Exception {
-        if (Log.isLoggable(Log.INFO)) {
+//        if (Log.isLoggable(Log.INFO)) {
             Log.info(TAG_LOG, "Setting up source: " + sourceId);
-        }
+//        }
+        System.out.println("setupSource: "+sourceId);
         AppSyncSource appSource;
         switch(sourceId) {
             case CONTACTS_ID:
             {
                 appSource = setupContactsSource(configuration);
+                break;
+            }
+            case BACKUP_ID:
+            {
+                appSource = setupBackupSource(configuration);
                 break;
             }
             case EVENTS_ID:
@@ -230,7 +241,199 @@ public class AndroidAppSyncSourceManager extends AppSyncSourceManager {
         }
         return appSource;
     }
+    protected AppSyncSource setupEdisksSource(
+			AndroidConfiguration configuration, int id, String defaultDir,
+			String name, String tempDir, boolean fileRelation) throws Exception {
 
+		// String name = localization.getLanguage("type_files");
+
+		EdiskAppSyncSource ediskAppSyncSource = new EdiskAppSyncSource(name);
+		ediskAppSyncSource.setId(id);
+		ediskAppSyncSource.setSyncMethod(AndroidAppSyncSource.DIRECT);
+		// ediskAppSyncSource.setAuthority("cn.eben.android.edisk.provider");//cn.eben.edisksync
+		// ediskAppSyncSource.setAuthority("cn.eben.sync");//lierbao 2012-02-17
+		// use sync provider authority
+		// ediskAppSyncSource.setIsRefreshSupported(SynchronizationController.REFRESH_FROM_SERVER,
+		// false);//2012-2-1 lierbao enble to test
+		// ediskAppSyncSource.setIsRefreshSupported(SynchronizationController.REFRESH_TO_SERVER,
+		// false);
+		ediskAppSyncSource.setUiSourceIndex(getSourcePosition(id));
+		// ediskAppSyncSource.setProviderUri(EdiskTracker.AUTHORITY);
+
+		ediskAppSyncSource.setBandwidthSaverUse(customization
+				.useBandwidthSaverMedia());
+		// ediskAppSyncSource.setIsVisible(false);
+
+		// Create the proper settings component for this source
+		Class fileSettings = Class
+				.forName("cn.eben.android.source.edisk.EdiskSettingsUISyncSource");
+		ediskAppSyncSource.setSettingsUIClass(fileSettings);
+
+		// No dev settings for this source
+        // Create the proper settings component for this source
+        Class basicSettings = Class.forName("com.funambol.android.source.pim.contact.ContactSettingsUISyncSource");
+        ediskAppSyncSource.setSettingsUIClass(basicSettings);
+
+        // Create the dev settings for this source
+        Class devSettings = Class.forName("com.funambol.android.activities.settings.AndroidDevSettingsUISyncSource");
+        ediskAppSyncSource.setDevSettingsUIClass(devSettings);
+
+        Class buttonView = Class.forName("com.eben.activities.EbenButtonUISyncSource");
+        ediskAppSyncSource.setButtonUIClass(buttonView);
+
+        Class aloneView = Class.forName(((AndroidCustomization)customization)
+                .getAloneUISyncSourceClassName());
+        ediskAppSyncSource.setAloneUIClass(aloneView);
+
+		ediskAppSyncSource.setHasSetting(
+				AppSyncSource.SYNC_MODE_SETTING,
+				customization.isSyncDirectionVisible(),
+				customization.getDefaultSourceSyncModes(id,
+						deviceInfo.getDeviceRole()));
+		ediskAppSyncSource.setHasSetting(AppSyncSource.SYNC_FOLDER_SETTING,
+				true, "sync_files_folder_label");
+
+		SourceConfig sc = null;
+		String defaultUri = customization.getDefaultSourceUri(id);
+		sc = new SourceConfig(defaultUri, SourceConfig.FILE_OBJECT_TYPE,
+				defaultUri);
+		sc.setEncoding(SyncSource.ENCODING_NONE);
+		// sc.setSyncMode(customization.getDefaultSourceSyncMode(id,
+		// deviceInfo.getDeviceRole()));
+		sc.setSyncMode(SyncSource.INCREMENTAL_SYNC);// deleted by jason
+		// Set the sync anchor to sync via media engine
+		// SapiSyncAnchor anchor = new SapiSyncAnchor();
+
+		EdiskAppSyncSourceConfig assc = new EdiskAppSyncSourceConfig(context,
+				ediskAppSyncSource, customization, configuration);
+		assc.setMaxItemSize(customization.getMaxAllowedFileSizeForFiles());
+
+		SyncMLAnchor anchor = new SyncMLAnchor();
+		sc.setSyncAnchor(anchor);
+
+		assc.load(sc);
+		
+		// last anchor is o ,reset anchor from db ,LAST_SYNC_START_TIME is same value with last time value
+		
+		if (0 == anchor.getLast()) {
+			try {
+				Log.error(TAG_LOG, "last is 0");
+				StringKeyValueSQLiteStore store = (StringKeyValueSQLiteStore) StringKeyValueStoreFactory
+						.getInstance().getStringKeyValueStore(
+								"syncstatus_" + sc.getName());
+				if(null != store) {
+					
+				String lstime = store.get("LAST_SYNC_START_TIME");
+				if(null == lstime) {
+					store.finalize();
+				}
+				else {
+				Log.error(TAG_LOG, "lstime is "+lstime);
+				long last = Long.parseLong(lstime);
+				anchor.setLast(last);
+				Log.info(TAG_LOG, "reset last to : " + last);
+				store.finalize();
+				}
+				}
+			} catch (Exception e) {
+				Log.error(TAG_LOG, "syncstatus table error");
+				e.printStackTrace();
+			}
+			
+		}
+
+		// end reset last anchor
+
+		ediskAppSyncSource.setConfig(assc);
+		String sdCardRootTemp = Environment.getExternalStorageDirectory()
+				.toString();
+
+		if (Log.isLoggable(Log.TRACE)) {
+			Log.trace(TAG_LOG, "Path for files sync is " + defaultDir);
+			Log.trace(TAG_LOG, "tempPath for files sync is " + tempDir);
+		}
+		assc.setBaseDirectory(defaultDir);
+
+		try {
+			// Create the default folder if it doesn't exist
+			FileAdapter d = new FileAdapter(defaultDir.toString());
+			if (!d.exists()) {
+				d.mkdirs();
+			}
+			d.close();
+		} catch (IOException ex) {
+			Log.error(TAG_LOG,
+					"Cannot create directory: " + defaultDir.toString(), ex);
+		}
+
+		// Create the sync source
+		StringKeyValueSQLiteStore trackerStore = new StringKeyValueSQLiteStore(
+				context,
+				((AndroidCustomization) customization)
+						.getFunambolSQLiteDbName(), sc.getName());
+
+		EdiskTracker tracker = new EdiskTracker(context, trackerStore);
+		tracker.setFileRelation(fileRelation);
+
+		// Set the current file tracker to be notified of rename operations
+		// fileFileObserver = registerFileObserver(assc.getBaseDirectory());
+
+		EdiskSyncSource syncSource = new EdiskSyncSource(sc, tracker,
+				defaultDir.toString(), tempDir, customization, context);
+
+		// // if(AndroidCustomization.ENOTE_DIR.contains(directoryName))
+		// syncSource.addDirectoryFilter(sdCardRoot + "/"
+		// + AndroidCustomization.ENOTE_DIR);
+		// // if(AndroidCustomization.EWRITER_DIR.contains(directoryName))
+		// syncSource.addDirectoryFilter(sdCardRoot + "/"
+		// + AndroidCustomization.EWRITER_DIR);
+		// // if(AndroidCustomization.EDRAWER_DIR.contains(directoryName))
+		// syncSource.addDirectoryFilter(sdCardRoot + "/"
+		// + AndroidCustomization.EDRAWER_DIR);
+		// // if(AndroidCustomization.ENETCLIP_DIR.contains(directoryName))
+		// syncSource.addDirectoryFilter(sdCardRoot + "/"
+		// + AndroidCustomization.ENETCLIP_DIR);
+
+		ediskAppSyncSource.setSyncSource(syncSource);
+		syncSource.setAppSource(ediskAppSyncSource);
+		EdiskExternalAppManager appManager = new EdiskExternalAppManager(
+				context, ediskAppSyncSource);
+		ediskAppSyncSource.setAppManager(appManager);
+		return ediskAppSyncSource;
+
+	}
+    /**
+     * Setup the source for backup
+     * @param configuration the AndroidConfiguration to be used to setup the
+     * source
+     * @return AppSyncSource related to contacts
+     * @throws Exception
+     */
+    protected AppSyncSource setupBackupSource(AndroidConfiguration configuration) throws Exception {
+		String sdCardRoot = Environment.getExternalStorageDirectory().toString();//SystemInfo.getMydocStorage().toString();
+		String directoryName =".ebenbackup";// AndroidCustomization.ENOTE_DIR;//
+		StringBuffer defaultDir = new StringBuffer();
+		defaultDir = new StringBuffer();
+		defaultDir.append(sdCardRoot);
+		defaultDir.append("/");
+		defaultDir.append(directoryName);
+		defaultDir.append("/");
+
+		String tempDirName = ".backuptemp";
+		StringBuilder tempDir = new StringBuilder();
+		tempDir.append(sdCardRoot).append("/").append(tempDirName)
+				.append("/").append(directoryName).append("/");
+
+		EdiskAppSyncSource ediskAppSyncSource = (EdiskAppSyncSource) setupEdisksSource(
+				configuration, BACKUP_ID, defaultDir.toString(),
+				"ebackup", tempDir.toString(),true);
+
+		EdiskSyncSource syncSource = (EdiskSyncSource) ediskAppSyncSource
+				.getSyncSource();
+//		syncSource.setFilter(new EdiskFileFilter(ExternalEntryConst.APP_ENOTE));
+		
+		return ediskAppSyncSource;
+    }
     /**
      * Setup the source for contacts
      * @param configuration the AndroidConfiguration to be used to setup the

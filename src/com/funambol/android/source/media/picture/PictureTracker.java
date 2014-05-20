@@ -71,10 +71,11 @@ public class PictureTracker extends MediaTracker {
 
     /**
      * Creates a tracker data store for pictures.
+     * @throws Exception 
      */
     public static StringKeyValueSQLiteStore createTrackerStore(Context context,
             SourceConfig sc, PictureAppSyncSourceConfig config,
-            Customization customization) {
+            Customization customization) throws Exception {
 
         StringBuffer trackerStoreName = new StringBuffer();
         trackerStoreName.append(sc.getName());

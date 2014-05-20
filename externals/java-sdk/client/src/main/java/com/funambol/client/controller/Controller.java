@@ -59,6 +59,9 @@ public class Controller extends BasicController {
     public static final int ABOUT_SCREEN_ID = 5;
     public static final int ADVANCED_SETTINGS_SCREEN_ID = 6;
     public static final int DEV_SETTINGS_SCREEN_ID = 7;
+    public static final int SYNC_PROGRESS_SCREEN_ID = 8;     //LIERBAO
+    public static final int DOWNLOAD_SCREEN_ID = 9;
+    public static final int UPLOAD_SCREEN_ID = 10;
 
     private DisplayManager displayManager = null;
 

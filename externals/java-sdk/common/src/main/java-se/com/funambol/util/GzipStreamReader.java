@@ -49,9 +49,16 @@ public class GzipStreamReader extends AbstractGzipStreamReader {
 
     //-----------------------------------------------------------Protected Methods
 
-    protected InputStream createGZIPInputStream(InputStream in) throws IOException {
-        return new GZIPInputStream(in);
+    protected InputStream createGZIPInputStream(InputStream in, int length) throws IOException {
+        return new GZIPInputStream(in,length);
     }
+
+	@Override
+	protected InputStream createGZIPInputStream(InputStream is)
+			throws IOException {
+		// TODO Auto-generated method stub
+		return new GZIPInputStream(is);
+	}
 
     //-----------------------------------------------------------Private Methods
 

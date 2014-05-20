@@ -372,10 +372,12 @@ public class SyncManager implements SyncManagerI {
         syncStatus = new SyncStatus(src.getName());
         try {
             syncStatus.load();
+//            syncStatus.resetStore();
             // Is there an interrupted sync?
             boolean supportsResume = (src instanceof ResumableSource);
             boolean readyToResume = false;
-            if (Log.isLoggable(Log.INFO)) {
+//            if (Log.isLoggable(Log.INFO)) 
+            {
                 Log.info(TAG_LOG, "Last sync was interrupted = " + syncStatus.getInterrupted());
                 Log.info(TAG_LOG, "Source resume support is = " + supportsResume);
                 readyToResume = ((ResumableSource)src).readyToResume();
@@ -401,8 +403,10 @@ public class SyncManager implements SyncManagerI {
                     }
                 }
             }
-            // If the previous sync was not interrupted then we clear the status
-            if (!syncStatus.getInterrupted()) {
+            // If the previous sync was not interrupted then we clear the statusf
+            // while ,server many many file down ,it is useful , synclist info donw at one time
+            if (!syncStatus.getInterrupted()/*&& syncStatus.getAlertedSyncMode() != SyncML.ALERT_CODE_SLOW*/)
+            {
                 syncStatus.reset();
             }
         } catch (Exception e) {
@@ -435,14 +439,16 @@ public class SyncManager implements SyncManagerI {
         }
 
         // Notifies the listener that a new sync is about to start
-        getSyncListenerFromSource(src).startSession();
+//        getSyncListenerFromSource(src).startSession();
+        getSyncListenerFromSource(src).startSession(src);
 
         if (syncMode == SyncML.ALERT_CODE_NONE) {
             if (Log.isLoggable(Log.INFO)) {
                 Log.info(TAG_LOG, "Source not active.");
             }
             syncStatus.setStatusCode(SyncListener.SUCCESS);
-            getSyncListenerFromSource(src).endSession(syncStatus);
+//            getSyncListenerFromSource(src).endSession(syncStatus);
+            getSyncListenerFromSource(src).endSession(syncStatus,src);
             return;
         }
 
@@ -454,7 +460,8 @@ public class SyncManager implements SyncManagerI {
             this.source = src;
 
             // Set initial state
-            nextState(STATE_SENDING_ADD);
+//            nextState(STATE_SENDING_ADD);
+            nextState(STATE_SENDING_DELETE); //d - n -replace , new first for create luid 130823  delete - updated - add
 
             //Set NEXT Anchor referring to current timestamp
             long syncStartTime = System.currentTimeMillis();
@@ -465,6 +472,7 @@ public class SyncManager implements SyncManagerI {
 
             this.sessionID = String.valueOf(System.currentTimeMillis());
             this.serverUrl = config.syncUrl;
+            Log.info(TAG_LOG, "serverUrl : "+this.serverUrl+", sessionID,"+sessionID);
 
             // init status commands list
             this.statusList = new Vector();
@@ -518,9 +526,9 @@ public class SyncManager implements SyncManagerI {
             }
             // Prepopulate the hierarchy with the root item, whose
             // mapping is itself
-            if (hierarchy.get("/") == null) {
-                hierarchy.put("/", "/");
-            }
+//            if (hierarchy.get("/") == null) {
+//                hierarchy.put("/", "/");
+//            }
             
             // Notifies that the synchronization is going to begin
             boolean ok = getSyncListenerFromSource(src).startSyncing(alertCode, devInf);
@@ -545,7 +553,8 @@ public class SyncManager implements SyncManagerI {
                 actualSyncMode = alertCode;
                 source.beginSync(getSourceSyncMode(alertCode), false);
             }
-            getSyncListenerFromSource(src).syncStarted(alertCode);
+//            getSyncListenerFromSource(src).syncStarted(alertCode);
+            getSyncListenerFromSource(src).syncStarted(alertCode,src);
 
             boolean done = false;
 
@@ -596,7 +605,7 @@ public class SyncManager implements SyncManagerI {
                 if (Log.isLoggable(Log.INFO)) {
                     Log.info(TAG_LOG, "Response received");
                 }
-                logMessage(response, false);
+                logMessage(response, true);
                 getSyncListenerFromSource(src).endSending();
 
                 // The startReceiving(n) is notified from within the
@@ -609,7 +618,7 @@ public class SyncManager implements SyncManagerI {
                 // parsing we prepare the status to be used during the next
                 // message preparation
 
-                getSyncListenerFromSource(src).endSending();
+//                getSyncListenerFromSource(src).endSending();
                 done = processModifications(msg, source);
 
                 getSyncListenerFromSource(src).endReceiving();
@@ -623,7 +632,8 @@ public class SyncManager implements SyncManagerI {
             if (Log.isLoggable(Log.INFO)) {
                 Log.info(TAG_LOG, "Modification session succesfully completed");
             }
-            getSyncListenerFromSource(src).endSyncing();
+//            getSyncListenerFromSource(src).endSyncing();
+            getSyncListenerFromSource(src).endSyncing(src);
 
             // ================================================================
             // Mapping phase
@@ -632,7 +642,8 @@ public class SyncManager implements SyncManagerI {
                 cancelSync();
             }
 
-            getSyncListenerFromSource(src).startFinalizing();
+//            getSyncListenerFromSource(src).startFinalizing();
+            getSyncListenerFromSource(src).startFinalizing(src);
             
             // Send the map message only if a mapping or a status has to be sent
             Hashtable mappings = syncStatus.getPendingMappings(); 
@@ -678,7 +689,7 @@ public class SyncManager implements SyncManagerI {
                     if (Log.isLoggable(Log.INFO)) {
                         Log.info(TAG_LOG, "Response received");
                     }
-                    logMessage(response, false);
+                    logMessage(response, true);
 
                     SyncML msg = parser.parse(response);
                     response = null;
@@ -703,7 +714,8 @@ public class SyncManager implements SyncManagerI {
             if (Log.isLoggable(Log.DEBUG)) {
                 Log.debug(TAG_LOG, "Notifying listener end mapping");
             }
-            getSyncListenerFromSource(src).endFinalizing();
+//            getSyncListenerFromSource(src).endFinalizing();
+            getSyncListenerFromSource(src).endFinalizing(src);
 
             // Set the last anchor to the next timestamp for the source
             SyncMLAnchor syncMLAnchor = (SyncMLAnchor)source.getSyncAnchor();
@@ -767,7 +779,8 @@ public class SyncManager implements SyncManagerI {
             }
             // Notify the listener that the sync is finished
             try {
-                getSyncListenerFromSource(src).endSession(syncStatus);
+//                getSyncListenerFromSource(src).endSession(syncStatus);
+                getSyncListenerFromSource(src).endSession(syncStatus, src);
             } finally {
                 releaseResources();
                 sourceLOHandler.releaseResources();
@@ -871,7 +884,8 @@ public class SyncManager implements SyncManagerI {
         // Reset the msgId here
         resetMsgID();
 
-        getSyncListenerFromSource(source).startConnecting();
+//        getSyncListenerFromSource(source).startConnecting();
+        getSyncListenerFromSource(source).startConnecting(source);
 
         do {
             retry = false;
@@ -887,6 +901,10 @@ public class SyncManager implements SyncManagerI {
             
             DevInf devInf = null;
             devInf = createDevInf(deviceConfig, source);
+        	if(null == devInf || null == devInf.getDevID()
+        			 || "".equals(devInf.getDevID())) {
+        		throw new SyncException(10000,"null devid or username");
+        	}
             String newDevInfHash = null;
             //check, for a SyncML sync, if the device capabilities
             //must be sent to the server
@@ -933,13 +951,13 @@ public class SyncManager implements SyncManagerI {
 
             if (wbxml) {
                 logBinaryMessage(initMsg);
-                logMessage(initMsg, false);
+                logMessage(initMsg, true);
             }
 
             byte response[] = postRequest(initMsg);
             
             initMsg = null;
-            logMessage(response, false);
+            logMessage(response, true);
             if (wbxml) {
                 logBinaryMessage(response);
             }
@@ -954,7 +972,7 @@ public class SyncManager implements SyncManagerI {
                 if (Log.isLoggable(Log.INFO)) {
                     Log.info(TAG_LOG, "Response received");
                 }
-                logMessage(response, false);
+                logMessage(response, true);
 
                 if (askServerDevInf && serverDevInf == null) {
                     Log.error(TAG_LOG, "Server did not send requested capabilities");
@@ -1025,10 +1043,23 @@ public class SyncManager implements SyncManagerI {
         if (hdr != null) {
             String respURI = hdr.getRespURI();
             if (respURI != null) {
+                source.setSourceInfo(respURI);// for edisk heart beat 120719
+			// for slb cookie 120608  lierbao
+                if(!respURI.contains(serverUrl)) {
+                    Log.info(TAG_LOG," serverUrl : "+serverUrl+", respURI : "+respURI);
+                    int index = respURI.indexOf(';');
+                    if(index > 1) {
+                        String rsp = respURI.substring(0, index);
+                        respURI = respURI.replace(rsp, serverUrl);
+                    }
+
+                }
                 serverUrl = respURI;
                 if (Log.isLoggable(Log.DEBUG)) {
                     Log.debug(TAG_LOG, "Found respURI = " + serverUrl);
                 }
+                
+
             }
             globalNoResp = hasNoResp(hdr.getNoResp());
 
@@ -1265,46 +1296,71 @@ public class SyncManager implements SyncManagerI {
      *
      * @throws SyncException in case of network errors (thrown by sendMessage)
      */
+
+    int RETRYONWRITE = 3;
     private byte[] postRequest(byte request[]) throws SyncException {
-        transportAgent.setRequestURL(serverUrl);
-        try {
-            return transportAgent.sendMessage(request);
-        } catch (CodedException ce) {
-            int code;
-            switch (ce.getCode()) {
-                case CodedException.DATA_NULL:
-                    code = SyncException.DATA_NULL;
-                    break;
-                case CodedException.CONN_NOT_FOUND:
-                    code = SyncException.CONN_NOT_FOUND;
-                    break;
-                case CodedException.ILLEGAL_ARGUMENT:
-                    code = SyncException.ILLEGAL_ARGUMENT;
-                    break;
-                case CodedException.WRITE_SERVER_REQUEST_ERROR:
-                    code = SyncException.WRITE_SERVER_REQUEST_ERROR;
-                    WriteRequestException wre = new WriteRequestException(code, ce.toString());
-                    throw wre;
-                case CodedException.ERR_READING_COMPRESSED_DATA:
-                    CompressedSyncException cse = new CompressedSyncException(ce.toString());
-                    throw cse;
-                case CodedException.CONNECTION_BLOCKED_BY_USER:
-                    code = SyncException.CONNECTION_BLOCKED_BY_USER;
-                    break;
-                case CodedException.READ_SERVER_RESPONSE_ERROR:
-                    code = SyncException.READ_SERVER_RESPONSE_ERROR;
-                    ReadResponseException rre = new ReadResponseException(code, ce.toString());
-                    throw rre;
-                case CodedException.OPERATION_INTERRUPTED:
-                    code = SyncException.CANCELLED;
-                    break;
-                default:
-                    code = SyncException.CLIENT_ERROR;
-                    break;
-            }
-            SyncException se = new SyncException(code, ce.toString());
-            throw se;
-        }
+//    	EbenHelpers.isNetworkAvailable();
+    	if(!source.isAvailble(alertCode, resume)) {
+ 
+			throw new SyncException(CodedException.CONN_NOT_FOUND, "netwok not availble");    		
+    	}
+		transportAgent.setRequestURL(serverUrl);
+		byte[] response = null;
+		for (int i = 0; i < RETRYONWRITE; i++) {
+			try {
+				Log.info(TAG_LOG, "send msg attemp "+(i+1));
+				response = transportAgent.sendMessage(request);
+				return response;
+			} catch (CodedException ce) {
+				int code;
+				switch (ce.getCode()) {
+				case CodedException.DATA_NULL:
+					code = SyncException.DATA_NULL;
+					break;
+				case CodedException.CONN_NOT_FOUND:
+					code = SyncException.CONN_NOT_FOUND;
+					break;
+				case CodedException.ILLEGAL_ARGUMENT:
+					code = SyncException.ILLEGAL_ARGUMENT;
+					break;
+				case CodedException.WRITE_SERVER_REQUEST_ERROR:
+					code = SyncException.WRITE_SERVER_REQUEST_ERROR;
+					WriteRequestException wre = new WriteRequestException(code,
+							ce.toString());
+					throw wre;
+				case CodedException.ERR_READING_COMPRESSED_DATA:
+					CompressedSyncException cse = new CompressedSyncException(
+							ce.toString());
+					throw cse;
+				case CodedException.CONNECTION_BLOCKED_BY_USER:
+					code = SyncException.CONNECTION_BLOCKED_BY_USER;
+					break;
+				case CodedException.READ_SERVER_RESPONSE_ERROR:
+					if(i < RETRYONWRITE -1) {
+						continue;
+					}
+					code = SyncException.READ_SERVER_RESPONSE_ERROR;
+					ReadResponseException rre = new ReadResponseException(code,
+							ce.toString());
+					throw rre;
+				case CodedException.OPERATION_INTERRUPTED:
+					code = SyncException.CANCELLED;
+					break;
+				case CodedException.OPERATION_TIMEOUT:
+					if(i < RETRYONWRITE -1) {
+						continue;
+					}
+					code = SyncException.TIMEOUT;
+					break;
+				default:
+					code = SyncException.CLIENT_ERROR;
+					break;
+				}
+				SyncException se = new SyncException(code, ce.toString());
+				throw se;
+			}
+		}
+		return request; 
     }
 
     private int getStatusCode(Status status) throws SyncException {
@@ -1423,6 +1479,18 @@ public class SyncManager implements SyncManagerI {
                 throw new SyncException(
                         SyncException.BACKEND_AUTH_ERROR,
                         "Error processing source: " + source.getSourceUri() + "," + msg);
+            case SyncMLStatus.ERR_SYNC_SOURCE_DISABLED:             // 2012
+                throw new SyncException(
+                        SyncException.ERR_SYNC_SOURCE_DISABLED,
+                        "Error processing source: " + source.getSourceUri() + "," + msg);
+            case SyncMLStatus.ERR_SYNCITEM_CAPACITYLIMIT:             // 2013
+                throw new SyncException(
+                		SyncException.ERR_SYNCITEM_CAPACITYLIMIT,
+                        "Error processing source: " + source.getSourceUri() + "," + msg);  
+            case SyncMLStatus.SERVICE_EXPIRED:             // 2015
+                throw new SyncException(
+                		SyncException.SERVICE_EXPIRED,
+                        "Error processing source: " + source.getSourceUri() + "," + msg);                 
             default:
                 // Unhandled status code
                 if (Log.isLoggable(Log.DEBUG)) {
@@ -1663,11 +1731,13 @@ public class SyncManager implements SyncManagerI {
 
             msg.setSyncBody(syncBody);
 
-            logMessage(msg, false);
+            logMessage(msg, true);
 
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             formatter.format(msg, os, "UTF-8");
-            return os.toByteArray();
+            byte[] data = os.toByteArray();
+            os.close();
+            return data;
         } catch (IOException ioe) {
             String msg = "Cannot prepare output message: " + ioe.toString();
             Log.error(TAG_LOG, msg);
@@ -1679,7 +1749,9 @@ public class SyncManager implements SyncManagerI {
         SyncMLFormatter xmlFormatter = new SyncMLFormatter(false);
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         xmlFormatter.formatXmlDevInf(devInf, os, "UTF-8");
-        return os.toString();
+        String data = os.toString();
+        os.close();
+        return data;
     }
 
     private DevInf createDevInf(DeviceConfig deviceConfig, SyncSource source) {
@@ -1776,6 +1848,11 @@ public class SyncManager implements SyncManagerI {
 
         // Get the message id
         msgId = hdr.getMsgID();
+		// lierbao 2012-4-20 . if msgid not matched , the package missed so interrupt sync 
+//        if(Integer.parseInt(msgId) != msgID) {
+//            Log.info(TAG_LOG,"msgId not matched , package missed , interrupt sync ");
+//            throw new SyncException(SyncException.SERVER_BUSY, "package missed");
+//        }
 
         // Ignore incoming modifications for one way from client modes (but
         // still process all status)
@@ -1871,15 +1948,17 @@ public class SyncManager implements SyncManagerI {
                     hierarchy.put(guid, luid);
                 }
             }
-            syncStatus.addReceivedItem(guid, luid, command.getName(), status);
+            //lierbao ignore lo item. 20120417
+            if(SyncMLStatus.CHUNKED_ITEM_ACCEPTED != status && SyncMLStatus.isSuccess(status))
+                syncStatus.addReceivedItem(guid, luid, command.getName(), status);
 
             // Generate the Status if required
             boolean noResp = globalNoResp || command.getNoResp();
 
             Status statusCmd = null;
             if (noResp) {
-                if (Log.isLoggable(Log.DEBUG)) {
-                    Log.debug(TAG_LOG, "Found a command with NoResp (or SyncHdr NoResp), skipping status generation");
+                if (Log.isLoggable(Log.INFO)) {
+                    Log.info(TAG_LOG, "Found a command with NoResp (or SyncHdr NoResp), skipping status generation");
                 }
             } else {
                 // Init the status object
@@ -1908,12 +1987,17 @@ public class SyncManager implements SyncManagerI {
     protected void applySourceStatus() {
 
         Vector sourceStatusList = new Vector();
+//        Log.debug(TAG_LOG, "applySourceStatus , status list size : "+sourceStatusList.size());
         for(int i=0;i<statusToProcess.size();++i) {
             Status status = (Status)statusToProcess.elementAt(i);
             String cmd = status.getCmd();
             Vector items = status.getItems();
             int code = status.getStatusCode();
-            if (code != SyncMLStatus.CHUNKED_ITEM_ACCEPTED) {
+            Log.debug(TAG_LOG, "status is "+code);//debug info
+            if(SyncMLStatus.ERR_SYNCITEM_CAPACITYLIMIT == code) {
+                getSyncListenerFromSource(source).itemAddSendingProgress("", null, 0);
+            }
+            else if (code != SyncMLStatus.CHUNKED_ITEM_ACCEPTED ) {
                 // Check if it's a multi-item response
                 if (items != null && items.size() > 0) {
                     for (int j = 0,  n = items.size(); j < n; j++) {
@@ -2006,7 +2090,7 @@ public class SyncManager implements SyncManagerI {
         }
 
         // Check status to SyncHdr and Sync
-        if (isSyncCommand(cmd)) {
+        if (isSyncCommand(cmd)||isAddDelReplaceCmd(cmd)) {// lierbao 20120411, for add delete replace ,err code should throw exceptions
 
             // In case of error we throw a SyncException
             if (!SyncMLStatus.isSuccess(status.getStatusCode())) {
@@ -2028,6 +2112,17 @@ public class SyncManager implements SyncManagerI {
                         // 511
                         exc = new SyncException(SyncException.BACKEND_AUTH_ERROR, msg);
                         break;
+                    case SyncMLStatus.PARENT_DELETED:
+                    	exc = new SyncException(SyncException.SERVER_ERROR, msg);
+                    	SyncMLAnchor anchor = (SyncMLAnchor)this.source.getSyncAnchor();
+                    	Log.error(TAG_LOG, "got parent deleted error ,set anchor 2 to slow sync next");
+                    	anchor.setLast(2);
+                    	
+                    	SyncMLAnchor syncMLAnchor = (SyncMLAnchor)source.getSyncAnchor();
+                    	syncMLAnchor.setNext(2);
+                    	
+                    	
+                    break;
                     default:
                         // All error codes should be trapped by the above
                         // cases, but to be conservative we leave this
@@ -2035,7 +2130,17 @@ public class SyncManager implements SyncManagerI {
                         exc = new SyncException(SyncException.SERVER_ERROR, msg);
                         break;
                 }
-                throw exc;
+                
+                exc.printStackTrace();
+                
+//                throw exc; // lierbao 20121217 not throws exception, just ignore it 
+            }
+            else  if(isAddDelReplaceCmd(cmd)){
+            	if(SyncML.TAG_DELETE.equals(cmd) && SyncMLStatus.SERVER_RECOVERY == status.getStatusCode()) {
+            		Log.error(TAG_LOG, "error !!! ,got delete 217 ,do nothing ,server shoul recovery this");
+            	} else {
+                statusToProcess.addElement(status);// for Add delete update ,if not error process ,otherwise throw exceptions
+            	}
             }
         } else if (isMappingCommand(cmd)) {
             // The status of Map commands is ignored
@@ -2152,7 +2257,8 @@ public class SyncManager implements SyncManagerI {
         // This is the very first moment we know how many message we're about
         // to receive. This is when we notify the listener about it, even though
         // the receiving phase has already begun.
-        getSyncListenerFromSource(source).startReceiving(ncVal);
+//        getSyncListenerFromSource(source).startReceiving(ncVal);
+        getSyncListenerFromSource(source).startReceiving(ncVal,source);
         source.setServerItemsNumber(ncVal);
 
         Vector commands = sync.getCommands();
@@ -2172,8 +2278,8 @@ public class SyncManager implements SyncManagerI {
         }
 
         if (noResp || globalNoResp) {
-            if (Log.isLoggable(Log.DEBUG)) {
-                Log.debug(TAG_LOG, "Skipping status for sync command as NoResp was specified");
+            if (Log.isLoggable(Log.INFO)) {
+                Log.info(TAG_LOG, "Skipping status for sync command as NoResp was specified");
             }
         } else {
             Status status = Status.newInstance();
@@ -2221,6 +2327,10 @@ public class SyncManager implements SyncManagerI {
                                          itemState,loChunk.getParent());
             item.setSyncStatus(status);
             syncItems.addElement(item);
+            if(null != loCmd) {
+                Log.info(TAG_LOG, "put the large item to list again");
+                items.addElement(loCmd, loChunk);
+            }
         }
 
         return syncItems;
@@ -2245,7 +2355,9 @@ public class SyncManager implements SyncManagerI {
     private boolean isSyncCommand(String cmd) {
         return cmd.equals(SyncML.TAG_SYNCHDR) || cmd.equals(SyncML.TAG_SYNC);
     }
-
+    private boolean isAddDelReplaceCmd(String cmd) {
+        return cmd.equals(SyncML.TAG_DELETE)||cmd.equals(SyncML.TAG_REPLACE)||cmd.equals(SyncML.TAG_ADD);
+    }
     private boolean isMappingCommand(String cmd) {
         return cmd.equals(SyncML.TAG_MAP);
     }
@@ -2417,10 +2529,12 @@ public class SyncManager implements SyncManagerI {
 
             msg.setSyncBody(body);
 
-            logMessage(msg, false);
+            logMessage(msg, true);
 
             formatter.format(msg, os, "UTF-8");
-            return os.toByteArray();
+            byte[] data = os.toByteArray();
+            os.close();
+            return data;
         } catch (IOException ioe) {
             String msg = "Cannot prepare output message: " + ioe.toString();
             Log.error(TAG_LOG, msg);
@@ -2560,10 +2674,12 @@ public class SyncManager implements SyncManagerI {
 
             msg.setSyncBody(body);
 
-            logMessage(msg, false);
+            logMessage(msg, true);
 
             formatter.format(msg, os, "UTF-8");
-            return os.toByteArray();
+            byte[] data = os.toByteArray();
+            os.close();
+            return data;
         } catch (IOException ioe) {
             String msg = "Cannot prepare output message: " + ioe.toString();
             Log.error(TAG_LOG, msg);
@@ -2627,6 +2743,7 @@ public class SyncManager implements SyncManagerI {
 
         if (status == SyncSourceLOHandler.DONE) {
             nextState(STATE_SENDING_REPLACE);
+//            nextState(STATE_MODIFICATION_COMPLETED);
         } else if (status == SyncSourceLOHandler.FLUSH) {
             nextState(STATE_FLUSHING_MSG);
         }
@@ -2641,7 +2758,8 @@ public class SyncManager implements SyncManagerI {
         SyncMLCommand command = SyncMLCommand.newInstance(SyncML.TAG_REPLACE);
         int status = sourceLOHandler.getReplaceCommand(size, getSyncListenerFromSource(source), command, cmdID);
         if (status == SyncSourceLOHandler.DONE) {
-            nextState(STATE_SENDING_DELETE);
+//            nextState(STATE_SENDING_DELETE);
+            nextState(STATE_MODIFICATION_COMPLETED); //d - a u  130823 d - u- a
         } else if (status == SyncSourceLOHandler.FLUSH) {
             nextState(STATE_FLUSHING_MSG);
         }
@@ -2659,7 +2777,8 @@ public class SyncManager implements SyncManagerI {
         // No item for this source
         if (done) {
             // All new items are donw, go to the next state.
-            nextState(STATE_MODIFICATION_COMPLETED);
+//            nextState(STATE_MODIFICATION_COMPLETED);
+            nextState(STATE_SENDING_ADD);
         }
         return command;
     }
@@ -2961,6 +3080,18 @@ public class SyncManager implements SyncManagerI {
             case SyncException.LOCAL_DEVICE_FULL:
                 syncStatus = SyncListener.LOCAL_CLIENT_FULL_ERROR;
                 break;
+            case SyncException.OPERATION_TIMEOUT:
+            	syncStatus = SyncListener.LOCAL_CLIENT_TIMEOUT;
+            	break;
+            case SyncException.ERR_SYNC_SOURCE_DISABLED:
+                syncStatus = SyncListener.ERR_SYNC_SOURCE_DISABLED;
+                break;     
+            case SyncException.ERR_SYNCITEM_CAPACITYLIMIT:
+                syncStatus = SyncListener.ERR_SYNCITEM_CAPACITYLIMIT;
+                break; 
+            case SyncException.SERVICE_EXPIRED:
+                syncStatus = SyncListener.SERVICE_EXPIRED;
+                break;                 
             default:
                 syncStatus = SyncListener.GENERIC_ERROR;
                 break;
@@ -2984,7 +3115,7 @@ public class SyncManager implements SyncManagerI {
     }
 
     private void logMessage(byte msg[], boolean hideData) {
-        if (Log.getLogLevel() > Log.INFO) {
+        if (Log.getLogLevel() >= Log.DEBUG) {
             try {
 
                 // if the message is XML, there is no need to parse it here.
@@ -2997,12 +3128,13 @@ public class SyncManager implements SyncManagerI {
                     xmlFormatter.setPrettyPrint(true);
                     ByteArrayOutputStream os = new ByteArrayOutputStream();
                     xmlFormatter.format(syncMLMsg, os, "UTF-8");
-                    if (Log.isLoggable(Log.DEBUG)) {
-                        Log.debug(TAG_LOG, os.toString());
+                    if (Log.isLoggable(Log.INFO)) {
+                        Log.info(TAG_LOG, os.toString());
                     }
+                    os.close();
                 } else {
-                    if (Log.isLoggable(Log.DEBUG)) {
-                        Log.debug(TAG_LOG, new String(msg, "UTF-8"));
+                    if (Log.isLoggable(Log.INFO)) {
+                        Log.info(TAG_LOG, new String(msg, "UTF-8"));
                     }
                 }
             } catch (Exception e) {
@@ -3012,7 +3144,7 @@ public class SyncManager implements SyncManagerI {
     }
 
     private void logMessage(SyncML syncMLMsg, boolean hideData) {
-        if (Log.getLogLevel() > Log.INFO) {
+        if (Log.getLogLevel() >= Log.DEBUG) {
             try {
                 // We must format the message in XML and then print it
                 SyncMLFormatter xmlFormatter = new SyncMLFormatter(false);
@@ -3020,9 +3152,10 @@ public class SyncManager implements SyncManagerI {
                 xmlFormatter.setPrettyPrint(true);
                 ByteArrayOutputStream os = new ByteArrayOutputStream();
                 xmlFormatter.format(syncMLMsg, os, "UTF-8");
-                if (Log.isLoggable(Log.DEBUG)) {
-                    Log.debug(TAG_LOG, os.toString());
+                if (Log.isLoggable(Log.INFO)) {
+                    Log.info(TAG_LOG, os.toString());
                 }
+                os.close();
             } catch (Exception e) {
                 Log.error(TAG_LOG, "Cannot print message: " + e.toString());
             }
@@ -3030,7 +3163,7 @@ public class SyncManager implements SyncManagerI {
     }
 
     private void logBinaryMessage(byte msg[]) {
-        if (logBinaryMessages && Log.getLogLevel() > Log.INFO) {
+        if (logBinaryMessages && Log.getLogLevel() >= Log.INFO) {
             StringBuffer binMsg = new StringBuffer();
             for(int i=0;i<msg.length;++i) {
                 byte b = msg[i];
@@ -3124,6 +3257,9 @@ public class SyncManager implements SyncManagerI {
     }
 
     private int getSourceStatusCode(int syncMLStatusCode) {
+    	if(200 != syncMLStatusCode) {
+    		Log.error(TAG_LOG, "not ok code ,syncMLStatusCode is "+syncMLStatusCode);//debug info
+    	}
         if (SyncMLStatus.isSuccess(syncMLStatusCode)) {
             if (syncMLStatusCode == SyncMLStatus.CHUNKED_ITEM_ACCEPTED) {
                 return SyncSource.CHUNK_SUCCESS_STATUS;

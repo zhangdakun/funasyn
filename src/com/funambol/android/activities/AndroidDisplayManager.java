@@ -828,4 +828,10 @@ public class AndroidDisplayManager implements DisplayManager {
         return (int) (size * c.getResources().getDisplayMetrics().density);
     }
 
+	@Override
+	public void showMessage(Screen screen, String message, boolean isFlag) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

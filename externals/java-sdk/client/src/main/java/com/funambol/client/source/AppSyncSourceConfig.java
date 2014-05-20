@@ -75,6 +75,13 @@ public class AppSyncSourceConfig {
     protected static final String CONF_KEY_SYNC_TIMESTAMP         = "SYNC_SOURCE_TIMESTAMP";
     protected static final String CONF_KEY_MAX_ITEM_SIZE          = "MAX_ITEM_SIZE";
 
+    protected static final String CONF_KEY_SYNC_COUNT          = "SYNC_COUNT";
+    protected static final String CONF_KEY_SYNC_BOOK_COUNT     = "SYNC_BOOK_COUNT";
+    protected static final String CONF_KEY_SYNC_DIRECTION= "EBEN_SYNC_DIRECTION";
+    protected static final String CONF_KEY_SYNC_SOURCE_ID_FINISH= "SYNC_SOURCE_ID_FINISH";
+    protected static final String CONF_KEY_START_SYNC_TIMESTAMP         = "SYNC_SOURCE_START_TIMESTAMP";
+    protected static final String CONF_KEY_SYNC_CANCEL         = "SYNC_SOURCE_CANCEL";
+    protected static final String CONF_KEY_SYNC_ALARM_COUNT     = "SYNC_ALARM_COUNT";
     protected static final String VERSION_1 = "1";
     protected static final String VERSION_2 = "2";
     protected static final String VERSION   = "3";
@@ -101,6 +108,13 @@ public class AppSyncSourceConfig {
 
     protected Configuration configuration;
     protected Customization customization;
+    protected int    syncCount = -1;
+    protected int    syncBookCount = -1;
+    protected int    syncDirection = -1;
+    protected boolean    syncSourceIdFinish = false;
+    protected long startSyncTimestamp = 0;
+    protected boolean syncIsCancel = false;
+    protected int    syncEbenAlarmCount = -1;
     
     public AppSyncSourceConfig(AppSyncSource appSource, Customization customization, Configuration configuration) {
         this.appSource     = appSource;
@@ -223,7 +237,27 @@ public class AppSyncSourceConfig {
         this.lastSyncTimestamp = ts;
         dirty = true;
     }
+    
+    //add by eddie
+    public long getStartSyncTimestamp() {
+        return startSyncTimestamp;
+    }
 
+    public void setStartSyncTimestamp(long ts) {
+        this.startSyncTimestamp = ts;
+        dirty = true;
+    }
+
+    //add by eddie
+    public boolean getSyncIsCancel() {
+        return syncIsCancel;
+    }
+
+    public void setSyncIsCancel(boolean b) {
+        this.syncIsCancel = b;
+        dirty = true;
+    }
+    
     /**
      * Returns max allowed size for sync source items.
      * {@link BasicMediaSyncSource#NO_LIMIT_ON_ITEM_SIZE} means no limit on size
@@ -313,6 +347,7 @@ public class AppSyncSourceConfig {
                 config.serialize(temp);
                 configuration.saveByteArrayKey(storageKey, buff.toByteArray());
                 temp.close();
+                buff.close();
             } catch (final Exception e) {
                 Log.error(TAG_LOG, "Exception while storing SourceConfig [" + config.getName() + "] ", e);
             }
@@ -402,7 +437,41 @@ public class AppSyncSourceConfig {
         key = new StringBuffer();
         key.append(CONF_KEY_MAX_ITEM_SIZE).append("-").append(sourceId);
         configuration.saveLongKey(key.toString(), getMaxItemSize());
+        
+        // Save the sync count 
+        key = new StringBuffer();
+        key.append(CONF_KEY_SYNC_COUNT).append("-").append(sourceId);
+        configuration.saveIntKey(key.toString(), getSyncCount());
+        
+        // Save the sync book count 
+        key = new StringBuffer();
+        key.append(CONF_KEY_SYNC_BOOK_COUNT).append("-").append(sourceId);
+        configuration.saveIntKey(key.toString(), getSyncCount());
+        
+        // Save the sync book count 
+        key = new StringBuffer();
+        key.append(CONF_KEY_SYNC_DIRECTION).append("-").append(sourceId);
+        configuration.saveIntKey(key.toString(), getSyncDirection());
+        
+        // add 20111012
+        key = new StringBuffer();
+        key.append(CONF_KEY_SYNC_SOURCE_ID_FINISH).append("-").append(sourceId);
+        configuration.saveBooleanKey(key.toString(), getSyncSourceIdFinish());
+        
+        //add by eddie 20111017
+        // Save the start sync timestamp
+        key = new StringBuffer();
+        key.append(CONF_KEY_START_SYNC_TIMESTAMP).append("-").append(sourceId);
+        configuration.saveLongKey(key.toString(), startSyncTimestamp);
+        
+        key = new StringBuffer();
+        key.append(CONF_KEY_SYNC_CANCEL).append("-").append(sourceId);
+        configuration.saveBooleanKey(key.toString(), syncIsCancel);
 
+        key = new StringBuffer();
+        key.append(CONF_KEY_SYNC_ALARM_COUNT).append("-").append(sourceId);
+        configuration.saveIntKey(key.toString(), syncEbenAlarmCount);
+        
         // Clear the dirty flag
         dirty = false;
 
@@ -435,9 +504,11 @@ public class AppSyncSourceConfig {
                     if (Log.isLoggable(Log.DEBUG)) {
                         Log.debug(TAG_LOG, "Data Found");
                     }
-                    DataInputStream temp = new DataInputStream(new ByteArrayInputStream(byteArray));
+                    ByteArrayInputStream data = new ByteArrayInputStream(byteArray);
+                    DataInputStream temp = new DataInputStream(data);
                     config.deserialize(temp);
                     temp.close();
+                    data.close();
                 }
             } catch (final Exception e) {
                 Log.error(TAG_LOG, "Exception while initializating (reading) of SourceConfig ["
@@ -515,7 +586,39 @@ public class AppSyncSourceConfig {
         key = new StringBuffer();
         key.append(CONF_KEY_MAX_ITEM_SIZE).append("-").append(sourceId);
         maxItemSize = configuration.loadLongKey(key.toString(), maxItemSize);
+        
+        key = new StringBuffer();
+        key.append(CONF_KEY_SYNC_COUNT).append("-").append(sourceId);
+        syncCount = configuration.loadIntKey(key.toString(), syncCount);
+        
+        key = new StringBuffer();
+        key.append(CONF_KEY_SYNC_BOOK_COUNT).append("-").append(sourceId);
+        syncBookCount = configuration.loadIntKey(key.toString(), syncBookCount);
 
+        key = new StringBuffer();
+        key.append(CONF_KEY_SYNC_DIRECTION).append("-").append(sourceId);
+        syncDirection = configuration.loadIntKey(key.toString(), syncDirection);
+        
+        key = new StringBuffer();
+        key.append(CONF_KEY_SYNC_SOURCE_ID_FINISH).append("-").append(sourceId);
+        syncSourceIdFinish = configuration.loadBooleanKey(key.toString(), syncSourceIdFinish);
+        
+        //add by eddie 20111017
+        // Load the start sync timestamp
+        key = new StringBuffer();
+        key.append(CONF_KEY_START_SYNC_TIMESTAMP).append("-").append(sourceId);
+        startSyncTimestamp = configuration.loadLongKey(key.toString(), 0);
+        
+        // Load the start sync cancel
+        key = new StringBuffer();
+        key.append(CONF_KEY_SYNC_CANCEL).append("-").append(sourceId);
+        syncIsCancel = configuration.loadBooleanKey(key.toString(), getSyncIsCancel());
+        
+        //Load the alarm count
+        key = new StringBuffer();
+        key.append(CONF_KEY_SYNC_ALARM_COUNT).append("-").append(sourceId);
+        syncEbenAlarmCount = configuration.loadIntKey(key.toString(), syncEbenAlarmCount);
+        
         // If needed, we migrate the configuration
         if (!VERSION.equals(version)) {
             if (Log.isLoggable(Log.INFO)) {
@@ -633,6 +736,93 @@ public class AppSyncSourceConfig {
             configuration.setPimSourceSyncTypeChanged(true);
             configuration.save();
         }
+    }
+    
+    public void setNetworkSecurity(Boolean value) {
+        
+    }
+
+    public boolean getNetworkSecurity() {
+        return false;
+    }
+    
+    /**
+     * Returns max allowed size for sync source items.
+     * {@link BasicMediaSyncSource#NO_LIMIT_ON_ITEM_SIZE} means no limit on size
+     */
+    public int getSyncCount() {
+        return syncCount;
+    }
+
+    /**
+     * Sets max allowed size for sync source items
+     * {@link BasicMediaSyncSource#NO_LIMIT_ON_ITEM_SIZE} means no limit on size
+     * @param value
+     */
+    public void setSyncCount(int value) {
+        this.syncCount = value;
+        dirty = true;
+    }
+    
+    /**
+     * Returns max allowed size for sync source items.
+     * {@link BasicMediaSyncSource#NO_LIMIT_ON_ITEM_SIZE} means no limit on size
+     */
+    public int getSyncBookCount() {
+        return syncBookCount;
+    }
+
+    /**
+     * Sets max allowed size for sync source items
+     * {@link BasicMediaSyncSource#NO_LIMIT_ON_ITEM_SIZE} means no limit on size
+     * @param value
+     */
+    public void setSyncBookCount(int value) {
+        this.syncBookCount = value;
+        dirty = true;
+    }
+    
+    /**
+     * Returns max allowed size for sync source items.
+     * {@link BasicMediaSyncSource#NO_LIMIT_ON_ITEM_SIZE} means no limit on size
+     */
+    public int getSyncDirection() {
+        return syncDirection;
+    }
+
+    /**
+     * Sets max allowed size for sync source items
+     * {@link BasicMediaSyncSource#NO_LIMIT_ON_ITEM_SIZE} means no limit on size
+     * @param value
+     */
+    public void setSyncDirection(int value) {
+        this.syncDirection = value;
+        dirty = true;
+    }
+    
+//add 20111012
+    public boolean getSyncSourceIdFinish() {
+        return syncSourceIdFinish;
+    }
+
+    /**
+     * Sets max allowed size for sync source items
+     * {@link BasicMediaSyncSource#NO_LIMIT_ON_ITEM_SIZE} means no limit on size
+     * @param value
+     */
+    public void setSyncSourceIdFinish(boolean value) {
+        this.syncSourceIdFinish = value;
+        dirty = true;
+    }
+    
+    public int getSyncEbenAlarmCount() {
+        return syncEbenAlarmCount;
+    }
+
+
+    public void setSyncEbenAlarmCount(int value) {
+        this.syncEbenAlarmCount = value;
+        dirty = true;
     }
 }
 

@@ -38,7 +38,7 @@
         android:layout_marginTop="15dp"
         android:text="@string/eben_backup_des"
         android:textColor="@color/black"
-        android:textSize="28dip" />
+        android:textSize="24dip" />
 
     <ListView
         android:id="@+id/listViewbackup"
@@ -77,21 +77,21 @@
             android:layout_marginTop="15dp"
    
             android:text=""
-            android:textColor="@color/preference_secondary_text_color_disable_light"
+            android:textColor="#cf8941"
             android:textSize="20dip" />
 
 <com.eben.activities.ProgressWheel
         android:id="@+id/progressWheel"
-        android:layout_width="60dip"
-        android:layout_height="60dip"
-        android:layout_marginRight="40dp"
+        android:layout_width="50dip"
+        android:layout_height="50dip"
+        android:layout_marginRight="30dp"
         android:layout_marginTop="5.0dip"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="0dip"
-        ProgressWheel:barColor="#8d745e"
+        ProgressWheel:barColor="#c97c2a"
         ProgressWheel:barLength="230dip"
-        ProgressWheel:barWidth="2dip"
-        ProgressWheel:endbarColor="#644c37"
+        ProgressWheel:barWidth="3dip"
+        ProgressWheel:endbarColor="#c07322"
         ProgressWheel:rimColor="#00000000"
         ProgressWheel:rimWidth="14dip"
         ProgressWheel:spinSpeed="3dip"
@@ -103,20 +103,21 @@
 
     <Button
         android:id="@+id/pim_manual_start"
-        android:layout_width="400dp"
+        android:layout_width="300dp"
         android:layout_height="50dp"
+        android:layout_marginTop="5.0dip"
         android:layout_gravity="center"
         android:background="@drawable/selector_btnbackup"
         android:text="backup"
         android:textColor="@color/white"
-        android:textSize="28dip" />
+        android:textSize="20dip" />
 
     <TextView
         android:id="@+id/pim_sync_state_tips"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"
         android:text=""
         android:textColor="@color/preference_secondary_text_color_disable_light"

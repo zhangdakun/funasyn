@@ -66,7 +66,13 @@ public class StringKeyValueStoreFactory {
             return null;
         }
         // On Android the default key value store in a SQL lite store
-        return new StringKeyValueSQLiteStore(context, dbName, name);
+        try {
+			return new StringKeyValueSQLiteStore(context, dbName, name);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        return null;
     }
 }
 

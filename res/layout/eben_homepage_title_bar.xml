@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/personal_home_title_bar"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bg_gray1"
+    android:layout_height="80dp"
+    android:background="@drawable/bg_black1"
     android:orientation="vertical" >
 
     <TextView
@@ -23,6 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
         android:clickable="true"
         android:src="@drawable/titlebar_back_button_selector" />
 

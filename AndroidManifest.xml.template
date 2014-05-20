@@ -37,7 +37,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.eben.androidsync"
     android:versionCode="0"
-    android:versionName="20140325.1">
+    android:versionName="0.1.20140516">
 
     <!-- Backward compatible with 2.0 devices, until we introduce 1.6 portability -->
     <uses-sdk android:minSdkVersion="14" />
@@ -118,7 +118,7 @@
     />
     <application
             android:icon="@drawable/backuprestore"
-            android:label="@string/app_name"
+            android:label="@string/backrestore"
             android:name="com.funambol.android.App"
             android:debuggable="true"
             android:theme="@android:style/Theme.Light">
@@ -203,7 +203,10 @@
                   android:label="@string/files_provider_label"
                   android:exported="false"
                   android:writePermission="false" />
-
+                  
+        <provider android:name="cn.eben.android.providers.SyncSourceProvider"
+            android:authorities="cn.eben.provider.syncSource"></provider>  
+            
         <receiver android:name="com.funambol.android.source.media.MediaIntentReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MEDIA_MOUNTED"/>
@@ -312,9 +315,10 @@
             </intent-filter>
         </receiver>
         <service android:name="com.eben.client.NotificationService">
-			<intent-filter>
+ <!--			<intent-filter>
 				<action android:name="com.eben.client.NotificationService" />
 			</intent-filter>
+			-->
         </service>      
     </application>
 

@@ -35,22 +35,19 @@
 
 package com.funambol.sync.client;
 
-import java.util.Enumeration;
-import java.util.Vector;
-import java.util.Date;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import com.funambol.sync.SyncItem;
-import com.funambol.sync.SourceConfig;
-import com.funambol.sync.SyncException;
-import com.funambol.sync.SyncAnchor;
-import com.funambol.sync.SyncSource;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.Vector;
 
 import com.funambol.platform.FileAdapter;
+import com.funambol.sync.SourceConfig;
+import com.funambol.sync.SyncException;
+import com.funambol.sync.SyncItem;
+import com.funambol.sync.SyncSource;
 import com.funambol.util.Log;
-import com.funambol.util.Base64;
 
 /**
  * An implementation of TrackableSyncSource, providing
@@ -413,5 +410,24 @@ public class RawFileSyncSource extends TrackableSyncSource {
         }
         return false;
     }
+
+
+    public void setSourceInfo(Object info) {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+	public void preSync(int syncMode, boolean resume) throws SyncException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public boolean isAvailble(int syncMode, boolean resume)
+			throws SyncException {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }
 

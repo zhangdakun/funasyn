@@ -59,7 +59,7 @@ public class FileObjectOutputStream extends OutputStream {
 
     private static final int B64BUFFER_SIZE = 4;
 
-    private StringBuffer currentToken = null;
+	private StringBuffer currentToken = null;
     private StringBuffer buffer = new StringBuffer();
     private OutputStream os;
     private boolean content = false;
@@ -133,6 +133,7 @@ public class FileObjectOutputStream extends OutputStream {
                         body = true;
                         prologue = false;
                     }
+                    bis.close();
                 } catch (Exception e) {
                     invalidObject = true;
                     Log.error(TAG_LOG, "Error parsing file object prologue: ", e);
@@ -174,6 +175,112 @@ public class FileObjectOutputStream extends OutputStream {
         }
     }
 
+    //Overwrite by zhangcheng, improve the efficiency of decoding & saving to file stream
+	public void write(byte[] b) throws IOException {
+        if (prologue) {
+            buffer.append(new String(b));
+            //if less than 1024, let close() handle this
+            if (buffer.length() >= 1024) {
+                ByteArrayInputStream bis = new ByteArrayInputStream(b);
+                try {
+                    String bod = fo.parsePrologue(bis);
+                    // Note that if the body cannot be found, or it contains
+                    // part of the epilogue, then we do not parse anything here
+                    // because the item is small enough to be parsed entirely in
+                    // the close method
+                    if (bod != null) {
+                        // We shall write the first part of the body
+                        // but first we must decode it (if the body is b64)
+                        if (fo.isBodyBase64()) {
+                            int bodyBytesSize = (bod.length() / 4) * 4;
+                            byte bodyBytes[] = bod.getBytes();
+                            byte tBuf[] = new byte[bodyBytesSize];
+        		            System.arraycopy(bodyBytes, 0, tBuf, 0, bodyBytesSize);
+                            byte tBuf2[] = Base64.decode(tBuf);
+                            os.write(tBuf2);
+                            b64Idx = 0;
+                            // The remainder must be copied into the b64 buffer
+                            for(int i=0;i<bod.length() % 4;++i) {
+                                b64Buffer[b64Idx++] = bodyBytes[bodyBytesSize + i];
+                            }
+                        } else {
+                            os.write(bod.getBytes());
+                        }
+                        body = true;
+                        prologue = false;
+                    }
+                    bis.close();
+                } catch (Exception e) {
+                    invalidObject = true;
+                    Log.error(TAG_LOG, "Error parsing file object prologue: ", e);
+                    throw new IOException("Error parsing file object epilogue: " + e.toString());
+                }
+            }
+        } else if (body) {
+        	//find the end flag of file data, starting with </body></File>]]> according to protocol doc
+        	//index is the valid data size
+        	try {
+				
+
+        	Log.debug(TAG_LOG, "start body,b.length =  "+b.length);
+        	int index =0;
+        	index = b.length > 50 ? b.length-50:0;
+    		
+        	Log.debug(TAG_LOG, "start body,index =  "+index);
+        	for(;index<b.length;index++) {
+        		if (((char)b[index]) == '<') 
+        			break;
+        	}
+
+        	Log.debug(TAG_LOG, "start body,index =  "+index);
+        	// We must make decodable chunks (size must be multiple of 4)
+            // if the body is base64
+            if (fo.isBodyBase64()) {
+                int bodyBytesSize = ((b64Idx + index) / 4) * 4;
+                if(bodyBytesSize >= b64Idx) {
+                    byte[] data = new byte[bodyBytesSize];
+                    for(int i=0;i<b64Idx;++i)
+                    	data[i] = b64Buffer[i];
+		            System.arraycopy(b, 0, data, b64Idx, bodyBytesSize - b64Idx);
+                    byte tBuf[] = Base64.decode(data);
+                    os.write(tBuf);
+                    int remainBytes = (b64Idx + index) % 4;
+                    for(int i=0;i<remainBytes;++i)
+                        b64Buffer[i] = b[bodyBytesSize - b64Idx + i];
+                    b64Idx = remainBytes;
+                } else {
+                    for(int i=0;i<index;++i)
+                        b64Buffer[b64Idx++] = b[i];
+                }
+            } else {
+                os.write(b, 0, index);
+            }
+            
+        	if(index < b.length) {
+            	Log.info(TAG_LOG,"[aaron] write run into the end");
+                // If we finished the body we may have few bytes left behind
+                if (b64Idx > 0) {
+                	for(int i=b64Idx;i<B64BUFFER_SIZE;i++)
+                		b64Buffer[i] = '\0';
+                    byte[] tBuf = Base64.decode(b64Buffer);
+                    os.write(tBuf);
+                    b64Idx = 0;
+                }
+                body = false;
+                epilogue = true;
+                buffer = new StringBuffer();
+                buffer.append(new String(b), index, b.length);
+                Log.debug(TAG_LOG, "write,<--epilogue, "+epilogue+", prologue, "+prologue+", body, "+body+", invalidObject, "+invalidObject);
+            } 
+			} catch (Exception e) {
+				Log.error(TAG_LOG, " got exception ,"+e.toString());
+				e.printStackTrace();
+			}
+         } else {
+            buffer.append(new String(b));
+        }
+    }
+
     /**
      * Close the output stream. When the stream is closed, the method makes sure
      * that no pending bytes are present. If there are, then the body and the
@@ -185,6 +292,7 @@ public class FileObjectOutputStream extends OutputStream {
      * information cannot be parsed properly.
      */
     public void close() throws IOException {
+    	Log.debug(TAG_LOG, "close --> epilogue, "+epilogue+", prologue, "+prologue+", body, "+body+", invalidObject, "+invalidObject);
         if (epilogue) {
             os.close();
             if (!invalidObject) {
@@ -201,7 +309,9 @@ public class FileObjectOutputStream extends OutputStream {
             try {
                 if (!invalidObject) {
                     String obj = buffer.toString();
-                    ByteArrayInputStream bis = new ByteArrayInputStream(obj.getBytes());
+                    Log.debug(TAG_LOG,"obj -- "+obj);
+//                    ByteArrayInputStream bis = new ByteArrayInputStream(obj.getBytes());
+                    ByteArrayInputStream bis = new ByteArrayInputStream(obj.getBytes("utf-8"));
                     String bod = fo.parse(bis);
                     if (bod != null) {
                         if (fo.isBodyBase64()) {
@@ -217,6 +327,7 @@ public class FileObjectOutputStream extends OutputStream {
                             Log.debug(TAG_LOG, "Received an emtpy file");
                         }
                     }
+                    bis.close();
                 } else {
                     os.close();
                 }
@@ -233,7 +344,7 @@ public class FileObjectOutputStream extends OutputStream {
         } 
     }
 
-    /**
+	/**
      * Flushes the underlying stream.
      */
     public void flush() throws IOException {

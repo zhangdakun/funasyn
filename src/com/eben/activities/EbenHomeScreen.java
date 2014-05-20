@@ -425,8 +425,13 @@ public class EbenHomeScreen extends Activity implements HomeScreen, UISyncSource
 				break;
 			case 2:
 				Intent intent = new Intent();
-				
+				if(0 == msg.getData().getInt("index")) {
+					intent.putExtra("type", 0);
+				} else {
+					intent.putExtra("type", 1);
+				}
 				intent.setClass(EbenHomeScreen.this, BackupActivity.class);
+				
 				
 				EbenHomeScreen.this.startActivity(intent);
 				break;

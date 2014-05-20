@@ -505,4 +505,14 @@ public class AppInitializer {
                   new ComponentName(BuildInfo.PACKAGE_NAME,
         "com.funambol.android.edit_contact.AndroidEditContact"));
     }
+
+	public String getUserName() {
+		// TODO Auto-generated method stub
+		return getConfiguration().getUsername();
+	}
+
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return getConfiguration().getPassword();
+	}
 }

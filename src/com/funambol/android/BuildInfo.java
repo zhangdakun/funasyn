@@ -7,9 +7,9 @@
         public class BuildInfo
         {
             public final static String VERSION = "10.0.4 (debug)";
-            public final static String DATE = "20140226";
+            public final static String DATE = "20140516";
             public final static String MODE = "debug";
-            public final static String PACKAGE_NAME = "com.funambol.androidsync";
+            public final static String PACKAGE_NAME = "cn.eben.androidsync";
             public final static boolean UNIT_TEST = false;
             public final static boolean TEST_RECORDING_ENABLED = false;
 

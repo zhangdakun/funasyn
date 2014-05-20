@@ -140,7 +140,10 @@ public class SapiHandler {
             contentLength = r.length;
             s = new ByteArrayInputStream(r);
         }
-        return query(name, action, params, headers, s, contentLength, null);
+        JSONObject obj = query(name, action, params, headers, s, contentLength, null);
+		if(s != null)
+        	s.close();
+        return obj;
     }
 
     public JSONObject query(String name, String action, Vector params,
@@ -159,7 +162,6 @@ public class SapiHandler {
         String url = createUrl(name, action, params);
         HttpConnectionAdapter conn;
         
-        long uploadContentLength = contentLength - fromByte;
 
         try {
             // Open the connection with a given size to prevent the output
@@ -180,6 +182,7 @@ public class SapiHandler {
                 conn.setRequestProperty(CONTENT_TYPE_HEADER, contentType);
             }
 
+            long uploadContentLength = contentLength - fromByte;
             if (Log.isLoggable(Log.DEBUG)) {
                 Log.debug(TAG_LOG, "Setting content length to " + uploadContentLength);
             }
@@ -219,18 +222,21 @@ public class SapiHandler {
         // Set chunked streaming mode in order to avoid buffering
         conn.setChunkedStreamingMode(DEFAULT_CHUNK_SIZE);
 
+        OutputStream os = null;
         InputStream  is = null;
 
         if(listener != null) {
             listener.queryStarted((int)contentLength);
         }
         try {
+            os = conn.openOutputStream();
             // In case of SAPI that require a body, this must be written here
             // Note that the length is not handled here because we don't know
             // the length of the stream. Callers shall put it in the custom
             // headers if it is required.
             if (requestIs != null) {
                 int total = 0;
+                int read  = 0;
                 if(fromByte > 0) {
                     if (Log.isLoggable(Log.TRACE)) {
                         Log.trace(TAG_LOG, "Skip " + fromByte + " bytes from request InputStream");
@@ -238,17 +244,26 @@ public class SapiHandler {
                     requestIs.skip(fromByte);
                     total += fromByte;
                 }
-
-                SapiInputStream sapiIs = new SapiInputStream(requestIs, total, listener, (int)contentLength);
-                conn.execute(sapiIs, uploadContentLength);
-
+                byte chunk[] = new byte[DEFAULT_CHUNK_SIZE];
+                do {
+                    read = requestIs.read(chunk);
+                    if (read > 0) {
+                        if (Log.isLoggable(Log.TRACE)) {
+                            Log.trace(TAG_LOG, "Writing chunk size: " + read);
+                        }
+                        total += read;
+                        os.write(chunk, 0, read);
+                        if(listener != null) {
+                            listener.queryProgress(total);
+                        }
+                    }
+                } while(read != -1 && !isQueryCancelled());
                 if(isQueryCancelled()) {
                     Log.debug(TAG_LOG, "Query cancelled");
                     throw new IOException("Query cancelled");
                 }
-            } else {
-                conn.execute(null, -1);
             }
+            os.flush();
 
             if (Log.isLoggable(Log.TRACE)) {
                 Log.trace(TAG_LOG, "Response code is: " + conn.getResponseCode());
@@ -369,6 +384,7 @@ public class SapiHandler {
             if(listener != null) {
                 listener.queryEnded();
             }
+            response.close();
             // Prepare the response
             if(!StringUtil.isNullOrEmpty(r)) {
                 return new JSONObject(r);
@@ -393,6 +409,12 @@ public class SapiHandler {
             }
             throw ioe;
         } finally {
+            if (os != null) {
+                try {
+                    os.close();
+                } catch (IOException e) {}
+                os = null;
+            }
             if (is != null) {
                 try {
                     is.close();
@@ -455,7 +477,8 @@ public class SapiHandler {
             // Ask for the current length
             conn.setRequestProperty("Content-Range", "bytes */" + size);
 
-            conn.execute(null, -1);
+            os = conn.openOutputStream();
+            os.flush();
 
             if (conn.getResponseCode() == HttpConnectionAdapter.HTTP_OK) {
                 // We have uploaded the item completely or the SAPI returned an
@@ -539,6 +562,12 @@ public class SapiHandler {
             Log.error(TAG_LOG, "Cannot open http connection", ioe);
             throw ioe;
         } finally {
+            if (os != null) {
+                try {
+                    os.close();
+                } catch (IOException e) {}
+                os = null;
+            }
             if (conn != null) {
                 try {
                     conn.close();

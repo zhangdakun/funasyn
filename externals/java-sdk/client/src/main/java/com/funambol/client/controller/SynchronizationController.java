@@ -35,37 +35,36 @@
 
 package com.funambol.client.controller;
 
-import java.util.Vector;
 import java.util.Enumeration;
+import java.util.Vector;
 
 import com.funambol.client.configuration.Configuration;
-import com.funambol.client.engine.SyncEngine;
-import com.funambol.client.engine.Poller;
-import com.funambol.client.engine.SyncEngineListener;
+import com.funambol.client.customization.Customization;
 import com.funambol.client.engine.AppSyncRequest;
+import com.funambol.client.engine.Poller;
+import com.funambol.client.engine.SyncEngine;
+import com.funambol.client.engine.SyncEngineListener;
+import com.funambol.client.localization.Localization;
+import com.funambol.client.push.SyncScheduler;
 import com.funambol.client.source.AppSyncSource;
 import com.funambol.client.source.AppSyncSourceConfig;
 import com.funambol.client.source.AppSyncSourceManager;
-import com.funambol.client.customization.Customization;
-import com.funambol.client.localization.Localization;
 import com.funambol.client.ui.Screen;
-import com.funambol.client.push.SyncScheduler;
-import com.funambol.syncml.protocol.SyncML;
-import com.funambol.sync.SyncException;
-import com.funambol.sync.SyncSource;
-import com.funambol.sync.SourceConfig;
-import com.funambol.sync.SyncListener;
-import com.funambol.util.ConnectionListener;
-import com.funambol.util.Log;
 import com.funambol.platform.NetworkStatus;
 import com.funambol.sapisync.source.JSONSyncSource;
+import com.funambol.sync.SourceConfig;
+import com.funambol.sync.SyncException;
+import com.funambol.sync.SyncSource;
+import com.funambol.syncml.protocol.SyncML;
+import com.funambol.util.ConnectionListener;
+import com.funambol.util.Log;
 
 /**
  * This class provides a basic controller that can be used by any other
  * controller that needs synchronization support. This controller is just
  * a building block, it does not control any UI component. But it shall be
  * extended by controllers that need synchronization capabilities (e.g.
- * HomeScreenController and AccountScreenController).
+ * HomeScreenController and AccountController).
  */
 public class SynchronizationController extends BasicSynchronizationController
         implements ConnectionListener, SyncEngineListener {
@@ -216,7 +215,9 @@ public class SynchronizationController extends BasicSynchronizationController
      * @param direction the refresh direction
      */
     public void refresh(int mask, int direction) {
-
+        if (Log.isLoggable(Log.INFO)) {
+            Log.error(TAG_LOG, "Button pressed direction " + direction);
+        }
         Enumeration sources = appSyncSourceManager.getEnabledAndWorkingSources();
         Vector syncSources = new Vector();
         while(sources.hasMoreElements()) {
@@ -570,6 +571,12 @@ public class SynchronizationController extends BasicSynchronizationController
     protected void showMessage(String msg) {
         controller.getDialogController().showMessage(screen, msg);
     }
+    
+    protected void showMessage(String msg,boolean isFlag) {
+//        controller.getDialogController().showMessage(screen, msg, isFlag);
+    	controller.getDialogController().showMessage(screen, msg );
+    }
+    
 
     // ConnectionListener implementation
     
@@ -596,8 +603,12 @@ public class SynchronizationController extends BasicSynchronizationController
 
     public void noSignal() {
         showMessage(localization.getLanguage("message_no_signal"));
-
     }
+    
+    public void showDialog(boolean isFlag) {
+    	showMessage(localization.getLanguage("eben_sdcard_alert_comment"), isFlag);
+    }
+    
 
     public void setCancel(boolean value) {
         doCancel = value;

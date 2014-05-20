@@ -64,6 +64,7 @@ public class CodedException extends RuntimeException {
     public static final int CONNECTION_BLOCKED_BY_USER  = 205;
     public static final int READ_SERVER_RESPONSE_ERROR  = 206;
     public static final int OPERATION_INTERRUPTED       = 207;
+    public static final int OPERATION_TIMEOUT       	= 208;
 
     /** The code of the exception */
     private int code;

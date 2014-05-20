@@ -35,15 +35,13 @@
 
 package com.funambol.storage;
 
-import java.util.Enumeration;
 import java.io.IOException;
+import java.util.Enumeration;
 
 import android.content.Context;
-import android.content.ContentValues;
-
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.Cursor;
 
 import com.funambol.util.Log;
 
@@ -77,7 +75,7 @@ public class StringKeyValueSQLiteStore implements StringKeyValueStore {
      * @param dbName The database file name.
      * @param tableName The table name.
      */
-    public StringKeyValueSQLiteStore(Context c, String dbName, String tableName) {
+    public StringKeyValueSQLiteStore(Context c, String dbName, String tableName) throws Exception{
         mDatabaseHelper = new DatabaseHelper(c, dbName, tableName);
         this.tableName = tableName;
 
@@ -85,6 +83,7 @@ public class StringKeyValueSQLiteStore implements StringKeyValueStore {
         // already)
         open();
         dbStore.execSQL(getCreateSQLCommand());
+        dbStore.execSQL(getCreateIndexSQLCommand());
         dbStore.close();
         dbStore = null;
     }
@@ -92,40 +91,58 @@ public class StringKeyValueSQLiteStore implements StringKeyValueStore {
     /**
      * @see StringKeyValueStore#add(java.lang.String, java.lang.String) 
      */
-    public void add(String key, String value) {
-        ContentValues cv = new ContentValues();
-        cv.put(KEY_COLUMN_NAME, key);
-        cv.put(VALUE_COLUMN_NAME, value);
+    public void add(String key, String value) throws Exception{
+//        ContentValues cv = new ContentValues();
+//        cv.put(KEY_COLUMN_NAME, key);
+//        cv.put(VALUE_COLUMN_NAME, value);
         if (dbStore == null) {
             open();
         }
-        if(dbStore.insert(tableName, null, cv) != -1) {
-            Log.debug(TAG_LOG, "Insert new record. Key: " + key + " value: " +
-                    value);
-        } else {
-            Log.error(TAG_LOG, "Error while insert new record. Key: " + key +
-                    " value: " + value);
-        }
+
+        StringBuffer sql = new StringBuffer();
+        sql.append("insert into ").append(tableName).append(" (").append(KEY_COLUMN_NAME).append(",").
+        		append(VALUE_COLUMN_NAME).append(") ").append("values(?,?)");
+        Object[] bindArgs = {key,value};
+        dbStore.execSQL(sql.toString(), bindArgs);
+
+//        if(dbStore.insert(tableName, null, cv) != -1) {
+//            Log.debug(TAG_LOG, "Insert new record. Key: " + key + " value: " +
+//                    value);
+//        } else {
+//            Log.error(TAG_LOG, "Error while insert new record. Key: " + key +
+//                    " value: " + value);
+//        }
+        finalize();
     }
 
     /**
      * @see StringKeyValueStore#update(java.lang.String, java.lang.String) 
      */
-    public void update(String key, String value) {
-        ContentValues cv = new ContentValues();
-        cv.put(KEY_COLUMN_NAME, key);
-        cv.put(VALUE_COLUMN_NAME, value);
+    public void update(String key, String value) throws Exception{
+//        ContentValues cv = new ContentValues();
+//        cv.put(KEY_COLUMN_NAME, key);
+//        cv.put(VALUE_COLUMN_NAME, value);
         if (dbStore == null) {
             open();
         }
-        StringBuffer where = new StringBuffer(KEY_COLUMN_NAME);
-        where.append("=\"").append(key).append("\"");
-        if(dbStore.update(tableName, cv, where.toString(), null) != -1) {
-            Log.debug(TAG_LOG, "Update record. Key: " + key + " value: " + value);
-        } else {
-            Log.error(TAG_LOG, "Error while update record. Key: " + key +
-                    " value: " + value);
-        }
+//        StringBuffer where = new StringBuffer(KEY_COLUMN_NAME);
+//        where.append("=\"").append(key).append("\"");
+        
+
+        StringBuffer sqlBuffer = new StringBuffer();
+        sqlBuffer.append("update ").append(tableName).append(" set ").append(KEY_COLUMN_NAME).append("=?,").
+        			append(VALUE_COLUMN_NAME).append("=? ").append("where ").append(KEY_COLUMN_NAME).append("=?");
+        String sql = sqlBuffer.toString();
+        Object[] bindArgs = {key,value,key};
+        dbStore.execSQL(sql, bindArgs);
+       
+//        if(dbStore.update(tableName, cv, where.toString(), null) != -1) {
+//            Log.debug(TAG_LOG, "Update record. Key: " + key + " value: " + value);
+//        } else {
+//            Log.error(TAG_LOG, "Error while update record. Key: " + key +
+//                    " value: " + value);
+//        }
+        finalize();
     }
 
     /**
@@ -138,16 +155,18 @@ public class StringKeyValueSQLiteStore implements StringKeyValueStore {
     /**
      * @see StringKeyValueStore#get(java.lang.String)
      */
-    public String get(String key) {
+    public String get(String key) throws Exception{
 
         String result = null;
         if (dbStore == null) {
             open();
         }
         StringBuffer where = new StringBuffer(KEY_COLUMN_NAME);
-        where.append("=\"").append(key).append("\"");
+//        where.append("=\"").append(key).append("\"");
+        where.append("=?");
+        String[] selectionArgs = {key};
         Cursor resultCursor = dbStore.query(true, tableName, QUERY_VALUE_COLUMN,
-                where.toString(), null, null, null, null, null);
+                where.toString(), selectionArgs, null, null, null, null);
 
         if(resultCursor.getCount() > 0) {
             int colIndex = resultCursor.getColumnIndexOrThrow(VALUE_COLUMN_NAME);
@@ -155,13 +174,14 @@ public class StringKeyValueSQLiteStore implements StringKeyValueStore {
             result = resultCursor.getString(colIndex);
         }
         resultCursor.close();
+        finalize();
         return result;
     }
 
     /**
      * @see StringKeyValueStore#keys()
      */
-    public Enumeration keys() {
+    public Enumeration keys() throws Exception{
 
         if (dbStore == null) {
             open();
@@ -211,6 +231,10 @@ public class StringKeyValueSQLiteStore implements StringKeyValueStore {
                     }
                 } finally {
                     super.finalize();
+                    if (dbStore != null) {
+                        dbStore.close();
+                        dbStore = null;
+                    }
                 }
             }
         };
@@ -219,7 +243,7 @@ public class StringKeyValueSQLiteStore implements StringKeyValueStore {
     /**
      * @see StringKeyValueStore#keyValuePairs()
      */
-    public Enumeration keyValuePairs() {
+    public Enumeration keyValuePairs() throws Exception{
 
         if (dbStore == null) {
             open();
@@ -271,6 +295,10 @@ public class StringKeyValueSQLiteStore implements StringKeyValueStore {
                     }
                 } finally {
                     super.finalize();
+                    if (dbStore != null) {
+                        dbStore.close();
+                        dbStore = null;
+                    }
                 }
             }
         };
@@ -279,7 +307,7 @@ public class StringKeyValueSQLiteStore implements StringKeyValueStore {
     /**
      * @see StringKeyValueStore#contains(java.lang.String)
      */
-    public boolean contains(String key) {
+    public boolean contains(String key) throws Exception{
         if (dbStore == null) {
             open();
         }
@@ -289,19 +317,27 @@ public class StringKeyValueSQLiteStore implements StringKeyValueStore {
                 where.toString(), null, null, null, null, null);
         int count = result.getCount();
         result.close();
+        finalize();
         return count > 0;
     }
 
     /**
      * @see StringKeyValueStore#remove(java.lang.String)
      */
-    public String remove(String key) {
+    public String remove(String key) throws Exception{
         if (dbStore == null) {
             open();
         }
-        StringBuffer where = new StringBuffer(KEY_COLUMN_NAME);
-        where.append("=\"").append(key).append("\"");
-        dbStore.delete(tableName, where.toString(), null);
+        StringBuffer sql = new StringBuffer();
+        sql.append("delete from ").append(tableName).append(" where ").append(KEY_COLUMN_NAME).append("=?");
+        Object[] bindArgs = {key};
+        dbStore.execSQL(sql.toString(), bindArgs);
+
+//        
+//        StringBuffer where = new StringBuffer(KEY_COLUMN_NAME);
+//        where.append("=\"").append(key).append("\"");
+//        dbStore.delete(tableName, where.toString(), null);
+        finalize();
         return null;
     }
 
@@ -326,7 +362,7 @@ public class StringKeyValueSQLiteStore implements StringKeyValueStore {
     /**
      * @see StringKeyValueStore#reset() 
      */
-    public void reset() throws IOException {
+    public void reset() throws Exception {
         // Delete all the rows from the current table
         if (dbStore == null) {
             open();
@@ -346,14 +382,25 @@ public class StringKeyValueSQLiteStore implements StringKeyValueStore {
     protected String getCreateSQLCommand() {
         return "CREATE TABLE IF NOT EXISTS " + tableName + " ("
                + KEY_COLUMN_NAME + " varchar[50],"
-               + VALUE_COLUMN_NAME + " varchar[50]);";
+               + VALUE_COLUMN_NAME + " varchar[50] NOT NULL);";
     }
 
-    private void open() {
+    protected String getCreateIndexSQLCommand() {
+        return "CREATE INDEX IF NOT EXISTS " + "index_"+tableName + " ON "
+               + tableName + " (" + KEY_COLUMN_NAME + ");";
+    }
+    
+    private void open() throws Exception{
+    	try {
         dbStore = mDatabaseHelper.getWritableDatabase();
+    	}catch(Exception e){
+    		
+    		e.printStackTrace();
+    		throw e;
+    	}
     }
 
-    public void dumpToLog() {
+    public void dumpToLog() throws Exception{
         if (dbStore == null) {
             open();
         }

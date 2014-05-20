@@ -155,7 +155,7 @@ public class BackupUISyncSource extends AndroidUISyncSource {
 
 	@Override
 	public void syncEnded() {
-		
+		Log.debug(TAG, "syncEnded");
 		if(null != handler) {
 			handler.sendEmptyMessage(0);
 		}

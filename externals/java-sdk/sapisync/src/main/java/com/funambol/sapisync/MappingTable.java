@@ -44,110 +44,168 @@ import com.funambol.storage.StringKeyValuePair;
 import com.funambol.util.StringUtil;
 import com.funambol.util.Log;
 
-
 public class MappingTable {
 
-    private static final String TAG_LOG = "MappingTable";
+	private static final String TAG_LOG = "MappingTable";
 
-    private StringKeyValueStore store;
+	private StringKeyValueStore store;
 
-    public MappingTable(String sourceName) {
-        StringKeyValueStoreFactory mappingFactory = StringKeyValueStoreFactory.getInstance();
-        store = mappingFactory.getStringKeyValueStore("mapping_" + sourceName);
-    }
+	public MappingTable(String sourceName) {
+		StringKeyValueStoreFactory mappingFactory = StringKeyValueStoreFactory
+				.getInstance();
+		store = mappingFactory.getStringKeyValueStore("mapping_" + sourceName);
+	}
 
-    public void reset() throws IOException {
-        store.reset();
-    }
+	public void reset() throws IOException {
+		try {
+			store.reset();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new IOException(e.toString());
+		}
+	}
 
-    public void load() throws IOException {
-        store.load();
-    }
+	public void load() throws IOException {
+		store.load();
+	}
 
-    public void save() throws IOException {
-        store.save();
-    }
+	public void save() throws IOException {
+		store.save();
+	}
 
-    public void remove(String guid) {
-        store.remove(guid);
-    }
+	public void remove(String guid) {
+		try {
+			store.remove(guid);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 
-    public void add(String guid, String luid, String crc, String name) {
-        String value = createValue(luid, crc, name);
-        store.add(guid, value);
-    }
+		}
+	}
 
-    public void update(String guid, String luid, String crc, String name) {
-        String value = createValue(luid, crc, name);
-        store.update(guid, value);
-    }
+	public void add(String guid, String luid, String crc, String name) {
+		String value = createValue(luid, crc, name);
+		try {
+			store.add(guid, value);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
-    public String getLuid(String guid) {
-        String value = store.get(guid);
-        return getFieldFromValue(value, 0);
-    }
+	public void update(String guid, String luid, String crc, String name) {
+		String value = createValue(luid, crc, name);
+		try {
+			store.update(guid, value);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
-    public String getCRC(String guid) {
-        String value = store.get(guid);
-        return getFieldFromValue(value, 1);
-    }
+	public String getLuid(String guid) {
+		String value = null;
+		try {
+			value = store.get(guid);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return getFieldFromValue(value, 0);
+	}
 
-    public String getName(String guid) {
-        String value = store.get(guid);
-        return getFieldFromValue(value, 2);
-    }
+	public String getCRC(String guid) {
+		String value = null;
+		try {
+			value = store.get(guid);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return getFieldFromValue(value, 1);
+	}
 
-    public Enumeration keyValuePairs() {
-        return store.keyValuePairs();
-    }
+	public String getName(String guid) {
+		String value = null;
+		try {
+			value = store.get(guid);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return getFieldFromValue(value, 2);
+	}
 
-    public Enumeration keys() {
-        return store.keys();
-    }
+	public Enumeration keyValuePairs() {
+		try {
+			return store.keyValuePairs();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
-    public String getGuid(String luid) {
-        Enumeration keyValuePairs = store.keyValuePairs();
-        while (keyValuePairs.hasMoreElements()) {
-            StringKeyValuePair pair = (StringKeyValuePair)keyValuePairs.nextElement();
-            String value = pair.getValue();
-            if (luid.equals(getFieldFromValue(value, 0))) {
-                return pair.getKey();
-            }
-        }
-        return null;
-    }
+	public Enumeration keys() {
+		try {
+			return store.keys();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
-    public void add(String guid, String luid) {
-        throw new IllegalArgumentException("Missing CRC");
-    }
+	public String getGuid(String luid) {
+		Enumeration keyValuePairs;
+		try {
+			keyValuePairs = store.keyValuePairs();
 
-    public void put(String guid, String luid) {
-        throw new IllegalArgumentException("Missing CRC");
-    }
+			while (keyValuePairs.hasMoreElements()) {
+				StringKeyValuePair pair = (StringKeyValuePair) keyValuePairs
+						.nextElement();
+				String value = pair.getValue();
+				if (luid.equals(getFieldFromValue(value, 0))) {
+					return pair.getKey();
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
-    public void update(String guid, String luid) {
-        throw new IllegalArgumentException("Missing CRC");
-    }
+	public void add(String guid, String luid) {
+		throw new IllegalArgumentException("Missing CRC");
+	}
 
-    // Both luid and crc cannot contain commas
-    private String createValue(String luid, String crc, String name) {
-        StringBuffer buf = new StringBuffer();
-        buf.append(luid).append(",").append(crc).append(",").append(name);
-        return buf.toString();
-    }
+	public void put(String guid, String luid) {
+		throw new IllegalArgumentException("Missing CRC");
+	}
 
-    private String getFieldFromValue(String value, int idx) {
-        if (value == null) {
-            return null;
-        }
-        String v[] = StringUtil.split(value, ",");
-        if (v == null || idx >= v.length) {
-            Log.error(TAG_LOG, "Mapping table invalid value " + value);
-            return "-1";
-        } else {
-            return v[idx];
-        }
-    }
+	public void update(String guid, String luid) {
+		throw new IllegalArgumentException("Missing CRC");
+	}
+
+	// Both luid and crc cannot contain commas
+	private String createValue(String luid, String crc, String name) {
+		StringBuffer buf = new StringBuffer();
+		buf.append(luid).append(",").append(crc).append(",").append(name);
+		return buf.toString();
+	}
+
+	private String getFieldFromValue(String value, int idx) {
+		if (value == null) {
+			return null;
+		}
+		String v[] = StringUtil.split(value, ",");
+		if (v == null || idx >= v.length) {
+			Log.error(TAG_LOG, "Mapping table invalid value " + value);
+			return "-1";
+		} else {
+			return v[idx];
+		}
+	}
 }
-
- 

@@ -66,7 +66,7 @@ public class TestableHttpConnectionAdapter extends HttpConnectionAdapter {
             tis.breakOnByte(breakOnPos);
             is = tis;
         }
-        super.execute(is, length);
+//        super.execute(is, length);
     }
 
     public void setBreakInfo(String phase, int breakOnPos) {

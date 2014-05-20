@@ -144,5 +144,11 @@ public interface UISyncSource {
      * sync. The UISource can use this info to display a progress of some sorts
      */
     public void setProgress(int percentage);
+    public String getStatusString();
+    
+    /**
+     * Set the status icon to be used when the item is not selected
+     */
+    public void setStatusIconId(int iconId);
 }
 

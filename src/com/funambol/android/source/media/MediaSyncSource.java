@@ -200,7 +200,7 @@ public abstract class MediaSyncSource extends FunambolFileSyncSource {
         return SyncSource.SUCCESS_STATUS;
     }
     
-    @Override
+//    @Override
     protected boolean isDeleteAllItemsAllowed() {
         //for media, deletion of local files is not allowed
         return false;

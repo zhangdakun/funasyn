@@ -35,7 +35,7 @@
  -->
 
 <resources>
-    <string name="app_name">E本通讯录同步</string>
+    <string name="app_name">备份恢复</string>
     <string name="company_name">eben Inc.</string>
     <string name="account_label">eben</string>
     <string name="account_type">eben</string>

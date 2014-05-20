@@ -598,6 +598,7 @@ class SyncSourceLOHandler {
         Vector items = new Vector();
         // Build Delete command
         boolean done = false;
+        int count = 0;
         do {
             items.addElement(commandItem);
 
@@ -618,7 +619,8 @@ class SyncSourceLOHandler {
             }
             commandItem = prepareItemDelete(item.getKey());
             commandSize += computeItemSize(commandItem);
-        } while (size + commandSize < maxMsgSize);
+            count ++;
+        } while (size + commandSize < maxMsgSize && count < 10); // lierbao set count < 10
 
         command.setItems(items);
         command.setSize(commandSize);
@@ -663,7 +665,7 @@ class SyncSourceLOHandler {
         if (isSyncToBeCancelled()) {
             cancelSync();
         }
-
+        Log.trace(TAG_LOG, "getNextCommand size is "+size);
         // During a resume we may need to send delete commands for items that
         // were previously sent and got deleted after the suspend
         if (resume && !deletesResumed) {
@@ -710,7 +712,7 @@ class SyncSourceLOHandler {
         }
 
         SyncMLCommand command = SyncMLCommand.newInstance(SyncML.TAG_REPLACE);
-
+        Log.trace(TAG_LOG, "nextChunk is "+nextChunk+", resume is "+resume);
         // Here we grab the standard items
         if (nextChunk == null) {
             if (resume) {
@@ -938,7 +940,7 @@ class SyncSourceLOHandler {
 
     private Chunk getNextItemHelper(int syncSourceMethod) throws SyncException {
         if (Log.isLoggable(Log.TRACE)) {
-            Log.trace(TAG_LOG, "getNextItemHelper");
+            Log.trace(TAG_LOG, "getNextItemHelper syncMode is "+syncSourceMethod);
         }
 
         if (isSyncToBeCancelled()) {
@@ -1135,7 +1137,8 @@ class SyncSourceLOHandler {
                             content = binData;
                         }
                     } else {
-                        content = XmlUtil.unescapeXml(data).getBytes("UTF-8");
+//                        content = XmlUtil.unescapeXml(data).getBytes("UTF-8");
+                    	content = data.getBytes("UTF-8");// lierbao for cddata not parse
                     }
                 }
             } catch (UnsupportedEncodingException uee) {
@@ -1152,6 +1155,8 @@ class SyncSourceLOHandler {
         Chunk chunk = new Chunk(key, type, parent, content, hasMoreData);
         if (parent == null && sourceParent != null) {
             chunk.setSourceParent(sourceParent);
+        } else if (parent == null && tgtParent != null) {
+        	chunk.setSourceParent(tgtParent.getLocURI());
         }
         return chunk;
     }
@@ -1162,8 +1167,8 @@ class SyncSourceLOHandler {
 
         Item item = Item.newInstance();
        
-        if (Log.isLoggable(Log.INFO)) {
-            Log.info(TAG_LOG, "The encoding method is [" + source.getEncoding() + "]");
+        if (Log.isLoggable(Log.DEBUG)) {
+            Log.debug(TAG_LOG, "The encoding method is [" + source.getEncoding() + "]");
         }
         String encodedData  = null;
         byte   binaryData[] = null;

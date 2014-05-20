@@ -40,11 +40,13 @@ import java.util.Calendar;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ByteArrayInputStream;
+import java.io.UnsupportedEncodingException;
 
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParser;
 import com.funambol.org.kxml2.io.KXmlParser;
 
+import com.funambol.util.Base64;
 import com.funambol.util.DateUtil;
 import com.funambol.util.StringUtil;
 import com.funambol.util.Log;
@@ -89,8 +91,9 @@ public class FileObject {
     private static final String ENC_ATTR       = "enc";
     private static final String BASE64_ENC     = "base64";
 
-    private static final String TRUE            = "TRUE";
-    private static final String FALSE           = "FALSE";
+    private static final String STREAM_DATA = "withdata";
+    private static final String TRUE            = "true";
+    private static final String FALSE           = "false";
 
     private String  name       = null;
     private Date    modified   = null;
@@ -105,9 +108,25 @@ public class FileObject {
     private boolean readable   = false;
     private boolean executable = false;
     private boolean bodyBase64 = false;
+    private boolean withdata = true;
+    private boolean authSyncInter = false;
+    private String updateOp;
 
     private String  fileTagName = FILE_TAG;
     private String  bodyTagName = BODY_TAG;
+    private static final String TAG_LOG = "fileObject";
+    public boolean isAuthSyncInter() {
+		return authSyncInter;
+	}
+	public void setAuthSyncInter(boolean authSyncInter) {
+		this.authSyncInter = authSyncInter;
+	}
+    public String getUpdateOp() {
+		return updateOp;
+	}
+	public void setUpdateOp(String updateOp) {
+		this.updateOp = updateOp;
+	}
 
     public FileObject() {
     }
@@ -290,6 +309,9 @@ public class FileObject {
         return bodyBase64;
     }
 
+    public boolean iswithdata() {
+        return withdata;
+    }
     /**
      * Formats the prologue of this file object. The prologue is everything from
      * the File tag up to the body content (excluded)
@@ -311,23 +333,23 @@ public class FileObject {
      */
     public String formatPrologue(boolean formatBody) {
         StringBuffer buf = new StringBuffer();
-
+        buf.append("<?xml version=\"1.0\" encoding=\"utf-8\"?> ").append("\n");
         formatStartTag(buf, FILE_TAG);
         buf.append("\n");
         if (name != null) {
             formatCompleteTag(buf, NAME_TAG, name);
         }
         if (modified != null) {
-            String mod = DateUtil.formatDateTimeUTC(modified);
-            formatCompleteTag(buf, MODIFIED_TAG, mod);
+            //String mod = DateUtil.formatDateTimeUTC(modified);
+            formatCompleteTag(buf, MODIFIED_TAG, modified.getTime()+"");
         }
         if (created != null) {
-            String cre = DateUtil.formatDateTimeUTC(created);
-            formatCompleteTag(buf, CREATED_TAG, cre);
+           // String cre = DateUtil.formatDateTimeUTC(created);
+            formatCompleteTag(buf, CREATED_TAG, created.getTime()+"");
         }
         if (accessed != null) {
-            String acc = DateUtil.formatDateTimeUTC(accessed);
-            formatCompleteTag(buf, ACCESSED_TAG, acc);
+           // acc = DateUtil.formatDateTimeUTC(accessed);
+            formatCompleteTag(buf, ACCESSED_TAG, accessed.getTime()+"");
         }
 
         // Format all the attributes
@@ -350,7 +372,17 @@ public class FileObject {
 
         // Format the body tag if required
         if (formatBody) {
+        	if(authSyncInter) {
+        		if(null != updateOp) {
+        			buf.append("<").append(BODY_TAG).append(" withdata=\"false\"")
+        			.append( " op=\"").append(updateOp).append("\">");
+        		}else {
+        		buf.append("<").append(BODY_TAG).append(" withdata=\"false\">");
+        		}
+        	}
+        	else {
             buf.append("<").append(BODY_TAG).append(" enc=\"base64\">");
+        	}
         }
         return buf.toString();
     }
@@ -452,6 +484,7 @@ public class FileObject {
             parseFile(parser, false);
             // the last token must be the file tag
             require(parser, parser.END_TAG, null, FILE_TAG);
+            bis.close();
         } catch (FileObjectException foe) {
             Log.error("Error parsing FileObject: " + foe.toString());
             throw foe;
@@ -483,11 +516,13 @@ public class FileObject {
             body = parseFile(parser, false);
             // Now we expect the body end tag
             nextSkipSpaces(parser);
+            if(null != body) {
             require(parser, parser.END_TAG, null, BODY_TAG);
             // Now we can parse all the remaining items
             parseFile(parser, false);
             // the last token must be the file tag
             require(parser, parser.END_TAG, null, FILE_TAG);
+            }
         } catch (FileObjectException foe) {
             Log.error("Error parsing FileObject: " + foe.toString());
             throw foe;
@@ -534,6 +569,15 @@ public class FileObject {
                             bodyBase64 = true;
                         }
                     }
+                    else if (StringUtil.equalsIgnoreCase(attribute, STREAM_DATA)) {
+                        String value = parser.getAttributeValue(i);
+                        if (StringUtil.equalsIgnoreCase(value, TRUE)) {
+                            withdata = true;
+                        }
+                        else {
+                            withdata = false;
+                        }
+                    }                    
                 }
                 // Get the first part of the body
                 parser.next();
@@ -758,8 +802,10 @@ public class FileObject {
 
     private Date parseDate(String value) throws FileObjectException {
         try {
-            Calendar date = DateUtil.parseDateTime(value);
-            Date d = date.getTime();
+//            Calendar date = DateUtil.parseDateTime(value);
+        	long date = Long.parseLong(value);
+        	Log.debug(TAG_LOG, "date is "+date);
+        	Date d = new Date(date); // lierbao 12-02-027 vaule is type like 1328548546000 1330338756
             return d;
         } catch (Exception e) {
             Log.error("Cannot parse date " + value + " " + e.toString());

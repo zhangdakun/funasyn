@@ -293,7 +293,7 @@ public abstract class SignupScreenController extends AccountScreenController {
     }
 
     public synchronized void synchronize(String syncType, Vector syncSources) {
-        if (networkStatus != null && !networkStatus.isConnected()) {
+        if (networkStatus != null && !networkStatus.isNetworkAvailable()) {
             if (networkStatus.isRadioOff()) {
                 noConnection();
             } else {
@@ -500,7 +500,6 @@ public abstract class SignupScreenController extends AccountScreenController {
                 conn = ConnectionManager.getInstance().openHttpConnection(
                         captchaUrl, "wrapper");
                 conn.setRequestMethod(HttpConnectionAdapter.GET);
-                conn.execute(null, -1);
                 if (Log.isLoggable(Log.DEBUG)) {
                     Log.debug(TAG_LOG, "Response is: " + conn.getResponseCode());
                 }
@@ -594,6 +593,14 @@ public abstract class SignupScreenController extends AccountScreenController {
             // If the last entered code didn't match, we show an alert message
             if(unmatched) {
                 showMessage(localization.getLanguage("signup_failed_invalid_captcha"));
+            }
+            
+            if(captcha != null) {
+            	try {
+                    captcha.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
             }
         }
 

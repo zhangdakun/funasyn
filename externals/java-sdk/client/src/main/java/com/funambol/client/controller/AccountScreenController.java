@@ -113,7 +113,7 @@ public class AccountScreenController extends SynchronizationController {
         }
     }
 
-    public void saveAndCheck(String serverUri, String username, String password) {
+    public boolean saveAndCheck(String serverUri, String username, String password) {
 
         if (Log.isLoggable(Log.TRACE)) {
             Log.trace(TAG_LOG, "saveAndCheck");
@@ -123,7 +123,7 @@ public class AccountScreenController extends SynchronizationController {
         // that the account cannot be saved
         if (isSyncInProgress()) {
             showSyncInProgressMessage();
-            return;
+            return false;
         }
 
         // Trim all values so that spaces
@@ -141,14 +141,13 @@ public class AccountScreenController extends SynchronizationController {
             || StringUtil.isNullOrEmpty(serverUri))
         {
             showMessage(localization.getLanguage("login_failed_empty_params"));
-            return;
+            return false;
         } else if (!StringUtil.isValidProtocol(serverUri)) {
             showMessage(localization.getLanguage("status_invalid_url"));
-            return;
+            return false;
         }
 
-        if(    !originalUser.equals(serverUri)
-            || !originalUser.equals(username)
+        if(    !originalUrl.equals(serverUri) || !originalUser.equals(username)
             || !originalPassword.equals(password)
             || configuration.getCredentialsCheckPending())
         {
@@ -162,7 +161,7 @@ public class AccountScreenController extends SynchronizationController {
             if (configuration.save() != Configuration.CONF_OK) {
                 showMessage(localization.getLanguage("message_config_error") + ": " +
                         localization.getLanguage("message_config_error_save"));
-                return;
+                return false;
             }
 
             // If the credentials check is not needed we directly authenticate
@@ -173,7 +172,7 @@ public class AccountScreenController extends SynchronizationController {
                         userAuthenticated();
                     }
                 }.start();
-                return;
+                return false;
             }
 
             // Now we must perform a sync of the configuration to authenticate and
@@ -187,7 +186,8 @@ public class AccountScreenController extends SynchronizationController {
                 failed = false;
                 sourceStarted = false;
                 exp = null;
-                screen.disableSave();
+                if(null != screen)
+                	screen.disableSave();
 
                 Vector sources = new Vector();
                 sources.addElement(configAppSource);
@@ -215,7 +215,10 @@ public class AccountScreenController extends SynchronizationController {
             if (Log.isLoggable(Log.DEBUG)) {
                 Log.debug(TAG_LOG, "No need to authenticate");
             }
+            return false;
         }
+        
+        return true;
     }
 
     protected boolean isSyncInProgress() {
@@ -256,13 +259,14 @@ public class AccountScreenController extends SynchronizationController {
 
     public void syncEnded() {
         super.syncEnded();
-
-        screen.enableSave();
+        if(null != screen)
+        	screen.enableSave();
         if (failed && sourceStarted) {
             if (Log.isLoggable(Log.INFO)) {
                 Log.info(TAG_LOG, "Cannot access home screen");
             }
-            screen.checkFailed();
+            if(null != screen)
+            	screen.checkFailed();
             // Clear the configuration for no pending credentials check
             configuration.setCredentialsCheckPending(true);
             configuration.save();
@@ -293,15 +297,17 @@ public class AccountScreenController extends SynchronizationController {
             // Clear the configuration for no pending credentials check
             configuration.setCredentialsCheckPending(true);
             configuration.save();
-            screen.checkFailed();
+            if(null != screen)
+            	screen.checkFailed();
         } else {
             // The user is authenticated, hide the login and open the main view
             // screen
             userAuthenticated();
-
-            originalUrl = screen.getSyncUrl();
-            originalUser = screen.getUsername();
-            originalPassword = screen.getPassword();
+            if(null != screen) {
+	            originalUrl = screen.getSyncUrl();
+	            originalUser = screen.getUsername();
+	            originalPassword = screen.getPassword();
+            }
         }
     }
 
@@ -421,8 +427,8 @@ public class AccountScreenController extends SynchronizationController {
         configuration.setSignupAccountCreated(true);
         configuration.setCredentialsCheckPending(false);
         configuration.save();
-
-        screen.checkSucceeded();
+        if(null != screen)
+        	screen.checkSucceeded();
     }
 
     public void switchToSignupScreen() {

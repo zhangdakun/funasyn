@@ -170,7 +170,10 @@ public class VersionCacheTracker extends CacheTracker
                 } catch(IOException ex) {
                     Log.error(LOG_TAG, "Cannot reset status", ex);
                     throw new TrackerException("Cannot reset status");
-                }
+                } catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         }
     }
@@ -281,7 +284,10 @@ public class VersionCacheTracker extends CacheTracker
                 }
                 snapshot.moveToNext();
             }
-        } finally {
+        } catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
             if(snapshot != null) {
                 snapshot.close();
             }
@@ -348,11 +354,16 @@ public class VersionCacheTracker extends CacheTracker
         if(syncMode == SyncSource.FULL_SYNC ||
            syncMode == SyncSource.FULL_UPLOAD) {
             SyncItem item = new SyncItem(key);
-            if(status.get(key) != null) {
-                status.update(key, computeFingerprint(item));
-            } else {
-                status.add(key, computeFingerprint(item));
-            }
+            try {
+				if(status.get(key) != null) {
+				    status.update(key, computeFingerprint(item));
+				} else {
+				    status.add(key, computeFingerprint(item));
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         } else if (isSuccess(itemStatus) && itemStatus != SyncSource.CHUNK_SUCCESS_STATUS) {
             // We must update the fingerprint store with the value of the
             // fingerprint at the last sync
@@ -360,15 +371,30 @@ public class VersionCacheTracker extends CacheTracker
                 // This is a new item
                 String itemFP = (String)newItems.get(key);
                 // Update the fingerprint
-                status.add(key, itemFP);
+                try {
+					status.add(key, itemFP);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             } else if (updatedItems.get(key) != null) {
                 // This is a new item
                 String itemFP = (String)updatedItems.get(key);
                 // Update the fingerprint
-                status.update(key, itemFP);
+                try {
+					status.update(key, itemFP);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             } else if (deletedItems.get(key) != null) {
                 // Update the fingerprint
-                status.remove(key);
+                try {
+					status.remove(key);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         }
     }

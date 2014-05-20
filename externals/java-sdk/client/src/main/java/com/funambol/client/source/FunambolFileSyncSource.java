@@ -83,7 +83,7 @@ public class FunambolFileSyncSource extends FileSyncSource {
             // Create the default folder if it doesn't exist
             FileAdapter d = new FileAdapter(getDirectory());
             if(!d.exists()) {
-                d.mkdir();
+                d.mkdirs();
             }
             d.close();
         } catch(IOException ex) {

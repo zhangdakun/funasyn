@@ -208,7 +208,7 @@ public class SyncEngine implements SyncSchedulerListener {
             return false;
         }
 
-        if (networkStatus != null && !networkStatus.isConnected()) {
+        if (networkStatus != null && !networkStatus.isNetworkAvailable()) {
             if (networkStatus.isRadioOff()) {
                 if (listener != null) {
                     listener.noConnection();
@@ -290,7 +290,13 @@ public class SyncEngine implements SyncSchedulerListener {
 
             // We apply some logic to decide some of the synchronization configuration properties.
             DevInf serverDevInf = configuration.getServerDevInf();
-            adaptSyncConfig(config, dc, serverDevInf);
+            // lierbao set all source wbxml false 20130108
+            if(true ){
+                dc.setWBXML(false);
+            }
+            else {
+                adaptSyncConfig(config, dc, serverDevInf);
+            }
 
             SyncManager sm = new SyncManager(config, dc);
             if(customTransportAgent != null) {
@@ -421,6 +427,9 @@ public class SyncEngine implements SyncSchedulerListener {
 
                 try {
                     // Set this source as the one currently synchronized
+           	   	    appSource.getConfig().setSyncSourceIdFinish(true); //lierbao
+        	        appSource.getConfig().commit();
+        	     
                     currentSource = appSource;
                     
                     //This sync could have been cancelled when the client was
@@ -437,9 +446,10 @@ public class SyncEngine implements SyncSchedulerListener {
                     }
 
                     currentSource = null;
-
+                    Log.debug(TAG_LOG," source status is "+source.getStatus());
                     if (source.getStatus() != SyncSource.STATUS_SUCCESS) {
                         failedSources.addElement(appSource);
+                        break;//lierbao add this break;
                     } 
 
                     // If we get here, it means that the sync was succesfull and
@@ -450,11 +460,12 @@ public class SyncEngine implements SyncSchedulerListener {
                     // place next time in order not to have intem deleted whitin
                     // a reset operation to be sent to the server on the next 
                     // fast sync
-                    if (listener != null) {
+                  //lierbao add x == (appSources.size()-1) condition ,after all sources ended ,then to listen to next app source 2011-10-8
+                    if (listener != null) { 
                         listener.sourceEnded(appSource);
                     }
                 } catch (final Exception e) {
-                	e.printStackTrace();
+
                     boolean compressError = (e instanceof CompressedSyncException);
                     if (compressError) {
                         if (!compressionRetry) {
@@ -474,7 +485,10 @@ public class SyncEngine implements SyncSchedulerListener {
                     }
 
                     if (listener != null) {
+                  	   	appSource.getConfig().setSyncSourceIdFinish(false); //lierbao
+                	    appSource.getConfig().commit();
                         listener.sourceFailed(appSource, se);
+//                        break; //lierbao
                     }
 
                     // After this point, we know the source really
@@ -513,8 +527,7 @@ public class SyncEngine implements SyncSchedulerListener {
     /**
      * TODO FIXME: this method shall be based on a compatibility table of some kind
      */
-    protected void adaptSyncConfig(SyncConfig syncConfig, DeviceConfig deviceConfig, DevInf serverDevInf) {
-
+    protected void adaptSyncConfig(SyncConfig syncConfig, DeviceConfig deviceConfig, DevInf serverDevInf) {        
         // If the customization forces the usage of WBXML, then we always use it
         // otherwise we use it only for servers that we know are compatible with
         // our implementation

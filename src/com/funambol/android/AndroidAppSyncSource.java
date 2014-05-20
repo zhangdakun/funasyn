@@ -271,6 +271,11 @@ public class AndroidAppSyncSource extends AppSyncSource {
 
         return uiSource;
     }
+	//add by jason
+    public void setUISource(UISyncSource source)
+    {
+        uiSource = source;
+    }
 
 
     /**

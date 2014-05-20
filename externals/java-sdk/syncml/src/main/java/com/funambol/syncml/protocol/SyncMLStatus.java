@@ -51,6 +51,7 @@ public class SyncMLStatus {
     public static final int FORBIDDEN                   = 403 ;
     public static final int NOT_FOUND                   = 404 ;
     public static final int ALREADY_EXISTS              = 418 ;
+    public static final int CONFLICT_DATA              = 419 ;
     public static final int DEVICE_FULL                 = 420 ;
     public static final int GENERIC_ERROR               = 500 ;
     public static final int SERVER_BUSY                 = 503 ;
@@ -58,6 +59,15 @@ public class SyncMLStatus {
     public static final int REFRESH_REQUIRED            = 508 ;
     public static final int BACKEND_AUTH_ERROR          = 511 ;
     
+    public static final int SERVER_RECOVERY = 217;
+    /*Sync sources is disabled*/
+    public static final int ERR_SYNC_SOURCE_DISABLED = 2012 ;
+    /*Sync item reach capacity limit*/
+    public static final int ERR_SYNCITEM_CAPACITYLIMIT = 2013 ;  
+    /*Sync item reach capacity limit*/
+    public static final int ERR_SYNCITEM_OLD = 2014 ; 
+    public static final int SERVICE_EXPIRED = 2015;
+    public static final int PARENT_DELETED = 2016;
     //-------------------------------------------------------------- Private data
     
     /** The id of this command */
@@ -249,9 +259,11 @@ public class SyncMLStatus {
     /**
      * Return true is the given status code is in the range 200-299.
      */
-    public static boolean isSuccess(int status) {
-        return ((status >= 200  && status < 300) || status == ALREADY_EXISTS);
-    }
+	public static boolean isSuccess(int status) {
+		return ((status >= 200 && status < 300) || status == ALREADY_EXISTS
+				|| ERR_SYNCITEM_CAPACITYLIMIT == status
+				|| ERR_SYNCITEM_OLD == status || CONFLICT_DATA == status);
+	}
 
     public void setStatusDataMessage(String statusDataMessage) {
         this.statusDataMessage = statusDataMessage;
