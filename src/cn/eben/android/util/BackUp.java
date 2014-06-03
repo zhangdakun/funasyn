@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+
 import com.funambol.android.App;
 import com.funambol.util.Log;
 
@@ -76,6 +77,14 @@ public class BackUp {
 		return true;
 	}
 
+	public boolean importVcfFile(String address) {
+		if(openBackup(new File(address))) {
+			isImportFinish();
+		} else {
+			
+		}
+		return true;
+	}
 	private boolean openBackup(File savedVCard) {
 		if (!savedVCard.exists()) {
 			Log.error(TAG, "openBackup ,file not exist");
@@ -109,6 +118,13 @@ public class BackUp {
 												.equals("com.android.contacts")
 										&& name != null
 										&& name.contains("ImportVCardActivity")) {
+									openVcfIntent.setPackage(packageName);
+									break;
+								} else if (packageName != null
+										&& packageName
+										.equals("com.ebensz.contacts")
+								&& name != null
+								&& name.contains("ImportVCardActivity")) {
 									openVcfIntent.setPackage(packageName);
 									break;
 								}

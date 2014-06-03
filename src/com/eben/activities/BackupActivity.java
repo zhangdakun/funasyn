@@ -10,11 +10,42 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.ContentResolver;
+import android.content.DialogInterface;
+import android.content.pm.ActivityInfo;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.ContactsContract;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
+import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 import cn.eben.android.util.BackUp;
+import cn.eben.android.util.CallLogUtil;
+import cn.eben.android.util.EbenHelpers;
+import cn.eben.android.util.MmsUtil;
 import cn.eben.android.util.SmsUtil;
 import cn.eben.androidsync.R;
 
-import com.eben.client.Constants;
 import com.funambol.android.AndroidAppSyncSourceManager;
 import com.funambol.android.App;
 import com.funambol.android.AppInitializer;
@@ -37,49 +68,6 @@ import com.funambol.client.ui.HomeScreen;
 import com.funambol.client.ui.UISyncSourceContainer;
 import com.funambol.util.Log;
 import com.umeng.analytics.MobclickAgent;
-
-import android.app.ActionBar;
-import android.app.Activity;
-import android.app.Dialog;
-import android.app.FragmentTransaction;
-import android.content.ContentResolver;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.content.pm.ActivityInfo;
-import android.database.Cursor;
-import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
-import android.preference.Preference;
-import android.preference.PreferenceScreen;
-import android.provider.ContactsContract;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
-import android.view.ViewGroup.LayoutParams;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LinearInterpolator;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class BackupActivity extends Activity implements HomeScreen, UISyncSourceContainer {
 
@@ -157,6 +145,14 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
 	protected List dataMapList;
 	ListView backupList;
 	BackupProcessAdapter myAdapter;
+	
+	
+	
+    final String contactName = "contacts.vcf";
+    final String mmsName = "mms.vmg";
+    final String smsName = "sms.vmg";
+    final String callName = "calllog.xml";
+    
     private void addDatatoMap(String name,int image)//(DataType datatype)
     {
 //        mDataList.add(datatype);
@@ -772,7 +768,8 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
                 // this should be "ebackup"
                 String remoteuri = appSource.getSyncSource().getConfig().getRemoteUri();
                 Log.debug(TAG, "remote uri: "+remoteuri);
-                if(!"ebackup".equalsIgnoreCase(remoteuri)) {
+                if(!"ebackup".equalsIgnoreCase(remoteuri)
+                		&& !"ephoto".equalsIgnoreCase(remoteuri)) {
                 	continue;
                 }
                 
@@ -815,12 +812,17 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
                 item.setSource(appSource);
 
                 itemController.setUISyncSource(item);
+                
+
 
                 // All these buttons are associated to a given application
                 // source
                 item.setSource(appSource);
                 item.setContainer(screen);
-
+                
+                if("ephoto".equalsIgnoreCase(remoteuri)) {
+                	break;// end this
+                }
                 if (sourceIcon != null) {
                     item.setIcon(sourceIcon);
                 }
@@ -894,7 +896,9 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
 //        		if(0!=count_cloud) {
 //        			number_cloud.setText(String.valueOf(count_cloud));
 //        		}
-                break;
+        		
+        		
+//                break;
             }
         }
     }
@@ -916,6 +920,7 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
 	        addDatatoMap(this.getString(R.string.type_contacts),R.drawable.point_gray);
 	        addDatatoMap(this.getString(R.string.backup_sms),R.drawable.point_gray);
 	        addDatatoMap(this.getString(R.string.backup_call),R.drawable.point_gray);
+	        addDatatoMap(this.getString(R.string.backup_photo),R.drawable.point_gray);
 			break;
 		case 1:
 			((Map)dataMapList.get(0)).put("STATUS", getResources().getDrawable(R.drawable.point_ok));
@@ -931,6 +936,7 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
 			break;	
 		case 3:
 			((Map)dataMapList.get(2)).put("STATUS", getResources().getDrawable(R.drawable.point_ok));
+			((Map)dataMapList.get(3)).put("STATUS", getResources().getDrawable(R.drawable.point_ok));
 //	        addDatatoMap(this.getString(R.string.type_contacts),R.drawable.point_ok);
 //	        addDatatoMap(this.getString(R.string.backup_sms),R.drawable.point_ok);
 //	        addDatatoMap(this.getString(R.string.backup_call),R.drawable.point_gray);	
@@ -939,6 +945,7 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
 	        addDatatoMap(this.getString(R.string.type_contacts),R.drawable.point_gray);
 	        addDatatoMap(this.getString(R.string.backup_sms),R.drawable.point_gray);
 	        addDatatoMap(this.getString(R.string.backup_call),R.drawable.point_gray);
+	        addDatatoMap(this.getString(R.string.backup_photo),R.drawable.point_gray);
 			break;
 		}
         
@@ -1000,23 +1007,39 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
 			
 			switch (v.getId()) {
 			case R.id.pim_manual_start:
+				if(EbenHelpers.isNetworkAvailable() != 0) {
+					Toast.makeText(getApplicationContext(), 
+							getApplicationContext().getString(R.string.message_no_signal), 
+							Toast.LENGTH_LONG).show();
+					return ;
+				}
 				if(!homeScreenController.isSynchronizing()) {
-					setPimRunningView();
+					
 //					homeScreenController.buttonPressed(1);//1 for backup 0 for vcard
 					if(state==0) {
-						if(0 == type) {
-							if (prepareSync()) {
-								state = 0;
-								homeScreenController.refresh(
-										AppSyncSourceManager.BACKUP_ID, 1);
-							} else {
-								Log.error(TAG,
-										"export vcf error, do not going on backup");
-							}
-						} else {
-							homeScreenController.refresh(
-									AppSyncSourceManager.BACKUP_ID, 0);
-						}
+						setPimRunningView();
+						
+						new Thread(new Runnable(){
+
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								bakcupComplete = false;
+								if(0 == type) {
+									if (prepareSync()) {
+										state = 0;
+										homeScreenController.refresh(
+												AppSyncSourceManager.BACKUP_ID, 1);
+									} else {
+										Log.error(TAG,
+												"export vcf error, do not going on backup");
+									}
+								} else {
+									homeScreenController.refresh(
+											AppSyncSourceManager.BACKUP_ID, 0);
+								}
+							}}).start();
+
 					} else {
 						finish();
 					}
@@ -1049,21 +1072,30 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
     private void setPimRunningView()
     {
     	startwheel();
-      startRunningAnimation();
+    	startRunningAnimation();
 //      this.mPimSyncStateTips.setText(R.string.pim_sync_running_state_tips);
     }
+
+    
     protected boolean prepareSync() {
 		// TODO Auto-generated method stub
 //    	Environment.getExternalStorageDirectory().toString();//SystemInfo.getMydocStorage().toString();
 		String directoryName =Environment.getExternalStorageDirectory().toString() +File.separator+".ebenbackup";
 		removedirFiles(directoryName);
 		new File(directoryName).mkdirs();
-		String vcf = directoryName+File.separator+"ebenBackup.vcf";
+		String vcf = directoryName+File.separator+contactName;
 		boolean isok = BackUp.exportVcf(vcf);
-		String vmg = directoryName+File.separator+"ebenBackup.vmg";
+		String vmg = directoryName+File.separator+smsName;
 		SmsUtil.backupSms(vmg);
 		
-		return (isok&&null !=vmg);
+		String mms = directoryName+File.separator+mmsName;
+		new MmsUtil().backupMms(BackupActivity.this, mms);
+		
+		String calllog = directoryName+File.separator+"calllog.xml";
+		boolean callok = CallLogUtil.backupCalllog(App.i().getApplicationContext(), calllog);
+		
+		
+		return (isok&&null !=vmg&&callok);
 	}
 	private void removedirFiles(String path) {
 
@@ -1128,6 +1160,7 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
     
     
     int state = 0;
+    boolean bakcupComplete = false;
 	private Handler mHandler = new Handler(){
 
 		@Override
@@ -1135,16 +1168,80 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
 			// TODO Auto-generated method stub
 			switch (msg.what) {
 			case 0: //sync end
-				endRunningAnimation();
-				AppSyncSource appSource = 
-						(AppSyncSource) EbenHomeScreen.homeScreenController.getVisibleItems().get(1);
-                lastSyncTS = appSource.getConfig().getLastSyncTimestamp();
-        		if(0 != lastSyncTS) {
-        			mPimSyncStateTips.setText(BackupActivity.this.getString(R.string.lsbackup)+
-        					mDateFormat.format(new Date(lastSyncTS)));
-        		} else {
-        			mPimSyncStateTips.setText(R.string.pim_sync_init_state_tips);
-        		}
+
+				Bundle data = msg.getData();
+				final String source = data.getString("source");
+				Log.debug(TAG, "source : "+source);
+				
+//				new Thread(new Runnable(){
+//				
+//					@Override
+//					public void run() {
+						// TODO Auto-generated method stub
+						if("ebackup".equalsIgnoreCase(source)) {
+							Log.debug(TAG, "okd,it is backup files finished , so should start continue");
+							new Thread(new Runnable(){
+
+								@Override
+								public void run() {
+									// TODO Auto-generated method stub
+									if(1 == type) {
+										String directoryName =Environment.getExternalStorageDirectory().toString() +File.separator+".ebenbackup";
+										new File(directoryName).mkdirs();
+										String vcf = directoryName+File.separator+contactName;
+										boolean isok = new BackUp().importVcfFile((vcf));
+										String vmg = directoryName+File.separator+smsName;
+										SmsUtil.doRestoreVMG(BackupActivity.this,vmg);
+										
+										String mms = directoryName+File.separator+mmsName;
+										
+										new MmsUtil().restoreMms(BackupActivity.this, mms);
+//										new MmsUtil().
+										
+										String calllog = directoryName+File.separator+"calllog.xml";
+									}
+
+									while(homeScreenController.isSynchronizing()) {
+										Log.debug(TAG,"is syncing waiting a while");
+										try {
+											Thread.sleep(2*1000);
+										} catch (InterruptedException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+										
+									}
+										if(0 == type) {
+					
+					//							state = 0;
+											Log.debug(TAG,"backup photo");
+												homeScreenController.refresh(
+														AppSyncSourceManager.PHOTO_ID, 1);
+					
+										} else {
+											Log.debug(TAG,"restore photo");
+											homeScreenController.refresh(
+													AppSyncSourceManager.PHOTO_ID, 0);
+										}	
+								}}).start();
+
+						
+//							} 
+						} else {
+							endRunningAnimation();
+							AppSyncSource appSource = 
+									(AppSyncSource) EbenHomeScreen.homeScreenController.getVisibleItems().get(2);
+							
+			                lastSyncTS = appSource.getConfig().getLastSyncTimestamp();
+			        		if(0 != lastSyncTS) {
+			        			mPimSyncStateTips.setText(BackupActivity.this.getString(R.string.lsbackup)+
+			        					mDateFormat.format(new Date(lastSyncTS)));
+			        		} else {
+			        			mPimSyncStateTips.setText(R.string.pim_sync_init_state_tips);
+			        		}
+						}
+//					}}).start();
+				
 
         		
         		

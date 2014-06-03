@@ -372,6 +372,10 @@ public class UISyncSourceController implements SyncListener {
      */
     public void endSession(SyncReport report) {
         if (!syncing) {
+	        if (uiSource != null) {
+	            uiSource.syncEnded();
+	            
+	        }
             return;
         }
 

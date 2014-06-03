@@ -45,12 +45,13 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.ContactsContract;
 import android.provider.MediaStore.Images.Media;
+import cn.eben.android.EbenConst;
 import cn.eben.android.source.edisk.EdiskAppSyncSource;
 import cn.eben.android.source.edisk.EdiskAppSyncSourceConfig;
 import cn.eben.android.source.edisk.EdiskExternalAppManager;
 import cn.eben.android.source.edisk.EdiskSyncSource;
 import cn.eben.android.source.edisk.EdiskTracker;
-import cn.eben.android.util.SystemInfo;
+import cn.eben.android.util.EdiskFileFilter;
 
 import com.funambol.android.providers.FilesContentProvider;
 import com.funambol.android.services.AutoSyncServiceHandler;
@@ -201,6 +202,11 @@ public class AndroidAppSyncSourceManager extends AppSyncSourceManager {
                 appSource = setupBackupSource(configuration);
                 break;
             }
+            case PHOTO_ID:
+            {
+                appSource = setupEimageSource(configuration);
+                break;
+            }            
             case EVENTS_ID:
             {
                 appSource = setupEventsSource(configuration);
@@ -402,6 +408,36 @@ public class AndroidAppSyncSourceManager extends AppSyncSourceManager {
 		return ediskAppSyncSource;
 
 	}
+    
+	protected AppSyncSource setupEimageSource(AndroidConfiguration configuration)
+			throws Exception {
+		String sdCardRoot = Environment.getExternalStorageDirectory()
+				.toString();
+		String directoryName = "DCIM/Camera";
+		StringBuffer defaultDir = new StringBuffer();
+		defaultDir = new StringBuffer();
+		defaultDir.append(sdCardRoot);
+		defaultDir.append("/");
+		defaultDir.append(directoryName);
+		defaultDir.append("/");
+
+//		String sdCardRootTemp = Environment.getExternalStorageDirectory()
+//				.toString();
+		String tempDirName = ".synctemp";
+		
+		StringBuilder tempDir = new StringBuilder();
+		tempDir.append(defaultDir).append(tempDirName)
+				.append("/");
+
+		EdiskAppSyncSource ediskAppSyncSource = (EdiskAppSyncSource) setupEdisksSource(
+				configuration, PHOTO_ID, defaultDir.toString(),
+				"ephoto", tempDir.toString(),false);
+		EdiskSyncSource syncSource = (EdiskSyncSource) ediskAppSyncSource
+				.getSyncSource();
+		syncSource.setFilter(new EdiskFileFilter("ephoto",tempDirName));
+		return ediskAppSyncSource;
+	}
+	
     /**
      * Setup the source for backup
      * @param configuration the AndroidConfiguration to be used to setup the

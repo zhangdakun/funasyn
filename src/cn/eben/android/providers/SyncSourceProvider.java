@@ -18,8 +18,8 @@ import com.funambol.util.Log;
 public class SyncSourceProvider extends ContentProvider {
     private static final String TAG_LOG = "SyncSourceProvider";
 
-    public static final String AUTHORITY = "cn.eben.provider.syncSource";
-    public static final String AUTHORITY_URI = "content://cn.eben.provider.syncSource/";
+    public static final String AUTHORITY = "cn.eben.provider.backup";
+    public static final String AUTHORITY_URI = "content://cn.eben.provider.backup/";
     
     private DatabaseHelper mDatabaseHelper = null;
     public static final String sdCardRoot = Environment.getExternalStorageDirectory().toString();
@@ -66,16 +66,20 @@ public class SyncSourceProvider extends ContentProvider {
     private static final UriMatcher mUriMatcher;
     private final int DBVERSION = 4;
     
-    public static final String  source = "ebackup";
+static //    public static final String  source = "ebackup";
+    String[] itemKey = {
+    		"ebackup",
+    		"ephoto"
+    };
     static {
         mUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
 		int incoming = 0;
 	
-//        for(String source:Constants.itemKey) {
+        for(String source:itemKey) {
         	incoming ++;
         	mUriMatcher.addURI(AUTHORITY, source, incoming);
-//        }
+        }
         
     }
     
@@ -267,7 +271,7 @@ public class SyncSourceProvider extends ContentProvider {
         dbStore = mDatabaseHelper.getWritableDatabase();
         Log.debug(TAG_LOG, "open");
 
-//        for(String source:Constants.itemKey) {
+        for(String source:itemKey) {
 	        dbStore.execSQL(getDownCreateSQLCommand(source));
 	        dbStore.execSQL(getDownCreateIndexSQLCommand(source));
 	        
@@ -295,7 +299,7 @@ public class SyncSourceProvider extends ContentProvider {
 //	        dbStore.execSQL(getErrorCreateSQLCommand(source));
 //	        dbStore.execSQL(getErrorCreateIndexSQLCommand(source));	
 	        
-//        }
+        }
 		
         
     }
@@ -320,7 +324,7 @@ public class SyncSourceProvider extends ContentProvider {
             Log.error(TAG_LOG, "onUpgrade , oldVserion : "+oldVersion+", newVersion: "+newVersion);
 //        	if(1 == oldVersion) 
         	{
-//        		for(String source:Constants.itemKey) {
+        		for(String source:itemKey) {
         			db.execSQL("DROP TABLE IF EXISTS " + PRIFEX_DOWN+source);
         			db.execSQL("DROP TABLE IF EXISTS " + "index_"+PRIFEX_DOWN+source);
         			db.execSQL("DROP TABLE IF EXISTS " + PRIFEX_LUID+source);        			
@@ -333,7 +337,7 @@ public class SyncSourceProvider extends ContentProvider {
         			     			
         			
 //        		    public static final String PRIFEX_LUID = "appluid_";
-//        		}
+        		}
         	}
         	
         }

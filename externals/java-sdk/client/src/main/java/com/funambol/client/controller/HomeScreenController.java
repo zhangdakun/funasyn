@@ -224,9 +224,9 @@ public class HomeScreenController extends SynchronizationController {
                 report.setStatusCode(SyncListener.CANCELLED);
                 SyncException se = new SyncException(SyncException.CANCELLED, "Sync cancelled");
                 report.setSyncException(se);
-                if (listener != null) {
-                    listener.endSession(report);
-                }
+//                if (listener != null) {
+//                    listener.endSession(report);
+//                }
             }
         }
 

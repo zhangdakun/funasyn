@@ -374,29 +374,29 @@ public class EbenHelpers {
 	
 	public static int isNetworkAvailable() {
 		// TODO Auto-generated method stub
-//		WifiManager wf = (WifiManager) App.i().getApplicationContext()
-//				.getSystemService(Context.WIFI_SERVICE);
-//		ConnectivityManager cm = (ConnectivityManager) App.i()
-//				.getApplicationContext()
-//				.getSystemService(Context.CONNECTIVITY_SERVICE);
-//		int bret = ExternalEntryConst.NETWORK_OK;
-//		if (null == cm) {
-//			Log.error(TAG, "ConnectivityManager err ,return false");
-//			// return false;
-//			bret = ExternalEntryConst.NETWORK_ERROR;
-//		} else {
-//			NetworkInfo net = cm.getActiveNetworkInfo();
-//			if (null == net) {
-//				Log.error(TAG,
-//						"ConnectivityManager NetworkInfo err ,return false");
-//				// return false;
-//				bret = ExternalEntryConst.NETWORK_NOTACTIVE;
-//			} else {
-//
-//				int netType = net.getType();
-//				String info = net.getExtraInfo();
-//				Log.debug(TAG, "net type : " + netType + ", info: " + info);
-//
+		WifiManager wf = (WifiManager) App.i().getApplicationContext()
+				.getSystemService(Context.WIFI_SERVICE);
+		ConnectivityManager cm = (ConnectivityManager) App.i()
+				.getApplicationContext()
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		int bret = 0;
+		if (null == cm) {
+			Log.error(TAG, "ConnectivityManager err ,return false");
+			// return false;
+			bret = 1;
+		} else {
+			NetworkInfo net = cm.getActiveNetworkInfo();
+			if (null == net) {
+				Log.error(TAG,
+						"ConnectivityManager NetworkInfo err ,return false");
+				// return false;
+				bret = 2;
+			} else {
+
+				int netType = net.getType();
+				String info = net.getExtraInfo();
+				Log.debug(TAG, "net type : " + netType + ", info: " + info);
+
 //				if (EbenHelpers.isWifiOnly()) { // set
 //					Log.debug(TAG, "wlan only");
 //					if (!wf.isWifiEnabled()) {
@@ -409,12 +409,12 @@ public class EbenHelpers {
 //						bret = ExternalEntryConst.WLAN_DISABLE;
 //					}
 //				}
-//
-//			}
-//		}
-//
-//		return bret;
-		return 0;
+
+			}
+		}
+
+		return bret;
+//		return 0;
 	}
 	
 	/**

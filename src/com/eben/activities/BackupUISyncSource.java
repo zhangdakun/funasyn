@@ -37,12 +37,16 @@ package com.eben.activities;
 
 import android.widget.LinearLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup.LayoutParams;
 import android.app.Activity;
 
+import cn.eben.android.source.edisk.DownMgr;
 import cn.eben.androidsync.R;
 import com.funambol.android.activities.AndroidUISyncSource;
 import com.funambol.util.Log;
@@ -52,6 +56,7 @@ public class BackupUISyncSource extends AndroidUISyncSource {
     private static final String TAG = "BackupUISyncSource";
 
     private Handler handler;
+    private int type;
     public BackupUISyncSource(Activity activity) {
         super(activity);
 
@@ -61,6 +66,9 @@ public class BackupUISyncSource extends AndroidUISyncSource {
         
         this.addView(inflater.inflate(R.layout.eben_backup_layout, null),
         		new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        
+//        TextView title = (TextView)findViewById(R.id.personal_home_title);
+        
 //        activity.ge
 //        this.setBackgroundResource(R.drawable.sync_shape);
 //
@@ -156,8 +164,27 @@ public class BackupUISyncSource extends AndroidUISyncSource {
 	@Override
 	public void syncEnded() {
 		Log.debug(TAG, "syncEnded");
+		if(activity instanceof BackupActivity ) {
+			if(1 == ((BackupActivity) activity).type ){
+				Log.debug(TAG, "it is server refresh end, should down file");
+				new DownMgr().startDown(getSource());
+			}
+//			if((BackupActivity)activity).type  == 1) {
+//				
+//			}
+		}
+//		new DownMgr().startDown(getSource());
 		if(null != handler) {
-			handler.sendEmptyMessage(0);
+			Message msg = new Message();
+			msg.what = 0;
+			Bundle bl = new Bundle();
+			bl.putString("source", getSource().getSyncSource().getName());
+			
+			msg.setData(bl);
+			handler.sendMessage(msg);
+			
+//			Log.debug(TAG, "source 2 : "+getSource().getSyncSource().getName());
+//			handler.sendEmptyMessage(0);
 		}
 	}
 

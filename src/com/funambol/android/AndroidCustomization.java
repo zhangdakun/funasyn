@@ -35,31 +35,6 @@
 
 package com.funambol.android;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-
-import com.funambol.client.configuration.Configuration;
-import com.funambol.client.controller.SignupHandler;
-import com.funambol.client.customization.Customization;
-import com.funambol.client.source.AppSyncSourceManager;
-import com.funambol.client.ui.Bitmap;
-import com.funambol.client.ui.Screen;
-import com.funambol.util.Log;
-
-import cn.eben.android.EbenConst;
-import cn.eben.android.util.EbenHelpers;
-import cn.eben.androidsync.R;
-import com.funambol.platform.DeviceInfo;
-import com.funambol.platform.DeviceInfoInterface;
-import com.funambol.platform.DeviceInfoInterface.DeviceRole;
-import com.funambol.sync.SyncConfig;
-import com.funambol.sync.SyncSource;
-import com.funambol.sync.client.PercentageStorageLimit;
-import com.funambol.sync.client.StorageLimit;
-
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Enumeration;
@@ -67,6 +42,30 @@ import java.util.Hashtable;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import cn.eben.android.EbenConst;
+import cn.eben.android.util.EbenHelpers;
+import cn.eben.androidsync.R;
+
+import com.funambol.client.configuration.Configuration;
+import com.funambol.client.controller.SignupHandler;
+import com.funambol.client.customization.Customization;
+import com.funambol.client.source.AppSyncSourceManager;
+import com.funambol.client.ui.Bitmap;
+import com.funambol.client.ui.Screen;
+import com.funambol.platform.DeviceInfo;
+import com.funambol.platform.DeviceInfoInterface;
+import com.funambol.platform.DeviceInfoInterface.DeviceRole;
+import com.funambol.sync.SyncConfig;
+import com.funambol.sync.SyncSource;
+import com.funambol.sync.client.PercentageStorageLimit;
+import com.funambol.sync.client.StorageLimit;
+import com.funambol.util.Log;
 
 /**
  * Implements the Customization interface for Android platform
@@ -104,6 +103,10 @@ public class AndroidCustomization implements Customization {
     private final String   BACKUP_DEFAULT_URI    = "ebackup";//lierbao
     private final boolean  BACKUP_AVAILABLE      = true;
     private final boolean  BACKUP_ENABLED        = true;
+
+    private final String   PHOTO_DEFAULT_URI    = "ephoto";//lierbao
+    private final boolean  PHOTO_AVAILABLE      = true;
+    private final boolean  PHOTO_ENABLED        = true;
     
     private final String   EVENTS_DEFAULT_URI      = "event";
     private final boolean  EVENTS_AVAILABLE        = false;
@@ -188,7 +191,9 @@ public class AndroidCustomization implements Customization {
     // Note: this array must be kept aligned with the list of sources that we
     // register (see initSourcesInfo below)
     private final int SOURCES_ORDER[] = { AndroidAppSyncSourceManager.CONTACTS_ID,
-    									   AndroidAppSyncSourceManager.BACKUP_ID
+    									   AndroidAppSyncSourceManager.BACKUP_ID,
+    									   AndroidAppSyncSourceManager.PHOTO_ID
+    									   
 //                                          AndroidAppSyncSourceManager.EVENTS_ID,
                                           //AndroidAppSyncSourceManager.TASKS_ID,
                                           //AndroidAppSyncSourceManager.NOTES_ID,
@@ -816,7 +821,16 @@ public class AndroidCustomization implements Customization {
             sourcesIcon.put(new Integer(id), new Bitmap(R.drawable.icon_contacts));
             sourcesDisabledIcon.put(new Integer(id), new Bitmap(R.drawable.icon_contacts_grey));
         }
-        
+        if(BACKUP_AVAILABLE) {
+            int id = AndroidAppSyncSourceManager.PHOTO_ID;
+//            if (Log.isLoggable(Log.DEBUG)) {
+                Log.debug(TAG_LOG, "Initializing source: " + id);
+//            }
+            sourcesUri.put(new Integer(id), PHOTO_DEFAULT_URI);
+            activeSourcesEnabledState.put(new Integer(id), PHOTO_ENABLED);
+            sourcesIcon.put(new Integer(id), new Bitmap(R.drawable.icon_contacts));
+            sourcesDisabledIcon.put(new Integer(id), new Bitmap(R.drawable.icon_contacts_grey));
+        }        
         if(EVENTS_AVAILABLE) {
             int id = AndroidAppSyncSourceManager.EVENTS_ID;
             if (Log.isLoggable(Log.DEBUG)) {
