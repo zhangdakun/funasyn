@@ -1255,6 +1255,9 @@ public class SapiSyncManager implements SyncManagerI {
             case SyncException.SERVER_ERROR:
                 statusCode = SyncListener.SERVER_ERROR;
                 break;
+            case SyncException.SERVICE_ONGOING:
+                statusCode = SyncListener.SERVICE_ONGOING;
+                break;                
             case SyncException.SERVER_BUSY:
                 statusCode = SyncListener.SERVER_BUSY;
                 break;

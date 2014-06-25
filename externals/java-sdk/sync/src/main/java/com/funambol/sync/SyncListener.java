@@ -106,6 +106,8 @@ public interface SyncListener {
     public static final int ERR_SYNCITEM_CAPACITYLIMIT = 2013 ;
 
     public static final int SERVICE_EXPIRED = 2015;
+    
+    public static final int SERVICE_ONGOING = 2017;
     /**
      * Used when the messages to send or received is not know to
      * the mail protocol subsystem

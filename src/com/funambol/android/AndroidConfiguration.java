@@ -226,7 +226,24 @@ public class AndroidConfiguration extends Configuration {
     }
     protected String getDeviceId(Context ctx)
     {
+    	
+		String serialno1 = null;
+		try {
+			Class<?> c = Class.forName("android.os.SystemProperties");
+			Method get = c.getMethod("get", String.class);
+//			serialno1 = (String) get.invoke(c, "ro.serialno");
+			serialno1 = (String) get.invoke(c, "gsm.scril.sn");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if(null != serialno1 && !"".equalsIgnoreCase(serialno1)) {
+			return serialno1;
+		}
+		
+		
     	String prefix = ((AndroidCustomization)customization).getDeviceIdPrefix();
+//    	String prefix = "";
         TelephonyManager tm = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
 
         String tmDevice = tm.getDeviceId();
@@ -252,14 +269,14 @@ public class AndroidConfiguration extends Configuration {
         if(null != serial) {
         	return prefix+serial;
         }
-		String serialno1 = null;
-		try {
-			Class<?> c = Class.forName("android.os.SystemProperties");
-			Method get = c.getMethod("get", String.class);
-			serial = (String) get.invoke(c, "ro.serialno");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		String serialno1 = null;
+//		try {
+//			Class<?> c = Class.forName("android.os.SystemProperties");
+//			Method get = c.getMethod("get", String.class);
+//			serial = (String) get.invoke(c, "ro.serialno");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 
 		if (null != serialno1) {
 			return prefix+serialno1;

@@ -65,6 +65,8 @@ import com.funambol.android.activities.AndroidActivitiesFactory;
 import com.funambol.android.activities.AndroidDisplayManager;
 import com.funambol.android.controller.AndroidSettingsScreenController;
 import com.funambol.android.source.pim.PimTestRecorder;
+
+import cn.eben.android.net.apps.CloudActive;
 import cn.eben.androidsync.R;
 import com.eben.client.ServiceManager;
 import com.eben.service.EbpService;
@@ -169,7 +171,7 @@ public class AppInitializer {
         
         if (AndroidUtils.isSDCardMounted()) {
             userDir = Environment.getExternalStorageDirectory().getPath() +
-                    System.getProperty("file.separator")+"eben"+System.getProperty("file.separator");
+                    System.getProperty("file.separator")+"EbenLog"+System.getProperty("file.separator");
             File dir = new File(userDir);
             if(!dir.exists()){
             	dir.mkdirs();
@@ -237,6 +239,20 @@ public class AppInitializer {
         if (initialized) {
             if(configuration.getCredentialsCheckPending()) {
                 // Show the login screen if the credential check is still pending
+            	new Thread(new Runnable(){
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						CloudActive cloud = new CloudActive();
+						try {
+							cloud.handler();
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}}).start();
+
                 initAccount(activity);
             }
             return;

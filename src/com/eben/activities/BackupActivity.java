@@ -46,6 +46,7 @@ import cn.eben.android.util.MmsUtil;
 import cn.eben.android.util.SmsUtil;
 import cn.eben.androidsync.R;
 
+import cn.eben.android.net.apps.*;
 import com.funambol.android.AndroidAppSyncSourceManager;
 import com.funambol.android.App;
 import com.funambol.android.AppInitializer;
@@ -152,6 +153,8 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
     final String mmsName = "mms.vmg";
     final String smsName = "sms.vmg";
     final String callName = "calllog.xml";
+    
+    private int lastError = 0;
     
     private void addDatatoMap(String name,int image)//(DataType datatype)
     {
@@ -312,8 +315,12 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
 
 //        MenuItem settingsItem = menu.add(0, SETTINGS_ID, Menu.NONE, localization.getLanguage("menu_settings"));
 //        settingsItem.setIcon(android.R.drawable.ic_menu_preferences);
-        MenuItem logoutItem = menu.add(0, LOGOUT_ID, Menu.NONE, localization.getLanguage("menu_logout"));
-        logoutItem.setIcon(R.drawable.ic_menu_logout);
+        
+        
+//        MenuItem logoutItem = menu.add(0, LOGOUT_ID, Menu.NONE, localization.getLanguage("menu_logout"));
+//        logoutItem.setIcon(R.drawable.ic_menu_logout);
+        
+        
 //        MenuItem aboutItem = menu.add(0, ABOUT_ID, Menu.NONE, localization.getLanguage("menu_about"));
 //        aboutItem.setShortcut('0', 'A');
 //        aboutItem.setIcon(android.R.drawable.ic_menu_info_details);
@@ -769,7 +776,7 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
                 String remoteuri = appSource.getSyncSource().getConfig().getRemoteUri();
                 Log.debug(TAG, "remote uri: "+remoteuri);
                 if(!"ebackup".equalsIgnoreCase(remoteuri)
-                		&& !"ephoto".equalsIgnoreCase(remoteuri)) {
+                		&& !"bphoto".equalsIgnoreCase(remoteuri)) {
                 	continue;
                 }
                 
@@ -802,8 +809,8 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
                     // Enable the status animation supplied by the controller
                     itemController.enableStatusAnimation();
                     // Register the button listener
-                    ButtonListener buttonListener = new ButtonListener(idx);
-                    item.setOnClickListener(buttonListener);
+//                    ButtonListener buttonListener = new ButtonListener(idx);
+//                    item.setOnClickListener(buttonListener);// lierbao not 
                     item.setHandler(mHandler);
                 }
                 
@@ -820,7 +827,7 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
                 item.setSource(appSource);
                 item.setContainer(screen);
                 
-                if("ephoto".equalsIgnoreCase(remoteuri)) {
+                if("bphoto".equalsIgnoreCase(remoteuri)) {
                 	break;// end this
                 }
                 if (sourceIcon != null) {
@@ -864,20 +871,34 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
         		mPimSyncStateTips = ((TextView)buttons.findViewById(R.id.pim_sync_state_tips));
         		pim_sync_state_progress = ((TextView)buttons.findViewById(R.id.pim_sync_state_progress));
         	
-                lastSyncTS = appSource.getConfig().getLastSyncTimestamp();
+//                lastSyncTS = appSource.getConfig().getLastSyncTimestamp();
+                String key = "ebackup_time";
+                if(1 == type) 
+                	key = "eretore_time";
+                lastSyncTS = getSharedPreferences("eben_para", 0).getLong(key, 0);
+//                getSharedPreferences("eben_para", 0).edit().putLong("ebackup_time", time).commit();
+                
         		if(0 != lastSyncTS) {
+        			if(0 == type) {
         			mPimSyncStateTips.setText(screen.getString(R.string.lsbackup)+
         					mDateFormat.format(new Date(lastSyncTS)));
+        			} else {
+            			mPimSyncStateTips.setText(screen.getString(R.string.eben_restore_time)+
+            					mDateFormat.format(new Date(lastSyncTS)));	
+        			}
         		}
         		
         		initData(0);
 
-                
+//                TextView backup = (TextView) buttons.findViewById(R.id.backup);
+//                if(1 == type)
+//                	backup.setText(R.string.eben_restore_time);
     			backupList = (ListView) findViewById(R.id.listViewbackup);
     			
     			myAdapter = new BackupProcessAdapter(this.screen, R.layout.backup_process_list, dataMapList,mHandler);
     			backupList.setAdapter(myAdapter);
     			backupList.setDivider(null);
+    			backupList.setClickable(false);
     			
 //        		mPimSyncCheckbox = (CheckBox) buttons.findViewById(R.id.pim_sync_checkbox);
 //        		mPimSyncCheckbox.setChecked(getSharedPreferences("eben_para", 0).getBoolean(auto_sync, false));
@@ -917,10 +938,10 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
         
         switch (i) {
 		case 0:
-	        addDatatoMap(this.getString(R.string.type_contacts),R.drawable.point_gray);
+	        addDatatoMap(this.getString(R.string.eben_contacts),R.drawable.point_gray);
 	        addDatatoMap(this.getString(R.string.backup_sms),R.drawable.point_gray);
 	        addDatatoMap(this.getString(R.string.backup_call),R.drawable.point_gray);
-	        addDatatoMap(this.getString(R.string.backup_photo),R.drawable.point_gray);
+	        addDatatoMap(this.getString(R.string.eben_media),R.drawable.point_gray);
 			break;
 		case 1:
 			((Map)dataMapList.get(0)).put("STATUS", getResources().getDrawable(R.drawable.point_ok));
@@ -929,18 +950,40 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
 //	        addDatatoMap(this.getString(R.string.backup_call),R.drawable.point_gray);
 			break;
 		case 2:
+			((Map)dataMapList.get(0)).put("STATUS", getResources().getDrawable(R.drawable.point_ok));
 			((Map)dataMapList.get(1)).put("STATUS", getResources().getDrawable(R.drawable.point_ok));
 //	        addDatatoMap(this.getString(R.string.type_contacts),R.drawable.point_ok);
 //	        addDatatoMap(this.getString(R.string.backup_sms),R.drawable.point_ok);
 //	        addDatatoMap(this.getString(R.string.backup_call),R.drawable.point_gray);			
 			break;	
 		case 3:
+			((Map)dataMapList.get(0)).put("STATUS", getResources().getDrawable(R.drawable.point_ok));
+			((Map)dataMapList.get(1)).put("STATUS", getResources().getDrawable(R.drawable.point_ok));
 			((Map)dataMapList.get(2)).put("STATUS", getResources().getDrawable(R.drawable.point_ok));
-			((Map)dataMapList.get(3)).put("STATUS", getResources().getDrawable(R.drawable.point_ok));
+
 //	        addDatatoMap(this.getString(R.string.type_contacts),R.drawable.point_ok);
 //	        addDatatoMap(this.getString(R.string.backup_sms),R.drawable.point_ok);
 //	        addDatatoMap(this.getString(R.string.backup_call),R.drawable.point_gray);	
 	        break;
+		case 4:
+			((Map)dataMapList.get(0)).put("STATUS", getResources().getDrawable(R.drawable.point_ok));
+			((Map)dataMapList.get(1)).put("STATUS", getResources().getDrawable(R.drawable.point_ok));
+			((Map)dataMapList.get(2)).put("STATUS", getResources().getDrawable(R.drawable.point_ok));
+			((Map)dataMapList.get(3)).put("STATUS", getResources().getDrawable(R.drawable.point_ok));
+	
+	        break;	 
+		case 0xfe://for error
+			((Map)dataMapList.get(0)).put("STATUS", getResources().getDrawable(R.drawable.point_ok));
+			((Map)dataMapList.get(1)).put("STATUS", getResources().getDrawable(R.drawable.point_ok));
+			((Map)dataMapList.get(2)).put("STATUS", getResources().getDrawable(R.drawable.point_ok));
+			((Map)dataMapList.get(3)).put("STATUS", getResources().getDrawable(R.drawable.point_gray));
+			break;
+		case 0xff://for error
+			((Map)dataMapList.get(0)).put("STATUS", getResources().getDrawable(R.drawable.point_gray));
+			((Map)dataMapList.get(1)).put("STATUS", getResources().getDrawable(R.drawable.point_gray));
+			((Map)dataMapList.get(2)).put("STATUS", getResources().getDrawable(R.drawable.point_gray));
+			((Map)dataMapList.get(3)).put("STATUS", getResources().getDrawable(R.drawable.point_gray));
+			break;
 		default:
 	        addDatatoMap(this.getString(R.string.type_contacts),R.drawable.point_gray);
 	        addDatatoMap(this.getString(R.string.backup_sms),R.drawable.point_gray);
@@ -1007,6 +1050,10 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
 			
 			switch (v.getId()) {
 			case R.id.pim_manual_start:
+				if(0 != state) {
+					finish();
+					return;
+				}
 				if(EbenHelpers.isNetworkAvailable() != 0) {
 					Toast.makeText(getApplicationContext(), 
 							getApplicationContext().getString(R.string.message_no_signal), 
@@ -1161,6 +1208,7 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
     
     int state = 0;
     boolean bakcupComplete = false;
+    int retryActive = 0;
 	private Handler mHandler = new Handler(){
 
 		@Override
@@ -1171,76 +1219,235 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
 
 				Bundle data = msg.getData();
 				final String source = data.getString("source");
-				Log.debug(TAG, "source : "+source);
-				
+//				Log.debug(TAG, "source : "+source);
+//				AppSyncSource appSource = 
+//						(AppSyncSource) EbenHomeScreen.homeScreenController.getVisibleItems().get(0);
+//        		int status = appSource.getConfig().getLastSyncStatus();
+//        		Log.debug(TAG, "sync status : " +status);//128 for ok
+//        		
+//        		int count = getLocalCount();
+//        		if(128 == status) {
+//        			if(count != 0) {
+//        			getSharedPreferences("eben_para", 0).edit().putInt("cloud_contact", count).commit();
+//        			number_cloud.setText(String.valueOf(count));
+//        			}
+//        		}
+//        		if(count !=  0) {
+//        			number_local.setText(String.valueOf(count));
+//        		}
+        		
 //				new Thread(new Runnable(){
 //				
 //					@Override
 //					public void run() {
 						// TODO Auto-generated method stub
 						if("ebackup".equalsIgnoreCase(source)) {
-							Log.debug(TAG, "okd,it is backup files finished , so should start continue");
+//							AppSyncSource appSource = 
+//							(AppSyncSource) EbenHomeScreen.homeScreenController.getVisibleItems().get(1);
+							
+							Vector items = EbenHomeScreen.homeScreenController.getVisibleItems();
+							AppSyncSource appSource = 
+									(AppSyncSource)items.get(0);
+			        		int status = appSource.getConfig().getLastSyncStatus();
+			        		// defined at SyncListener.java
+			        		Log.debug(TAG, "sync status : " +status);//128 for ok
+			        		if(128 == status) {
+			        			
+//			        			getSharedPreferences("eben_para", 0).edit().putInt("cloud_contact", count).commit();
+								Log.debug(TAG, "okd,it is backup files finished , so should start continue");
+								new Thread(new Runnable(){
+
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+										if(1 == type) {
+											String directoryName =Environment.getExternalStorageDirectory().toString() +File.separator+".ebenbackup";
+											new File(directoryName).mkdirs();
+											String vcf = directoryName+File.separator+contactName;
+											boolean isok = new BackUp().importVcfFile((vcf));
+											String vmg = directoryName+File.separator+smsName;
+											SmsUtil.doRestoreVMG(BackupActivity.this,vmg);
+											
+											String mms = directoryName+File.separator+mmsName;
+											
+											new MmsUtil().restoreMms(BackupActivity.this, mms);
+//											new MmsUtil().
+											
+											String calllog = directoryName+File.separator+"calllog.xml";
+											
+											new CallLogUtil().restoreCalllogs(BackupActivity.this,calllog);
+										}
+
+										while(homeScreenController.isSynchronizing()) {
+											Log.debug(TAG,"is syncing waiting a while");
+											try {
+												Thread.sleep(2*1000);
+											} catch (InterruptedException e) {
+												// TODO Auto-generated catch block
+												e.printStackTrace();
+											}
+											
+										}
+											if(0 == type) {
+						
+						//							state = 0;
+												Log.debug(TAG,"backup photo");
+													homeScreenController.refresh(
+															AppSyncSourceManager.PHOTO_ID, 1);
+						
+											} else {
+												Log.debug(TAG,"restore photo");
+												homeScreenController.refresh(
+														AppSyncSourceManager.PHOTO_ID, 0);
+											}	
+									}}).start();
+		        			
+		        			} else {
+			        			lastError = 1;
+			        			String errmsg = getString(R.string.backup_restore_error);
+			        			if(5434  == status) {
+			        				errmsg = getString(R.string.check_localtime);
+			        			} else if (2017 == status) {
+			        				
+			        			}
+			        			Toast.makeText(getApplicationContext(),errmsg, Toast.LENGTH_SHORT).show(); 
+			        			
+			        			endRunningAnimation();
+			        			
+		        			}
+//		        		}
+
+						
+//							} 
+						} else {
+							
 							new Thread(new Runnable(){
 
 								@Override
 								public void run() {
 									// TODO Auto-generated method stub
-									if(1 == type) {
-										String directoryName =Environment.getExternalStorageDirectory().toString() +File.separator+".ebenbackup";
-										new File(directoryName).mkdirs();
-										String vcf = directoryName+File.separator+contactName;
-										boolean isok = new BackUp().importVcfFile((vcf));
-										String vmg = directoryName+File.separator+smsName;
-										SmsUtil.doRestoreVMG(BackupActivity.this,vmg);
-										
-										String mms = directoryName+File.separator+mmsName;
-										
-										new MmsUtil().restoreMms(BackupActivity.this, mms);
-//										new MmsUtil().
-										
-										String calllog = directoryName+File.separator+"calllog.xml";
-									}
+//							AppSyncSource appSource = (AppSyncSource) EbenHomeScreen.homeScreenController
+//									.getVisibleItems().get(2);
+									
+									Vector items = EbenHomeScreen.homeScreenController.getVisibleItems();
+									AppSyncSource appSource = 
+											(AppSyncSource)items.get(1);
+									
+							int status = appSource.getConfig()
+									.getLastSyncStatus();
+							Log.debug(TAG, "sync status : " + status);// 128 for
+																		// ok
+							if (128 == status) {
+								lastError = 0;
+								final long time = System.currentTimeMillis();
+								if (0 == type) {
+									getSharedPreferences("eben_para", 0).edit()
+											.putLong("ebackup_time", time)
+											.commit();
+								} else {
+									getSharedPreferences("eben_para", 0).edit()
+											.putLong("eretore_time", time)
+											.commit();
+								}
+								mHandler.post(new Runnable(){
 
-									while(homeScreenController.isSynchronizing()) {
-										Log.debug(TAG,"is syncing waiting a while");
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+										mPimSyncStateTips.setText(BackupActivity.this
+												.getString(R.string.lsbackup)
+												+ mDateFormat.format(new Date(time)));
+									}});
+
+							} else {
+								if ((/* SyncListener.URI_NOT_FOUND_ERROR */142 == status ||
+										130 == status ||
+								/* SyncListener.ERR_SYNC_SOURCE_DISABLED */2012 == status)
+										&& retryActive == 0) {
+									lastError = 2012;
+									CloudActive cloud = new CloudActive();
+									try {
+										cloud.handler();
+									} catch (Exception e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+									if (0 == cloud.code) {
+										AppActive appHander = new AppActive();
 										try {
-											Thread.sleep(2*1000);
-										} catch (InterruptedException e) {
+											appHander.handler();
+										} catch (Exception e) {
 											// TODO Auto-generated catch block
 											e.printStackTrace();
 										}
-										
-									}
-										if(0 == type) {
-					
-					//							state = 0;
-											Log.debug(TAG,"backup photo");
-												homeScreenController.refresh(
-														AppSyncSourceManager.PHOTO_ID, 1);
-					
-										} else {
-											Log.debug(TAG,"restore photo");
-											homeScreenController.refresh(
-													AppSyncSourceManager.PHOTO_ID, 0);
-										}	
-								}}).start();
+										// restart backup or restore
+										if (appHander.code == 0) {
+											while (homeScreenController
+													.isSynchronizing()) {
+												Log.debug(TAG,
+														"is syncing waiting a while");
+												try {
+													Thread.sleep(2 * 1000);
+												} catch (InterruptedException e) {
+													// TODO Auto-generated catch
+													// block
+													e.printStackTrace();
+												}
 
-						
-//							} 
-						} else {
-							endRunningAnimation();
-							AppSyncSource appSource = 
-									(AppSyncSource) EbenHomeScreen.homeScreenController.getVisibleItems().get(2);
-							
-			                lastSyncTS = appSource.getConfig().getLastSyncTimestamp();
-			        		if(0 != lastSyncTS) {
-			        			mPimSyncStateTips.setText(BackupActivity.this.getString(R.string.lsbackup)+
-			        					mDateFormat.format(new Date(lastSyncTS)));
-			        		} else {
-			        			mPimSyncStateTips.setText(R.string.pim_sync_init_state_tips);
-			        		}
+											}
+											if (0 == type) {
+
+												// state = 0;
+												Log.debug(TAG, "backup photo");
+												homeScreenController
+														.refresh(
+																AppSyncSourceManager.PHOTO_ID,
+																1);
+
+											} else {
+												Log.debug(TAG, "restore photo");
+												homeScreenController
+														.refresh(
+																AppSyncSourceManager.PHOTO_ID,
+																0);
+											}
+
+										}
+									} else {
+										lastError = 2;
+									}
+								} else {
+									lastError = 2;
+									mHandler.post(new Runnable(){
+
+										@Override
+										public void run() {
+											// TODO Auto-generated method stub
+											Toast.makeText(
+													getApplicationContext(),
+													getString(R.string.backup_restore_error),
+													Toast.LENGTH_SHORT).show();
+										}});
+
+								}
+
+							}
+							if (2012 != lastError) {
+								retryActive = 0;
+								mHandler.post(new Runnable(){
+
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+										endRunningAnimation();
+									}});
+								
+							}
 						}
-//					}}).start();
+					}).start();
+
+						}
+
 				
 
         		
@@ -1257,19 +1464,31 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
 				pim_sync_state_progress.setText(BackupActivity.this.getString(R.string.eben_progress_pref)+
 						String.valueOf(Progress)+"%");
 				}
-				if(Progress > 95) {
+				if(Progress > progParam[3]) {
+					if(4 != state) {
+						state = 4;
+						if(0 == lastError)
+							initData(4);
+						else if(2 == lastError)
+							initData(0xfe);
+						else 
+							initData(0xff);
+					myAdapter.notifyDataSetChanged();
+					}
+				} 
+				else if(Progress > progParam[2]) {
 					if(3 != state) {
 						state = 3;
 					initData(3);
 					myAdapter.notifyDataSetChanged();
 					}
-				} else if(Progress > 80) {
+				} else if(Progress > progParam[1]) {
 					if(state == 1) {
 						state = 2;
 					initData(2) ;
 					myAdapter.notifyDataSetChanged();	
 					}
-				} else if (Progress > 50) {
+				} else if (Progress > progParam[0]) {
 					if( 0 == state) {
 						state = 1;
 					initData(1);
@@ -1282,11 +1501,28 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
 		}
 		
 	};
+	
+	int[] progParam = {
+			35,
+			55,
+			75,
+			90
+	};
+	
 	float wprogress = 0;
 	boolean wRunning = false;	
 	int w_sleep = 40;
 	Object w_sync = new Object();
 	final int PROG_MSG = 0x2001;
+	
+	int[] progincrem = {
+			90,
+			180,
+			200,
+			220,
+			300,
+			320
+	};
 	
 	boolean b_finish = false;
 	final Runnable wRun = new Runnable() {
@@ -1365,7 +1601,7 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
 		// prgWheel.setVisibility(View.VISIBLE);
 		wprogress = 0;
 		b_finish = false;
-		w_sleep = 40;
+		w_sleep = 80;
 		
 		prgWheel.resetCount();
 		Thread s = new Thread(wRun);

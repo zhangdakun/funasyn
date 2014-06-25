@@ -36,8 +36,8 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.eben.androidsync"
-    android:versionCode="0"
-    android:versionName="0.1.20140516">
+    android:versionCode="6"
+    android:versionName="1.2.20140624">
 
     <!-- Backward compatible with 2.0 devices, until we introduce 1.6 portability -->
     <uses-sdk android:minSdkVersion="14" />
@@ -118,7 +118,7 @@
     />
     <application
             android:icon="@drawable/backuprestore"
-            android:label="@string/backrestore"
+            android:label="@string/app_name"
             android:name="com.funambol.android.App"
             android:debuggable="true"
             android:theme="@android:style/Theme.Light">
@@ -126,12 +126,16 @@
         <activity android:name="com.eben.activities.EbenHomeScreen" android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:configChanges="keyboardHidden|orientation">
+
+        </activity>
+        <activity android:name="cn.eben.android.Launcher" android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name="com.eben.activities.ContactActivity"
             android:screenOrientation="portrait"
             android:configChanges="keyboardHidden|orientation">
@@ -153,7 +157,9 @@
 
         <activity android:name="com.funambol.android.activities.AndroidDevSettingsScreen" android:label="@string/dev_settings_label"/>
         
-        <activity android:name="com.funambol.android.activities.AndroidLoginScreen" android:label="@string/app_name">
+        <activity android:name="com.funambol.android.activities.AndroidLoginScreen" 
+        android:theme="@style/AppTheme"
+        android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
@@ -205,7 +211,7 @@
                   android:writePermission="false" />
                   
         <provider android:name="cn.eben.android.providers.SyncSourceProvider"
-            android:authorities="cn.eben.provider.syncSource"></provider>  
+            android:authorities="cn.eben.provider.backup"></provider>  
             
         <receiver android:name="com.funambol.android.source.media.MediaIntentReceiver">
             <intent-filter>
@@ -215,14 +221,14 @@
         </receiver>
         
         <receiver android:name="com.funambol.android.StartupIntentReceiver">
-            <intent-filter>
+ <!--           <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <category android:name="android.intent.category.HOME" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REPLACED" />
                 <data android:scheme="package" android:path="com.funambol.android"/>
-            </intent-filter>
+            </intent-filter> -->
         </receiver>
 
         <receiver android:name="com.funambol.android.ConnectivityIntentReceiver">

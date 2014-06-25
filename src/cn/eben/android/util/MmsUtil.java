@@ -56,7 +56,7 @@ public class MmsUtil {
 		file1.getParentFile().mkdirs();
 
 		// if (list.isEmpty()) {
-		Log.i("MmsUtil", "not found sms info,return a null file");
+		Log.i("MmsUtil", "not found mms info,return a null file");
 		if (!file1.exists()) {
 			try {
 				file1.createNewFile();
@@ -74,59 +74,69 @@ public class MmsUtil {
 					file1), "utf-8");
 
 			// for inbox
+			try {
+				String inbox = "content://mms/inbox";
+				String selection = getMmsSelection(inbox);
 
-			String inbox = "content://mms/inbox";
-			String selection = getMmsSelection(inbox);
+				Cursor cursor = context.getContentResolver().query(
+						Uri.parse(inbox), null, selection, null, "date desc");
 
-			Cursor cursor = context.getContentResolver().query(
-					Uri.parse(inbox), null, selection, null, "date desc");
+				if (cursor != null && cursor.getCount() > 0) {
+					for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor
+							.moveToNext()) {
 
-			if (cursor != null && cursor.getCount() > 0) {
-				for (cursor.moveToFirst(); !cursor.isAfterLast();cursor.moveToNext())  {
+						initParams();
+						processResults(context, cursor);
 
-					initParams();
-					processResults(context, cursor);
+						StringBuffer stringbuffer = new StringBuffer("");
+						stringbuffer.append("BEGIN:VMSG\r\n");
+						stringbuffer.append("VERSION:1.1\r\n");
+						makeMmsTelString(true, stringbuffer);
+						makeMmsBodyString(true, "X-BOX:INBOX", stringbuffer);
+						makeMmsPartString(stringbuffer);
+						stringbuffer.append("END:VMSG\r\n");
 
-					StringBuffer stringbuffer = new StringBuffer("");
-					stringbuffer.append("BEGIN:VMSG\r\n");
-					stringbuffer.append("VERSION:1.1\r\n");
-					makeMmsTelString(true, stringbuffer);
-					makeMmsBodyString(true, "X-BOX:INBOX", stringbuffer);
-					makeMmsPartString(stringbuffer);
-					stringbuffer.append("END:VMSG\r\n");
+						String s1 = stringbuffer.toString();
 
-					String s1 = stringbuffer.toString();
+						outputstreamwriter.write(s1);
+					}
 
-					outputstreamwriter.write(s1);
 				}
-
-			}
-			cursor.close();
-
-			String sentbox = "content://mms/sentbox";
-			selection = getMmsSelection(sentbox);
-			cursor = context.getContentResolver().query(Uri.parse(sentbox),
-					null, selection, null, "date desc");
-			if (cursor != null && cursor.getCount() > 0) {
-				while (cursor.moveToNext()) {
-
-					processResults(context, cursor);
-
-					StringBuffer stringbuffer = new StringBuffer("");
-					stringbuffer.append("BEGIN:VMSG\r\n");
-					stringbuffer.append("VERSION:1.1\r\n");
-					makeMmsTelString(false, stringbuffer);
-					makeMmsBodyString(false, "X-BOX:SENDBOX", stringbuffer);
-					makeMmsPartString(stringbuffer);
-					stringbuffer.append("END:VMSG\r\n");
-
-					String s1 = stringbuffer.toString();
-
-					outputstreamwriter.write(s1);
-				}
-
+				cursor.close();
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
 			}
 
+			try {
+				String sentbox = "content://mms/sent";
+				String selection = getMmsSelection(sentbox);
+				Cursor cursor = context.getContentResolver().query(
+						Uri.parse(sentbox), null, selection, null, "date desc");
+				if (cursor != null && cursor.getCount() > 0) {
+					while (cursor.moveToNext()) {
+
+						processResults(context, cursor);
+
+						StringBuffer stringbuffer = new StringBuffer("");
+						stringbuffer.append("BEGIN:VMSG\r\n");
+						stringbuffer.append("VERSION:1.1\r\n");
+						makeMmsTelString(false, stringbuffer);
+						makeMmsBodyString(false, "X-BOX:SENDBOX", stringbuffer);
+						makeMmsPartString(stringbuffer);
+						stringbuffer.append("END:VMSG\r\n");
+
+						String s1 = stringbuffer.toString();
+
+						outputstreamwriter.write(s1);
+					}
+
+					cursor.close();
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
 			outputstreamwriter.close();
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -193,7 +203,7 @@ public class MmsUtil {
 		String selection = null;
 		if (box.equals("content://mms/inbox")) {
 			selection = "m_type = 132 OR m_type = 130 OR m_type = 160";
-		} else if (box.equals("content://mms/sent")) {
+		} else if (box.equals("content://mms/sent")) {//content://mms/sentbox
 			selection = "m_type = 128";
 		} else if (box.equals("content://mms/drafts")) {
 			selection = null;
@@ -802,15 +812,25 @@ public class MmsUtil {
 			
 			return ;
 		}
+		FileInputStream fileinputstream = null;
 		try {
 			
 
-		 FileInputStream fileinputstream = new FileInputStream(file);
+		fileinputstream = new FileInputStream(file);
 		BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(fileinputstream, Charset.defaultCharset()));
 		importMmsByVmsg(context,bufferedreader);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+		}
+		
+		if(null != fileinputstream){
+			try {
+				fileinputstream.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}
@@ -1042,17 +1062,21 @@ public class MmsUtil {
 //_L1:
         int i = cursor.getCount();
         
-        if(0 == i) {
+        if( i <= 0) {
         	cursor.close();
         	return false;
         }
+        cursor.close();
         
-        for (cursor.moveToFirst(); !cursor.isAfterLast();cursor.moveToNext())  {
-        	String s1 = cursor.getString(cursor.getColumnIndex("_id"));
-        }
+        return true;
         
         
-        return false;
+//        for (cursor.moveToFirst(); !cursor.isAfterLast();cursor.moveToNext())  {
+//        	String s1 = cursor.getString(cursor.getColumnIndex("_id"));
+//        }
+        
+        
+//        return false;
         	 
 //        if(i != 0) goto _L3; else goto _L2
 //_L2:
@@ -1121,6 +1145,8 @@ public class MmsUtil {
     }
     public int AddMmsItem(Context context) throws Exception
     {
+    	if(checkMmsIsExist(context))
+    		return 8193;
 //        if(!ApplicationConfig.getInstance().isIncremental() || !checkMmsIsExist()) goto _L2; else goto _L1
 //_L1:
 //        int i = 8193;
@@ -1209,18 +1235,17 @@ public class MmsUtil {
             throws Exception
         {
             char c = '\u2002';//8194
-            if(uri == null) {//goto _L2; else goto _L1
-//    _L1:
+            if(uri == null) {
+
             return c;
             }
-//    _L2:
+
             if(!addMmsPhoneNumber(context,uri))
                 c = '\u2004';//8196
             else
             if(addMmsPartContent(context,uri))
                 c = '\u2001';//8193
-//            if(true) goto _L1; else goto _L3
-//    _L3:
+
             
             return c;
         }
@@ -1383,10 +1408,10 @@ public class MmsUtil {
         {
             boolean flag = true;
             long l = ContentUris.parseId(uri);
-            boolean flag1;
+
             if(toPhoneNumberCounts <= 0 && fromPhoneNumber == null)
             {
-                flag1 = true;
+                flag = true;
             } else
             {
                 int i = 0;
@@ -1395,40 +1420,57 @@ public class MmsUtil {
                     Uri uri1;
                     try
                     {
-                        if(i >= toPhoneNumberCounts)
-                        {
-                            if(flag && fromPhoneNumber != null)
-                            {
-                                ContentValues contentvalues1 = new ContentValues();
-                                contentvalues1.put("address", fromPhoneNumber);
-                                contentvalues1.put("type", "137");
-                                if(context.getContentResolver().insert(Uri.parse((new StringBuilder("content://mms/")).append(l).append("/addr").toString()), contentvalues1) == null)
-                                    flag = false;
-                            }
-                            break;
-                        }
+                    	if(toPhoneNumberCounts <= 0 || null != toPhoneNumber) {
+                    		break;
+                    	}
+//                        if(i >= toPhoneNumberCounts)
+//                        {
+//                            if(flag && fromPhoneNumber != null)
+//                            {
+//                                ContentValues contentvalues1 = new ContentValues();
+//                                contentvalues1.put("address", fromPhoneNumber);
+//                                contentvalues1.put("type", "137");
+//                                if(context.getContentResolver().insert(Uri.parse((new StringBuilder("content://mms/")).append(l).append("/addr").toString()), contentvalues1) == null)
+//                                    flag = false;
+//                            }
+//                            break;
+//                        }
                         ContentValues contentvalues = new ContentValues();
                         contentvalues.put("address", toPhoneNumber[i]);
                         contentvalues.put("type", "151");
                         uri1 = context.getContentResolver().insert(Uri.parse((new StringBuilder("content://mms/")).append(l).append("/addr").toString()), contentvalues);
                     }
-                    catch(SQLiteFullException sqlitefullexception)
+                    catch(SQLiteFullException e)
                     {
-                        Log.d("MessageMms", sqlitefullexception.getMessage());
-                        throw sqlitefullexception;
+//                        Log.d("MessageMms", "SQLiteFullException:" +e.getMessage());
+                    	e.printStackTrace();
+                        throw e;
                     }
-                    catch(Exception exception)
+                    catch(Exception e)
                     {
-                        Log.d("MessageMms", exception.getMessage());
-                        throw exception;
+//                        Log.d("MessageMms", "exception : "+e.getMessage());
+                    	e.printStackTrace();
+                        throw e;
                     }
                     if(uri1 == null)
                         flag = false;
                     i++;
-                } while(true);
-                flag1 = flag;
+                } while( i< toPhoneNumberCounts);
+//                flag1 = flag;
+                
+
+                    if(flag && fromPhoneNumber != null)
+                    {
+                        ContentValues contentvalues1 = new ContentValues();
+                        contentvalues1.put("address", fromPhoneNumber);
+                        contentvalues1.put("type", "137");
+                        if(context.getContentResolver().insert(Uri.parse((new StringBuilder("content://mms/")).append(l).append("/addr").toString()), contentvalues1) == null)
+                            flag = false;
+                    }
+
+                
             }
-            return flag1;
+            return flag;
         }
     
     private String getThreadIdFromCursor(Cursor cursor)
@@ -1583,7 +1625,10 @@ public class MmsUtil {
 			break;
 
 		default:
+			if(null != toPhoneNumber)
 			messagePhoneNumber = toPhoneNumber[0];
+			else 
+				messagePhoneNumber = "1";//for test
 			break;
 		}
     	
@@ -2035,6 +2080,7 @@ public class MmsUtil {
             if(linkedlist.size() > 0) {
                 int i;
                 Iterator iterator;
+                toPhoneNumberCounts = linkedlist.size();
                 toPhoneNumber = new String[linkedlist.size()];
                 i = 0;
                 iterator = linkedlist.iterator();	

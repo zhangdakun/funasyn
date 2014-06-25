@@ -6,11 +6,11 @@
 
     <ImageView
         android:id="@+id/list_icon"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp" />
-
+<!-- android:textColor="@color/preference_primary_text_light -->
     <TextView
         android:id="@+id/list_title"
         android:layout_width="wrap_content"
@@ -20,6 +20,6 @@
         android:layout_weight="1"
         android:text="TextView"
         android:textSize="20dp"
-        android:textColor="@color/preference_primary_text_light"/>
+        android:textColor="@color/preference_primary_text_color_light"/>
 
 </LinearLayout>

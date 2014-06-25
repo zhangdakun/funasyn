@@ -32,9 +32,10 @@ public class EbenConst {
 	public static final int EBEN_OVERVIEW_TAB_INDEX_CARDNAME = 3;
 	
 	public static final int PUSH_PORT = 4745;
-	public static final String HOST = "42.120.48.112";
+//	public static final String HOST = "42.120.48.112";
 //	public static final String HOST = "42.120.17.218";
-//	public static final String HOST = "sync.eben.cn";
+	public static final String HOST = "sync.eben.cn";
+	
 //	public static final String HOST = "42.121.96.124";
 //	public static final String HTTP_HOST = "http://sync02.eben.cn/";
 //	public static final String HTTP_HOST = "http://sync.eben.cn/";

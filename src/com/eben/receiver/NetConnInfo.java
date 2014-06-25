@@ -20,13 +20,13 @@ public class NetConnInfo extends BroadcastReceiver {
 			Log.debug("NetConnInfo"," onReceive, "+ arg1.getAction());
 		}
 		// TODO Auto-generated method stub
-	    if (!(EbpService.inited))
+/*	    if (!(EbpService.inited))
 	    {
 //	    	context.startService(new Intent(context, NotificationService.class));
 	        ServiceManager serviceManager = new ServiceManager(context);
 //	        serviceManager.setNotificationIcon(R.drawable.icon);
 	        serviceManager.startService(arg1.getStringExtra(Constants.PARA_USER));
-	    }
+	    }*/
 	}
 
 }

@@ -56,8 +56,12 @@ import android.widget.Toast;
 
 import com.eben.activities.EbenHomeScreen;
 import com.funambol.android.AndroidAppSyncSourceManager;
+import com.funambol.android.AndroidConfiguration;
 
 import com.funambol.android.App;
+
+import cn.eben.android.Launcher;
+import cn.eben.android.util.EbenHelpers;
 import cn.eben.androidsync.R;
 import com.funambol.android.AppInitializer;
 import com.funambol.android.controller.AndroidController;
@@ -90,7 +94,7 @@ public class AndroidLoginScreen extends AccountAuthenticatorActivity
     private Button    signupButton;
     private Button    loginButton;
     
-    private TextView personal_home_title;
+//    private TextView personal_home_title;
     private CheckBox pim_pw_checkbox;
 
     private View screenSeparator = null;
@@ -142,8 +146,8 @@ public class AndroidLoginScreen extends AccountAuthenticatorActivity
         passField = (EditText)findViewById(R.id.password);
         serverUrl = (EditText)findViewById(R.id.syncUrl);
 
-        personal_home_title  = (TextView) findViewById(R.id.personal_home_title);
-        personal_home_title.setText(R.string.mind_cloud);
+//        personal_home_title  = (TextView) findViewById(R.id.personal_home_title);
+//        personal_home_title.setText(R.string.mind_cloud);
         
         pim_pw_checkbox = (CheckBox) findViewById(R.id.pim_pw_checkbox);
         pim_pw_checkbox.setOnCheckedChangeListener(listener);
@@ -192,12 +196,34 @@ public class AndroidLoginScreen extends AccountAuthenticatorActivity
             String password = extras.getString("password");
             controller.initScreen(syncUrl, username, password);
         } else {
-            controller.initScreen();
+//            controller.initScreen();//lieb
+        	AndroidConfiguration config = App.i().getAppInitializer().getConfiguration();
+        	String url = config.getSyncUrl();
+        	String username = Launcher.username;
+        	String pw = Launcher.password;
+        	controller.initScreen(url, username, pw);
+        	
         }
 
         screenSeparator.requestFocus();
 
         initialize(controller);
+        
+		if(EbenHelpers.isNetworkAvailable() != 0) {
+			Toast.makeText(getApplicationContext(), 
+					getApplicationContext().getString(R.string.message_no_signal), 
+					Toast.LENGTH_LONG).show();
+			checkFailed();
+		} else {
+		
+        new Thread(new Runnable(){
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				controller.login();
+			}}).start();
+		}
     }
 
     public void initialize(AccountScreenController controller) {
@@ -279,6 +305,9 @@ public class AndroidLoginScreen extends AccountAuthenticatorActivity
     }
 
     public void checkFailed() {
+    	//lierbao add 
+        ((Activity)homeScreenController.getHomeScreen()).finish();
+        finish();
     }
 
     public void checkSucceeded() {

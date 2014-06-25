@@ -69,7 +69,8 @@ public class SyncSourceProvider extends ContentProvider {
 static //    public static final String  source = "ebackup";
     String[] itemKey = {
     		"ebackup",
-    		"ephoto"
+//    		"ephoto"
+    		"bphoto"
     };
     static {
         mUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);

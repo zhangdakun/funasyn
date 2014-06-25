@@ -123,6 +123,7 @@ public class AccountScreenController extends SynchronizationController {
         // that the account cannot be saved
         if (isSyncInProgress()) {
             showSyncInProgressMessage();
+            screen.checkFailed();
             return false;
         }
 
@@ -141,9 +142,11 @@ public class AccountScreenController extends SynchronizationController {
             || StringUtil.isNullOrEmpty(serverUri))
         {
             showMessage(localization.getLanguage("login_failed_empty_params"));
+            screen.checkFailed();
             return false;
         } else if (!StringUtil.isValidProtocol(serverUri)) {
             showMessage(localization.getLanguage("status_invalid_url"));
+            screen.checkFailed();
             return false;
         }
 
@@ -161,6 +164,7 @@ public class AccountScreenController extends SynchronizationController {
             if (configuration.save() != Configuration.CONF_OK) {
                 showMessage(localization.getLanguage("message_config_error") + ": " +
                         localization.getLanguage("message_config_error_save"));
+                screen.checkFailed();
                 return false;
             }
 
@@ -172,6 +176,8 @@ public class AccountScreenController extends SynchronizationController {
                         userAuthenticated();
                     }
                 }.start();
+                
+                screen.checkFailed();
                 return false;
             }
 
@@ -215,6 +221,8 @@ public class AccountScreenController extends SynchronizationController {
             if (Log.isLoggable(Log.DEBUG)) {
                 Log.debug(TAG_LOG, "No need to authenticate");
             }
+            
+            screen.checkFailed();
             return false;
         }
         

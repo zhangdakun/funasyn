@@ -27,16 +27,18 @@
             android:layout_marginRight="6.0dip"
             android:layout_marginTop="6.0dip"
             android:layout_weight="1.0" >
-
+<!--  android:textAppearance="@style/PreferenceList" -->
+<!--                 android:ellipsize="marquee"
+                android:fadingEdge="horizontal"
+                android:singleLine="true" -->
             <TextView
                 android:id="@+id/list_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ellipsize="marquee"
-                android:fadingEdge="horizontal"
-                android:singleLine="true"
+
                 android:text="BACKUP"
-                android:textAppearance="@style/PreferenceList" />
+                android:textColor="@color/preference_primary_text_light"
+                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/contact_summary"
@@ -45,7 +47,9 @@
                 android:layout_alignLeft="@id/list_title"
                 android:layout_below="@id/list_title"
                 android:maxLines="4"
-                android:textAppearance="@style/ListSecondary" />
+                android:textAppearance="@style/ListSecondary"
+                android:visibility="gone" />
+
         </RelativeLayout>
 
         <LinearLayout

@@ -68,6 +68,9 @@ public class SyncMLStatus {
     public static final int ERR_SYNCITEM_OLD = 2014 ; 
     public static final int SERVICE_EXPIRED = 2015;
     public static final int PARENT_DELETED = 2016;
+    
+    public static final int SERVICE_ONGOING = 2017;
+    
     //-------------------------------------------------------------- Private data
     
     /** The id of this command */

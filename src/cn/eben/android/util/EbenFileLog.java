@@ -16,8 +16,8 @@ import android.util.Log;
 public class EbenFileLog {
 	public final static String TAG = "ebenFileLog";
 	private static OutputStreamWriter writer;
-	private static final String logpath = Environment.getExternalStorageDirectory().toString()+ "/log/";
-	private static final String logname = "synclog.txt";
+	private static final String logpath = Environment.getExternalStorageDirectory().toString()+ "/EbenLog/log/";
+	private static final String logname = "sync.txt";
 	private static SimpleDateFormat myLogSdf = new SimpleDateFormat(
 			"yyyy-MM-dd HH:mm:ss");
 	private static final int MEMORY_LOG_FILE_MAX_SIZE =  1024*1024; 

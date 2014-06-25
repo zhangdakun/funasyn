@@ -1409,7 +1409,7 @@ public class EdiskLuidInfo {
 	public static boolean findDelItem(Context context, String app, String del) {
 		// TODO Auto-generated method stub
 		boolean isfound = false;
-		if(app.equalsIgnoreCase("ephoto")) {
+		if(app.equalsIgnoreCase("ephoto")||app.equalsIgnoreCase("bphoto")) {
 			Log.info(TAG,"ephoto no del protect");
 			return true;
 		}

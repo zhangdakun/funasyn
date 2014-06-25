@@ -225,9 +225,9 @@ public class BackupProcessAdapter extends BaseAdapter
 			// TODO Auto-generated method stub
 			Log.debug("backup", "onClick");
 			
-			if(null != mHandler) {
-				mHandler.sendEmptyMessage(2);
-			}
+//			if(null != mHandler) {
+//				mHandler.sendEmptyMessage(2);
+//			}
 		}
     	
     };

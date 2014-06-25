@@ -97,14 +97,15 @@ public class AndroidCustomization implements Customization {
     // Sync sources customization
 //    private final String   CONTACTS_DEFAULT_URI    = "card";
     private final String   CONTACTS_DEFAULT_URI    = "ecard";//lierbao
-    private final boolean  CONTACTS_AVAILABLE      = true;
-    private final boolean  CONTACTS_ENABLED        = true;
+    private final boolean  CONTACTS_AVAILABLE      = false;
+    private final boolean  CONTACTS_ENABLED        = false;
 
     private final String   BACKUP_DEFAULT_URI    = "ebackup";//lierbao
     private final boolean  BACKUP_AVAILABLE      = true;
     private final boolean  BACKUP_ENABLED        = true;
 
-    private final String   PHOTO_DEFAULT_URI    = "ephoto";//lierbao
+//    private final String   PHOTO_DEFAULT_URI    = "ephoto";//lierbao
+    private final String   PHOTO_DEFAULT_URI    = "bphoto";//lierbao
     private final boolean  PHOTO_AVAILABLE      = true;
     private final boolean  PHOTO_ENABLED        = true;
     
@@ -821,7 +822,7 @@ public class AndroidCustomization implements Customization {
             sourcesIcon.put(new Integer(id), new Bitmap(R.drawable.icon_contacts));
             sourcesDisabledIcon.put(new Integer(id), new Bitmap(R.drawable.icon_contacts_grey));
         }
-        if(BACKUP_AVAILABLE) {
+        if(PHOTO_AVAILABLE) {
             int id = AndroidAppSyncSourceManager.PHOTO_ID;
 //            if (Log.isLoggable(Log.DEBUG)) {
                 Log.debug(TAG_LOG, "Initializing source: " + id);

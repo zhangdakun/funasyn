@@ -336,8 +336,12 @@ public class EbenHomeScreen extends Activity implements HomeScreen, UISyncSource
 
 //        MenuItem settingsItem = menu.add(0, SETTINGS_ID, Menu.NONE, localization.getLanguage("menu_settings"));
 //        settingsItem.setIcon(android.R.drawable.ic_menu_preferences);
-        MenuItem logoutItem = menu.add(0, LOGOUT_ID, Menu.NONE, localization.getLanguage("menu_logout"));
-        logoutItem.setIcon(R.drawable.ic_menu_logout);
+        
+        
+//        MenuItem logoutItem = menu.add(0, LOGOUT_ID, Menu.NONE, localization.getLanguage("menu_logout"));
+//        logoutItem.setIcon(R.drawable.ic_menu_logout);
+        
+        
 //        MenuItem aboutItem = menu.add(0, ABOUT_ID, Menu.NONE, localization.getLanguage("menu_about"));
 //        aboutItem.setShortcut('0', 'A');
 //        aboutItem.setIcon(android.R.drawable.ic_menu_info_details);
@@ -419,9 +423,9 @@ public class EbenHomeScreen extends Activity implements HomeScreen, UISyncSource
 //		                Context.MODE_PRIVATE).edit();
 //		        editor.putString(Constants.XMPP_ORI_USERNAME,user);
 //		        editor.commit();
-		        Intent in = new Intent(Constants.ACTION_START_EBP);
-		        in.putExtra(Constants.PARA_USER, user);
-				App.i().getApplicationContext().sendBroadcast(in);
+//		        Intent in = new Intent(Constants.ACTION_START_EBP);
+//		        in.putExtra(Constants.PARA_USER, user);
+//				App.i().getApplicationContext().sendBroadcast(in);
 				break;
 			case 2:
 				Intent intent = new Intent();
@@ -651,14 +655,17 @@ public class EbenHomeScreen extends Activity implements HomeScreen, UISyncSource
 			this.mTitleView = findViewById(R.id.title_bar);
 			
 			String user = App.i().getAppInitializer().getConfiguration().getUsername();
-			if(null !=user && !user.isEmpty())
-			mUserIdView.setText(user);
+			if(null !=user && !user.isEmpty()) {
+				String hideUser = setHideUser(user);
+				mUserIdView.setText(hideUser);
+			}
 //		} else {
 //			Log.error(TAG, "get action bar null!!!");
 //		}
         // Grab the views 
 //        mainLayout = (LinearLayout)findViewById(R.id.mainLayout);
-
+			
+			// contacs sync star ,some data is not corrent
 			
 			boolean isAuto = this.getSharedPreferences("eben_para", 0).
 					getBoolean("auto_sync", false);
@@ -685,6 +692,7 @@ public class EbenHomeScreen extends Activity implements HomeScreen, UISyncSource
 				contact_summary.setText("");
 			}
 			
+			// for contact sync end
 			backupList = (ListView) findViewById(R.id.listViewbackup);
 			
 			myAdapter = new BackupListAdapter(this, R.layout.backuplist, dataMapList,mHandler);
@@ -692,7 +700,23 @@ public class EbenHomeScreen extends Activity implements HomeScreen, UISyncSource
 			
 //			backupList.setOnItemClickListener(listener);
     }
-    OnItemClickListener listener = new OnItemClickListener() {
+    private String setHideUser(String user) {
+		// TODO Auto-generated method stub
+    	StringBuilder sb = new StringBuilder();
+    	String  star = "****";
+    	if(user.length() > 3) {
+    		sb.append(user.subSequence(0, 3));
+    		if(user.length()>8) {
+    			sb.append(star);
+    			sb.append(user.substring(3+star.length()));
+    		}
+    		
+    		
+     	}
+		return sb.toString();
+	}
+
+	OnItemClickListener listener = new OnItemClickListener() {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,

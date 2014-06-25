@@ -1491,6 +1491,10 @@ public class SyncManager implements SyncManagerI {
                 throw new SyncException(
                 		SyncException.SERVICE_EXPIRED,
                         "Error processing source: " + source.getSourceUri() + "," + msg);                 
+            case SyncMLStatus.SERVICE_ONGOING:             // 2017
+                throw new SyncException(
+                		SyncException.SERVICE_ONGOING,
+                        "Error processing source: " + source.getSourceUri() + "," + msg);
             default:
                 // Unhandled status code
                 if (Log.isLoggable(Log.DEBUG)) {
@@ -3091,7 +3095,10 @@ public class SyncManager implements SyncManagerI {
                 break; 
             case SyncException.SERVICE_EXPIRED:
                 syncStatus = SyncListener.SERVICE_EXPIRED;
-                break;                 
+                break; 
+            case 5434:
+            	syncStatus = 5434;
+            	break;
             default:
                 syncStatus = SyncListener.GENERIC_ERROR;
                 break;

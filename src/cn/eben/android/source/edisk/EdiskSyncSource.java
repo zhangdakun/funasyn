@@ -3122,7 +3122,7 @@ public class EdiskSyncSource extends TrackableSyncSource implements
 		if (!delCheck) {
 			return;
 		}
-		if(getName().equalsIgnoreCase("ephoto")) {
+		if(getName().equalsIgnoreCase("ephoto")||getName().equalsIgnoreCase("bphoto")) {
 			Log.info(TAG_LOG,"ephoto no del protect");
 			return;
 		}

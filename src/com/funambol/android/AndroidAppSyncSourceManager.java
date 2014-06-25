@@ -319,6 +319,9 @@ public class AndroidAppSyncSourceManager extends AppSyncSourceManager {
 
 		assc.load(sc);
 		
+		sc.setRemoteUri(defaultUri);// leb for sometime upgrade make uri changed
+		sc.setName(defaultUri);
+		
 		// last anchor is o ,reset anchor from db ,LAST_SYNC_START_TIME is same value with last time value
 		
 		if (0 == anchor.getLast()) {
@@ -429,12 +432,17 @@ public class AndroidAppSyncSourceManager extends AppSyncSourceManager {
 		tempDir.append(defaultDir).append(tempDirName)
 				.append("/");
 
+//		EdiskAppSyncSource ediskAppSyncSource = (EdiskAppSyncSource) setupEdisksSource(
+//				configuration, PHOTO_ID, defaultDir.toString(),
+//				"ephoto", tempDir.toString(),false);
 		EdiskAppSyncSource ediskAppSyncSource = (EdiskAppSyncSource) setupEdisksSource(
 				configuration, PHOTO_ID, defaultDir.toString(),
-				"ephoto", tempDir.toString(),false);
+				"bphoto", tempDir.toString(),false);
+		
 		EdiskSyncSource syncSource = (EdiskSyncSource) ediskAppSyncSource
 				.getSyncSource();
-		syncSource.setFilter(new EdiskFileFilter("ephoto",tempDirName));
+//		syncSource.setFilter(new EdiskFileFilter("ephoto",tempDirName));
+		syncSource.setFilter(new EdiskFileFilter("bphoto",tempDirName));
 		return ediskAppSyncSource;
 	}
 	
@@ -457,8 +465,8 @@ public class AndroidAppSyncSourceManager extends AppSyncSourceManager {
 
 		String tempDirName = ".backuptemp";
 		StringBuilder tempDir = new StringBuilder();
-		tempDir.append(sdCardRoot).append("/").append(tempDirName)
-				.append("/").append(directoryName).append("/");
+		tempDir.append(sdCardRoot).append("/").append(directoryName)
+				.append("/").append(tempDirName).append("/");
 
 		EdiskAppSyncSource ediskAppSyncSource = (EdiskAppSyncSource) setupEdisksSource(
 				configuration, BACKUP_ID, defaultDir.toString(),
@@ -576,7 +584,8 @@ public class AndroidAppSyncSourceManager extends AppSyncSourceManager {
 
             // Inform the auto sync service that we shall monitor contacts for
             // changes
-            autoSyncService.startMonitoringUri(appSyncSource.getProviderUri().toString(), appSyncSource.getId());
+//            autoSyncService.startMonitoringUri(appSyncSource.getProviderUri().toString(), appSyncSource.getId());
+            //lieb disable ,maybe open sometimes for auto contacts sync
         } else {
             Log.error(TAG_LOG, "The contact sync source does not support the type: " +
                     customization.getContactType());

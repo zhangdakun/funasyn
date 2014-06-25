@@ -33,23 +33,25 @@
  * feasible for technical reasons, the Appropriate Legal Notices must display
  * the words "Powered by Funambol".
  -->
-
-        
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_height="fill_parent"
-              android:layout_width="fill_parent"
-              android:layout_gravity="center_vertical"
-              android:gravity="center_horizontal"
-              android:orientation="vertical">
-              <include layout="@layout/eben_homepage_title_bar" />
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center_vertical"
+    android:background="@color/transparent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+       <!--        <include layout="@layout/eben_homepage_title_bar" /> -->
     <ScrollView android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:fillViewport="true">
         
-        <LinearLayout android:id="@+id/signup_main_view"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/signup_main_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:visibility="gone" >
 
             <LinearLayout android:layout_width="fill_parent"
                     android:layout_height="fill_parent"

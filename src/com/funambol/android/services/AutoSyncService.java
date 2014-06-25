@@ -144,8 +144,9 @@ public class AutoSyncService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        startForeground(Notification.FLAG_FOREGROUND_SERVICE,
-                new Notification(0, null, System.currentTimeMillis()));
+//        startForeground(Notification.FLAG_FOREGROUND_SERVICE,
+//                new Notification(0, null, System.currentTimeMillis()));
+    	//lieb disable for not notification show
         return new AutoSyncBinder();
     }
 
@@ -183,9 +184,9 @@ public class AutoSyncService extends Service {
             String extensions[] = intent.getStringArrayExtra(EXTENSIONS);
             startMonitoringDirectory(dir, sourceId, extensions);
         } else if (operation == null) {
-            startForeground(Notification.FLAG_FOREGROUND_SERVICE,
-                    new Notification(0, null, System.currentTimeMillis()));
-
+//            startForeground(Notification.FLAG_FOREGROUND_SERVICE,
+//                    new Notification(0, null, System.currentTimeMillis()));
+//lieb disable for debug show service run at notifcation bar
             // Program scheduled sync if necessary
             if(!configuration.getCredentialsCheckPending()) {
                 programScheduledSync();
