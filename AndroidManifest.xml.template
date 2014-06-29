@@ -37,7 +37,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.eben.androidsync"
     android:versionCode="6"
-    android:versionName="1.2.20140624">
+    android:versionName="1.2.20140626">
 
     <!-- Backward compatible with 2.0 devices, until we introduce 1.6 portability -->
     <uses-sdk android:minSdkVersion="14" />

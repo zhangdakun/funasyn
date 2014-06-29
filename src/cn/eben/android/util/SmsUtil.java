@@ -300,10 +300,10 @@ public class SmsUtil {
 
         for(i=0;i<list1.size();i++) {
         	if(!checkmsg((SmsMessage)list1.get(i))) {
-        		break;
+        		continue;
         	}
         	if(isSmsExist((SmsMessage)list1.get(i), list2)) {
-    		break;
+        		continue;
     	}
 //    	if(isSmsExist((SmsMessage)list1.get(i), context)) {
 //    		Log.debug(TAG,"find same sms");

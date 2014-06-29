@@ -1147,12 +1147,7 @@ public class MmsUtil {
     {
     	if(checkMmsIsExist(context))
     		return 8193;
-//        if(!ApplicationConfig.getInstance().isIncremental() || !checkMmsIsExist()) goto _L2; else goto _L1
-//_L1:
-//        int i = 8193;
-//_L3:
-//        return i;
-//_L2:
+
         String s = null;
         int j;
         s = getSmsId(context);
@@ -1165,29 +1160,11 @@ public class MmsUtil {
             context.getContentResolver().update(uri, contentvalues1, null, null);
         }
         j = checkMmsUri(context,uri);
-//        i = j;
+
         deleteSmsForMms(context, s);
         
         return j;
-//          goto _L3
-//        SQLiteFullException sqlitefullexception;
-//        sqlitefullexception;
-//        Log.d("MessageMms", sqlitefullexception.getMessage());
-//        DeleteSmsForMms(s);
-//        i = 8196;
-//          goto _L3
-//        Exception exception1;
-//        exception1;
-//        if(exception1 == null)
-//            break MISSING_BLOCK_LABEL_195;
-//        Log.d("MessageMms", (new StringBuilder()).append(exception1.getMessage()).toString());
-//        DeleteSmsForMms(s);
-//        i = 8194;
-//          goto _L3
-//        Exception exception;
-//        exception;
-//        DeleteSmsForMms(s);
-//        throw exception;
+
     }
     public Boolean deleteSmsForMms(Context context,String s)
     {
@@ -1203,33 +1180,7 @@ public class MmsUtil {
         
         cursor.close();
         return true;
-//        if(cursor != null && cursor.moveToFirst()) goto _L2; else goto _L1
-//_L1:
-//        Boolean boolean2 = Boolean.valueOf(false);
-//        Boolean boolean1;
-//        boolean1 = boolean2;
-//        closeCursor(cursor);
-//_L3:
-//        return boolean1;
-//_L2:
-//        Boolean boolean3;
-//        do
-//            context.getContentResolver().delete(Uri.parse((new StringBuilder("content://sms/")).append(s).toString()), null, null);
-//        while(cursor.moveToNext());
-//        boolean3 = Boolean.valueOf(true);
-//        boolean1 = boolean3;
-//        closeCursor(cursor);
-//          goto _L3
-//        Exception exception1;
-//        exception1;
-//        Log.d("MessageSms", exception1.getMessage());
-//        closeCursor(cursor);
-//        boolean1 = Boolean.valueOf(false);
-//          goto _L3
-//        Exception exception;
-//        exception;
-//        closeCursor(cursor);
-//        throw exception;
+
     }
     private int checkMmsUri(Context context,Uri uri)
             throws Exception
@@ -1420,7 +1371,7 @@ public class MmsUtil {
                     Uri uri1;
                     try
                     {
-                    	if(toPhoneNumberCounts <= 0 || null != toPhoneNumber) {
+                    	if(toPhoneNumberCounts <= 0 || null == toPhoneNumber) {
                     		break;
                     	}
 //                        if(i >= toPhoneNumberCounts)

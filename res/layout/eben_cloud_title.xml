@@ -58,6 +58,7 @@
         android:layout_marginLeft="@dimen/content_horizontal_margin"
         android:layout_marginRight="30dp"
         android:layout_marginTop="22dp"
+        android:visibility="gone"
         android:src="@drawable/eben_user_name_arrow_bg" />
 
 </RelativeLayout>

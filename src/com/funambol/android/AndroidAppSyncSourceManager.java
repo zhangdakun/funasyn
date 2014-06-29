@@ -475,7 +475,7 @@ public class AndroidAppSyncSourceManager extends AppSyncSourceManager {
 		EdiskSyncSource syncSource = (EdiskSyncSource) ediskAppSyncSource
 				.getSyncSource();
 //		syncSource.setFilter(new EdiskFileFilter(ExternalEntryConst.APP_ENOTE));
-		
+		syncSource.setFilter(new EdiskFileFilter("ebackup",tempDirName));
 		return ediskAppSyncSource;
     }
     /**

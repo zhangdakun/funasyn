@@ -1309,6 +1309,8 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
 			        				errmsg = getString(R.string.check_localtime);
 			        			} else if (2017 == status) {
 			        				
+			        			} else if (129 == status) {
+			        				errmsg = getString(R.string.status_invalid_credentials);
 			        			}
 			        			Toast.makeText(getApplicationContext(),errmsg, Toast.LENGTH_SHORT).show(); 
 			        			
