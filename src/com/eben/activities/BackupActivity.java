@@ -40,10 +40,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.eben.android.util.BackUp;
-import cn.eben.android.util.CallLogUtil;
+
+import cn.eben.agents.utils.CallLogUtil;
+import cn.eben.agents.utils.MmsUtil;
+import cn.eben.agents.utils.SmsUtil;
 import cn.eben.android.util.EbenHelpers;
-import cn.eben.android.util.MmsUtil;
-import cn.eben.android.util.SmsUtil;
+
 import cn.eben.androidsync.R;
 
 import cn.eben.android.net.apps.*;
@@ -1133,13 +1135,13 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
 		String vcf = directoryName+File.separator+contactName;
 		boolean isok = BackUp.exportVcf(vcf);
 		String vmg = directoryName+File.separator+smsName;
-		SmsUtil.backupSms(vmg);
+		SmsUtil.backupSms(App.i().getApplicationContext(),vmg);
 		
 		String mms = directoryName+File.separator+mmsName;
 		new MmsUtil().backupMms(BackupActivity.this, mms);
 		
 		String calllog = directoryName+File.separator+"calllog.xml";
-		boolean callok = CallLogUtil.backupCalllog(App.i().getApplicationContext(), calllog);
+		boolean callok = new CallLogUtil().backupCalllog(App.i().getApplicationContext(), calllog);
 		
 		
 		return (isok&&null !=vmg&&callok);
@@ -1191,12 +1193,13 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
       this.mPimStartButton.setEnabled(false);
     }
     private final int BTN_EBANLE = 0x1005;
+    private final int SYNC_END = 0x1000;
     private void endRunningAnimation()
     {
     	Log.debug(TAG, "endRunningAnimation");
 //      this.mPimRunningView.clearAnimation();
 //      this.mPimRunningView.setBackgroundResource(R.drawable.contact_pim_normal_arrow);
-      mHandler.sendEmptyMessageDelayed(BTN_EBANLE, 2*1000);
+      mHandler.sendEmptyMessageDelayed(BTN_EBANLE, 500);
 //      this.mPimStartButton.setEnabled(true);
       
       stopWheel();
@@ -1312,9 +1315,17 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
 			        			} else if (129 == status) {
 			        				errmsg = getString(R.string.status_invalid_credentials);
 			        			}
-			        			Toast.makeText(getApplicationContext(),errmsg, Toast.LENGTH_SHORT).show(); 
+//			        			Toast.makeText(getApplicationContext(),errmsg, Toast.LENGTH_SHORT).show(); 
+//			        			
+//			        			endRunningAnimation();
+			        			Message message = Message.obtain();
+			        			Bundle bl = new Bundle();
+			        			bl.putString("msg",errmsg);
+			        			message.setData(bl);
+			        			message.what = SYNC_END;
 			        			
-			        			endRunningAnimation();
+//			        			mHandler.sendMessage(message);
+			        			mHandler.sendMessageDelayed(message,1000);
 			        			
 		        			}
 //		        		}
@@ -1420,16 +1431,16 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
 									}
 								} else {
 									lastError = 2;
-									mHandler.post(new Runnable(){
-
-										@Override
-										public void run() {
-											// TODO Auto-generated method stub
-											Toast.makeText(
-													getApplicationContext(),
-													getString(R.string.backup_restore_error),
-													Toast.LENGTH_SHORT).show();
-										}});
+//									mHandler.post(new Runnable(){
+//
+//										@Override
+//										public void run() {
+//											// TODO Auto-generated method stub
+//											Toast.makeText(
+//													getApplicationContext(),
+//													getString(R.string.backup_restore_error),
+//													Toast.LENGTH_SHORT).show();
+//										}});
 
 								}
 
@@ -1441,7 +1452,17 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
 									@Override
 									public void run() {
 										// TODO Auto-generated method stub
-										endRunningAnimation();
+//										endRunningAnimation();
+					        			Message message = Message.obtain();
+					        			if( 0 != lastError) {
+					        			Bundle bl = new Bundle();
+					        			bl.putString("msg",getString(R.string.backup_restore_error));
+					        			message.setData(bl);
+					        			}
+					        			message.what = SYNC_END;
+					        			
+//					        			mHandler.sendMessage(message);
+					        			mHandler.sendMessageDelayed(message,1500);
 									}});
 								
 							}
@@ -1457,6 +1478,18 @@ public class BackupActivity extends Activity implements HomeScreen, UISyncSource
 				break;
 			case BTN_EBANLE:
 				mPimStartButton.setEnabled(true);
+				break;
+			case SYNC_END: {
+				Bundle msgData = msg.getData();
+				if(null != msgData) {
+					String errmsg =  msgData.getString("msg",null);
+					if(null != errmsg)
+					Toast.makeText(getApplicationContext(),errmsg, Toast.LENGTH_SHORT).show(); 
+				}
+    			
+    			endRunningAnimation();
+//    			mPimStartButton.setEnabled(true);
+			}
 				break;
 			case PROG_MSG:
 				int Progress = msg.getData().getInt("prog");

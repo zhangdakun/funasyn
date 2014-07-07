@@ -6,6 +6,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+import se.tactel.contactcleanapp.cleanapp.CleanAppAdapter;
+import se.tactel.contactcleanapp.cleanapp.CleanAppManager;
+
 
 import com.funambol.android.App;
 import com.funambol.util.Log;
@@ -79,7 +82,10 @@ public class BackUp {
 
 	public boolean importVcfFile(String address) {
 		if(openBackup(new File(address))) {
-			isImportFinish();
+			if(isImportFinish() ){
+		        CleanAppManager cleanappmanager = CleanAppManager.get(App.i().getApplicationContext());
+		        cleanappmanager.startSearch(App.i().getApplicationContext(), new CleanAppAdapter());
+			}
 		} else {
 			
 		}
@@ -155,7 +161,7 @@ public class BackUp {
 				.getSystemService(Context.ACTIVITY_SERVICE);
 		for (RunningServiceInfo service : manager
 				.getRunningServices(Integer.MAX_VALUE)) {
-			if ("com.android.contacts.vcard.VCardService"
+			if ("com.android.contacts.common.vcard.VCardService"
 					.equals(service.service.getClassName())) {
 				return true;
 			}
@@ -169,7 +175,7 @@ public class BackUp {
 		boolean isrun = true;
 		while(isrun) {
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(1500);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -177,6 +183,13 @@ public class BackUp {
 		if(!isImportServiceRunning()) {
 			isrun = false;
 		}
+		}
+		
+		try {
+			Thread.sleep(1500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return true;
 	}
